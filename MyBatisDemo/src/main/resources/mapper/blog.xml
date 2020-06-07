@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mybatis.dao.BlogMapper">
+    <insert id="addBlog">
+        insert into mybatis.blog
+        values (#{id}, #{title}, #{author}, #{createTime}, #{views})
+    </insert>
+
+    <!--    select * from mybatis.blog WHERE title=? or author=?-->
+    <!--    select * from mybatis.blog WHERE title=?-->
+    <!--    select * from mybatis.blog WHERE author=?-->
+    <select id="getBlogsByTitleOrAuthor" resultType="com.test.mybatis.pojo.Blog">
+        select * from mybatis.blog
+        <!--    where标签能够自动去除无用的where、and、or关键字-->
+        <where>
+            <if test="title != null">
+                title=#{title}
+            </if>
+            <if test="author != null">
+                or author=#{author}
+            </if>
+        </where>
+    </select>
+
+    <!--    SQL片段，最好基于单表来定义，不要包括where等-->
+    <sql id="sql-title-author">
+        <if test="title != null">
+            title=#{title},
+        </if>
+        <if test="author != null">
+            author=#{author}
+        </if>
+    </sql>
+
+    <!--    update mybatis.blog SET title=?, author=? where id=?-->
+    <!--    update mybatis.blog SET author=? where id=?-->
+    <!--    update mybatis.blog SET title=? where id=?-->
+    <update id="updateBlog">
+        update mybatis.blog
+        <!--    set标签能够自动去除无用的set关键字和无用的逗号,-->
+        <set>
+            <include refid="sql-title-author"></include>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--    select * from mybatis.blog WHERE title=?-->
+    <!--    select * from mybatis.blog WHERE author = ?-->
+    <!--    select * from mybatis.blog WHERE author='张三'-->
+    <select id="getBlogByTitleChoiceAuthor" resultType="com.test.mybatis.pojo.Blog">
+        select * from mybatis.blog
+        <where>
+            <choose>
+                <when test="title != null">
+                    title=#{title}
+                </when>
+                <when test="author != null">
+                    author = #{author}
+                </when>
+                <otherwise>
+                    author='张三'
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="test">
+        <!--    trim可以用于自定义去除头尾-->
+        # where等价于
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+        </trim>
+        # set等价于
+        <trim prefix="SET" suffixOverrides=",">
+        </trim>
+    </select>
+
+    <select id="getBlogForeach" resultType="com.test.mybatis.pojo.Blog">
+        select * from mybatis.blog
+        <where>
+            id in
+            # 如果传递的是一个List，则mybatis会封装为一个list为key，list值为object的map，
+            # 如果是array，则封装成一个array为key，array的值为object的map，
+            # 如果自己封装呢，则colloection里放的是自己封装的map里的key值。
+            <foreach collection="list" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+</mapper>

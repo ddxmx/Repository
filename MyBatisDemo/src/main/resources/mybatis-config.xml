@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--    方式一的优先级高于方式二，推荐方式是properties文件-->
+    <!--    方式一从文件获取属性-->
+    <properties resource="db.properties"/>
+
+    <!--    方式二配置属性-->
+    <!--    <properties>-->
+    <!--        <property name="driver" value="com.mysql.jdbc.Driver"/>-->
+    <!--        <property name="url"-->
+    <!--                  value="jdbc:mysql://localhost:3306/mybatis?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8"/>-->
+    <!--        <property name="username" value="root"/>-->
+    <!--        <property name="password" value="123456"/>-->
+    <!--    </properties>-->
+
+    <settings>
+        <!--        开启日志，默认不开启，也可以配置为自带的COMMONS_LOGGING-->
+        <setting name="logImpl" value="LOG4J"/>
+        <!--        开启驼峰命名，即从经典数据库列名 A_COLUMN 映射到经典 Java 属性名 aColumn-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--        开启二级缓存-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <!--    类型别名可为 Java 类型设置一个缩写名字。 它仅用于 XML 配置，意在降低冗余的全限定类名书写。-->
+    <typeAliases>
+        <!--        方式一：直接定义类的别名-->
+        <!--        <typeAlias type="com.test.mybatis.pojo.User" alias="hello"/>-->
+
+        <!--        方式二：包扫描方式，还需要在包的类上通过@Alias设置别名-->
+        <package name="com.test.mybatis.pojo"/>
+    </typeAliases>
+
+    <!--    environment可以定义多个，使用时设置default来选择环境信息-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--每个定义的mapper文件都需要在MyBatis核心配置文件中注册-->
+    <mappers>
+        <!--使用资源方式注册-->
+        <mapper resource="mapper/user-mapper.xml"/>
+        <!--使用接口或类的方式定义-->
+        <mapper class="com.test.mybatis.dao.UserDao2"/>
+        <mapper resource="mapper/user-mapper2.xml"/>
+        <mapper resource="mapper/person-mapper.xml"/>
+        <mapper resource="mapper/student-mapper.xml"/>
+        <mapper resource="mapper/teacher-mapper.xml"/>
+        <mapper resource="mapper/blog.xml"/>
+    </mappers>
+</configuration>

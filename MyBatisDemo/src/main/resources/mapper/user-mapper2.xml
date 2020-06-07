@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置文件中namespace中的名称为对应Mapper接口或者Dao接口的完整包名,必须一致！-->
+<mapper namespace="com.test.mybatis.dao.UserDao2">
+    <!--    hello是com.test.mybatis.pojo.User的别名-->
+    <select id="getUserById2" parameterType="_int" resultType="hello">
+        select *
+        from mybatis.user
+        where id = #{id}
+    </select>
+</mapper>

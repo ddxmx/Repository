@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mybatis.dao.TeacherMapper">
+    <select id="getTeacher" resultMap="teacherMap">
+        select t.id tid, t.name tname, s.id sid, s.name sname
+        from mybatis.teacher t,
+             mybatis.student s
+        where t.id = s.tid
+    </select>
+    <resultMap id="teacherMap" type="com.test.mybatis.pojo.Teacher">
+        <result property="id" column="tid"></result>
+        <result property="name" column="tname"></result>
+        <!--        collection用于一对多的关系，ofType指定的是映射到list集合属性中pojo的类型。-->
+        <collection property="students" ofType="com.test.mybatis.pojo.Student">
+            <result property="id" column="sid"></result>
+            <result property="name" column="sname"></result>
+        </collection>
+    </resultMap>
+</mapper>

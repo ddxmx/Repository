@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置文件中namespace中的名称为对应Mapper接口或者Dao接口的完整包名,必须一致！-->
+<mapper namespace="com.test.mybatis.dao.PersonDao">
+    <!--    问题：实体类和数据库字段不一致，导致属性赋值未赋值，Person(id=1003, username=null, age=21)-->
+    <!--    <select id="getPersonById" parameterType="_int" resultType="com.test.mybatis.pojo.Person">-->
+    <!--        select *-->
+    <!--        from mybatis.user-->
+    <!--        where id = #{id}-->
+    <!--    </select>-->
+
+    <!--    处理方式一，起别名，Person(id=1003, username=wangwu, age=21)-->
+    <!--    <select id="getPersonById" parameterType="_int" resultType="com.test.mybatis.pojo.Person">-->
+    <!--        select id, name as username, age-->
+    <!--        from mybatis.user-->
+    <!--        where id = #{id}-->
+    <!--    </select>-->
+
+    <!--    处理方式二：使用resultMap，建立实体类属性和数据库字段的映射关系，推荐方式，可以复用-->
+    <resultMap id="personMap" type="com.test.mybatis.pojo.Person">
+        <!--        主键使用id，其他字段使用result-->
+        <!--        <id property="id" column="id"/>-->
+        <result property="username" column="name"/>
+    </resultMap>
+
+    <select id="getPersonById" parameterType="_int" resultMap="personMap">
+        select *
+        from mybatis.user
+        where id = #{id}
+    </select>
+
+    <!--    自动映射，映射在map上直接取值就可以-->
+    <select id="getPersonByName" parameterType="string" resultType="map">
+        select *
+        from mybatis.user
+        where name = #{name}
+    </select>
+</mapper>
