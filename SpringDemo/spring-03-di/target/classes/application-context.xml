@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user" class="com.test.namespace.User" scope="prototype">
+        <property name="name" value="tom"></property>
+        <property name="age" value="30"></property>
+    </bean>
+
+    <!--    方式四-->
+    <!--    <bean id="user" class="com.test.namespace.User" c:name="tom" c:age="30"></bean>-->
+
+    <!--    方式三-->
+    <!--    <bean id="user" class="com.test.namespace.User" p:name="tom" p:age="30"></bean>-->
+
+    <!--方式二-->
+    <!--    <bean id="user" class="com.test.namespace.User">-->
+    <!--        <constructor-arg name="name" value="tom"></constructor-arg>-->
+    <!--        <constructor-arg name="age" value="30"></constructor-arg>-->
+    <!--    </bean>-->
+
+    <!--    方式一-->
+    <!--    <bean id="user" class="com.test.namespace.User">-->
+    <!--        <property name="name" value="tom"></property>-->
+    <!--        <property name="age" value="30"></property>-->
+    <!--    </bean>-->
+
+    <bean id="address" class="com.test.bean.Address">
+        <property name="location" value="南京"></property>
+    </bean>
+
+    <bean id="student" class="com.test.bean.Student">
+        <property name="name" value="jerry"></property>
+        <property name="address" ref="address"></property>
+        <property name="books">
+            <array>
+                <value>三国演义</value>
+                <value>水浒传</value>
+                <value>西游记</value>
+                <value>红楼梦</value>
+            </array>
+        </property>
+        <property name="hobbies">
+            <list>
+                <value>读书</value>
+                <value>音乐</value>
+                <value>唱歌</value>
+            </list>
+        </property>
+        <property name="parents">
+            <map>
+                <entry key="爸爸" value="35"></entry>
+                <entry key="妈妈" value="32"></entry>
+                <entry key="爷爷" value="60"></entry>
+                <entry key="奶奶" value="58"></entry>
+            </map>
+        </property>
+        <property name="games">
+            <set>
+                <value>英雄联盟</value>
+                <value>魔兽世界</value>
+                <value>绝地求生</value>
+            </set>
+        </property>
+        <property name="wife">
+            <null></null>
+        </property>
+        <property name="info">
+            <props>
+                <prop key="语文">95</prop>
+                <prop key="数学">98</prop>
+                <prop key="英语">92</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
