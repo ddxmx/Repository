@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--    包的扫描是为了扫描类上的注解，同时还有context:annotation-config的能力-->
+    <!--    <context:component-scan base-package="com.test.bean"/>-->
+
+    <!--    最佳实践 类在bean中定义，属性通过注解方式-->
+    <!--    用于激活那些已经在spring容器里注册过的bean上面的注解-->
+    <context:annotation-config/>
+
+    <bean id="person" class="com.test.bean.Person"/>
+</beans>

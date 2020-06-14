@@ -10,7 +10,7 @@
     </bean>
 
 
-    <bean id="userDaoImpl" class="com.test.dao.UserDaoImpl"></bean>
+    <bean id="userDaoImpl" class="com.test.UserDaoImpl"></bean>
 
     <bean id="userDaoMysqlImpl" class="com.test.dao.UserDaoMysqlImpl"></bean>
 

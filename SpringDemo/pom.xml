@@ -13,6 +13,10 @@
         <module>spring-02-ioc</module>
         <module>spring-03-di</module>
         <module>spring-04-autowire</module>
+        <module>spring-05-annotation</module>
+        <module>spring-06-aop</module>
+        <module>spring-07-mybatis</module>
+        <module>spring-08-transaction</module>
     </modules>
 
     <dependencies>

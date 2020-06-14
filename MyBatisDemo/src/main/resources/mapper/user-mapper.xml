@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--配置文件中namespace中的名称为对应Mapper接口或者Dao接口的完整包名,必须一致！-->
-<mapper namespace="com.test.mybatis.dao.UserDao">
+<mapper namespace="com.test.mybatis.UserDao">
     <!--开启本mapper的namespace下的二级缓存-->
     <!--
         eviction:代表的是缓存回收策略，目前MyBatis提供以下策略。
