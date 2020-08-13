@@ -3,11 +3,11 @@ package com.test.day01;
 /**
  * @author gaoliang
  * @version 1.0
- *
+ * <p>
  * javadoc生成方式：Tools -> Generate JavaDoc
  * Locale:zh_CN
  * command line args:-encoding utf-8 -charset utf-8
- *
+ * <p>
  * public修饰的类名称和文件名称一致
  * 注释不会被编译，分为三种：单行注释、多行注释、文档注释
  */
@@ -25,8 +25,10 @@ public class HelloWorld {
 }
 
 /**
- *  一个java源文件可以声明多个class，但只能有一个public class，编译后生成多个*.class文件
+ * 一个java源文件可以声明多个class，但只能有一个public class，编译后生成多个*.class文件
  */
-class A{}
+class A {
+}
 
-class B{}
+class B {
+}

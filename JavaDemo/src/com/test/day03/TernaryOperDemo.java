@@ -7,7 +7,7 @@ package com.test.day03;
  * 条件成立，运算符结果取值表达式1；条件不成立，运算结果取值表达式2
  * 三元运算符肯定有返回值
  * true?System.out.println(true):System.out.println(false); 编译错误，无法使用变量进行接收
- *
+ * <p>
  * 关于运算符优先级：一元运算符 > 二元运算符(算术运算符最高，三元运算符优先级次低，赋值运算符优先级最低)
  */
 public class TernaryOperDemo {

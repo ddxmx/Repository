@@ -17,11 +17,11 @@ class Person04 {
     }
 }
 
-public class ClassDemo04 {
+public class ClassDemo02 {
     public static void main(String[] args) {
         Person04 per = new Person04();
         per.name = "张三";
         per.age = 20;
-        System.out.println(per.getInfo());
+        System.out.println(per.getInfo()); //姓名：张三，年龄：20
     }
 }

@@ -5,10 +5,10 @@ package com.test.day05;
  * break
  * switch语句：用于结束switch语句
  * 循环：用于终止所在循环
- *
+ * <p>
  * continue
  * 循环：用于结束当次所在循环
- *
+ * <p>
  * break或continue范围后不能有语句，语句无法被执行到
  */
 public class BreakContinueDemo {

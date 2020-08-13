@@ -13,7 +13,7 @@ import java.util.Arrays;
  * 第7次排序：[14, 21, 23, 33, 35, 38, 64, 72, 96]
  * 第8次排序：[14, 21, 23, 33, 35, 38, 64, 72, 96]
  */
-public class BubbleSortDemo05 {
+public class BubbleSortDemo {
     public static void main(String[] args) {
         int[] arr = new int[]{21, 64, 38, 96, 14, 33, 72, 35, 23};
 

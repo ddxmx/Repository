@@ -14,7 +14,7 @@ public class WhileDemo {
         }
         System.out.println("1+2+3+...+99+100=" + sum); //1+2+3+...+99+100=5050
 
-        while (true){
+        while (true) {
             System.out.println("无限循环");
         }
     }

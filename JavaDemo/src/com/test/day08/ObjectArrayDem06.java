@@ -35,20 +35,20 @@ public class ObjectArrayDem06 {
 
         //动态初始化
         Person06[] pers2 = new Person06[3];
-        pers2[0] = new Person06("tom", 30);
+        pers2[0] = new Person06("Tom", 24);
         pers2[1] = new Person06("Helen", 26);
         /*
-            name=tom，age=30
+            name=Tom，age=24
             name=Helen，age=26
          */
         printPerson(pers2);
 
     }
 
-    public static void printPerson(Person06[] pers) {
-        for (int i = 0; i < pers.length; i++) {
-            if (null != pers[i]) {
-                System.out.println(pers[i].getInfo());
+    public static void printPerson(Person06[] array) {
+        for (int i = 0; i < array.length; i++) {
+            if (null != array[i]) {
+                System.out.println(array[i].getInfo());
             }
         }
     }

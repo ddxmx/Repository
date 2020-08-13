@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * 数组元素查找
  */
-public class ArraySearchDemo04 {
+public class ArraySearchDemo {
     public static void main(String[] args) {
         int[] arr = new int[]{21, 64, 38, 96, 14, 33, 72, 35, 23};
         int key = 33;
@@ -17,7 +17,7 @@ public class ArraySearchDemo04 {
                 index = i;
             }
         }
-        System.out.println(index);
+        System.out.println(index); //5
 
         //二分法查找
         //二分法查找前提：数组是已经排序过的数组
@@ -37,6 +37,6 @@ public class ArraySearchDemo04 {
                 break;
             }
         }
-        System.out.println(index);
+        System.out.println(index); //3
     }
 }

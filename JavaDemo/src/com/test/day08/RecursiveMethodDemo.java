@@ -1,11 +1,12 @@
 package com.test.day08;
 
 /**
+ * 方法的递归调用
  * 递归方法：方法自己调用自己
  * 2个要点：明确的结束条件(向已知的方向递归)；不断修改方法传入的参数
  * 递归方法容易引起内存溢出
  */
-public class RecursiveMethodDemo05 {
+public class RecursiveMethodDemo {
     public static void main(String[] args) {
         System.out.println("1+2+3+...+100=" + getSum(100)); // 1+2+3+...+100=5050
         System.out.println(getValue(10)); // 10497

@@ -6,7 +6,7 @@ package com.test.day02;
  * 格式：数据类型 变量名 = 值;
  * 变量分为成员变量和局部变量：成员变量有系统默认值，局部变量没有系统默认值，需要手动赋值
  * 局部变量存储在栈内存中，超过作用域变量就被销毁了
- *
+ * <p>
  * 数据类型分为两类
  * 基本数据类型：byte、short、int、long、float、double、char、boolean
  * 引用数据类型：数组、类、接口（默认值都是null）
@@ -60,7 +60,7 @@ public class VariableDemo {
 
         // 布尔类型只能使用true、false赋值，不能使用0、1赋值，通常在条件、循环中使用
         boolean flag = true;
-        if(flag){
+        if (flag) {
             System.out.println("条件满足"); //条件满足
         }
 

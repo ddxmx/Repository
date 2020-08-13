@@ -37,13 +37,13 @@ public class ForDemo {
             i = 2
             更改循环控制变量，i=3
          */
-        int i =0 ;
-        for (System.out.println("初始化循环变量"), i = 0; i < 3; i++,System.out.println("更改循环控制变量，i="+i)) {
+        int i = 0;
+        for (System.out.println("初始化循环变量"), i = 0; i < 3; i++, System.out.println("更改循环控制变量，i=" + i)) {
             System.out.println("i = " + i);
         }
 
         //使用for循环表示死循环
-        for(;;){
+        for (; ; ) {
             System.out.println("无限循环");
         }
     }

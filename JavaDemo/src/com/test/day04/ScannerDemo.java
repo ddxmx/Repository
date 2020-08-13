@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Scanner类用于从键盘获取输入值
  * next()、nextInt()、nextDouble() 、nextLine()、next(String pattern)
- *
+ * <p>
  * 扩展：
  * Scanner在要求用户输入的时候，其实是在内存中创建了一段空间用于用户输入，我们输入的字母就会存入该段内存。
  * 如果输入的是非数字，当我们用sc.nextInt()调用时，就不能调用出来，因为它不是我们要调用的int类型，这时就会报输入不匹配错误。

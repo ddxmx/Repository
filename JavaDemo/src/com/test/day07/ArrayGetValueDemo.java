@@ -10,14 +10,14 @@ import java.util.Random;
  * 总和：486
  * 平均值：48.6
  */
-public class ArrayGetValueDemo01 {
+public class ArrayGetValueDemo {
     public static void main(String[] args) {
         int[] arr = new int[10];
         Random random = new Random();
         for (int i = 0; i < arr.length; i++) {
             arr[i] = random.nextInt(100); //[0,100)
         }
-        System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(arr)); //随机值 [54, 53, 8, 17, 84, 87, 48, 59, 64, 12]
 
         int max = arr[0];
         int min = arr[0];

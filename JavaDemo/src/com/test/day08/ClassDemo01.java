@@ -1,6 +1,7 @@
 package com.test.day08;
 
 /**
+ * 类和对象
  * 面向对象三大特效：封装、继承、多态，一切皆对象
  * 类是对象的模版，对象是类的实例
  * 先有类，再有对象
@@ -26,7 +27,8 @@ class Person01 {
 
 public class ClassDemo01 {
     public static void main(String[] args) {
-        Person01 p1 = new Person01(); //创建对象并实例化
+        //创建对象并实例化
+        Person01 p1 = new Person01();
         //设置属性
         p1.name = "张三";
         p1.age = 20;
@@ -37,12 +39,13 @@ public class ClassDemo01 {
         p1.sleep();
         p1.talk("Chinese");
 
+        //定义一个新的对象
         Person01 p2 = new Person01();
-        System.out.println(p2.name); // null
+        System.out.println(p2.name); // String类型的默认值是null
 
         Person01 p3 = p1; //p1和p3指向同一块堆内存空间
         System.out.println(p3.name); // 张三
-        p3.age = 22;
+        p3.age = 22; //修改指向的堆内存空间的属性，当前p1和p3指向同一块堆内容空间
         System.out.println(p1.age); // 22
     }
 }

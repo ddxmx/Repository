@@ -17,7 +17,7 @@ public class TypeConversionDemo02 {
          */
         int i2 = 128;
         System.out.println(Integer.toBinaryString(i2)); // 10000000
-        byte b2 = (byte)i2;
+        byte b2 = (byte) i2;
         System.out.println(b2); // -128
 
         long num3 = 30_0000_0000L; //整数常量超过默认类型int表示范围，使用long类型表示
