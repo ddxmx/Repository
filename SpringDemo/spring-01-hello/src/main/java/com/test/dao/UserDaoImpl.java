@@ -2,6 +2,6 @@ package com.test.dao;
 
 public class UserDaoImpl implements UserDao {
     public String getUser() {
-        return "本地获取用户信息";
+        return "获取用户初始化数据";
     }
 }

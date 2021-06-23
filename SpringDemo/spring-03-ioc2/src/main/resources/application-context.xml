@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 有参构造实例化方式，默认都是单例生成的-->
+    <!-- 方式一：根据参数索引赋值 -->
+    <bean id="user" class="com.test.ioc.User">
+        <constructor-arg index="0" value="zhangsan"/>
+        <constructor-arg index="1" value="20"/>
+    </bean>
+
+    <!-- 方式二：根据类型赋值 -->
+    <bean id="user2" class="com.test.ioc.User">
+        <constructor-arg type="java.lang.String" value="lisi"/>
+        <constructor-arg type="int" value="22"/>
+    </bean>
+
+    <!-- 方式三：根据参数名赋值 -->
+    <bean id="user3" class="com.test.ioc.User">
+        <constructor-arg name="name" value="wangwu"/>
+        <constructor-arg name="age" value="18"/>
+    </bean>
+
+    <!-- 设置bean的别名，可以使用原名称或别名获取bean -->
+    <alias name="user" alias="testuser"/>
+
+    <!--
+    id:bean唯一标识
+    class:全限定类名
+    name:也是别名，可以指定多个别名，分隔符可以是空格、逗号、分号等
+    -->
+    <bean id="user4" class="com.test.ioc.User" name="myuser,myuser2,myuser3"></bean>
+
+
+</beans>

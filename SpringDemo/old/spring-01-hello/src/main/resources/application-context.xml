@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="hello" class="com.test.service.HelloSpring">
+        <!--        需要有set方法才能进行属性设置，name的值为set方法的名称-->
+        <property name="name" value="zhangsan"></property>
+    </bean>
+
+
+    <bean id="userDaoImpl" class="com.test.UserDaoImpl"></bean>
+
+    <bean id="userDaoMysqlImpl" class="com.test.dao.UserDaoMysqlImpl"></bean>
+
+    <bean id="userServiceImpl" class="com.test.service.UserServiceImpl">
+        <!--        <property name="userDao" ref="userDaoImpl"></property>-->
+        <!--        修改引用的dao-->
+        <property name="userDao" ref="userDaoMysqlImpl"></property>
+    </bean>
+</beans>
