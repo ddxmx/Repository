@@ -1,16 +1,7 @@
-package com.test.ioc;
+package com.test.bean;
 
 public class Hello {
     private String info;
-
-    public Hello() {
-        System.out.println("Hello类实例化...");
-    }
-
-    public Hello(String info) {
-        this();
-        this.info = info;
-    }
 
     public String getInfo() {
         return info;

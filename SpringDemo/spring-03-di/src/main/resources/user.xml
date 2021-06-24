@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--注入方式一：通过set方法注入-->
+    <!--<bean id="user" class="com.test.namespace.User">
+        <property name="name" value="zhangsan"></property>
+        <property name="age" value="20"></property>
+    </bean>-->
+
+    <!--注入方式二：通过构造器注入-->
+    <!--<bean id="user" class="com.test.namespace.User">
+        <constructor-arg name="name" value="lisi"></constructor-arg>
+        <constructor-arg name="age" value="22"></constructor-arg>
+    </bean>-->
+
+    <!--注入方式三：使用p标签，注入属性-->
+    <!--<bean id="user" class="com.test.namespace.User" p:name="wangwu" p:age="21"></bean>-->
+
+    <!--注入方式四，使用c标签，通过构造器注入-->
+    <bean id="user" class="com.test.namespace.User" c:name="jerry" c:age="18"></bean>
+
+    <!--scope="prototype"多例模式，每次getBean都会生成一个新的对象-->
+    <!--<bean id="user" class="com.test.namespace.User" scope="prototype">
+        <property name="name" value="tom"></property>
+        <property name="age" value="30"></property>
+    </bean>-->
+</beans>

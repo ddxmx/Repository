@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-01-hello</artifactId>
+    <artifactId>spring-04-autowire</artifactId>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

@@ -3,14 +3,12 @@ package com.test.service;
 import com.test.dao.UserDao;
 
 public class UserServiceImpl implements UserService {
-    //代码强耦合具体的DAO实现类
+    // service和dao强耦合
     //private UserDao userDao = new UserDaoImpl();
-    //private UserDao userDao = new UserDaoMysqlImpl();
-    //private UserDao userDao = new UserDaoOraclelImpl();
 
     private UserDao userDao;
 
-    //DAO的选择交给用户
+    //解耦，dao的实例由外部传入
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
