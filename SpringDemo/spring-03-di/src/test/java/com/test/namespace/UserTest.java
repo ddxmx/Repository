@@ -30,4 +30,14 @@ public class UserTest {
         System.out.println(user1); //User{name='tom', age=30}
         System.out.println(user2); //User{name='tom', age=30}
     }
+
+    @Test
+    public void customTest(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("user.xml");
+        Customer user1 = context.getBean("customer",Customer.class);
+        System.out.println(user1.getUsers());
+
+        Name name = context.getBean("name", Name.class);
+        System.out.println(name.getNames()); //[jerry, jack, helen]
+    }
 }

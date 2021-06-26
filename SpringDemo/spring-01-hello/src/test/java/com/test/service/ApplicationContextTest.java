@@ -11,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class ApplicationContextTest {
     @Test
     public void testHello() {
+        //通过ClassPathXmlApplicationContext对象获取IOC容器
         ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
         Hello helloBean = context.getBean("hello", Hello.class);
         helloBean.show();

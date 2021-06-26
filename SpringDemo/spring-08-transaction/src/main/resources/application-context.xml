@@ -77,6 +77,6 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
     </aop:config>
 
-    <!--    绝对使用类还是接口的代理-->
+    <!--决定使用类还是接口的代理-->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>

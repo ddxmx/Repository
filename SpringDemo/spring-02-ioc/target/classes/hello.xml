@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--destory-method配置的方法，只有在单例模式下才会生效-->
+    <bean id="hello" class="com.test.ioc.Hello" init-method="initAction" destroy-method="destoryAction" scope="prototype">
+        <property name="info" value="init destory test"/>
+    </bean>
+
+</beans>

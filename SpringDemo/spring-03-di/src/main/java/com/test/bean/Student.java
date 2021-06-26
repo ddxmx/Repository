@@ -15,6 +15,14 @@ public class Student {
     private String wife;
     private Properties info;
 
+    public Student() {
+    }
+
+    public Student(String name, Map<String, String> parents) {
+        this.name = name;
+        this.parents = parents;
+    }
+
     public String getName() {
         return name;
     }

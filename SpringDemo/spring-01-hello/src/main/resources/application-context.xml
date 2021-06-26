@@ -4,6 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--使用bean节点来创建对象，id属性标识着对象，class属性代表着要创建对象的类全名-->
     <bean id="hello" class="com.test.bean.Hello">
         <!-- 需要有set方法才能进行属性设置，name的值为set方法的名称 -->
         <property name="info" value="Spring"></property>

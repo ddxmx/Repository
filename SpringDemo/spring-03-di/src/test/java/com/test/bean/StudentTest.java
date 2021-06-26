@@ -42,4 +42,11 @@ public class StudentTest {
         stu.getInfo().list(System.out);
     }
 
+    @Test
+    public void studentTest2(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+        Student stu = context.getBean("student2", Student.class);
+        System.out.println(stu.getName());
+        System.out.println(stu.getParents());
+    }
 }

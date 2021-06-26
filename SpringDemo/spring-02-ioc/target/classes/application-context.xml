@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 默认使用无参构造实例化 -->
+    <!-- name表示别名，可以起多个别名，使用空格、逗号、分号等分隔 -->
+    <bean id="hello" name="hello2 hello3,hello4" class="com.test.ioc.Hello">
+        <!-- 注入属性，同时存在构造和属性时，先使用构造，后注入属性 -->
+        <!--<property name="info" value="Spring"></property>-->
+
+        <!--使用有参构造实例化-->
+        <!-- 方式一：根据参数位置-->
+        <!--<constructor-arg index="0" value="MyBatis"></constructor-arg>-->
+
+        <!-- 方式二：根据参数类型-->
+        <!--<constructor-arg type="java.lang.String" value="SpringMVC"></constructor-arg>-->
+
+        <!-- 方式三：根据参数名称，推荐方式！！！-->
+        <constructor-arg name="info" value="Spring Boot"></constructor-arg>
+    </bean>
+
+    <!-- 定义了别名后，原名称可以继续使用-->
+    <alias name="hello" alias="myhello"></alias>
+
+    <!-- 从其他xml中导入bean -->
+    <import resource="user.xml"></import>
+</beans>

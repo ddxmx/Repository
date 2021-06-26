@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--静态工厂类注册-->
+    <bean id="fruit" class="com.test.factory.FruitFactory" factory-method="getFruit"/>
+
+    <!--非静态工厂类注册-->
+    <bean id="bookFactory" class="com.test.factory.BookFactory"/>
+    <bean id="book" class="com.test.factory.BookFactory" factory-bean="bookFactory" factory-method="getBook"/>
+</beans>

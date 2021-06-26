@@ -1,7 +1,9 @@
 package com.test.bean;
 
-public class Cat {
-    public void shout(){
+import com.test.AbstractAnimal;
+
+public class Cat extends AbstractAnimal {
+    public void cry(){
         System.out.println("喵~");
     }
 }

@@ -34,8 +34,7 @@ class ProxyNet implements Net {
 
 class ProxyNetTest {
     public static void main(String[] args) {
-        Net net = new RealNet();
-        ProxyNet proxyNet = new ProxyNet(net);
+        ProxyNet proxyNet = new ProxyNet(new RealNet());
         proxyNet.browse();
     }
 }

@@ -1,6 +1,6 @@
 package com.test.aop;
 
-public class UserPointCut {
+public class UserDBPointCut {
 
     public void connect() {
         System.out.println("连接数据库");

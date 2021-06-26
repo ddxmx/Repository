@@ -2,9 +2,6 @@ package com.test.bean;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 @Component("user") //衍生的三个注解 @Controller @Service @Repository
 public class User {
