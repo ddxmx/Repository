@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--静态工厂类-->
+    <bean id="userService" class="com.test.day01.hello.factory.UserServiceFactory" factory-method="getUserService"/>
+
+    <!--非静态工厂类-->
+    <bean id="empServiceFactory" class="com.test.day01.hello.factory.EmpServiceFactory"/>
+
+    <bean id="empService" class="com.test.day01.hello.service.EmpService" factory-bean="empServiceFactory"
+          factory-method="getEmpService"/>
+</beans>

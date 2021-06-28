@@ -31,6 +31,8 @@ public class ThreadMethodDemo {
 
         //判断线程是否存活
         System.out.println(mt.isAlive());
+        //获取线程状态
+        System.out.println(mt.getState()); //RUNNABLE
 
         for (int i = 0; i < 20; i++) {
             //主线程执行到i=10时，强制其他线程执行

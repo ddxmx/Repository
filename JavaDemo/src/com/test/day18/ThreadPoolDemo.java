@@ -4,6 +4,7 @@ import java.util.concurrent.*;
 
 /**
  * 创建线程的第四种方式：线程池
+ * 如果执行任务时CPU密集型的，创建超过CPU数量的线程就是没有必要的，不会加快程序的执行。
  */
 public class ThreadPoolDemo {
     public static void main(String[] args) {

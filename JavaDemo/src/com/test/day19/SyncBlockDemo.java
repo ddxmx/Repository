@@ -3,8 +3,12 @@ package com.test.day19;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * synchronized
  * 通过同步机制解决线程不安全的方式
  * 但是也造成性能的下降
+ * 1、可重入的：同一个执行线程获取锁后，调用其他相同锁的代码，可以直接调用
+ * 2、直接读写共享内存
+ * 3、过多的同步容易引起死锁，应该尽量避免持有一个锁的同时去申请另一个锁
  * <p>
  * 方式一：使用同步代码块
  * synchronized(同步监视器){
@@ -39,7 +43,7 @@ class TicketRunnable implements Runnable {
     }
 }
 
-    public class SyncBlockDemo {
+public class SyncBlockDemo {
     public static void main(String[] args) {
         TicketRunnable ticket = new TicketRunnable();
         /*
