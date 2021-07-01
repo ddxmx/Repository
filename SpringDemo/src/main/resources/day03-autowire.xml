@@ -4,11 +4,11 @@
        xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--<bean id="car" class="com.test.day03.autowire.bean.Car" p:brand="宝马" p:price="200000"/>-->
+    <bean id="car" class="com.test.day03.autowire.bean.Car" p:brand="宝马" p:price="200000"/>
     <bean id="car2" class="com.test.day03.autowire.bean.Car" p:brand="奔驰" p:price="250000"/>
     <bean id="car3" class="com.test.day03.autowire.bean.Car" p:brand="大众" p:price="150000"/>
     <bean id="worker" class="com.test.day03.autowire.bean.Worker" p:name="张三" p:age="32"/>
 
-    <!--自动装配的注解解析Bean-->
+    <!--需要使用以下标签生效自动装配的注解-->
     <context:annotation-config/>
 </beans>

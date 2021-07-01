@@ -4,11 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--静态工厂类-->
-    <bean id="userService" class="com.test.day01.hello.factory.UserServiceFactory" factory-method="getUserService"/>
+    <bean id="userService" class="com.test.day01.ioc.factory.UserServiceFactory" factory-method="getUserService"/>
 
     <!--非静态工厂类-->
-    <bean id="empServiceFactory" class="com.test.day01.hello.factory.EmpServiceFactory"/>
-
-    <bean id="empService" class="com.test.day01.hello.service.EmpService" factory-bean="empServiceFactory"
-          factory-method="getEmpService"/>
+    <!--首先非静态工厂类实例化-->
+    <bean id="empServiceFactory" class="com.test.day01.ioc.factory.EmpServiceFactory"/>
+    <!--然后通过非静态工厂类的非静态方法，生成对象-->
+    <bean id="empService" factory-bean="empServiceFactory" factory-method="getEmpService"/>
 </beans>

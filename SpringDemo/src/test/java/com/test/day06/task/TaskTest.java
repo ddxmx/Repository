@@ -6,14 +6,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TaskTest {
 
     @Test
-    public void taskTest(){
+    public void taskTest() {
         new ClassPathXmlApplicationContext("day06-task.xml");
-        while (true){}
+        while (true) {
+        }
     }
 
     @Test
-    public void monitorTest(){
+    public void monitorTest() {
         new ClassPathXmlApplicationContext("day06-task-annotation.xml");
-        while (true){}
+        while (true) {
+        }
     }
 }

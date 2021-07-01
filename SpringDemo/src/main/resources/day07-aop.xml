@@ -7,6 +7,6 @@
 
     <context:component-scan base-package="com.test.day07.aop"/>
 
-    <!--在配置文件种开启AOP注解方式-->
+    <!--开启AOP注解方式-->
     <aop:aspectj-autoproxy/>
 </beans>

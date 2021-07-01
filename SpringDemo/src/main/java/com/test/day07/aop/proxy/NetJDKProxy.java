@@ -8,14 +8,18 @@ import java.lang.reflect.Proxy;
  * 需要被代理的类实现接口，基于接口的代理
  */
 public class NetJDKProxy implements InvocationHandler {
-    private Net proxy;
-
+    //真实类对象
     private Net realNet;
 
     public NetJDKProxy(Net realNet) {
         this.realNet = realNet;
     }
 
+    /**
+     * 返回代理类对象
+     *
+     * @return
+     */
     public Net getProxy() {
         /*
             Object newProxyInstance(ClassLoader loader,
@@ -28,7 +32,6 @@ public class NetJDKProxy implements InvocationHandler {
             返回值：代理类对象
          */
         Net netProxy = (Net) Proxy.newProxyInstance(realNet.getClass().getClassLoader(), realNet.getClass().getInterfaces(), this);
-        proxy = netProxy;
         return netProxy;
     }
 
@@ -41,7 +44,6 @@ public class NetJDKProxy implements InvocationHandler {
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println(proxy == this.proxy);
         System.out.println("设置上网代理...");
         Object result = method.invoke(realNet, args);
         System.out.println("取消上网代理...");

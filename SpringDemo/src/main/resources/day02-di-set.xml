@@ -9,7 +9,7 @@
     </bean>
 
     <bean id="person" class="com.test.day02.di.bean.Person">
-        <!--property设置必须要提供set方法，name的值实际上是set对应的方法名-->
+        <!--property设置必须要提供set方法，name属性的值实际上是set对应的方法名-->
         <property name="name" value="jerry"/>
         <property name="age" value="30"/>
         <property name="car" ref="car"/>

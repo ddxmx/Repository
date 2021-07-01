@@ -5,7 +5,7 @@
 
     <!--bean之间相互依赖-->
     <bean id="emp" class="com.test.day02.di.bean.Emp">
-        <!--使用构造器注入会导致循环注入的问题，需要使用set注入-->
+        <!--使用构造器注入会导致循环依赖的问题，需要使用set注入方式-->
         <!--<constructor-arg name="name" value="Smith"/>
         <constructor-arg name="dept" ref="dept"/>-->
         <property name="name" value="Smith"/>

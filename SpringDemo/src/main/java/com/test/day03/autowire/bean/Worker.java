@@ -1,7 +1,6 @@
 package com.test.day03.autowire.bean;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import javax.annotation.Resource;
 
 /**
  * 使用@Autowired注解，可以使用在属性、构造方法、set方法上
@@ -20,25 +19,27 @@ public class Worker {
      * xml中存在bean id：car car2 car3，则先根据类型找到3个bean，再根据名称找到car
      * 如果只存在car2 car3，则自动装配失败
      */
-    //@Autowired
-    //private Car car;
+//    @Autowired
+//    private Car car;
 
-    //autowire要想支持按指定名称寻找bean，需要@Qualifier注解的支持
-    @Qualifier("car3")
-    @Autowired
-    private Car car;
+    //@autowired要想支持按指定名称寻找bean，需要联合@Qualifier一起使用
+//    @Qualifier("car3")
+//    @Autowired
+//    private Car car;
 
     /**
      * 先根据name，再根据type
      * xml中存在bean id:car car2 car3，则先根据名称查找，直接找到car
      * 如果只存在car2 car3，则存在多个满足条件的bean，导致异常
+     * 如果只存在car3，则能够正常找到car3
      * 以上情况可以指定要找到的bean的名称
-      */
-    //@Resource
-    //private Car car;
+     */
+//    @Resource
+//    private Car car;
 
-    //@Resource(name="car2")
-    //private Car car;
+    //直接指定名称
+    @Resource(name = "car2")
+    private Car car;
 
     public Worker() {
     }

@@ -3,7 +3,7 @@ package com.test.day02.di.bean;
 import java.util.*;
 
 /**
- * set注入依赖set方法
+ * set注入依赖方式必须要有set方法
  */
 public class Person {
     private String name;

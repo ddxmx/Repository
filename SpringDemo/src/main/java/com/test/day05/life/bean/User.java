@@ -6,14 +6,10 @@ public class User {
     }
 
     public void init(){
-        System.out.println("User init");
+        System.out.println("User的init方法被执行...");
     }
 
     public void destroy(){
-        System.out.println("User destroy");
-    }
-
-    public void show(){
-        System.out.println("User的show方法被执行...");
+        System.out.println("User的destroy方法被执行...");
     }
 }

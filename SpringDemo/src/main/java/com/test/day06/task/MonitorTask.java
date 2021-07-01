@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 @Component
 public class MonitorTask {
 
-    @Scheduled(cron = "10-15 * * * * ?")
-    public void show() {
+    @Scheduled(cron = "10-30 * * * * ?")
+    public void run() {
         if (System.currentTimeMillis() / 1000 % 5 == 0) {
             System.out.println(LocalDateTime.now() + " 到达一个监控周期~");
         } else {

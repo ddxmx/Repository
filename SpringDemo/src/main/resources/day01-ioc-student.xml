@@ -4,10 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--使用默认构造器实例化-->
-    <bean id="student" class="com.test.day01.hello.bean.Student"/>
+    <bean id="student" class="com.test.day01.ioc.bean.Student"/>
 
-    <!--当student类添加了带参数的构造器后，默认构造器实例化异常-->
-    <bean id="student2" class="com.test.day01.hello.bean.Student">
+    <!--当student类添加了带参数的构造器后，可以使用带参数构造器实例化-->
+    <bean id="student2" class="com.test.day01.ioc.bean.Student">
         <constructor-arg name="name" value="jerry"/>
         <constructor-arg name="age" value="12"/>
     </bean>

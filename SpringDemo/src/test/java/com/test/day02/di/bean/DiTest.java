@@ -13,6 +13,7 @@ public class DiTest {
         // hobbies=[读书, 音乐, 唱歌], parents={爸爸=35, 妈妈=32, 爷爷=60, 奶奶=58}, games=[英雄联盟, 魔兽世界, 绝地求生],
         // wife='null', info={语文=95, 英语=92, 数学=98}}
         System.out.println(person);
+        System.out.println(null == person.getWife());
     }
 
     @Test

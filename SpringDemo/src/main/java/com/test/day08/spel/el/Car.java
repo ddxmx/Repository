@@ -5,33 +5,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Car {
+    public static final String TYPE = "Car";
+
     @Value("宝马")
-    private String brand;
+    public String brand;
+
     @Value("300000")
-    private double price;
+    public double price;
 
-    public String getBrand() {
-        return brand;
-    }
+    public Car(){}
 
-    public void setBrand(String brand) {
+    public Car(String brand,double price){
         this.brand = brand;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
         this.price = price;
-    }
-
-    public double getRandomValue() {
-        return Math.random();
-    }
-
-    public String getUpperCase(String str) {
-        return "null".equals(str) ? null : str.toUpperCase();
     }
 
     @Override

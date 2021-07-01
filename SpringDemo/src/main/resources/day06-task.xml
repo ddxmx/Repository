@@ -6,10 +6,9 @@
 
     <content:component-scan base-package="com.test.day06.task"/>
 
-        <task:scheduled-tasks>
-            <task:scheduled ref="printTask" method="logTask" cron="*/3 * * * * ?"/>
-            <task:scheduled ref="printTask" method="timeTask" cron="*/1 * * * * ?"/>
-        </task:scheduled-tasks>
+    <task:scheduled-tasks>
+        <task:scheduled ref="logTask" method="run" cron="*/2 * * * * ?"/>
+    </task:scheduled-tasks>
 
     <!--
         在线生成地址：https://www.matools.com/cron/
