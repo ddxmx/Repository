@@ -1,5 +1,3 @@
-USE mybatis;
-
 CREATE TABLE `user`(
    `id` INT(10),
    `name` VARCHAR(20) NOT	NULL,

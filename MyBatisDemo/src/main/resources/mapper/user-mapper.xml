@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--配置文件中namespace中的名称为对应Mapper接口或者Dao接口的完整包名,必须一致！-->
-<mapper namespace="com.test.mybatis.UserDao">
+<!--mapper实际上就是接口的实现类，namespace的名称为对应Mapper接口或者Dao接口的完整包名,必须一致！-->
+<mapper namespace="com.test.mybatis.dao.UserDao">
     <!--开启本mapper的namespace下的二级缓存-->
     <!--
         eviction:代表的是缓存回收策略，目前MyBatis提供以下策略。
@@ -19,23 +19,23 @@
     <!--    以下这种默认配置需要序列化实体类-->
     <!--    <cache/>-->
 
-    <!--    接口中的方法名与映射文件中的SQL语句ID对应，parameterType参数可以省略，自动推断-->
-    <!--    为了规范操作，在SQL的配置文件中，我们尽量将parameterType参数和resultType都写上！-->
-    <!--    mybastis参数符号#{key}来源于 1、定义的参数名称 2、对象中的属性 3、map中的key值，主要替代预编译的占位符?-->
-    <!--    #{}和${}区别，#{}执行后值是用引号引起来的，${}执行后值是没有引号的-->
-    <select id="getUserById" parameterType="_int" resultType="com.test.mybatis.pojo.User">
+    <!--接口中的方法名与映射文件中SQL语句id属性对应，parameterType参数可以省略，自动推断
+    为了规范操作，在SQL的配置文件中，我们尽量将parameterType参数和resultType都写上！
+    mybatis参数符号#{key}来源于 1、定义的参数名称 2、对象中的属性 3、map中的key值，主要替代预编译的占位符?
+    #{}和${}区别，#{}执行后值是用引号引起来的，${}执行后值是没有引号的-->
+    <select id="getUserById" parameterType="int" resultType="com.test.mybatis.pojo.User">
         select *
         from mybatis.user
         where id = #{id}
     </select>
 
-    <!--    如果接口返回的是一个集合，那么resultType就是集合中的元素类型-->
+    <!--如果接口返回的是一个集合，那么resultType就是集合中的元素类型-->
     <select id="getUsers" resultType="com.test.mybatis.pojo.User">
         select *
         from mybatis.user
     </select>
 
-    <!--    直接使用@Param注解中设置的字段-->
+    <!--直接使用@Param注解中设置的字段-->
     <select id="getUserByIdAndName" resultType="com.test.mybatis.pojo.User">
         select *
         from mybatis.user
@@ -43,13 +43,15 @@
           and name = #{name_test}
     </select>
 
-    <select id="getUserByIdAndName2" resultType="com.test.mybatis.pojo.User">
+    <!--map的缺陷：传参map时，无法控制传入的map是否存在指定的key-->
+    <select id="getUserByMap" parameterType="map" resultType="com.test.mybatis.pojo.User">
         select *
         from mybatis.user
         where id = #{pid}
           and name = #{pname}
     </select>
 
+    <!--直接使用的类中set的方法名-->
     <insert id="addUser">
         insert into mybatis.user
         values (#{id}, #{name}, #{age})
@@ -62,7 +64,7 @@
         where id = #{id}
     </update>
 
-    <delete parameterType="_int" id="deleteUser">
+    <delete id="deleteUser" parameterType="int">
         delete
         from mybatis.user
         where id = #{id}

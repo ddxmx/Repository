@@ -7,8 +7,10 @@ import org.junit.Test;
 
 import java.util.List;
 
+/**
+ * 使用注解配置sql语句
+ */
 public class UserDao2Test {
-
     @Test
     public void getUserById() {
         try (SqlSession session = MyBatisUtil.getSession()) {
@@ -18,10 +20,10 @@ public class UserDao2Test {
     }
 
     @Test
-    public void getUserById2() {
+    public void getUserBName() {
         try (SqlSession session = MyBatisUtil.getSession()) {
             UserDao2 mapper = session.getMapper(UserDao2.class);
-            System.out.println(mapper.getUserById2(1002));
+            System.out.println(mapper.getUserByName("wangwu"));
         }
     }
 
