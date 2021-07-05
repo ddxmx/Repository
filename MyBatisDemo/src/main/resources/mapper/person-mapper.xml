@@ -32,7 +32,7 @@
         where id = #{id}
     </select>
 
-    <!--自动映射，映射在map上直接取值就可以，key为对象属性的名称，value为属性值-->
+    <!--自动映射，映射在map上直接取值就可以，key为字段的名称，value为字段值-->
     <select id="getPersonByName" resultType="map">
         select *
         from mybatis.user

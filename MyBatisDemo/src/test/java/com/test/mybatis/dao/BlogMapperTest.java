@@ -7,10 +7,7 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
-
 public class BlogMapperTest {
-
     @Test
     public void addBlog() {
         try (SqlSession session = MyBatisUtil.getSession()) {
@@ -21,13 +18,13 @@ public class BlogMapperTest {
     }
 
     @Test
-    public void getBlogsByTitleOrAuthor() {
+    public void getBlogByTitleOrAuthor() {
         try (SqlSession session = MyBatisUtil.getSession()) {
             BlogMapper mapper = session.getMapper(BlogMapper.class);
             Map<String, Object> map = new HashMap<>();
-            map.put("title", "JAVA开发");
-//            map.put("author", "王五");
-            List<Blog> list = mapper.getBlogsByTitleOrAuthor(map);
+            map.put("title", "java开发实战经典");
+            map.put("author", "奥德赛");
+            List<Blog> list = mapper.getBlogByTitleOrAuthor(map);
             list.forEach(System.out::println);
         }
     }
@@ -37,7 +34,7 @@ public class BlogMapperTest {
         try (SqlSession session = MyBatisUtil.getSession()) {
             BlogMapper mapper = session.getMapper(BlogMapper.class);
             Blog blog = new Blog();
-            blog.setId("ABC126");
+            blog.setId("ABC123");
             blog.setTitle("MySQL数据库");
             blog.setAuthor("张飞");
             mapper.updateBlog(blog);
@@ -49,8 +46,8 @@ public class BlogMapperTest {
         try (SqlSession session = MyBatisUtil.getSession()) {
             BlogMapper mapper = session.getMapper(BlogMapper.class);
             Blog blog = new Blog();
-            blog.setTitle("JAVA开发");
-            blog.setAuthor("王五");
+            blog.setTitle("java开发实战经典");
+            blog.setAuthor("奥德赛");
             List<Blog> list = mapper.getBlogByTitleChoiceAuthor(blog);
             list.forEach(System.out::println);
         }
@@ -60,7 +57,7 @@ public class BlogMapperTest {
     public void getBlogForeach() {
         try (SqlSession session = MyBatisUtil.getSession()) {
             BlogMapper mapper = session.getMapper(BlogMapper.class);
-            List<String> ids = Arrays.asList("ABC123", "ABC124", "ABC125");
+            List<String> ids = Arrays.asList("ABC123", "112");
             List<Blog> list = mapper.getBlogForeach(ids);
             list.forEach(System.out::println);
         }

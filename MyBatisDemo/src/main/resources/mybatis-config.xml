@@ -18,22 +18,22 @@
     </properties>-->
 
     <settings>
-        <!--        开启日志，默认不开启，也可以配置为自带的COMMONS_LOGGING-->
+        <!--开启日志，默认不开启，也可以配置为自带的COMMONS_LOGGING-->
         <setting name="logImpl" value="LOG4J"/>
-        <!--        开启驼峰命名，即从经典数据库列名 A_COLUMN 映射到经典 Java 属性名 aColumn-->
+        <!--开启驼峰命名，即从经典数据库列名 A_COLUMN 映射到经典 Java 属性名 aColumn-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <!--        开启二级缓存-->
+        <!--开启二级缓存-->
         <setting name="cacheEnabled" value="true"/>
     </settings>
 
-    <!--    类型别名可为 Java 类型设置一个缩写名字。 它仅用于 XML 配置，意在降低冗余的全限定类名书写。-->
+    <!--类型别名可为 Java 类型设置一个缩写名字。 它仅用于 XML 配置，意在降低冗余的全限定类名书写。-->
     <typeAliases>
-        <!--        方式一：直接定义类的别名-->
-        <!--        <typeAlias type="com.test.mybatis.pojo.User" alias="hello"/>-->
+        <!--方式一：直接定义类的别名-->
+        <typeAlias type="com.test.mybatis.pojo.User" alias="hello"/>
 
-        <!--        方式二：包扫描方式，还需要在包的类上通过@Alias设置别名-->
-        <!--每一个在包 com.kuang.pojo 中的 Java Bean，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名。-->
-        <!--若有注解，则别名为其注解值。-->
+        <!--方式二：包扫描方式，还需要在包的类上通过@Alias设置别名
+        每一个在包 com.kuang.pojo 中的 Java Bean，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名。
+        若有注解，则别名为其注解值。-->
         <package name="com.test.mybatis.pojo"/>
     </typeAliases>
 
@@ -74,6 +74,6 @@
         <mapper resource="mapper/person-mapper.xml"/>
         <mapper resource="mapper/student-mapper.xml"/>
         <mapper resource="mapper/teacher-mapper.xml"/>
-        <mapper resource="mapper/blog.xml"/>
+        <mapper resource="mapper/blog-mapper.xml"/>
     </mappers>
 </configuration>

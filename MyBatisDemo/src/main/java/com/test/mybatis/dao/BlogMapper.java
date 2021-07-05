@@ -11,7 +11,7 @@ import java.util.Map;
 public interface BlogMapper {
     public int addBlog(Blog blog);
 
-    public List<Blog> getBlogsByTitleOrAuthor(Map<String, Object> map);
+    public List<Blog> getBlogByTitleOrAuthor(Map<String, Object> map);
 
     public int updateBlog(Blog blog);
 

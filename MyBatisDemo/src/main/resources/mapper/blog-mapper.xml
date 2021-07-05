@@ -8,12 +8,12 @@
         values (#{id}, #{title}, #{author}, #{createTime}, #{views})
     </insert>
 
-    <!--    select * from mybatis.blog WHERE title=? or author=?-->
-    <!--    select * from mybatis.blog WHERE title=?-->
-    <!--    select * from mybatis.blog WHERE author=?-->
-    <select id="getBlogsByTitleOrAuthor" resultType="com.test.mybatis.pojo.Blog">
+    <!--select * from mybatis.blog WHERE title=? or author=?
+    select * from mybatis.blog WHERE title=?
+    select * from mybatis.blog WHERE author=?-->
+    <select id="getBlogByTitleOrAuthor" resultType="com.test.mybatis.pojo.Blog">
         select * from mybatis.blog
-        <!--    where标签能够自动去除无用的where、and、or关键字-->
+        <!--where标签能够自动去除无用的where、and、or关键字-->
         <where>
             <if test="title != null">
                 title=#{title}
@@ -24,7 +24,7 @@
         </where>
     </select>
 
-    <!--    SQL片段，最好基于单表来定义，不要包括where等-->
+    <!--SQL片段，最好基于单表来定义，不要包括where等-->
     <sql id="sql-title-author">
         <if test="title != null">
             title=#{title},
@@ -34,21 +34,21 @@
         </if>
     </sql>
 
-    <!--    update mybatis.blog SET title=?, author=? where id=?-->
-    <!--    update mybatis.blog SET author=? where id=?-->
-    <!--    update mybatis.blog SET title=? where id=?-->
+    <!--update mybatis.blog SET title=?, author=? where id=?
+    update mybatis.blog SET author=? where id=?
+    update mybatis.blog SET title=? where id=?-->
     <update id="updateBlog">
         update mybatis.blog
-        <!--    set标签能够自动去除无用的set关键字和无用的逗号,-->
+        <!--set标签能够自动去除无用的set关键字和无用的逗号,-->
         <set>
             <include refid="sql-title-author"></include>
         </set>
         where id=#{id}
     </update>
 
-    <!--    select * from mybatis.blog WHERE title=?-->
-    <!--    select * from mybatis.blog WHERE author = ?-->
-    <!--    select * from mybatis.blog WHERE author='张三'-->
+    <!--select * from mybatis.blog WHERE title=?
+    select * from mybatis.blog WHERE author = ?
+    select * from mybatis.blog WHERE author='张三'-->
     <select id="getBlogByTitleChoiceAuthor" resultType="com.test.mybatis.pojo.Blog">
         select * from mybatis.blog
         <where>
@@ -67,7 +67,7 @@
     </select>
 
     <select id="test">
-        <!--    trim可以用于自定义去除头尾-->
+        <!--trim可以用于自定义去除头尾-->
         # where等价于
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
         </trim>
