@@ -13,15 +13,16 @@ public class PersonDaoTest {
         try (SqlSession session = MyBatisUtil.getSession()) {
             PersonDao mapper = session.getMapper(PersonDao.class);
             Person per = mapper.getPersonById(1003);
+            //Person{id=1003, username='王五', age=21}
             System.out.println(per);
         }
     }
 
     @Test
-    public void getPersonByName() {
+    public void getPersonByAge() {
         try (SqlSession session = MyBatisUtil.getSession()) {
             PersonDao mapper = session.getMapper(PersonDao.class);
-            Map<String, Object> map = mapper.getPersonByName("zhangsan");
+            Map<String, Object> map = mapper.getPersonByAge(23);
             System.out.println(map.get("id"));
             System.out.println(map.get("name"));
             System.out.println(map.get("age"));

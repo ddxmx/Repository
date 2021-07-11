@@ -2,82 +2,73 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--mapper实际上就是接口的实现类，namespace的名称为对应Mapper接口或者Dao接口的完整包名,必须一致！-->
+<!--mapper实际上就是接口的实现类，namespace的名称为对应Mapper接口或者Dao接口的完整包名，XML根据这个名称生成动态代理类，必须一致！-->
 <mapper namespace="com.test.mybatis.dao.UserDao">
-    <!--开启本mapper的namespace下的二级缓存-->
-    <!--
-        eviction:代表的是缓存回收策略，目前MyBatis提供以下策略。
-        (1) LRU,最近最少使用的，一处最长时间不用的对象
-        (2) FIFO,先进先出，按对象进入缓存的顺序来移除他们
-        (3) SOFT,软引用，移除基于垃圾回收器状态和软引用规则的对象
-        (4) WEAK,弱引用，更积极的移除基于垃圾收集器状态和弱引用规则的对象。这里采用的是LRU，移除最长时间不用的对形象
-        flushInterval:刷新间隔时间，单位为毫秒，这里配置的是100秒刷新，如果你不配置它，那么当SQL被执行的时候才会去刷新缓存。
-        size:引用数目，一个正整数，代表缓存最多可以存储多少个对象，不宜设置过大。设置过大会导致内存溢出。这里配置的是1024个对象
-        readOnly:只读，意味着缓存数据只能读取而不能修改，这样设置的好处是我们可以快速读取缓存，缺点是我们没有办法修改缓存，他的默认值是false，不允许我们修改
-    -->
-    <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024"/>
-    <!--以下这种默认配置需要序列化实体类-->
-
     <!--接口中的方法名与映射文件中SQL语句id属性对应，parameterType参数可以省略，自动推断
-    为了规范操作，在SQL的配置文件中，我们尽量将parameterType参数和resultType都写上！
-    mybatis参数符号#{key}来源于 1、定义的参数名称 2、对象中的属性 3、map中的key值，主要替代预编译的占位符?
-    #{}和${}区别，#{}执行后值是用引号引起来的，${}执行后值是没有引号的-->
-    <select id="getUserById" parameterType="int" resultType="com.test.mybatis.pojo.User">
-        select *
+    mybatis参数符号#{key}来源于 1、定义的参数名称 2、对象中的属性 3、map中的key值
+    #{}和${}区别，#{}是占位符，预编译处理，${}是变量，直接进行字符串连接，存在sql注入风险，${}一般用于替换列名或表名-->
+    <select id="getUserById" resultType="com.test.mybatis.pojo.User">
+        select id, name, age
         from mybatis.user
         where id = #{id}
     </select>
 
-    <!--如果接口返回的是一个集合，那么resultType就是集合中的元素类型-->
-    <select id="getUsers" resultType="com.test.mybatis.pojo.User">
-        select *
+    <!--resultType是数据库中一行记录的类型-->
+    <select id="getAllUsers" resultType="com.test.mybatis.pojo.User">
+        select id, name, age
         from mybatis.user
     </select>
 
-    <!--直接使用@Param注解中设置的字段-->
-    <select id="getUserByIdAndName" resultType="com.test.mybatis.pojo.User">
-        select *
+    <!--直接使用@Param注解中设置的字段，名称必须一致-->
+    <select id="getUserByIdOrName" resultType="myUser">
+        select id, name, age
         from mybatis.user
         where id = #{id}
-          and name = #{name_test}
+          or name = #{name_test}
     </select>
 
-    <!--map的缺陷：传参map时，无法控制传入的map是否存在指定的key-->
-    <select id="getUserByMap" parameterType="map" resultType="com.test.mybatis.pojo.User">
-        select *
+    <!--map的缺陷：阅读性差，传参map时，无法控制传入的map是否存在指定的key-->
+    <!--占位符名称为map的key值-->
+    <select id="getUserByMap" resultType="testUser">
+        select id, name, age
         from mybatis.user
-        where id = #{pid}
-          and name = #{pname}
+        where id = #{uid}
+          or name = #{uname}
     </select>
 
-    <!--直接使用的类中set的方法名-->
+    <!--直接使用的类中属性名称-->
     <insert id="addUser">
-        insert into mybatis.user
+        insert into mybatis.user(id, name, age)
         values (#{id}, #{name}, #{age})
     </insert>
 
-    <update id="updateUser" parameterType="com.test.mybatis.pojo.User">
+    <update id="updateUser">
         update mybatis.user
         set name=#{name},
             age=#{age}
         where id = #{id}
     </update>
 
-    <delete id="deleteUser" parameterType="int">
+    <delete id="deleteUser">
         delete
         from mybatis.user
         where id = #{id}
     </delete>
 
-    <select id="getUserByLikeName" parameterType="string" resultType="com.test.mybatis.pojo.User">
-        select *
+    <select id="getUserLikeName" resultType="com.test.mybatis.pojo.User">
+        select id, name, age
         from mybatis.user
         where name like #{name}
     </select>
 
-    <select id="getUserByPage" resultType="com.test.mybatis.pojo.User">
-        select *
+    <select id="getUserWith$" resultType="com.test.mybatis.pojo.User">
+        select id, name, age
         from mybatis.user
-        limit #{startIndex},#{pageSize}
+        where name=${name}
+    </select>
+
+    <select id="getUsersWithPageHelper" resultType="com.test.mybatis.pojo.User">
+        select id, name, age
+        from mybatis.user
     </select>
 </mapper>

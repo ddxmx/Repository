@@ -8,12 +8,15 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * MyBatis工具类，封装SqlSessionFactory和SqlSession的获取
+ */
 public class MyBatisUtil {
     //sqlSessionFactory作用域贯穿整个MyBatis的生命周期，应该是单例的
     private static SqlSessionFactory sqlSessionFactory;
 
     static {
-        // 根据MyBatis核心配置文件，创建sqlSessionFactory工厂类
+        //类路径(target/classes)下的资源文件
         String resource = "mybatis-config.xml";
         try (InputStream inputStream = Resources.getResourceAsStream(resource)) {
             //SqlSessionFactoryBuilder用于创建SqlSessionFactory，创建后就无用了，应该是局部变量
@@ -25,7 +28,7 @@ public class MyBatisUtil {
 
     /**
      * 获取SqlSession实例用于数据库操作
-     * SqlSession最佳的作用域就是请求作用域
+     * SqlSession最佳的作用域就是请求作用域或方法作用域
      *
      * @return
      */

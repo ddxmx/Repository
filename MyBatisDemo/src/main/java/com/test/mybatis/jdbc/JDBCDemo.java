@@ -11,7 +11,7 @@ import java.util.List;
  * 传统JDBC操作数据库的方式，所有的操作完全由用户手工控制
  */
 public class JDBCDemo {
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/mybatis?useSSL=false&useUnicode=true&characterEncoding=utf-8";
     private static final String NAME = "root";
     private static final String PASSWORD = "123456";
@@ -51,7 +51,7 @@ public class JDBCDemo {
         try (Connection conn = getConnection()) {
             String sql = "insert into mybatis.user(id,name,age) values(?,?,?)";
             PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setInt(1, 1006);
+            stat.setInt(1, 1010);
             stat.setString(2, "scott");
             stat.setInt(3, 30);
 

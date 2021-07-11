@@ -10,27 +10,19 @@ import java.util.List;
 /**
  * 使用注解配置sql语句
  */
-public class UserDao2Test {
+public class UserAnnotationDaoTest {
     @Test
     public void getUserById() {
         try (SqlSession session = MyBatisUtil.getSession()) {
-            UserDao2 mapper = session.getMapper(UserDao2.class);
+            UserAnnotationDao mapper = session.getMapper(UserAnnotationDao.class);
             System.out.println(mapper.getUserById(1002));
-        }
-    }
-
-    @Test
-    public void getUserBName() {
-        try (SqlSession session = MyBatisUtil.getSession()) {
-            UserDao2 mapper = session.getMapper(UserDao2.class);
-            System.out.println(mapper.getUserByName("wangwu"));
         }
     }
 
     @Test
     public void getUsers() {
         try (SqlSession session = MyBatisUtil.getSession()) {
-            UserDao2 mapper = session.getMapper(UserDao2.class);
+            UserAnnotationDao mapper = session.getMapper(UserAnnotationDao.class);
             List<User> list = mapper.getUsers();
             list.forEach(System.out::println);
         }
@@ -39,7 +31,7 @@ public class UserDao2Test {
     @Test
     public void addUser() {
         try (SqlSession session = MyBatisUtil.getSession()) {
-            UserDao2 mapper = session.getMapper(UserDao2.class);
+            UserAnnotationDao mapper = session.getMapper(UserAnnotationDao.class);
             int count = mapper.addUser(new User(1007, "jack", 28));
             System.out.printf("更新了%s条数据\n", count);
         }
@@ -48,7 +40,7 @@ public class UserDao2Test {
     @Test
     public void updateUser() {
         try (SqlSession session = MyBatisUtil.getSession()) {
-            UserDao2 mapper = session.getMapper(UserDao2.class);
+            UserAnnotationDao mapper = session.getMapper(UserAnnotationDao.class);
             int count = mapper.updateUser(new User(1007, "张三丰", 120));
             System.out.println("更新了" + count + "条数据");
         }
@@ -57,7 +49,7 @@ public class UserDao2Test {
     @Test
     public void deleteUser() {
         try (SqlSession session = MyBatisUtil.getSession()) {
-            UserDao2 mapper = session.getMapper(UserDao2.class);
+            UserAnnotationDao mapper = session.getMapper(UserAnnotationDao.class);
             System.out.println("更新了" + mapper.deleteUser(1007) + "条数据");
         }
     }

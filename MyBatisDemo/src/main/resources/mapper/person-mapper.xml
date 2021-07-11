@@ -6,26 +6,26 @@
 <mapper namespace="com.test.mybatis.dao.PersonDao">
     <!--问题：实体类和数据库字段不一致，导致属性赋值未赋值，Person(id=1003, username=null, age=21)-->
     <!--<select id="getPersonById" resultType="com.test.mybatis.pojo.Person">
-            select *
-            from mybatis.user
-            where id = #{id}
-        </select>-->
+        select *
+        from mybatis.user
+        where id = #{id}
+    </select>-->
 
-    <!--处理方式一，起别名，将数据库查询出的字段名称起别名为类中属性名，Person(id=1003, username=wangwu, age=21)-->
+    <!--处理方式一，起别名，将数据库查询出的字段名称起别名为类中属性名，Person(id=1003, username=王五, age=21)-->
     <!--<select id="getPersonById" resultType="com.test.mybatis.pojo.Person">
-            select id, name as username, age
-            from mybatis.user
-            where id = #{id}
-        </select>-->
+        select id, name as username, age
+        from mybatis.user
+        where id = #{id}
+    </select>-->
 
     <!--处理方式二：返回类型不一致，使用resultMap，建立实体类属性和数据库字段的映射关系，推荐方式，可以复用-->
     <resultMap id="personMap" type="com.test.mybatis.pojo.Person">
         <!--主键使用id，其他字段使用result-->
-        <!--<id property="id" column="id"/>-->
+        <id property="id" column="id"/>
         <result property="username" column="name"/>
     </resultMap>
 
-    <!--resultMap代替之前的resultType-->
+    <!--使用resultMap手动映射结果，和resultType只能使用一个-->
     <select id="getPersonById" resultMap="personMap">
         select *
         from mybatis.user
@@ -33,9 +33,11 @@
     </select>
 
     <!--自动映射，映射在map上直接取值就可以，key为字段的名称，value为字段值-->
-    <select id="getPersonByName" resultType="map">
+    <!--结果只能是一条数据，否则会报错-->
+    <!--org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2-->
+    <select id="getPersonByAge" resultType="map">
         select *
         from mybatis.user
-        where name = #{name}
+        where age = #{age}
     </select>
 </mapper>

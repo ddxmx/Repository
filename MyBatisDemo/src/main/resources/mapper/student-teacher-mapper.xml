@@ -2,18 +2,19 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.test.mybatis.dao.StudentMapper">
+<mapper namespace="com.test.mybatis.dao.StudentTeacherDao">
     <!--以下方式teacher属性为null,Student(id=2005, name=小王, teacher=null)-->
-    <!-- <select id="getStudents" resultType="com.test.mybatis.pojo.Student">
-             select * from mybatis.student
-         </select>-->
+    <!--<select id="getStudents" resultType="com.test.mybatis.pojo.Student">
+        select *
+        from mybatis.student
+    </select>-->
 
     <!--多对一的关系-->
     <resultMap id="studentMap" type="com.test.mybatis.pojo.Student">
         <result property="id" column="sid"></result>
         <result property="name" column="sname"></result>
 
-        <!--非list类型，对象的依赖关系都是用association-->
+        <!--对象的依赖关系都是用association-->
         <!--association用于一对一、多对一的关系，JavaType是用来指定pojo中属性的类型-->
         <association property="teacher" javaType="com.test.mybatis.pojo.Teacher">
             <result property="id" column="tid"></result>
@@ -26,6 +27,26 @@
         from mybatis.student s,
              mybatis.teacher t
         where s.tid = t.id
+    </select>
+
+
+    <resultMap id="teacherMap" type="com.test.mybatis.pojo.Teacher">
+        <result property="id" column="tid"></result>
+        <result property="name" column="tname"></result>
+
+        <!--collection用于一对多的关系，ofType指定的是映射到list集合属性中pojo的类型。-->
+        <!--ofType用来区分-->
+        <collection property="students" ofType="com.test.mybatis.pojo.Student">
+            <result property="id" column="sid"></result>
+            <result property="name" column="sname"></result>
+        </collection>
+    </resultMap>
+
+    <select id="getTeacher" resultMap="teacherMap">
+        select t.id tid, t.name tname, s.id sid, s.name sname
+        from mybatis.teacher t,
+             mybatis.student s
+        where t.id = s.tid
     </select>
 
 </mapper>

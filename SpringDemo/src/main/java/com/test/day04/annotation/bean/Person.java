@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component;
  * @Controller Controller层的Component
  * @Service Service层的Component
  * @Repository Dao层的Component
+ * <p>
+ * 生成的bean id为类名称首字母小写
  */
 @Component
+//@Component("per") 为bean手动设置id
 public class Person {
     @Value("张三")
     private String name;
@@ -36,6 +39,14 @@ public class Person {
     @Autowired
     public void setDog(Dog dog) {
         this.dog = dog;
+    }
+
+    /**
+     * @Autowired使用在普通方法上
+     */
+    @Autowired
+    public void test(){
+        System.out.println("Person类中使用@Autowaired注解会在注入时调用一次该方法");
     }
 
     @Override

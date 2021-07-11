@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!--配置中央控制器DispatcherServlet，用于接收并转发所有请求-->
+    <servlet>
+        <!--DispatcherServlet初始化时会初始化spring-mvc容器WebApplicationContext-->
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!--自定义spring-mvc读取的配置文件的位置-->
+        <!--指定spring-mvc核心配置文件的路径。如果不指定，默认为/WEB-INF/${servlet-name}-servlet.xml-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:springmvc.xml</param-value>
+        </init-param>
+
+        <!--标记容器是否应该在web应用程序启动的时候就加载这个servlet-->
+        <!--值为正整数或者0时，表示容器在应用启动时就加载并初始化这个servlet，值越小，servlet的优先级越高，就越先被加载-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <!--url-pattern可以使用两种值
+        1、使用扩展名，*.xxx，如*.do、*.action
+        2、使用/
+        错误配置：/*,注意这里是不能这样配置的，如果这样写，最后转发到 jsp 页面的时候，仍然会由DispatcherServlet进行解析，
+                 而这时候会找不到对应的Handler，从而报错！！！
+        -->
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+    <!--在一个web应用中，可以开发编写多个Filter，这些Filter组合起来称之为一个Filter链。
+    web服务器根据Filter在web.xml文件中的注册顺序-->
+    <filter>
+        <filter-name>crossFilter</filter-name>
+        <filter-class>com.test.filter.MyFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>crossFilter</filter-name>
+        <url-pattern>/demo3/*</url-pattern>
+    </filter-mapping>
+
+    <!--注册声明过滤器-->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <!--设置项目中使用的字符编码-->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+        <!--强制请求对象使用encoding设置的编码方式-->
+        <init-param>
+            <param-name>forceRequestEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <!--强制响应对象使用encoding设置的编码方式-->
+        <init-param>
+            <param-name>forceResponseEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <!--强制所有的请求先通过过滤器-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>

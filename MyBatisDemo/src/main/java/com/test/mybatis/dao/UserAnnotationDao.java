@@ -9,14 +9,13 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 /**
- * 注解方式不再需要mapper.xml文件，但是只适合于一些简单的SQL语句
+ * 注解方式的sql语句
+ * 注解方式不再需要sql映射文件，但是只适合于一些简单的SQL语句
  */
-public interface UserDao2 {
+public interface UserAnnotationDao {
     //不管是注解方式和xml方式，一个参数时，可以不使用@Param注解
     @Select("select * from mybatis.user where id=#{id}")
     public User getUserById(int id);
-
-    public User getUserByName(String name);
 
     @Select("select * from mybatis.user")
     public List<User> getUsers();

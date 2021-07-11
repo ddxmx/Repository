@@ -45,6 +45,9 @@
         <fileset id="fileset13" name="Day08 Transaction" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/day08-transaction.xml</file>
         </fileset>
+        <fileset id="fileset14" name="Day09 Mybatis" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/day09-mybatis.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
@@ -80,10 +83,12 @@
     <orderEntry type="library" name="Maven: cglib:cglib:3.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:7.1" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.6" level="project" />
-    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.49" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.25" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.5.7" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:2.0.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.3.8" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.8" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.20" level="project" />
   </component>
 </module>
