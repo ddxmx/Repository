@@ -4,11 +4,16 @@
        xmlns:content="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <content:component-scan base-package="com.test.day06.task"/>
+    <bean id="logTask" class="com.test.day06.task.LogTask"/>
+
+    <bean id="monitorTask" class="com.test.day06.task.MonitorTask"/>
 
     <task:scheduled-tasks>
         <task:scheduled ref="logTask" method="run" cron="*/2 * * * * ?"/>
     </task:scheduled-tasks>
+
+    <!--使@Scheduled注解生效-->
+    <!--<task:annotation-driven/>-->
 
     <!--
         在线生成地址：https://www.matools.com/cron/
@@ -51,5 +56,6 @@
         【18】0 15 10 ? * 6L 2002-2005 从2002年到2005年每月最后一周的星期五的10点15分触发 
         【19】0 15 10 ? * 6#3 每月的第三周的星期五开始触发 
         【20】0 0 12 1/5 * ? 每月的第一个中午开始每隔5天触发一次 
-        【21】0 11 11 11 11 ? 每年的11月11号 11点11分触发(光棍节)-->
+        【21】0 11 11 11 11 ? 每年的11月11号 11点11分触发(光棍节)
+    -->
 </beans>

@@ -48,6 +48,18 @@
         <fileset id="fileset14" name="Day09 Mybatis" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/day09-mybatis.xml</file>
         </fileset>
+        <fileset id="fileset15" name="Day09 Spring Template" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/day09-spring-template.xml</file>
+        </fileset>
+        <fileset id="fileset16" name="Day10 Mybatis" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/day10-mybatis.xml</file>
+        </fileset>
+        <fileset id="fileset17" name="Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/transaction/application-context.xml</file>
+        </fileset>
+        <fileset id="fileset18" name="Day08 Spel" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/day08-spel.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
@@ -90,5 +102,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.3.8" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.8" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.20" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:druid:1.2.6" level="project" />
   </component>
 </module>

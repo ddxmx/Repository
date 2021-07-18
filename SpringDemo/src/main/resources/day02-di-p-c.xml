@@ -6,6 +6,7 @@
 
     <!--p标签和c标签的产生主要是方便书写，能力上于property和constructor-arg标签作用一致-->
     <!--使用p标签代替property标签-->
+    <!--但是p标签不能注入集合类型-->
     <bean id="car" class="com.test.day02.di.bean.Car" p:brand="大众" p:price="150000"/>
     <!--<bean id="car" class="com.test.day02.di.bean.Car">
         <property name="brand" value="大众"/>
@@ -14,9 +15,12 @@
 
 
     <!--使用c标签代替constructor-arg标签-->
+    <!--但是c标签不能注入集合类型-->
     <bean id="car2" class="com.test.day02.di.bean.Car" c:brand="奥迪" c:price="400000"/>
     <!--<bean id="car2" class="com.test.day02.di.bean.Car">
         <constructor-arg name="brand" value="奥迪"/>
         <constructor-arg name="price" value="400000"/>
     </bean>-->
+
+
 </beans>

@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean id="car" class="com.test.day02.di.bean.Car">
         <property name="brand" value="宝马"/>
         <property name="price" value="300000"/>
     </bean>
 
+
+    <!--
+    util:list 创建一个java.util.List类型的bean， 其中包含值或引用
+    util:map 创建一个java.util.Map类型的bean， 其中包含值或引用
+    util:properties 创建一个java.util.Properties类型的bean
+    util:set 创建一个java.util.Set类型的bean， 其中包含值或引用
+    -->
+
+    <!--注入属性时引用集合-->
+    <util:list id="myHobbies">
+        <value>上网</value>
+        <value>打游戏</value>
+        <value>睡觉</value>
+    </util:list>
+
+    <!---->
     <bean id="person" class="com.test.day02.di.bean.Person">
         <!--property设置必须要提供set方法，name属性的值实际上是set对应的方法名-->
         <property name="name" value="jerry"/>
@@ -25,12 +42,13 @@
         </property>
 
         <!--list注入方式-->
-        <property name="hobbies">
-            <list>
+        <!--在外部通过util:list方式定义，通过引用方式引用-->
+        <property name="hobbies" ref="myHobbies">
+            <!--<list>
                 <value>读书</value>
                 <value>音乐</value>
                 <value>唱歌</value>
-            </list>
+            </list>-->
         </property>
 
         <!--map注入方式-->

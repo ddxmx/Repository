@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @Import("XXX.class")  导入其他配置类，类似于xml中的<import></import>标签
+ * @ImportResource("classpath:day01-ioc.xml")  导入xml信息导入到配置类中
+ */
 @Configuration
 @ComponentScan(basePackageClasses = Person.class)
 public class ContextConfig {

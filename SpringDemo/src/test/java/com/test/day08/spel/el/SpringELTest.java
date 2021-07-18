@@ -1,14 +1,15 @@
 package com.test.day08.spel.el;
 
+import com.test.day08.spel.config.BeanConfig;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class SpringELTest {
     @Test
     public void spelTest() {
-        //ApplicationContext context = new AnnotationConfigApplicationContext(BeanConfig.class);
-        ApplicationContext context = new ClassPathXmlApplicationContext("day08-spel.xml");
+        ApplicationContext context = new AnnotationConfigApplicationContext(BeanConfig.class);
+        //ApplicationContext context = new ClassPathXmlApplicationContext("day08-spel.xml");
         SpringEL spel = context.getBean("springEL", SpringEL.class);
         System.out.println(spel.num); //5
         System.out.println(spel.car); //Car{brand='宝马', price=300000.0}

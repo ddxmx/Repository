@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 /**
  * 使用@Autowired注解，可以使用在属性、构造方法、set方法上
+ * 使用选择：倾向于对强依赖使用构造器注入， 而对可选性的依赖使用属性注入
  * 在属性上使用@Autowired注解，可以不用写set方法，原因是spring会将属性权限设置可见后修改属性值
  * Autowired不支持设置名称，先根据type，再根据name
  * Resource可以指定名称，先根据name，再根据type
@@ -34,13 +35,12 @@ public class Worker {
      * 如果只存在car3，则能够正常找到car3
      * 以上情况可以指定要找到的bean的名称
      */
-//    @Resource
-//    private Car car;
-
-    //直接指定名称
-    @Resource(name = "car2")
+    @Resource
     private Car car;
 
+    //直接指定名称
+//    @Resource(name = "car2")
+//    private Car car;
     public Worker() {
     }
 

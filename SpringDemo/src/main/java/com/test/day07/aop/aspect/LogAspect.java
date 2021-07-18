@@ -1,8 +1,8 @@
 package com.test.day07.aop.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.stereotype.Component;
 
 /**
  * 定义切面类
@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
  * 切入点：定义要拦截的方法
  * 通知：方法拦截的时机和执行的操作
  */
-//注册bean
-@Component
 //切面类注解
 @Aspect
 public class LogAspect {
@@ -43,8 +41,9 @@ public class LogAspect {
     /**
      * 方法执行前执行
      */
-    //@Before("cut()")
-    public void before() {
+    @Before("cut()")
+    public void before(JoinPoint joinPoint) {
+        System.out.println("连接点信息：" + joinPoint.getClass().getName());
         System.out.println("前置通知");
     }
 
@@ -53,15 +52,16 @@ public class LogAspect {
      * 目标方法无异常返回后执行
      * 后置通知
      */
-    //@AfterReturning("cut()")
-    public void afterReturn() {
-        System.out.println("返回通知");
+    @AfterReturning(pointcut = "cut()", returning = "result")
+    public void afterReturn(JoinPoint joinPoint, String result) {
+        System.out.println("连接点信息：" + joinPoint.getClass().getName());
+        System.out.println("返回通知：" + result);
     }
 
     /**
      * 目标方法执行无论是否有异常都会执行
      */
-    //@After("cut()")
+    @After("cut()")
     public void after() {
         System.out.println("最终通知");
     }
@@ -71,7 +71,7 @@ public class LogAspect {
      *
      * @param e 目标方法抛出的异常对象
      */
-    //@AfterThrowing(value = "cut()", throwing = "e")
+    @AfterThrowing(value = "cut()", throwing = "e")
     public void afterThrow(Exception e) {
         System.out.println("异常通知：" + e.getMessage());
     }
@@ -79,7 +79,7 @@ public class LogAspect {
     /**
      * 环绕通知
      */
-    @Around("cut()")
+    //@Around("cut()")
     public Object around(ProceedingJoinPoint joinPoint) {
         System.out.println("前置通知");
         Object result = null;

@@ -24,9 +24,9 @@ public class LogXmlAspect {
      * 目标方法无异常返回后执行
      * JoinPoint可以获取切入点的信息
      */
-    public void afterReturn(JoinPoint joinPoint) {
+    public void afterReturn(JoinPoint joinPoint, String result) {
         System.out.println(joinPoint.getTarget().getClass().getName());
-        System.out.println("返回通知");
+        System.out.println("返回通知：" + result);
     }
 
     /**
