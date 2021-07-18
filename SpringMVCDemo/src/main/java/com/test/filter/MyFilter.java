@@ -1,11 +1,12 @@
 package com.test.filter;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
  * 过滤器
- * 过滤器启动时就会执行init方法
  */
 public class MyFilter implements Filter {
     @Override
@@ -16,7 +17,12 @@ public class MyFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         System.out.println("过滤处理");
-        filterChain.doFilter(servletRequest, servletResponse);
+        String uri = ((HttpServletRequest) servletRequest).getRequestURI();
+        if (uri.contains("/demo5")) {
+            ((HttpServletResponse) servletResponse).sendRedirect("http://www.baidu.com");
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
+        }
     }
 
     @Override

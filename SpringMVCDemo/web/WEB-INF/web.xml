@@ -30,21 +30,10 @@
         错误配置：/*,注意这里是不能这样配置的，如果这样写，最后转发到 jsp 页面的时候，仍然会由DispatcherServlet进行解析，
                  而这时候会找不到对应的Handler，从而报错！！！
         -->
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <!--在一个web应用中，可以开发编写多个Filter，这些Filter组合起来称之为一个Filter链。
-    web服务器根据Filter在web.xml文件中的注册顺序-->
-    <filter>
-        <filter-name>crossFilter</filter-name>
-        <filter-class>com.test.filter.MyFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>crossFilter</filter-name>
-        <url-pattern>/demo3/*</url-pattern>
-    </filter-mapping>
-
-    <!--注册声明过滤器-->
+    <!--在web.xml中配置过滤器-->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -68,6 +57,17 @@
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <!--强制所有的请求先通过过滤器-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--在一个web应用中，可以开发编写多个Filter，这些Filter组合起来称之为一个Filter链。
+    web服务器根据Filter在web.xml文件中的注册顺序执行-->
+    <filter>
+        <filter-name>crossFilter</filter-name>
+        <filter-class>com.test.filter.MyFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>crossFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 </web-app>

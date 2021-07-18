@@ -7,12 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 拦截器
  * 拦截器是SpringMVC框架自己的，只有使用了SpringMVC框架的工程才能使用
- * 拦截器只会拦截访问的控制器方法， 如果访问的是jsp/html/css/image/js是不会进行拦截的
+ * 拦截器只会拦截访问的Controller方法， 如果访问的是jsp/html/css/image/js是不会进行拦截的
  */
 public class MyInterceptor implements HandlerInterceptor {
-
     //在请求处理的方法之前执行
     //如果返回true执行下一个拦截器
     //如果返回false就不执行下一个拦截器

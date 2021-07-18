@@ -5,28 +5,6 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--springMVC属于视图层的框架-->
-
-    <!--扫描controller包的注解-->
-    <context:component-scan base-package="com.test.controller"/>
-
-    <!-- Spring MVC不处理静态资源 -->
-    <mvc:default-servlet-handler/>
-
-    <!-- 支持mvc注解驱动
-        在spring中一般采用@RequestMapping注解来完成映射关系，要想使@RequestMapping注解生效
-        必须向上下文中注册DefaultAnnotationHandlerMapping
-        和一个AnnotationMethodHandlerAdapter实例
-        而annotation-driven配置帮助我们自动完成上述两个实例的注入。 -->
-    <mvc:annotation-driven>
-        <mvc:message-converters register-defaults="true">
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <constructor-arg value="UTF-8"/>
-            </bean>
-        </mvc:message-converters>
-
-    </mvc:annotation-driven>
-
     <!--视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--/WEB-INF/ 路径下的资源客户端无法直接访问-->
@@ -36,13 +14,25 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--扫描controller包的注解-->
+    <context:component-scan base-package="com.test.controller"/>
+
+    <!-- 能支持spring-mvc更高级的一些功能，JSR303，快捷的ajax -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
     <!--关于拦截器的配置-->
     <mvc:interceptors>
         <mvc:interceptor>
             <!--/** 包括路径及其子路径-->
             <!--/admin/* 拦截的是/admin/add等等这种 , /admin/add/user不会被拦截-->
             <!--/admin/** 拦截的是/admin/下的所有-->
-            <mvc:mapping path="/param/*"/>
+            <mvc:mapping path="/demo4/*"/>
             <!--bean配置的就是拦截器-->
             <bean class="com.test.interceptor.MyInterceptor"/>
         </mvc:interceptor>
