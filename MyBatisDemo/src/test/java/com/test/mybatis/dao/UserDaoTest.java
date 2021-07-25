@@ -138,4 +138,13 @@ public class UserDaoTest {
             list.forEach(System.out::println);
         }
     }
+
+    @Test
+    public void count() {
+        try (SqlSession session = MyBatisUtil.getSession()) {
+            UserDao mapper = session.getMapper(UserDao.class);
+            int count = mapper.count();
+            System.out.println("总条数：" + count);
+        }
+    }
 }

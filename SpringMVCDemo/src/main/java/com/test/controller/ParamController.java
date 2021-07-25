@@ -2,10 +2,12 @@ package com.test.controller;
 
 import com.test.bean.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/demo3")
@@ -53,9 +55,31 @@ public class ParamController {
      * 前端传递的参数会使用接收对象的属性设置值
      * 属性名称不一致时属性值为null
      */
-    @PostMapping(value = "/doObjectParam",produces = {"text/plain;charset=utf-8"})
+    @PostMapping(value = "/doObjectParam", produces = {"text/plain;charset=utf-8"})
     //User对象的创建由框架自己完成
     public String paramObjectDo(User user) {
+        System.out.println(user);
+        return user.toString();
+    }
+
+    /**
+     * @param user
+     * @return
+     * @RequestBody 将json请求参数转换为字符串
+     */
+    @PostMapping(value = "/doJsonParam", produces = {"text/plain;charset=utf-8"})
+    public String paramJsonDo(@RequestBody @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            StringBuffer sb = new StringBuffer();
+            List<ObjectError> list = bindingResult.getAllErrors();
+            for (ObjectError error : list) {
+                //ob.getDefaultMessage()  获得具体的异常信息
+                sb.append(error.getDefaultMessage());
+                sb.append("\n");
+            }
+
+            return sb.toString();
+        }
         System.out.println(user);
         return user.toString();
     }

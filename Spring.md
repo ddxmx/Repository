@@ -1,8 +1,6 @@
-# Spring实战
+# Spring
 
 # 一、引导
-
-Spring的IOC底层实现原理是**工厂设计模式+反射+XML配置文件。**
 
 ```xml
 <!--spring开发依赖-->
@@ -46,7 +44,10 @@ Spring的IOC底层实现原理是**工厂设计模式+反射+XML配置文件。*
 
 # 二、IOC（控制反转）
 
-## 1、获取IOC容器方式
+IoC（Inverse of Control:控制反转）是一种设计思想，就是 将原本在程序中手动创建对象的控制权，交由Spring框架来管理。 IoC 容器实际上就是个Map（key，value）,Map 中存放的是各种对象。
+Spring的IOC底层实现原理是**工厂设计模式+反射+XML配置文件。**
+
+## 1、获取IOC容器方式`
 
 ### 1）ClassPathXmlApplicationContext
 
@@ -1432,10 +1433,10 @@ System.out.println(user);
 事务的传播性一般用在事务嵌套的场景，比如一个事务方法里面调用了另外一个事务方法，那么两个方法是各自作为独立的方法提交还是内层的事务合并到外层的事务一起提交，这就是需要事务传播机制的配置来确定怎么样执行。
 常用的事务传播机制如下：
 
-- PROPAGATION_REQUIRED
+- **PROPAGATION_REQUIRED**
   Spring默认的传播机制，能满足绝大部分业务需求，如果外层有事务，则当前事务加入到外层事务，一块提交，一块回滚。如果外层没有事务，新建一个事务执行
-- PROPAGATION_REQUES_NEW
-  该事务传播机制是每次都会新开启一个事务，同时把外层事务挂起，当当前事务执行完毕，恢复上层事务的执行。如果外层没有事务，执行当前新开启的事务即可
+- **PROPAGATION_REQUES_NEW**
+  该事务传播机制是每次都会新开启一个事务，同时把外层事务挂起，当当前事务执行完毕，恢复上层事务的执行。如果外层没有事务，执行当前新开启的事务即可。**外层事务异常不会影响内层事务的提交。**
 - PROPAGATION_SUPPORT
   如果外层有事务，则加入外层事务，如果外层没有事务，则直接使用非事务方式执行。完全依赖外层的事务
 - PROPAGATION_NOT_SUPPORT
@@ -1507,7 +1508,7 @@ public class UserService {
     </tx:attributes>
 </tx:advice>
 
-<!--配置aop织入事务-->
+<!--配置aop织入事务，指定使用作用在哪些方法上-->
 <aop:config>
     <aop:pointcut id="txPointcut"
                   expression="execution(* com.test.day11.transaction.service.UserService.doUser(..))"/>

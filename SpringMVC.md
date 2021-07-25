@@ -315,6 +315,30 @@ public class RestfulController {
 <p><a href="demo2/test/action/123">获取请求中的路径</a></p>
 ```
 
+### 2）@RequestHeader
+
+使用@RequestHeader绑定请求报头信息，请求头包含了若干属性，服务器可据此获知客户端的信息。
+
+```java
+@RequestMapping("/helloworld")
+public String hello(@RequestHeader("Accept-Encoding") String encoding){
+		System.out.println("helloWorld:"+encoding);
+		return "success";
+}
+```
+
+### 3）@CookieValue
+
+使用@CookieValue绑定请求中的Cookie值
+
+```java
+@RequestMapping("/helloworld")
+public String hello(@CookieValue("JSESSIONID") String sessionId){
+	 System.out.println("helloWorld:"+sessionId);
+	 return "success";
+}
+```
+
 ## 4、接收请求中的参数
 
 ### 0）==解决请求参数中文乱码的问题==
@@ -349,9 +373,9 @@ public class RestfulController {
 ```
 
 ```xml
-SpringMVC的@ResponseBody注解可以将请求方法返回的对象直接转换成JSON对象，但是当返回值是String的时候，中文会乱码，
+<!--SpringMVC的@ResponseBody注解可以将请求方法返回的对象直接转换成JSON对象，但是当返回值是String的时候，中文会乱码，
 原因是因为其中字符串转换和对象转换用的是两个转换器，而String的转换器中固定了转换编码为"ISO-8859-1"；
-在@RequestMapping中的produces指定编码格式，可以解决此问题。也可以在springmvc.xml中统一配置
+在@RequestMapping中的produces指定编码格式，可以解决此问题。也可以在springmvc.xml中统一配置-->
 <!-- 能支持springmvc更高级的一些功能，JSR303，快捷的ajax -->
 <mvc:annotation-driven>
 	<mvc:message-converters register-defaults="true">
@@ -393,7 +417,7 @@ public class ParamController {
 
 ### 2）逐个接收参数，请求中参数名和方法中参数名不一致
 
-@RequestParam
+#### @RequestParam
 
 ```java
 @RequestParam：将请求参数绑定到控制器的方法参数上（是springmvc中接收普通参数的注解）
@@ -445,6 +469,31 @@ public String paramObjectDo(User user) {
 </form>
 ```
 
+### 4) 将接收的json数据转换为对象
+
+#### @RequestBody
+
+```java
+/**
+ * @RequestBody 将json请求参数转换为字符串
+ * @param user
+ * @return
+ */
+@PostMapping(value = "/doJsonParam",produces = {"text/plain;charset=utf-8"})
+public String paramJsonDo(@RequestBody User user){
+	System.out.println(user);
+	return user.toString();
+}
+```
+
+```json
+//Content-Type:application/json
+{
+    "name":"张三",
+    "age":10
+}
+```
+
 ## 5、返回数据
 
 ### 1）视图（model AndView）
@@ -452,6 +501,8 @@ public String paramObjectDo(User user) {
 ### 2）字符串
 
 ### 3）返回json数据
+
+#### @ResponseBody
 
 ```xml
 <!--用于controller返回对象时转换为json数据-->
@@ -464,6 +515,7 @@ public String paramObjectDo(User user) {
 
 ```java
 @GetMapping("/doJsonResult")
+@ResponseBody
 public User doJsonResult() {
 	User user = new User("jerry", 12);
 	//返回的对象会自动转换为json，同时响应的Content-Type为application/json
@@ -471,7 +523,19 @@ public User doJsonResult() {
 }
 ```
 
-## 6、使用RestController代替Controller
+### 4）指定状态码返回
+
+**ResponseEntity**
+
+```
+@GetMapping("/doStatusResult")
+public ResponseEntity doStatusResult() {
+	User user = new User("张三", 20);
+	return new ResponseEntity(user, HttpStatus.UNAUTHORIZED);
+}
+```
+
+### 6、使用RestController代替Controller
 
 ```java
 @RestController：使用在类上，相当于@ResponseBody＋@Controller
@@ -639,6 +703,108 @@ web服务器根据Filter在web.xml文件中的注册顺序执行-->
 	<filter-name>crossFilter</filter-name>
 	<url-pattern>/*</url-pattern>
 </filter-mapping>
+```
+
+# 六、数据校验
+
+```xml
+<!--数据校验-->
+<dependency>
+	<groupId>javax.validation</groupId>
+	<artifactId>validation-api</artifactId>
+	<version>2.0.1.Final</version>
+</dependency>
+
+<dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate-validator</artifactId>
+	<version>6.0.22.Final</version>
+</dependency>
+```
+
+**xml中注册校验器**
+
+```xml
+<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+<mvc:annotation-driven validator="validator"/>
+```
+
+## 1、实体类中使用注解定义校验信息
+
+```java
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+    @Length(min = 4, max = 10, message = "名字长度必须为4~10位")
+    private String name;
+
+    @Min(value = 0, message = "年龄必须大于0")
+    private Integer age;
+}
+```
+
+| 注解                        | 说明                                                     |
+| :-------------------------- | :------------------------------------------------------- |
+| @Null                       | 被注解的元素必须为 null                                  |
+| @NotNull                    | 被注解的元素必须不为 null                                |
+| @AssertTrue                 | 被注解的元素必须为 true                                  |
+| @AssertFalse                | 被注解的元素必须为 false                                 |
+| @Min(value)                 | 被注解的元素必须是一个数字，其值必须大于等于指定的最小值 |
+| @Max(value)                 | 被注解的元素必须是一个数字，其值必须小于等于指定的最大值 |
+| @DecimalMin(value)          | 被注解的元素必须是一个数字，其值必须大于等于指定的最小值 |
+| @DecimalMax(value)          | 被注解的元素必须是一个数字，其值必须小于等于指定的最大值 |
+| @Size(max=, min=)           | 被注解的元素的大小必须在指定的范围内                     |
+| @Digits (integer, fraction) | 被注解的元素必须是一个数字，其值必须在可接受的范围内     |
+| @Past                       | 被注解的元素必须是一个过去的日期                         |
+| @Future                     | 被注解的元素必须是一个将来的日期                         |
+| @Pattern(regex=,flag=)      | 被注解的元素必须符合指定的正则表达式                     |
+| @NotBlank(message =)        | 验证字符串非null，且长度必须大于0                        |
+| @Email                      | 被注解的元素必须是电子邮箱地址                           |
+| @Length(min=,max=)          | 被注解的字符串的大小必须在指定的范围内                   |
+| @NotEmpty                   | 被注解的字符串的必须非空                                 |
+| @Range(min=,max=,message=)  | 被注解的元素必须在合适的范围内                           |
+
+## 2、Controller使用@Valid生效校验
+
+==@Valid==
+
+```java
+/**
+ * @param user
+ * @return
+ * @RequestBody 将json请求参数转换为字符串
+ */
+@PostMapping(value = "/doJsonParam", produces = {"text/plain;charset=utf-8"})
+public String paramJsonDo(@RequestBody @Valid User user, BindingResult bindingResult) {
+	if (bindingResult.hasErrors()) {
+		StringBuffer sb = new StringBuffer();
+		List<ObjectError> list = bindingResult.getAllErrors();
+		for (ObjectError error : list) {
+			//ob.getDefaultMessage()  获得具体的异常信息
+			sb.append(error.getDefaultMessage());
+			sb.append("\n");
+		}
+
+		return sb.toString();
+	}
+	System.out.println(user);
+	return user.toString();
+}
+```
+
+## 3、执行
+
+```json
+//请求体
+{
+    "name":"张三",
+    "age":-10
+}
+
+//响应体，先执行哪个字段校验随机的
+年龄必须大于0
+名字长度必须为4~10位
 ```
 
 

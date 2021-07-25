@@ -40,4 +40,7 @@ public interface UserDao {
 
     //使用分页插件
     public List<User> getUsersWithPageHelper();
+
+    //查询总条数
+    public int count();
 }

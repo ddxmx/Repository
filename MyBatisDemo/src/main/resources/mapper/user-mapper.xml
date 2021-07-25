@@ -14,7 +14,7 @@
     </select>
 
     <!--resultType是数据库中一行记录的类型-->
-    <select id="getAllUsers" resultType="com.test.mybatis.pojo.User">
+    <select id="getAllUsers"  resultType="com.test.mybatis.pojo.User">
         select id, name, age
         from mybatis.user
     </select>
@@ -69,6 +69,11 @@
 
     <select id="getUsersWithPageHelper" resultType="com.test.mybatis.pojo.User">
         select id, name, age
+        from mybatis.user
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*)
         from mybatis.user
     </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.test.mybatis.pojo;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
@@ -12,19 +13,11 @@ import java.io.Serializable;
  * 在动态SQL中，例如age != null的判断将永远为true，会出现一些隐藏的问题
  */
 @Alias("testUser")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable {
     private Integer id;
     private String name;
     private Integer age;
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
 }

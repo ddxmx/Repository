@@ -17,8 +17,10 @@
     <!--扫描controller包的注解-->
     <context:component-scan base-package="com.test.controller"/>
 
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
     <!-- 能支持spring-mvc更高级的一些功能，JSR303，快捷的ajax -->
-    <mvc:annotation-driven>
+    <mvc:annotation-driven validator="validator">
         <mvc:message-converters register-defaults="true">
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8"/>
