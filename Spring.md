@@ -1,12 +1,21 @@
 # Spring
 
-# 一、引导
+# 一、引言
+
+~~~markdown
+Spring是⼀个轻量级的JavaEE解决⽅案，整合众多优秀的设计模式
+1. 对运⾏环境没有额外要求
+开源 tomcat jetty
+收费 weblogic websphere
+2. 代码移植性⾼
+不需要实现额外接⼝
+~~~
 
 ```xml
 <!--spring开发依赖-->
 <dependency>
     <groupId>org.springframework</groupId>
-    <artifactId>spring-webmvc</artifactId>
+    <artifactId>spring-context</artifactId>
     <version>5.3.8</version>
 </dependency>
 
@@ -44,10 +53,10 @@
 
 # 二、IOC（控制反转）
 
-IoC（Inverse of Control:控制反转）是一种设计思想，就是 将原本在程序中手动创建对象的控制权，交由Spring框架来管理。 IoC 容器实际上就是个Map（key，value）,Map 中存放的是各种对象。
+IOC是一种设计思想，就是 将原本在程序中手动创建对象的控制权，交由Spring框架来管理。 IoC 容器实际上就是个Map，Map 中存放的是各种对象。
 Spring的IOC底层实现原理是**工厂设计模式+反射+XML配置文件。**
 
-## 1、获取IOC容器方式`
+## 1、获取IOC容器方式
 
 ### 1）ClassPathXmlApplicationContext
 
@@ -77,7 +86,39 @@ ApplicationContext context = new AnnotationConfigApplicationContext(UserConfig.c
 UserDao userDao = context.getBean(UserMysqlDaoImpl.class);
 ```
 
-## 2、Bean 实例化方式
+### 4）XmlWebApplicationContext 
+
+web环境下的IOC容器
+
+## 2、获取Bean的方式
+
+~~~java
+//通过bean的id和类型获取bean
+Person person = ctx.getBean("person", Person.class);
+
+//只通过类型获取bean，当存在多个相同类型的bean时将会出现异常
+Person person = ctx.getBean(Person.class);
+
+//获取的是Spring⼯⼚配置⽂件中所有bean标签的id值
+String[] beanDefinitionNames = ctx.getBeanDefinitionNames();
+
+//根据类型获得Spring配置⽂件中对应的id值
+String[] beanNamesForType = ctx.getBeanNamesForType(Person.class);
+
+//⽤于判断是否存在指定的bean，只会根据id属性判断，不会根据name属性判断
+ctx.containsBeanDefinition("person")
+ 
+//⽤于判断是否存在指定的bean，会根据id和name属性判断
+ctx.containsBean("person")
+~~~
+
+```xml
+<!--bean只使用一次，可以不定义id。如果bean使用多次或被其他bean引用，需要定义id属性-->
+<!--name表示别名，可以使用逗号定义多个-->
+<bean id="person" name="per" class="com.test.bean.Person"/>
+```
+
+## 3、Bean 实例化方式
 
 ### 1）构造器实例化
 
@@ -127,7 +168,51 @@ public class StudentFactory {
 <bean id="studentBean" factory-bean="studentFactory" factory-method="getStudent"/>
 ```
 
-## 3、装配
+### 4）FactoryBean接口实现类
+
+```java
+//实现FactoryBean接口
+public class ConnectionFactoryBean implements FactoryBean<Connection> {
+    private String driver;
+    private String url;
+    private String username;
+    private String password;
+    
+    //set、get方法略
+    
+    @Override
+    public Connection getObject() throws Exception {
+        Class.forName(driver);
+        Connection connection = DriverManager.getConnection(url, username, password);
+        return connection;
+    }
+
+    @Override
+    public Class<?> getObjectType() {
+        return Connection.class;
+    }
+
+    @Override
+    public boolean isSingleton() {
+        return false;
+    }
+}
+```
+
+~~~xml
+<!--当前bean定义获取到的是getObject()方法返回的对象-->
+<!--如果要获取ConnectionFactoryBean的实例，获取bean时使用ctx.getBean("&conn") 的方式-->
+<bean id="conn" class="com.test.day01.hello.factory.ConnectionFactoryBean">
+    <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false"/>
+    <property name="username" value="root"/>
+    <property name="password" value="123456"/>
+</bean>
+~~~
+
+## 4、装配（注入）
+
+**注入：通过Spring⼯⼚及配置⽂件，为所创建对象的成员变量赋值。**可以注入JDK内置类型或自定义类型。
 
 Spring装配有三种方式：
 
@@ -283,7 +368,7 @@ public class UserServiceImpl implements UserService {
 }
 ```
 
-### 2）通过java方式装配bean
+### 2）通过java方式手动装配bean
 
 #### @Configuration 和@Bean
 
@@ -320,7 +405,7 @@ public Student student(Book book) {
 }
 ```
 
-### 3）通过xml方式装配bean
+### 3）xml方式装配
 
 ```xml
 <!--定义bean,id唯一标识-->
@@ -422,11 +507,11 @@ public Student student(Book book) {
 </bean>
 ```
 
-#### B、属性注入
+#### B、set注入
 
-**属性注入依赖set方法**
+**set注入依赖于set方法，没有set方法无法进行使用set注入的方式**
 
-==使用构造器注入还是属性注入?：强依赖使用构造器注入，而对可选性的依赖使用属性注入==
+==使用构造器注入还是set注入?：强依赖使用构造器注入，而对可选性的依赖使用set注入==
 
 ```xml
 <bean id="book" class="com.test.bean.Book" p:title="java编程思想" p:price="99.9"/>
@@ -510,7 +595,7 @@ public class UserConfig {
 <context:annotation-config/>
 ```
 
-## 4、属性占位符${ }
+## 5、属性占位符${ }
 
 ### 1）使用@PropertySource注解和Environment获取运行时外部值
 
@@ -583,7 +668,7 @@ public class CommonConfig {
 <context:property-placeholder location="classpath:customer.properties"/>
 ```
 
-## 5、Spring EL表达式
+## 6、Spring EL表达式
 
 ### 1）表示字面量
 
@@ -679,7 +764,77 @@ public class CommonConfig {
 #{city.cars.?[price > 50000].![brand]}
 ```
 
-## 6、Bean的作用域及生命周期
+## 7、自定义转换器
+
+xml中value值字符串可以转换为基本数据类型，原因时因为spring内置了转换器，会进行数字的转换。
+但是，字符串类型转换为Date类型将出现异常，因此没有提供需要的转换器。因此需要自定义转换器时间类型转换。
+
+### 1）定义转换器实现Converter接口
+
+~~~java
+public class MyDateConverter implements Converter<String, Date> {
+    private String pattern;
+    public String getPattern() {
+   	 	return pattern;
+    }
+    public void setPattern(String pattern) {
+    	this.pattern = pattern;
+    }
+    /*
+        convert⽅法作⽤： String ---> Date
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.parset(String) ---> Date
+        param:source 代表的是配置⽂件中 ⽇期字符串 <value>2020-10-11</value>
+        return : 当把转换好的Date作为convert⽅法的返回值后， Spring⾃动的
+        为birthday属性进⾏注⼊（赋值）
+    */
+    @Override
+    public Date convert(String source) {
+        Date date = null;
+        try {
+        	SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        	date = sdf.parse(source);
+        } catch (ParseException e) {
+       		e.printStackTrace();
+        }
+        return date;
+    }
+}
+~~~
+
+### 2）实例化bean、注册转换器
+
+```xml
+<!--Spring创建MyDateConverter类型对象-->
+<bean id="myDateConverter" class="com.baizhiedu.converter.MyDateConverter">
+    <property name="pattern" value="yyyy-MM-dd"/>
+</bean>
+```
+
+~~~xml
+⽬的：告知Spring框架，我们所创建的MyDateConverter是⼀个类型转换器
+<!--⽤于注册类型转换器，id必须为conversionService-->
+<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+    <property name="converters">
+        <set>
+        	<ref bean="myDateConverter"/>
+        </set>
+    </property>
+</bean>
+~~~
+
+- Spring框架内置⽇期类型的转换器  
+
+  ⽇期格式： 2020/05/01 (不⽀持 ： 2020-05-01)  
+
+## 8、Bean的作用域及生命周期
+
+- 调用反射实例化对象
+- DI注入属性
+- BeanPostProcessor中before方法
+- init-method
+- BeanPostProcessor中after方法
+- destory-method
 
 ### 1）scope
 
@@ -776,6 +931,49 @@ A、xml方式
 B、注解方式
 
 在bean上使用注解@Lazy就表示延迟加载
+
+### 5）BeanPostProcessor
+
+对Spring⼯⼚所创建的对象，进⾏再加⼯。
+
+BeanPostProcessor会对Spring⼯⼚中所有创建的对象进⾏加⼯。 
+
+````markdown
+# BeanPostProcessor使用场景
+1、可以解析bean中的一些注解转化为需要的属性
+2、注入处理一些统一的属性，而不用在每个bean中注入
+3、甚至可以做一些日志打印时间等
+````
+
+```java
+public class MyBeanPostProcessor implements BeanPostProcessor {
+    /**
+    作⽤： Spring创建完对象，并进⾏注⼊后，可以运⾏Before⽅法进⾏加⼯
+            获得Spring创建好的对象 ：通过⽅法的参数
+            最终通过返回值交给Spring框架
+	*/
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+    	return bean;
+    }
+    
+    /**
+    作⽤： Spring执⾏完对象的初始化操作后，可以运⾏After⽅法进⾏加⼯
+            获得Spring创建好的对象 ：通过⽅法的参数
+            最终通过返回值交给Spring框架
+    */
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        Categroy categroy = (Categroy) bean;
+        categroy.setName("xiaowb");
+        return categroy;
+    }
+}
+```
+
+```xml
+<bean id="myBeanPostProcessor" class="xxx.MyBeanPostProcessor"/>
+```
 
 # 三、AOP（面向切面编程）
 
@@ -1516,3 +1714,36 @@ public class UserService {
 </aop:config>
 ```
 
+# 八、Spring 5.x与日志框架整合
+
+~~~markdown
+Spring5.x整合log4j
+1. 引⼊log4j jar包
+2. 引⼊log4.properties配置⽂件
+~~~
+
+~~~xml
+<!--添加日志相关依赖-->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
+    <version>1.7.32</version>
+</dependency>
+
+<dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.17</version>
+</dependency>
+~~~
+
+```markdown
+# resources下创建日志文件log4j.properties
+### ### 配置根 配置根
+log4j.rootLogger = debug,console
+### ### ⽇志输出到控制台显示 ⽇志输出到控制台显示
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+log4j.appender.console.Target=System.out
+log4j.appender.console.layout=org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+```
