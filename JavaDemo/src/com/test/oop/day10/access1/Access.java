@@ -9,7 +9,7 @@ public class Access {
     public int publicVar;
 
     private void privateMethod() {
-        //private属性可以在当前类中访问
+        // private属性可以在当前类中访问
         privateVar = 1;
         defaultVar = 2;
         publicVar = 3;
@@ -27,11 +27,14 @@ public class Access {
         publicVar = 3;
     }
 
-    public void privateTest(){
-        //private方法可以在当前类中访问
+    public void privateTest() {
+        // private方法可以在当前类中访问
         privateMethod();
     }
 }
 
+/**
+ * 缺省访问权限的类，只能被类所在包的其他类访问
+ */
 class DefaultClass {
 }

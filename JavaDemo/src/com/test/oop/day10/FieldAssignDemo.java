@@ -2,9 +2,9 @@ package com.test.oop.day10;
 
 /**
  * 属性赋值的先后顺序
- * 1、属性的赋值
- * 2、构造器的赋值
- * 3、set方法的赋值
+ * 1、属性初始化赋值
+ * 2、构造器赋值
+ * 3、set方法赋值
  */
 class User {
     private String name = "张三";
@@ -33,11 +33,22 @@ class User {
     public void setAge(int age) {
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }
 
 public class FieldAssignDemo {
     public static void main(String[] args) {
         User user1 = new User();
+        System.out.println(user1); // User{name='张三', age=18}
+
         User user2 = new User("Tom", 20);
+        System.out.println(user2); // User{name='Tom', age=20}
     }
 }
