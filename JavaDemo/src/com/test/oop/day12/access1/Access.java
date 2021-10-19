@@ -21,8 +21,8 @@ public class Access {
 class AccessDemo {
     public static void main(String[] args) {
         Access access = new Access();
-        //不涉及到子类的概念，缺省的属性必然要通过创建对象访问
-        System.out.println(access.defaultVar);
-        access.defaultMethod();
+        // default属性在同一个包中可以直接通过对象方法
+        System.out.println(access.defaultVar); // 0
+        access.defaultMethod(); // default method：200
     }
 }

@@ -53,7 +53,7 @@ public class DataTypeConversionDemo {
             System.out.println(sum8); // 30
         }
 
-        //强制类型转换
+        // 强制类型转换
         {
             double d1 = 10.8;
             // double类型强制转换为int类型，直接舍弃小数位

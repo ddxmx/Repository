@@ -33,6 +33,8 @@ public class SwitchDemo {
         }
 
         String today = "周四";
+        // switch语句中String类型的变量为null时，将出现java.lang.NullPointerException异常
+        // today = null;
         switch (today) {
             // default可以写在case语句之前，但是执行的时候依然先匹配case，所有case不满足再执行default
             // 但如果default中没有break语句将导致继续向下执行

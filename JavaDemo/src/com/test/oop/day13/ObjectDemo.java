@@ -1,5 +1,7 @@
 package com.test.oop.day13;
 
+import java.util.Objects;
+
 class User {
     private String name;
     private int age;
@@ -29,10 +31,8 @@ class User {
     }
 
     /**
-     * 覆写equals方法，java.lang.Object类中的equals方法默认比较的是内存地址
-     *
-     * @param obj
-     * @return
+     * 覆写equals方法
+     * java.lang.Object类中的equals方法默认比较的是内存地址
      */
     @Override
     public boolean equals(Object obj) {
@@ -45,11 +45,8 @@ class User {
 
         if (obj.getClass() == this.getClass()) {
             User user = (User) obj;
-            if (null != this.name) {
-                if (this.name.equals(user.name) && this.age == user.age) {
-                    return true;
-                }
-            }
+            return Objects.equals(this.name, user.name) &&
+                    this.age == user.age;
         }
 
         return false;
@@ -65,8 +62,9 @@ class User {
 }
 
 /**
- * Object类是所有类的根父类，一个类没有使用extends显示继承类，则默认继承java.lang.Object类
- * Object类可以接收所有的引用数据类型
+ * Object类是所有类的根父类
+ * 如果一个类没有使用extends显示继承其他类，则默认继承java.lang.Object类
+ * Object类可以接收所有的引用数据类型，包括数组和接口
  */
 public class ObjectDemo {
     public static void main(String[] args) {
@@ -74,14 +72,14 @@ public class ObjectDemo {
         User user2 = new User("张三", 20);
         User user3 = new User("张三", 22);
 
-        System.out.println(user1 == user2); //false
-        System.out.println(user1.equals(user2)); //true，覆写equals方法后，属性都相等，结果相等
-        System.out.println(user1.equals(user1)); //true
-        System.out.println(user1.equals(null)); //false
-        System.out.println(user1.equals(user3)); //false
+        System.out.println(user1 == user2); // false
+        System.out.println(user1.equals(user2)); // true，覆写equals方法后，属性都相等，结果相等
+        System.out.println(user1.equals(user1)); // true
+        System.out.println(user1.equals(null)); // false
+        System.out.println(user1.equals(user3)); // false
 
-        //单独使用对象或与字符串拼接时，默认会调用对象的toString方法
-        System.out.println(user1); //User{name='张三', age=20}
-        System.out.println(user1.toString()); //User{name='张三', age=20}
+        // 单独使用对象或与字符串拼接时，默认会调用对象的toString()方法
+        System.out.println(user1); // User{name='张三', age=20}
+        System.out.println(user1.toString()); // User{name='张三', age=20}
     }
 }
