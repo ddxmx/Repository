@@ -7,20 +7,24 @@ interface Fruit {
 class Apple implements Fruit {
     @Override
     public void eat() {
-        System.out.println("吃苹果");
+        System.out.println("Apple.eat");
     }
 }
 
 class Orange implements Fruit {
     @Override
     public void eat() {
-        System.out.println("吃橘子");
+        System.out.println("Orange.eat");
     }
 }
 
+/**
+ * 工厂类，用于生产实例化对象
+ */
 class FruitFactory {
     public static Fruit getInstance(String className) {
         Fruit fruit = null;
+
         try {
             Object instance = Class.forName(className).newInstance();
             if (instance instanceof Fruit) {
@@ -40,12 +44,13 @@ class FruitFactory {
 
 /**
  * 工厂设计模式
+ * 用于客户端解耦，通过工厂获取实例化对象
  */
 public class FactoryDemo {
     public static void main(String[] args) {
-        Fruit fruit = FruitFactory.getInstance("com.test.oop.day15.Orange");
+        Fruit fruit = FruitFactory.getInstance(Orange.class.getName());
         if (null != fruit) {
-            fruit.eat();
+            fruit.eat(); // Orange.eat
         }
     }
 }

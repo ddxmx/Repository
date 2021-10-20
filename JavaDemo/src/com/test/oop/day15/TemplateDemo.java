@@ -11,23 +11,24 @@ abstract class User {
 class Teacher extends User {
     @Override
     public String getContent() {
-        return "我是一个老师";
+        return "Teacher.getContent";
     }
 }
 
 class Worker extends User {
     @Override
     public String getContent() {
-        return "我是一个工人";
+        return "Worker.getContent";
     }
 }
 
 /**
  * 模板设计模式
+ * 父类规定了行为，子类需要覆写指定方法来实现行为执行
  */
 public class TemplateDemo {
     public static void main(String[] args) {
-        new Teacher().talk(); //我是一个老师
-        new Worker().talk(); //我是一个工人
+        new Teacher().talk(); // Teacher.getContent
+        new Worker().talk(); // Worker.getContent
     }
 }

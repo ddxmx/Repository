@@ -7,25 +7,39 @@ package com.test.oop.day14;
  * 修饰方法：方法不能被覆写
  */
 public class FinalDemo {
-    //全局常量
+    // 全局常量
     public static final String YEAR = "2021";
 
     public static void main(String[] args) {
+        // 局部变量使用final修饰
         final int num = 10;
-        //num = 20; //编译失败，无法修改final修饰的变量
+        // 编译失败，不能修改final修饰的基本数据类型的变量值
+        // num = 20;
 
         final Order order = new Order();
-        //order = new Order(); //编译失败，不能修改final修饰的引用类型的内存地址
-        order.id = 20; //可以修改对象中的属性，此时内存地址不会修改
-        System.out.println(order.id);
-        // order.info = "hello"; //编译失败，final修饰的类中成员无法修改值
+        // 编译失败，不能修改final修饰的引用类型的内存地址
+        // order = new Order();
+        // 可以修改对象中的属性，此时内存地址不会修改
+        order.id = 20;
+        System.out.println(order.id); // 20
+        // 编译失败，final修饰的类中成员无法修改
+        // order.info = "hello";
+
+        print(10); // 10
+    }
+
+    public static void print(final int value) {
+        System.out.println(value);
+
+        // 编译失败，final修饰方法的参数，方法中不能对参数进行修改
+        // value = 100;
     }
 }
 
 class Order {
     int id = 10;
 
-    //声明时或实例化前必须赋值，只能被赋值一次
+    // final修饰的成员变量，声明时或实例化前必须赋值，只能被赋值一次
     final String info;
 
     public Order() {
