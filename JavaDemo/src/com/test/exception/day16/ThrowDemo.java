@@ -1,27 +1,32 @@
-package com.test.day16;
+package com.test.exception.day16;
 
-class Student {
+class Info {
     private int id;
 
     public void register(int id) throws Exception {
         if (id > 0) {
             this.id = id;
-        } else {
-            //手动抛出一个异常
-            throw new Exception("传入的id值非法");
+            return;
         }
+
+        // 手动抛出一个异常
+        throw new Exception("Id is invalid.");
+    }
+
+    public int getId() {
+        return id;
     }
 }
 
 /**
  * throw用于手动抛出一个异常
- * 实际开发中通过将异常捕获后，抛出一个业务层的异常
+ * 实际开发中通过将系统异常捕获后，抛出一个业务异常
  */
 public class ThrowDemo {
     public static void main(String[] args) {
-        Student stu = new Student();
+        Info info = new Info();
         try {
-            stu.register(-100);
+            info.register(-100);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -73,7 +73,7 @@ class SubClass extends SuperClass implements SuperInterfaceA, SuperInterfaceB {
             当子类继承父类，并实现接口时，使用super.方法名()只会从父类中查找方法，不会从父接口中查找default方法
             调用接口中的默认方法需要使用接口名称.super.方法名()的格式
          */
-        //SuperInterfaceA
+        // SuperInterfaceA
         SuperInterfaceA.super.defaultMethod();
         SuperInterfaceA.super.defaultMethod2();
         SuperInterfaceA.super.defaultMethod3();
