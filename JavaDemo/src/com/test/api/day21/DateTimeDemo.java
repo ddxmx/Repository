@@ -13,12 +13,12 @@ public class DateTimeDemo {
 
         /*
          * java.util.Date类  父类
-         *      |- java.sql.Date类   子类
+         * |- java.sql.Date类   子类
          */
         // 一、无参构造，当前时间
         Date date = new Date();
         System.out.println(date); // Mon Feb 08 21:23:56 CST 2021
-        // date对象对应的毫秒数
+        // date对象对应时间的毫秒数
         long time = date.getTime();
         System.out.println(time); // 1612790701850
 
@@ -32,6 +32,7 @@ public class DateTimeDemo {
         long time2 = sqlDate.getTime();
         System.out.println(time2); // 1612790501850
 
+        // java.util.Date和java.sql.Date对象转换
         java.sql.Date sqlDate2 = new java.sql.Date(new Date().getTime());
         System.out.println(sqlDate2); // 2021-02-08
         Date date3 = new Date(new java.sql.Date(1612790501850L).getTime());

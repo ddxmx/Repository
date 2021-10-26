@@ -9,9 +9,6 @@ class Person implements Comparable<Person> {
     private String name;
     private int age;
 
-    public Person() {
-    }
-
     public Person(String name, int age) {
         this.name = name;
         this.age = age;
@@ -33,9 +30,8 @@ class Person implements Comparable<Person> {
         this.age = age;
     }
 
-
-    /*
-        按年龄从大到小排序，年龄相同，按字母正序排序
+    /**
+     * 按年龄从大到小排序，年龄相同，按姓名字母正序排序
      */
     @Override
     public int compareTo(Person per) {
@@ -66,9 +62,10 @@ public class ComparableDemo {
         Person per2 = new Person("helen", 24);
         Person per3 = new Person("tom", 22);
         Person per4 = new Person("jerry", 23);
-        Person[] pers = new Person[]{per1, per2, per3, per4};
-        Arrays.sort(pers);
+        Person[] persons = new Person[]{per1, per2, per3, per4};
+        // Arrays.sort()方法要求数组元素必须要实现Comparable接口，并根据覆写的compareTo()方法排序
+        Arrays.sort(persons);
         // [Person{name='helen', age=24}, Person{name='jerry', age=23}, Person{name='jack', age=22}, Person{name='tom', age=22}]
-        System.out.println(Arrays.toString(pers));
+        System.out.println(Arrays.toString(persons));
     }
 }
