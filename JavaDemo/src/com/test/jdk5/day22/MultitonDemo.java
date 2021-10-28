@@ -1,10 +1,11 @@
-package com.test.day22;
+package com.test.jdk5.day22;
 
 /**
- * 不适用枚举类
  * 多例模式
+ * 不使用枚举类实现
  */
 class Season {
+    // 实例化多个当前类对象
     private static final Season SPRING = new Season("春天");
     private static final Season SUMMER = new Season("夏天");
     private static final Season AUTUMN = new Season("秋天");
@@ -39,6 +40,6 @@ class Season {
 public class MultitonDemo {
     public static void main(String[] args) {
         Season instance = Season.getInstance(2);
-        System.out.println(instance.getName());
+        System.out.println(instance.getName()); // 夏天
     }
 }
