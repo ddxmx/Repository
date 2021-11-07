@@ -6,6 +6,7 @@ package com.test.basic.day04;
  * |- if(条件表达式){语句1} else{语句2}
  * |- if(条件表达式1){语句1} else if(条件表达式2){语句2} ... else{语句n}
  * 每一个else都隐含了之前的条件不满足
+ * 选择结构在底层实际上通过CPU的条件跳转和无条件跳转指令实现
  */
 public class IfElseDemo {
     public static void main(String[] args) {

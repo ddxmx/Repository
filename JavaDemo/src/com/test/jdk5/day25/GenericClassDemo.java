@@ -3,10 +3,8 @@ package com.test.jdk5.day25;
 /**
  * 泛型类
  * 可以有多个泛型参数类型，比如<E1,E2,E3>
- *
- * @param <T>
  */
-class Info<T> { //泛型标识任意，常用的泛型标识：T(Type)、E(Element)、K(Key)、V(Value)
+class Info<T> { // 泛型标识任意，常用的泛型标识：T(Type)、E(Element)、K(Key)、V(Value)
     private T msg;
 
     public Info(T msg) {
@@ -34,19 +32,15 @@ public class GenericClassDemo {
          */
         Info<String> info = new Info<>("hello");
         String msg = info.getMsg();
-        System.out.println(msg); //hello
+        System.out.println(msg); // hello
 
         Info<Integer> info2 = new Info<>(123);
         Integer msg2 = info2.getMsg();
-        System.out.println(msg2); //123
+        System.out.println(msg2); // 123
 
         Info info3 = new Info("world");
-        //String msg3 = info3.getMsg(); //编译错误，只能使用Object接收
+        // String msg3 = info3.getMsg(); // 编译错误，只能使用Object接收
         Object msg3 = info3.getMsg();
-        System.out.println(msg3); //world
-
-        Info info4 = new Info(100);
-        Object msg4 = info4.getMsg();
-        System.out.println(msg4); //100
+        System.out.println(msg3); // world
     }
 }

@@ -45,6 +45,7 @@ class Ostrich extends Bird {
         System.out.println("Ostrich.fly");
     }
 
+    // 继承是is-a的关系，子类必须支持父类的所有对外行为，因此重写不允许缩小访问权限
     // void sleep(){} // 编译失败，缩小了访问权限修饰符
 
     public void talk() {

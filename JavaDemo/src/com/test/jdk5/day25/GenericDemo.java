@@ -8,41 +8,41 @@ import java.util.*;
  */
 public class GenericDemo {
     public static void main(String[] args) {
-        //不使用泛型带来的问题
+        // 不使用泛型带来的问题
         {
-            //对象实例化时不指定泛型的话，默认为Object
+            // 对象实例化时不指定泛型的话，默认为Object
             ArrayList list = new ArrayList();
             list.add(78);
             list.add(76);
             list.add(89);
             list.add(88);
-            //问题一：类型不安全，可以添加任何的类型
-            //list.add("Tom");
+            // 问题一：类型不安全，可以添加任何的类型
+            // list.add("Tom");
 
             for (Object score : list) {
-                //问题二：强转时，由于元素类型可能不一致，导致出现ClassCastException
+                // 问题二：强转时，由于元素类型可能不一致，导致出现ClassCastException
                 int scoreValue = (Integer) score;
                 System.out.println(scoreValue);
             }
         }
 
-        //使用泛型能够解决类型不一致的问题
+        // 使用泛型能够解决类型不一致的问题
         {
             ArrayList<Integer> list = new ArrayList<>();
             list.add(78);
             list.add(87);
             list.add(99);
             list.add(65);
-            //编译失败，元素必须是Integer类型才可以添加
-            //list.add("Tom");
+            // 编译失败，元素必须是Integer类型才可以添加
+            // list.add("Tom");
 
-            //遍历方式一：
-            //避免了强转操作
+            // 遍历方式一：
+            // 避免了强转操作
             for (Integer score : list) {
                 System.out.println(score);
             }
 
-            //遍历方式二：
+            // 遍历方式二：
             Iterator<Integer> iterator = list.iterator();
             while (iterator.hasNext()) {
                 int scoreValue = iterator.next();
@@ -51,17 +51,17 @@ public class GenericDemo {
         }
 
 
-        //泛型的嵌套
+        // 泛型的嵌套
         {
-            //Map<String,Integer> map = new HashMap<String,Integer>();
-            //jdk7新特性：类型推断
+            // Map<String,Integer> map = new HashMap<String,Integer>();
+            // jdk7新特性：类型推断
             Map<String, Integer> map = new HashMap<>();
 
             map.put("Tom", 87);
             map.put("Jerry", 87);
             map.put("Jack", 67);
 
-            //泛型的嵌套
+            // 泛型的嵌套
             Set<Map.Entry<String, Integer>> entrySet = map.entrySet();
             Iterator<Map.Entry<String, Integer>> iterator = entrySet.iterator();
             while (iterator.hasNext()) {
@@ -72,16 +72,16 @@ public class GenericDemo {
             }
         }
 
-        //泛型只在编译阶段有效，泛型类型在逻辑上可以看成是多个不同的类型，实际上都是相同的类型
+        // 泛型只在编译阶段有效，泛型类型在逻辑上可以看成是多个不同的类型，实际上都是相同的类型
         {
             ArrayList<String> list1 = new ArrayList<>();
             ArrayList<Integer> list2 = new ArrayList<>();
 
             Class<?> class1 = list1.getClass();
             Class<?> class2 = list2.getClass();
-            System.out.println(class1.getName()); //java.util.ArrayList
-            System.out.println(class2.getName()); //java.util.ArrayList
-            System.out.println(class1 == class2); //true
+            System.out.println(class1.getName()); // java.util.ArrayList
+            System.out.println(class2.getName()); // java.util.ArrayList
+            System.out.println(class1 == class2); // true
         }
 
     }

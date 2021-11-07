@@ -16,43 +16,43 @@ public class MapDemo {
          *  实例化HashMap并不会创建数组
          * 首次调用put方法时，才创建长度为16的数组
          */
-        HashMap<Object, Integer> map = new HashMap<>();
+        Map<Object, Integer> map = new HashMap<>();
         map.put("AA", 123);
         map.put(45, 123);
         map.put("BB", 56);
-        //相同key会修改原value值
+        // 相同key会修改原value值
         map.put("AA", 87);
-        System.out.println(map); //{AA=87, BB=56, 45=123}
+        System.out.println(map); // {AA=87, BB=56, 45=123}
 
-        HashMap<String, Integer> map2 = new HashMap<>();
+        Map<String, Integer> map2 = new HashMap<>();
         map2.put("CC", 123);
         map2.put("DD", 123);
-        //将其他map中所有元素添加进来
+        // 将其他map中所有元素添加进来
         map.putAll(map2);
-        System.out.println(map); //{AA=87, BB=56, CC=123, DD=123, 45=123}
+        System.out.println(map); // {AA=87, BB=56, CC=123, DD=123, 45=123}
 
-        //返回移除元素的value值
+        // 返回移除元素的value值
         Object value = map.remove("CC");
-        System.out.println(value); //123
-        System.out.println(map); //{AA=87, BB=56, DD=123, 45=123}
+        System.out.println(value); // 123
+        System.out.println(map); // {AA=87, BB=56, DD=123, 45=123}
 
-        System.out.println(map.get(45)); //123
-        System.out.println(map.containsKey("BB")); //true
-        System.out.println(map.containsValue(123)); //true
+        System.out.println(map.get(45)); // 123
+        System.out.println(map.containsKey("BB")); // true
+        System.out.println(map.containsValue(123)); // true
 
         map.clear();
-        System.out.println(map.size()); //0
-        System.out.println(map.isEmpty()); //true
-        System.out.println(map); //{}
+        System.out.println(map.size()); // 0
+        System.out.println(map.isEmpty()); // true
+        System.out.println(map); // {}
 
-        System.out.println(map.get(45)); //null
+        System.out.println(map.get(45)); // null
 
         map.put("a", 1);
         map.put("b", 2);
         map.put("c", 3);
         map.put("d", 4);
 
-        //遍历key
+        // 遍历key
         System.out.println("****************************");
         {
             Set<Object> keySet = map.keySet();
@@ -63,7 +63,7 @@ public class MapDemo {
             }
         }
 
-        //遍历value
+        // 遍历value
         System.out.println("****************************");
         {
             Collection<Integer> values = map.values();
@@ -73,7 +73,7 @@ public class MapDemo {
             }
         }
 
-        //遍历键值对
+        // 遍历键值对
         System.out.println("****************************");
         {
             Set<Map.Entry<Object, Integer>> entrySet = map.entrySet();

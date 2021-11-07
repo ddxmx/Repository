@@ -19,6 +19,10 @@ public class MathDemo {
         System.out.println(Math.ceil(3.2)); // 4.0
         System.out.println(Math.ceil(-3.2)); // -3.0
 
+        // 绝对值
+        System.out.println(Math.abs(-1)); // 1
+        System.out.println(Math.abs(1)); // 1
+
         // 随机数，范围[0,1)
         System.out.println(Math.random()); // 0.49422791378780184
 

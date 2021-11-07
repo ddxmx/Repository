@@ -10,6 +10,9 @@ package com.test.basic.day04;
  * case后必须跟常量，不能使用变量
  * |- 在多个常量值中选一，推荐使用switch语句
  * |- 判断范围，推荐使用if-else语句
+ * switch结构在底层实际上使用跳转表实现的，所有case条件会根据数值排序（枚举通过order，String通过hash()方法计算）
+ * if-else if-else可能存在多次跳转，而switch只需要一次跳转，性能高于if语句
+ * 因为跳转表存储空间为32位，因此指令只支持int类型数据，不支持long类型
  */
 public class SwitchDemo {
     public static void main(String[] args) {

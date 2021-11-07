@@ -3,6 +3,9 @@ package com.test.oop.day13;
 /**
  * Object其他非常用方法的使用
  * 覆写clone方法的类必须要实现java.lang.Cloneable接口，该接口中无任何抽象方法，只是表示一种能力
+ * 为什么Object类中的clone()方法是使用protected修饰，而不是使用public修饰？
+ * |- Object类中的clone方法拷贝是一个浅拷贝的实现，无法实现深拷贝（属性是引用数据类型则再次clone）
+ * |- 业务如果想使用clone方法，必须在子类覆写该方法
  */
 class Customer implements Cloneable {
     private String name;

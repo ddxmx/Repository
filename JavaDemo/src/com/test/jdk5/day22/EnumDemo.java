@@ -76,6 +76,7 @@ public class EnumDemo {
             1->FEMALE
          */
         for (Sex sex : sexes) {
+            // 返回枚举值声明的顺序和名称
             System.out.println(sex.ordinal() + "->" + sex.name());
         }
 

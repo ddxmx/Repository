@@ -3,7 +3,7 @@ package com.test.oop.day10.access1;
 /**
  * 验证类、属性和方法的访问权限
  */
-public class Access {
+public class  Access {
     private int privateVar;
     int defaultVar;
     public int publicVar;

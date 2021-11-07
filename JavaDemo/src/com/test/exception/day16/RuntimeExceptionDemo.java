@@ -8,6 +8,7 @@ package com.test.exception.day16;
  * --|- 运行时异常（非受检异常，RuntimeException）:
  * NullPointerException,ArrayIndexOutOfBoundsException,ClassCastException,NumberFormatException,ArithmeticException
  * 不强制处理，但是一旦发生异常，且未使用try-catch处理，也会导致中断程序
+ * 所以程序中对于受检异常和非受检异常都需要进行异常处理
  */
 public class RuntimeExceptionDemo {
     public static void main(String[] args) {

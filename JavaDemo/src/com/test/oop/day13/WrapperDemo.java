@@ -29,6 +29,26 @@ public class WrapperDemo {
             // 参数不为true/false时，直接转换为false处理
             Boolean b2 = Boolean.valueOf("hello");
             System.out.println(b2.booleanValue()); // false
+
+            // Character判断字符
+            System.out.println("---------------------------------------");
+            System.out.println(Character.isDigit('a')); // false
+            System.out.println(Character.isDigit('1')); // true
+            System.out.println(Character.isLetter('a')); // true
+            System.out.println(Character.isLetter('1')); // false
+            System.out.println(Character.isLetterOrDigit('a')); // true
+            System.out.println(Character.isLetterOrDigit('1')); // true
+            System.out.println("---------------------------------------");
+            System.out.println(Character.isLowerCase('a')); // true
+            System.out.println(Character.isLowerCase('A')); // false
+            System.out.println(Character.isUpperCase('a')); // false
+            System.out.println(Character.isUpperCase('A')); // true
+            System.out.println("---------------------------------------");
+            System.out.println(Character.isWhitespace('\t')); // true
+            System.out.println(Character.isWhitespace('\n')); // true
+            System.out.println(Character.isWhitespace('\r')); // true
+            System.out.println(Character.isWhitespace(' ')); // true
+            System.out.println(Character.isWhitespace('a')); // false
         }
 
         System.out.println("*********************************");

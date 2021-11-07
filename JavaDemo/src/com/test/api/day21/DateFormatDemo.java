@@ -6,6 +6,7 @@ import java.util.Date;
 
 /**
  * 日期时间格式化
+ * DateFormat和SimpleDateFormat都是非线程安全的，多线程场景下可能出现异常
  */
 public class DateFormatDemo {
     public static void main(String[] args) {

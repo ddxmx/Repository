@@ -27,13 +27,14 @@ public class GenericExtendsClassDemo {
     public static void main(String[] args) {
         Note<Integer> note = new Note<>(123);
         Integer info = note.getInfo();
-        System.out.println(info); //123
+        System.out.println(info); // 123
 
         Note<Double> note2 = new Note<>(123.45);
         Double info2 = note2.getInfo();
-        System.out.println(info2); //123.45
+        System.out.println(info2); // 123.45
 
-        //Note<String> note = new Note<>("hello"); //编译失败，String不是Number类的子类
+        // 编译失败，String不是Number类的子类
+        // Note<String> note = new Note<>("hello");
 
     }
 }
