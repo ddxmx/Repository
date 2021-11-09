@@ -18,7 +18,7 @@ public class FileInputStreamDemo {
         FileInputStream in = null;
         try {
             in = new FileInputStream(file);
-            byte[] bytes = new byte[5]; //数组大小指定为5为了演示读取乱码的问题
+            byte[] bytes = new byte[5]; // 数组大小指定为5为了演示读取乱码的问题
             int len = 0;
             while ((len = in.read(bytes)) != -1) {
                 sb.append(new String(bytes, 0, len));

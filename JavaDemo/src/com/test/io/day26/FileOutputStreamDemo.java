@@ -16,7 +16,7 @@ public class FileOutputStreamDemo {
         FileOutputStream out = null;
         try {
             out = new FileOutputStream(file);
-            //out = new FileOutputStream(file,true); //追加的方式输出
+            // out = new FileOutputStream(file, true); // 追加的方式输出
             out.write("hello world\n".getBytes());
             out.write("你好，中国\n".getBytes());
         } catch (FileNotFoundException e) {

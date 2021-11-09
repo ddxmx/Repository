@@ -15,10 +15,10 @@ public class FileReaderDemo {
 
         FileReader reader = null;
         try {
-            //创建字符输入流
+            // 创建字符输入流
             reader = new FileReader(file);
 
-            //数据读入，方式一：每次读取一个字符 返回-1表示读取完毕
+            // 数据读入，方式一：每次读取一个字符 返回-1表示读取完毕
             /*
                 int temp = 0;
                 while ((temp = reader.read()) != -1) {
@@ -26,7 +26,7 @@ public class FileReaderDemo {
                 }
              */
 
-            //数据读入，方式二：每次读取多个字节，返回-1表示读取完毕
+            // 数据读入，方式二：每次读取多个字节，返回-1表示读取完毕
             char[] chars = new char[3];
             int len = 0;
             while ((len = reader.read(chars)) != -1) {
@@ -35,7 +35,7 @@ public class FileReaderDemo {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            //流的关闭
+            // 流的关闭
             if (null != reader) {
                 try {
                     reader.close();

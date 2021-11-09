@@ -9,14 +9,14 @@ import java.io.*;
  * 序列化操作不能操作static或transient修饰的属性
  */
 class Person implements Serializable {
-
     public static final long serialVersionUID = -6849794470754667711L;
 
     private String name;
 
-    //表示不序列化该属性
+    // 表示不序列化该属性
     private transient int age;
 
+    // static属性不会被序列化
     public static String country;
 
     public Person() {
@@ -65,7 +65,7 @@ public class ObjectInputOutputStreamDemo {
         outputStream.writeObject(person);
         outputStream.close();
 
-        //注释序列化的操作，重新执行反序列化操作，验证static属性并没有序列化到文件中
+        // 注释序列化的操作，重新执行反序列化操作，验证static属性并没有序列化到文件中
         ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("hello.txt"));
         Person person2 = (Person) inputStream.readObject();
         inputStream.close();

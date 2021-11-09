@@ -18,7 +18,7 @@ public class FileInputOutputStreamDemo {
 
         try (FileInputStream in = new FileInputStream(srcFile);
              FileOutputStream out = new FileOutputStream(destFile)) {
-            byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[1024 * 8];
             int len = 0;
             while ((len = in.read(bytes)) != -1) {
                 out.write(bytes, 0, len);
@@ -28,6 +28,6 @@ public class FileInputOutputStreamDemo {
         }
 
         long duration = System.currentTimeMillis() - startTime;
-        System.out.println("复制文件耗时：" + duration); //复制文件耗时：68075
+        System.out.println("复制文件耗时：" + duration); // 复制文件耗时：33160
     }
 }

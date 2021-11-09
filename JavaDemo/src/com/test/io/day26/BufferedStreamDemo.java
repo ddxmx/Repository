@@ -8,7 +8,6 @@ import java.io.*;
  * 但是用BufferedInputStream，就可以将多次读取到的数据，先放进缓冲中，也就是内存中，当缓冲达到设置的大小时，就会写入到文件一次。
  * 这样就减少了写入文件的次数，提高了速度。
  * 如果使用缓冲流，没有close，有可能造成部分数据的丢失
- * <p>
  * BufferedInputStream
  * BufferedOutputStream
  * BufferedReader：增加了readLine方法，可以整行读取
@@ -20,27 +19,31 @@ public class BufferedStreamDemo {
         File destFile = new File("/windows_10.iso");
 
         if (srcFile.exists()) {
+            if (destFile.exists()) {
+                destFile.delete();
+            }
+
             long startTime = System.currentTimeMillis();
 
-            //关闭外层流时，会自动关闭内层流
+            // 关闭外层流时，会自动关闭内层流
             /*
                 BufferedInputStream缓冲区默认大小8192;
                 可以使用public BufferedInputStream(InputStream in, int size)手动指定缓冲区大小
              */
             try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(srcFile));
                  BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destFile))) {
-                //这边并不是定义缓冲区的大小，这个是一次从输入流中读取的最大大小
-                byte[] buffer = new byte[1024];
+                // 这边并不是定义缓冲区的大小，这个是一次从输入流中读取的最大大小
+                byte[] bytes = new byte[1024];
                 int len = 0;
-                while ((len = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, len);
+                while ((len = in.read(bytes)) != -1) {
+                    out.write(bytes, 0, len);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             long duration = System.currentTimeMillis() - startTime;
-            System.out.println("复制文件耗时：" + duration); //复制文件耗时：34007
+            System.out.println("复制文件耗时：" + duration); // 复制文件耗时：34007
         }
     }
 }
