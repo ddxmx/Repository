@@ -36,11 +36,11 @@ public class CountDownLatchDemo {
                 latch.countDown();
             }, i + "星龙珠").start();
         }
-        //等待其他线程结束
+        // 等待其他线程结束
         latch.await();
         long endTime = System.currentTimeMillis();
         System.out.println("所有线程完成耗时：" + (endTime - startTime));
-        //其他线程结束后才可以继续执行
+        // 其他线程结束后才可以继续执行
         System.out.println("召唤神龙");
     }
 }

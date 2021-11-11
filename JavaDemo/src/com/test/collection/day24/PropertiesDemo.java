@@ -39,6 +39,6 @@ public class PropertiesDemo {
         InputStream in = PropertiesDemo.class.getResourceAsStream("jdbc.properties");
         Properties prop = new Properties();
         prop.load(in);
-        System.out.println(prop.getProperty("name")); //张三
+        System.out.println(prop.getProperty("name")); // 张三
     }
 }

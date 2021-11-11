@@ -33,6 +33,6 @@ public class InstanceQuestionDemo {
         Child child = new Child(); // 0
         System.out.println("************************");
         // 对象实例化完成后，对象中属性值是指定的值
-        child.test(); //123
+        child.test(); // 123
     }
 }

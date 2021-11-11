@@ -30,7 +30,7 @@ public class SemaphoreDemo {
         for (int i = 0; i < 5; i++) {
             new Thread(() -> {
                 try {
-                    //申请信号量，未申请到的线程阻塞
+                    // 申请信号量，未申请到的线程阻塞
                     semaphore.acquire();
                     System.out.println(Thread.currentThread().getName() + "进入车位");
                     TimeUnit.MILLISECONDS.sleep(new Random().nextInt(3000));

@@ -16,14 +16,14 @@ import java.util.concurrent.locks.ReentrantLock;
 class Info02 {
     private int number;
     private Lock lock = new ReentrantLock();
-    //通过lock对象实例化
+    // 通过lock对象实例化
     private Condition condition = lock.newCondition();
 
     public void set() {
         lock.lock();
 
         try {
-            while (number != 0) { //避免虚假唤醒
+            while (number != 0) { // 避免虚假唤醒
                 condition.await();
             }
 

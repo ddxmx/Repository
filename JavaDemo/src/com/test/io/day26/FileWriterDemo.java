@@ -10,14 +10,14 @@ import java.io.IOException;
  */
 public class FileWriterDemo {
     public static void main(String[] args) {
-        //文件不存在会自动创建
+        // 文件不存在会自动创建
         File file = new File("hello.txt");
 
         FileWriter writer = null;
         try {
-            //写文件直接覆盖
+            // 写文件直接覆盖
             writer = new FileWriter(file);
-            //writer = new FileWriter(file,true); //写文件追加
+            // writer = new FileWriter(file,true); // 写文件追加
 
             writer.write("hello world\n");
             writer.write("你好，中国\n");

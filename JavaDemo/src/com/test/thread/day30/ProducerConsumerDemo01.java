@@ -26,7 +26,7 @@ class Info {
     private int number = 0;
 
     public synchronized void set() throws InterruptedException {
-        while (number != 0) { //使用while，不使用if，防止虚假唤醒
+        while (number != 0) { // 使用while，不使用if，防止虚假唤醒
             super.wait();
         }
 
@@ -36,7 +36,7 @@ class Info {
     }
 
     public synchronized void get() throws InterruptedException {
-        while (number == 0) { //使用while，不使用if，防止虚假唤醒
+        while (number == 0) { // 使用while，不使用if，防止虚假唤醒
             super.wait();
         }
 
@@ -49,7 +49,7 @@ class Info {
 public class ProducerConsumerDemo01 {
     public static void main(String[] args) {
         Info info = new Info();
-        //生产者
+        // 生产者
         new Thread(() -> {
             for (int i = 0; i < 20; i++) {
                 try {
@@ -60,7 +60,7 @@ public class ProducerConsumerDemo01 {
             }
         }, "A").start();
 
-        //消费者1
+        // 消费者1
         new Thread(() -> {
             for (int i = 0; i < 10; i++) {
                 try {
@@ -71,7 +71,7 @@ public class ProducerConsumerDemo01 {
             }
         }, "B").start();
 
-        //消费者2
+        // 消费者2
         new Thread(() -> {
             for (int i = 0; i < 10; i++) {
                 try {

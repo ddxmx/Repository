@@ -1,8 +1,6 @@
 package com.test.reflex.day28;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 /**
  * 类的加载器
@@ -12,30 +10,25 @@ import java.util.Properties;
  */
 public class ClassLoaderDemo {
     public static void main(String[] args) throws IOException {
-        //对于自定义类，使用系统类加载器进行加载
+        // 对于自定义类，使用系统类加载器进行加载
         ClassLoader classLoader = ClassLoaderDemo.class.getClassLoader();
-        System.out.println(classLoader); //sun.misc.Launcher$AppClassLoader@18b4aac2
+        System.out.println(classLoader); // sun.misc.Launcher$AppClassLoader@18b4aac2
 
-        //调用系统类加载器的getParent()：获取扩展类加载器
+        // 调用系统类加载器的getParent()：获取扩展类加载器
         ClassLoader superClassLoader = classLoader.getParent();
-        System.out.println(superClassLoader); //sun.misc.Launcher$ExtClassLoader@677327b6
+        System.out.println(superClassLoader); // sun.misc.Launcher$ExtClassLoader@677327b6
 
-        //调用扩展类加载器的getParent()：无法获取引导类加载器
-        //引导类加载器主要负责加载java的核心类库，无法加载自定义类的。
+        // 调用扩展类加载器的getParent()：无法获取引导类加载器
+        // 引导类加载器主要负责加载java的核心类库，无法加载自定义类的。
         ClassLoader topClassLoader = superClassLoader.getParent();
-        System.out.println(topClassLoader); //null
+        System.out.println(topClassLoader); // null
 
         ClassLoader topClassLoader2 = String.class.getClassLoader();
-        System.out.println(topClassLoader2); //null
+        System.out.println(topClassLoader2); // null
 
-        //使用ClassLoader加载文件
+        // 使用ClassLoader加载文件
         ClassLoader loader = ClassLoaderDemo.class.getClassLoader();
-        //jdbc.properties位于当前module下
-        InputStream inputStream = loader.getResourceAsStream("jdbc.properties");
-        
-        Properties properties = new Properties();
-        properties.load(inputStream);
-        System.out.println(properties.getProperty("module_username"));
-        System.out.println(properties.getProperty("module_password"));
+        // jdbc.properties位于当前classpath下
+        loader.getResourceAsStream("jdbc.properties");
     }
 }

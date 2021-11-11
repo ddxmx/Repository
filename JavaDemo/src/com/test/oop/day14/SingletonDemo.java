@@ -6,21 +6,23 @@ package com.test.oop.day14;
  * 懒汉式：(懒加载)，非线程安全的
  * java.lang.Runtime类就是使用的单例模式
  */
-// class Singleton {
-//     // 饿汉式
-//     private static Singleton instance = new Singleton();
-//
-//     private Singleton() {
-//     }
-//
-//     public static Singleton getInstance() {
-//         return instance;
-//     }
-//
-//     public void show() {
-//         System.out.println("Singleton.show");
-//     }
-// }
+/*
+class Singleton {
+    // 饿汉式
+    private static Singleton instance = new Singleton();
+
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+        return instance;
+    }
+
+    public void show() {
+        System.out.println("Singleton.show");
+    }
+}
+*/
 
 class Singleton {
     private static Singleton instance;

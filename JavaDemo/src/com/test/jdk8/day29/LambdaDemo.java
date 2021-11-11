@@ -21,41 +21,41 @@ import java.util.function.Supplier;
  */
 public class LambdaDemo {
     public static void main(String[] args) {
-        //语法格式一：无参，无返回值
+        // 语法格式一：无参，无返回值
         Runnable runnable = () -> {
             System.out.println("hello world!");
         };
-        runnable.run(); //hello world!
+        runnable.run(); // hello world!
 
-        //语法格式二：Lambda 需要一个参数，但是没有返回值。
+        // 语法格式二：Lambda 需要一个参数，但是没有返回值。
         Consumer<String> consumer = (String s) -> {
             System.out.println(s.toUpperCase());
         };
-        consumer.accept("hello"); //HELLO
+        consumer.accept("hello"); // HELLO
 
-        //语法格式三：数据类型可以省略，因为可由编译器推断得出，称为“类型推断”
+        // 语法格式三：数据类型可以省略，因为可由编译器推断得出，称为“类型推断”
         Consumer<String> consumer2 = (s) -> {
             System.out.println(s.toUpperCase());
         };
 
-        //语法格式四：Lambda 若只需要一个参数时，参数的小括号可以省略
+        // 语法格式四：Lambda 若只需要一个参数时，参数的小括号可以省略
         Consumer<String> consumer3 = s -> {
             System.out.println(s.toUpperCase());
         };
 
-        //语法格式五：当 Lambda 体只有一条语句时，return 与大括号若有，都可以省略
+        // 语法格式五：当 Lambda 体只有一条语句时，return 与大括号若有，都可以省略
         Supplier<Integer> len = () -> "hello".length();
-        System.out.println(len.get()); //5
+        System.out.println(len.get()); // 5
 
-        //语法格式六：Lambda 需要两个或以上的参数，多条执行语句，并且可以有返回值
+        // 语法格式六：Lambda 需要两个或以上的参数，多条执行语句，并且可以有返回值
         Comparator<Integer> com2 = (o1, o2) -> {
-            System.out.println(o1); //-12
-            System.out.println(o2); //6
+            System.out.println(o1); // -12
+            System.out.println(o2); // 6
             Integer absValue1 = Integer.valueOf(Math.abs(o1.intValue()));
             Integer absValue2 = Integer.valueOf(Math.abs(o2.intValue()));
             return Math.max(absValue1, absValue2);
         };
-        System.out.println(com2.compare(-12, 6)); //12
+        System.out.println(com2.compare(-12, 6)); // 12
 
     }
 }
