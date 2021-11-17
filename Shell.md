@@ -12,6 +12,7 @@ shell是一个命令解释器，存在于操作系统最外层，负责将用于
 ```
 
 ```shell
+#whoami用于获取当前用户名
 [scott@localhost.localdomain ~]$ cat /etc/passwd | grep $(whoami)
 scott:x:1000:1000::/home/scott:/bin/bash
 ```
@@ -24,32 +25,56 @@ scott:x:1000:1000::/home/scott:/bin/bash
 
 ### 3、脚本执行方式
 
+命令执行时，会从PATH路径中查询。当前路径 . 未在PATH中指定，因此需要通过相对或绝对路径执行脚本。
+
 ```shell
-#脚本推荐执行方式
+#推荐方式（不需要赋执行权限）
 sh test.sh
-#脚本必须有执行权限，通过chmod u+x test.sh方式添加执行权限
+#脚本必须有执行权限，通过chmod u+x test.sh方式添加执行权限，同时该方式会创建子shell执行
 ./test.sh
 ```
 
+### 4、显示消息
+
+脚本中通过echo命令显示消息，当显示的消息中存在单引号或双引号时，可以使用另一种引号指定字符串范围。
+
+~~~shell
+echo "I'm zhangsan"
+echo 'I love "flows"'
+# -n 参数表示输出后不换行
+[scott@localhost.localdomain ~]$ echo hello;echo world
+hello
+world
+[scott@localhost.localdomain ~]$ echo -n hello;echo world
+helloworld
+~~~
+
+### 5、exit 命令退出脚本
+
+默认情况下，shell脚本会以脚本中最后一个命令的退出状态码退出。
+
+可以手动指定状态码退出，使用“exit 状态码”的形式。一般结合 if-then  语句一起使用。
+
 ## 二、Shell变量
 
-### 1、环境变量
-
-变量分为两种：环境变量（全局变量）、普通变量（局部变量）
+变量分为两种：环境变量（全局变量）、用户变量（局部变量）
 
 环境变量：可以在创建的shell及子shell中使用，==环境变量都是使用大写==
 
-普通变量：只能在shell脚本或shell函数中使用
+用户变量：只能在shell脚本或shell函数中使用
 
-~~~shell
-全局配置文件： /etc/profile 或 /etc/bashrc
-用户配置文件：.bash_profile 或 .bashrc
-.bash_profile文件中的变量在用户登录模式（su - xxx）下生效
-.bashrc文件中的变量在用户登录模式和用户非登录模式（su xxx或ssh登录）下都生效
-~~~
+### 1、环境变量
 
 ```shell
-#env环境变量
+#获取环境变量命令
+set：输出所有的变量，包括全局变量和局部变量
+env：只显示全局变量
+[scott@localhost.localdomain ~]$ name='jerry'
+[scott@localhost.localdomain ~]$
+[scott@localhost.localdomain ~]$ set | grep name
+name=jerry
+[scott@localhost.localdomain ~]$ env | grep name
+[scott@localhost.localdomain ~]$
 #家目录
 [scott@localhost.localdomain ~]$ echo $HOME
 /home/scott
@@ -65,18 +90,6 @@ localhost.localdomain
 #用户名
 [scott@localhost.localdomain ~]$ echo $USER
 scott
-```
-
-```shell
-#获取环境变量命令
-set：输出所有的变量，包括全局变量和局部变量
-env：只显示全局变量
-[scott@localhost.localdomain ~]$ name='jerry'
-[scott@localhost.localdomain ~]$
-[scott@localhost.localdomain ~]$ set | grep name
-name=jerry
-[scott@localhost.localdomain ~]$ env | grep name
-[scott@localhost.localdomain ~]$
 ```
 
 #### （1）定义环境变量
@@ -103,9 +116,9 @@ export 变量名
 /etc/profile.d（若要在登录后初始化或显示加载内容，把脚本文件放在该目录下）
 ~~~
 
-#### （2）登录提示
+#### （2）登录提示信息
 
-- 在 /etc/motd 中配置
+- 在 /etc/motd 中配置（motd是message of the day缩写）
 - 在 /etc/profile.d/ 下增加脚本
 
 #### （3）取消环境变量
@@ -130,39 +143,50 @@ zhangsan
 /etc/profile.d
 $HOME/.bash_profile -> $HOME/.bashrc -> /etc/bashrc
 #非登录方式（su 用户名或ssh连接）
- $HOME/.bashrc -> /etc/bashrc
+$HOME/.bashrc -> /etc/bashrc
 ```
 
-### 2、普通变量
+### 2、用户变量
 
-普通变量只在当前shell中有效。
+用户变量只在当前shell中有效。
 
 ### （1）定义本地变量
 
-~~~shell
-#普通变量一般有三种写法
+==赋值=之所以两边没有空格，因为需要和命令区分。当=两边允许有空格时，无法判断=前的值是变量还是命令==
+
+普通变量一般有三种写法：
 变量名=value
 变量名='value'
 变量名="value"
-a=192.168.1.2
-#a=192.168.1.2-192.168.1.2，$a被解析成192.168.1.2
-a=192.168.1.2-$a
-#b=192.168.1.2-$a，单引号不解析变量、命令，原样输出，所见即所得
-b='192.168.1.2-$a'
-#c=192.168.1.2-192.168.1.2-192.168.1.2，双引号解析变量和命令，解析后再输出
-c="192.168.1.2-$a"
-echo "a=$a"
-echo "b=$b"
-echo "c=${c}"
+
+~~~shell
+[scott@localhost.localdomain ~]$ name=zhangsan
+#双引号会解析 $ ` \
+[scott@localhost.localdomain ~]$ echo "I am $name"
+I am zhangsan
+#单引号不会解析 $ ` \ 原样输出
+[scott@localhost.localdomain ~]$ echo 'I am $name'
+I am $name
+#将变量值中存在空格等字符时，必须使用双引号
+[scott@localhost.localdomain ~]$ name=zhang san
+-bash: san: command not found
+[scott@localhost.localdomain ~]$ name="zhang san"
+[scott@localhost.localdomain ~]$ echo "I am $name"
+I am zhang san
+#双引号中存在$符号时，需要转义
+[scott@localhost.localdomain ~]$ echo "The cost of the item is \$15"
+The cost of the item is $15
 ~~~
 
 ### （2）将命令的结果作为变量内容赋值的方法
 
+==命令替换会创建一个子shell来运行对应的命令==
+
 ~~~shell
 #方式一
-变量名=`ls`
+变量名=`命令`
 #方式二（推荐）
-变量名=$(ls)
+变量名=$(命令)
 ~~~
 
 ### （3）变量表示
@@ -170,11 +194,13 @@ echo "c=${c}"
 ~~~shell
 #方式一
 echo $name
-#方式二，当变量后连接其他字符时，必须使用${}表示
+#方式二，当变量后连接其他字符时，必须使用${}表示边界
 echo ${name}
 ~~~
 
 ### 3、特殊变量
+
+#### $0、$n、$#、$*、$@、$?、$$
 
 | 位置变量 | 作用                                                         |
 | -------- | ------------------------------------------------------------ |
@@ -277,7 +303,7 @@ a b c d
 b c d
 ~~~
 
-### 5、shell字串
+### 5、shell子串
 
 | ID   | 表达式                   | 说明                                      |
 | ---- | ------------------------ | ----------------------------------------- |
@@ -293,37 +319,227 @@ b c d
 | 10   | ${param//pattern/string} | 使用string代替所有匹配的pattern           |
 
 ~~~shell
-[root@localhost.localdomain ~]# info="helloworld"
+[scott@localhost.localdomain ~]# info="helloworld"
 #返回变量
-[root@localhost.localdomain ~]# echo $info
+[scott@localhost.localdomain ~]# echo $info
 helloworld
 #返回变量长度
-[root@localhost.localdomain ~]# echo ${#info}
+[scott@localhost.localdomain ~]# echo ${#info}
 10
 #截取字串
-[root@localhost.localdomain ~]# echo ${info:5}
+[scott@localhost.localdomain ~]# echo ${info:5}
 world
-[root@localhost.localdomain ~]# echo ${info:0:5}
+[scott@localhost.localdomain ~]# echo ${info:0:5}
 hello
 #字串操作并不会修改原变量
-[root@localhost.localdomain ~]# echo $info
+[scott@localhost.localdomain ~]# echo $info
 helloworld
-[root@localhost.localdomain ~]# info="123abc123def"
-[root@localhost.localdomain ~]# echo ${info#123}
+[scott@localhost.localdomain ~]# info="123abc123def"
+[scott@localhost.localdomain ~]# echo ${info#123}
 abc123def
 #删除字串操作，必须以删除的字串开头或结尾，否则不能正常删除
-[root@localhost.localdomain ~]# echo ${info%123}
+[scott@localhost.localdomain ~]# echo ${info%123}
 123abc123def
-[root@localhost.localdomain ~]# echo ${info%def}
+[scott@localhost.localdomain ~]# echo ${info%def}
 123abc123
-[root@localhost.localdomain ~]# echo ${info#1*3}
+[scott@localhost.localdomain ~]# echo ${info#1*3}
 abc123def
-[root@localhost.localdomain ~]# echo ${info##1*3}
+[scott@localhost.localdomain ~]# echo ${info##1*3}
 def
 #字符串替换操作
-[root@localhost.localdomain ~]# echo ${info/123/|}
+[scott@localhost.localdomain ~]# echo ${info/123/|}
 |abc123def
-[root@localhost.localdomain ~]# echo ${info//123/|}
+[scott@localhost.localdomain ~]# echo ${info//123/|}
 |abc|def
 ~~~
+
+## 三、运算符
+
+### 1、双小括号(())
+
+进行数值运算和数值比较，只能操作整数
+
+命令执行时不需要加$，输出时需要加$
+
+- ((i=i+1))：先运算后赋值，将 i+1 的值赋值给 i
+- i=$((i+1))：i+1的值计算后，赋值给 i
+- ((8>7 && 5==5))：用于条件判断，结果为1，表示true
+- echo $((2+1))：输出计算的结果
+- ((a++))：返回后自增
+- ((--a))：自减后返回
+-  value=10;echo $((value+1))：支持使用变量计算
+- let i=1+1;echo $i：let命令等同于(())
+
+### 2、[ ]
+
+[ ]用于数学运算，支持传入变量，只支持整数运算
+
+~~~shell
+[scott@localhost.localdomain ~]$ echo $[1+2]
+3
+[scott@localhost.localdomain ~]$ echo $[1 + 2]
+3
+[scott@localhost.localdomain ~]$ echo $[ 1 + 2 ]
+3
+[scott@localhost.localdomain ~]$ value=10
+#支持变量，直接使用变量名
+[scott@localhost.localdomain ~]$ echo $[value+1]
+11
+[scott@localhost.localdomain ~]$ num=$[10*10]
+[scott@localhost.localdomain ~]$ echo $num
+100
+#不支持小数运算
+[scott@localhost.localdomain ~]$ echo $[1.1+1]
+-bash: 1.1+1: syntax error: invalid arithmetic operator (error token is ".1+1")
+#不支持单独使用
+[scott@localhost.localdomain ~]$ [1+2]
+-bash: [1+2]: command not found
+~~~
+
+### 4、read
+
+read -p 提示信息 -t 超时时间 多个变量名
+
+~~~shell
+[scott@localhost.localdomain ~]# read -p "请输入2个数字：" -t 10 num1 num2
+请输入2个数字：1 2
+[scott@localhost.localdomain ~]# echo $num1
+1
+[scott@localhost.localdomain ~]# echo $num2
+2
+~~~
+
+## 四、结构化命令
+
+### 1、if-then
+
+==if 后的命令退出状态码为0时，执行then的语句==
+
+~~~markdown
+if command
+then
+  commands
+fi
+~~~
+
+~~~shell
+#!/bin/bash
+if pwd
+then
+  echo "match"
+fi
+~~~
+
+### 2、if-then-else
+
+if 后的命令退出状态码为0时，执行then的语句；否则执行else的语句。
+
+~~~markdown
+if command
+then
+  commands
+else
+  commands
+fi
+~~~
+
+~~~shell
+#!/bin/bash
+#判断参数是否是数字
+expr "$1" + 0 &> /dev/null
+if [ $? -ne 0 ]
+then
+  echo "参数非数字，程序退出"
+  exit 1
+fi
+
+if [ "$1" -ge 60 ]
+then
+  echo "pass"
+else
+  echo "not pass"
+fi
+
+#执行
+[scott@localhost.localdomain ~]$ sh test.sh
+参数非数字，程序退出
+[scott@localhost.localdomain ~]$ sh test.sh 1
+not pass
+[scott@localhost.localdomain ~]$ sh test.sh 70
+pass
+~~~
+
+### 3、if-then-elif-then-fi
+
+~~~shell
+if command
+then
+  commands
+elif command2
+then
+  commands
+...
+fi
+~~~
+
+
+
+## 五、重定向
+
+### 1、输入重定向
+
+| 语法               | 功能                                               |
+| ------------------ | -------------------------------------------------- |
+| 命令 < 文件1       | 命令把文件1的内容作为标准输入设备                  |
+| 命令 << 标识符     | 命令从标准输入中读入内容，直到遇到“标识符”为止     |
+| 命令< 文件1 >文件2 | 命令把文件1的内容作为标准输入，把文件2作为标准输出 |
+
+~~~shell
+# <
+[scott@localhost.localdomain ~]# cat hello.txt
+abc
+[scott@localhost.localdomain ~]# cat < hello.txt
+abc
+# <<
+[scott@localhost.localdomain ~]# cat << EOF
+> 11
+> 22
+> 33
+> EOF
+11
+22
+33
+# < >
+[scott@localhost.localdomain ~]# cat < hello.txt > world.txt
+[scott@localhost.localdomain ~]# cat hello.txt
+abc
+[scott@localhost.localdomain ~]# cat world.txt
+abc
+~~~
+
+### 2、输出重定向
+
+| 符号                   | 作用                                          |
+| ---------------------- | --------------------------------------------- |
+| 命令 > 文件            | 覆盖方式，命令正确结果输出到文件              |
+| 命令 >> 文件           | 追加方式，命令正确结果输出到文件              |
+| 命令 2> 文件           | 覆盖方式，命令错误结果输出到文件              |
+| 命令 2>> 文件          | 追加方式，命令错误结果输出到文件              |
+| 命令 > 文件 2>&1       | 覆盖方式，命令正确和错误结果i输出到同一个文件 |
+| 命令 >> 文件 2>&1      | 追加方式，命令正确和错误结果i输出到同一个文件 |
+| 命令 &> 文件           | 覆盖方式，命令正确和错误结果i输出到同一个文件 |
+| 命令 &>> 文件          | 追加方式，命令正确和错误结果输出到同一个文件  |
+| 命令 >> 文件1 2>>文件2 | 追加方式，命令正确和错误结果输出到不同文件    |
+
+### 3、/dev/null
+
+输出到 /dev/null 的内容将全部丢弃，不需要显示输出时，可以重定向到该文件
+
+## 六、命令执行顺序
+
+| 符号             | 作用                                   |
+| ---------------- | -------------------------------------- |
+| 命令1 ; 命令2    | 命令1和命令2顺序执行，之间没有逻辑关系 |
+| 命令1 && 命令2   | 命令1执行成功($?=0)，命令2才会执行     |
+| 命令1 \|\| 命令2 | 命令1执行失败($?!=0)，命令2才会执行    |
 
