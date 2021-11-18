@@ -353,22 +353,54 @@ def
 |abc|def
 ~~~
 
+### 6、IFS
+
+~~~markdown
+IFS.OLD=$IFS
+IFS=$'\n'
+<在代码中使用新的IFS值>
+IFS=$IFS.OLD
+
+将IFS的值设为冒号
+IFS=:
+如果要指定多个IFS字符，只要将它们在赋值行串起来就行。
+IFS=$'\n':;"
+这个赋值会将换行符、冒号、分号和双引号作为字段分隔符
+~~~
+
 ## 三、运算符
 
 ### 1、双小括号(())
 
-进行数值运算和数值比较，只能操作整数
+(( ))允许使用高级数学表达式。进行数值运算和数值比较，只能操作整数
 
 命令执行时不需要加$，输出时需要加$
 
 - ((i=i+1))：先运算后赋值，将 i+1 的值赋值给 i
+
 - i=$((i+1))：i+1的值计算后，赋值给 i
+
 - ((8>7 && 5==5))：用于条件判断，结果为1，表示true
+
 - echo $((2+1))：输出计算的结果
+
 - ((a++))：返回后自增
+
 - ((--a))：自减后返回
--  value=10;echo $((value+1))：支持使用变量计算
+
+- value=10;echo $((value+1))：支持使用变量计算
+
 - let i=1+1;echo $i：let命令等同于(())
+
+~~~shell
+#!/bin/bash
+if (( $1 > 10 ))
+then
+  echo "match"
+else
+  echo "not match"
+fi
+~~~
 
 ### 2、[ ]
 
@@ -396,6 +428,24 @@ def
 -bash: [1+2]: command not found
 ~~~
 
+### 3、expr
+
+expr用于数学运算
+
+~~~shell
+[scott@localhost.localdomain ~]$ expr 1 + 2
+3
+[scott@localhost.localdomain ~]$ echo $(expr 1 + 2)
+3
+[scott@localhost.localdomain ~]$ value=$(expr 1 + 2)
+[scott@localhost.localdomain ~]$ echo $value
+3
+[scott@localhost.localdomain ~]$ expr 10 / 3
+3
+[scott@localhost.localdomain ~]$ expr 10 % 3
+1
+~~~
+
 ### 4、read
 
 read -p 提示信息 -t 超时时间 多个变量名
@@ -408,6 +458,58 @@ read -p 提示信息 -t 超时时间 多个变量名
 [scott@localhost.localdomain ~]# echo $num2
 2
 ~~~
+
+### 5、数值比较
+
+| 比较    | 描述       |
+| ------- | ---------- |
+| a -eq b | a等于b     |
+| a -ne b | a不等于b   |
+| a -gt b | a大于b     |
+| a -ge b | a大于等于b |
+| a -lt b | a小于b     |
+| a -le b | a小于等于b |
+
+### 6、字符串比较
+
+| 比较   | 描述          |
+| ------ | ------------- |
+| a = b  | 字符串相等    |
+| a != b | 字符串不等    |
+| -n a   | 字符串长度非0 |
+| -z a   | 字符串长度为0 |
+
+### 7、文件比较
+
+| 比较    | 描述               |
+| ------- | ------------------ |
+| -d file | file是否是一个目录 |
+| -f file | file是否是一个文件 |
+| -e file | file是否存在       |
+| -r file | file是否可读       |
+| -w file | file是否可写       |
+| -x file | file是否可执行     |
+| -s file | file是否内容为空   |
+
+### 8、逻辑运算
+
+| 符号                       | 描述   |
+| -------------------------- | ------ |
+| condition1 && condition2   | 与关系 |
+| condition1 \|\| condition2 | 或关系 |
+
+~~~shell
+[scott@localhost.localdomain ~]$ [ 1 -eq 1 ] && echo yes || echo no
+yes
+[scott@localhost.localdomain ~]$ [ 1 -eq 2 ] && echo yes || echo no
+no
+~~~
+
+| 符号             | 作用                                   |
+| ---------------- | -------------------------------------- |
+| 命令1 ; 命令2    | 命令1和命令2顺序执行，之间没有逻辑关系 |
+| 命令1 && 命令2   | 命令1执行成功($?=0)，命令2才会执行     |
+| 命令1 \|\| 命令2 | 命令1执行失败($?!=0)，命令2才会执行    |
 
 ## 四、结构化命令
 
@@ -482,6 +584,190 @@ then
 fi
 ~~~
 
+~~~shell
+#!/bin/bash
+if [ $# -eq 0 ]
+then
+  echo "请传入年龄，类型：整数"
+  exit 1
+fi
+
+age=$1
+
+if [ $age -gt 84 ]
+then
+  echo "高寿"
+elif [ $age -gt 60 ]
+then
+  echo “老年”
+elif [ $age -gt 35 ]
+then
+  echo "中年"
+elif [ $age -ge 18 ]
+then
+  echo "青年"
+else
+  echo "未成年"
+fi
+~~~
+
+==数字比较切记不能使用 >、<、>=、<=等运算符，因此他们返回的结果为0==
+
+~~~shell
+[scott@localhost.localdomain ~]$ [ 3 > 1 ]
+[scott@localhost.localdomain ~]$ echo $?
+0
+[scott@localhost.localdomain ~]$ [ 3 < 1 ]
+[scott@localhost.localdomain ~]$ echo $?
+0
+[scott@localhost.localdomain ~]$ [ 3 -eq 1 ]
+[scott@localhost.localdomain ~]$ echo $?
+1
+~~~
+
+### 4、test
+
+~~~markdown
+if test condition
+then
+  commands
+fi
+~~~
+
+~~~shell
+#!/bin/bash
+value=$1
+if test "X$value" = "Xhello"
+then
+  echo "match"
+else
+  echo "not match"
+fi
+~~~
+
+### 5、case
+
+~~~markdown
+case variable in
+pattern1 | pattern2) commands1;;
+pattern3) commands2;;
+*) default commands;;
+esac
+~~~
+
+~~~shell
+#!/bin/bash
+value=$1
+case $value in
+1)
+  echo 1;;
+2)
+  echo 2;;
+3|4)
+  echo "3 or 4";;
+*)
+ echo "not in 1、2、3、4"
+esac
+~~~
+
+### 6、for
+
+~~~shell
+for var in list
+do
+  command
+done
+~~~
+
+~~~shell
+#遍历参数
+#!/bin/bash
+for i in "$@"
+do
+  echo $i
+done
+
+[scott@localhost.localdomain ~]$ sh test.sh tom "zhang san" jerry
+tom
+zhang san
+jerry
+~~~
+
+~~~shell
+#遍历变量中空格分隔的值
+#!/bin/bash
+list="a b c d e"
+
+for i in $list
+do
+  echo $i
+done
+echo
+
+[scott@localhost.localdomain ~]$ sh test.sh
+a
+b
+c
+d
+e
+~~~
+
+~~~shell
+#读取文件内容
+#!/bin/bash
+#修改分割符
+IFS=$'\n'
+for i in $(cat hello.txt)
+do
+  echo $i
+done
+
+[scott@localhost.localdomain ~]$ cat hello.txt
+hello
+hello world
+hello linux
+hello shell
+[scott@localhost.localdomain ~]$
+[scott@localhost.localdomain ~]$ sh test.sh
+hello
+hello world
+hello linux
+hello shell
+~~~
+
+~~~shell
+#遍历目录下的文件
+#!/bin/bash
+for file in /root/* /var/log/*log
+do
+  echo $file
+done
+
+[root@localhost.localdomain ~]# sh test.sh
+/root/anaconda-ks.cfg
+/root/test.sh
+/var/log/boot.log
+/var/log/lastlog
+/var/log/maillog
+/var/log/tallylog
+/var/log/yum.log
+~~~
+
+**C语言风格的for循环**
+
+~~~shell
+#!/bin/bash
+sum=0
+for ((i=1;i<=100;i++))
+do
+  sum=$((sum+i))
+done
+echo $sum
+
+[root@localhost.localdomain ~]# sh test.sh
+5050
+~~~
+
 
 
 ## 五、重定向
@@ -534,12 +820,3 @@ abc
 ### 3、/dev/null
 
 输出到 /dev/null 的内容将全部丢弃，不需要显示输出时，可以重定向到该文件
-
-## 六、命令执行顺序
-
-| 符号             | 作用                                   |
-| ---------------- | -------------------------------------- |
-| 命令1 ; 命令2    | 命令1和命令2顺序执行，之间没有逻辑关系 |
-| 命令1 && 命令2   | 命令1执行成功($?=0)，命令2才会执行     |
-| 命令1 \|\| 命令2 | 命令1执行失败($?!=0)，命令2才会执行    |
-
