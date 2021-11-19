@@ -55,6 +55,16 @@ helloworld
 
 可以手动指定状态码退出，使用“exit 状态码”的形式。一般结合 if-then  语句一起使用。
 
+### 6、脚本调试
+
+#### （1）sh -n 脚本名
+
+检查脚本语法错误，不执行
+
+#### （2）sh -x  脚本名
+
+调试方式，显示执行的每一条语句
+
 ## 二、Shell变量
 
 变量分为两种：环境变量（全局变量）、用户变量（局部变量）
@@ -375,6 +385,8 @@ IFS=$'\n':;"
 (( ))允许使用高级数学表达式。进行数值运算和数值比较，只能操作整数
 
 命令执行时不需要加$，输出时需要加$
+
+如果表达式的结果为0，那么返回的退出状态码为1，或者 是"假"，而一个非零值的表达式所返回的退出状态码将为0，或者是"true"
 
 - ((i=i+1))：先运算后赋值，将 i+1 的值赋值给 i
 
@@ -768,7 +780,67 @@ echo $sum
 5050
 ~~~
 
+### 6、while
 
+~~~markdown
+while tes command
+do
+  commands
+done
+~~~
+
+~~~shell
+#!/bin/bash
+sum=0
+index=1
+while [ $index -le 100 ]
+do
+  sum=$((sum+index))
+  index=$((index+1))
+done
+echo $sum
+~~~
+
+### 7、until
+
+~~~markdown
+until test command
+do 
+  commands
+done
+~~~
+
+~~~shell
+#!/bin/bash
+sum=0
+index=1
+until [ $index -gt 100 ]
+do
+  sum=$((sum+index))
+  index=$((index+1))
+done
+echo $sum
+~~~
+
+### 8、break、continue
+
+~~~shell
+#!/bin/bash
+sum=0
+i=1
+while [ $i -le 100 ]
+do
+  if [ $i -eq 50 ]
+  then
+    i=$((i+1))
+#   break
+    continue
+  fi
+  sum=$((sum+i))
+  i=$((i+1))
+done
+echo $sum
+~~~
 
 ## 五、重定向
 
