@@ -2,7 +2,7 @@
 
 ## 一、Shell入门
 
-shell是一个命令解释器，存在于操作系统最外层，负责将用于的输入解释给操作系统。
+shell是一个命令解释器，存在于操作系统最外层，负责将用户的输入解释给操作系统。
 
 ### 1、查看用户当前shell类型
 
@@ -15,6 +15,9 @@ shell是一个命令解释器，存在于操作系统最外层，负责将用于
 #whoami用于获取当前用户名
 [scott@localhost.localdomain ~]$ cat /etc/passwd | grep $(whoami)
 scott:x:1000:1000::/home/scott:/bin/bash
+#$USER中保存当前用户名
+[scott@localhost.localdomain ~]$ cat /etc/passwd | grep $USER
+scott:x:1000:1000::/home/scott:/bin/bash
 ```
 
 ### 2、脚本开头
@@ -25,12 +28,12 @@ scott:x:1000:1000::/home/scott:/bin/bash
 
 ### 3、脚本执行方式
 
-命令执行时，会从PATH路径中查询。当前路径 . 未在PATH中指定，因此需要通过相对或绝对路径执行脚本。
+命令执行时，会从PATH路径中查找。当前路径 . 未在PATH中配置，因此需要通过相对或绝对路径执行脚本。
 
 ```shell
 #推荐方式（不需要赋执行权限）
 sh test.sh
-#脚本必须有执行权限，通过chmod u+x test.sh方式添加执行权限，同时该方式会创建子shell执行
+#脚本必须有执行权限，通过chmod u+x test.sh方式添加执行权限
 ./test.sh
 ```
 
@@ -39,9 +42,15 @@ sh test.sh
 脚本中通过echo命令显示消息，当显示的消息中存在单引号或双引号时，可以使用另一种引号指定字符串范围。
 
 ~~~shell
-echo "I'm zhangsan"
-echo 'I love "flows"'
-# -n 参数表示输出后不换行
+[scott@localhost.localdomain ~]$ echo "I'm zhangsan"
+I'm zhangsan
+[scott@localhost.localdomain ~]$ echo 'I love "flows"'
+I love "flows"
+~~~
+
+- -n：输出后不换行
+
+~~~shell
 [scott@localhost.localdomain ~]$ echo hello;echo world
 hello
 world
@@ -49,7 +58,19 @@ world
 helloworld
 ~~~
 
-### 5、exit 命令退出脚本
+- -e：解析转义字符
+
+  \n：换行
+
+  \t：制表符
+
+~~~shell
+[scott@localhost.localdomain ~]$ echo -e "hello\n\tworld"
+hello
+        world
+~~~
+
+### 5、退出脚本
 
 默认情况下，shell脚本会以脚本中最后一个命令的退出状态码退出。
 
@@ -57,11 +78,11 @@ helloworld
 
 ### 6、脚本调试
 
-#### （1）sh -n 脚本名
+- sh -n 脚本名
 
 检查脚本语法错误，不执行
 
-#### （2）sh -x  脚本名
+- sh -x  脚本名
 
 调试方式，显示执行的每一条语句
 
@@ -69,7 +90,7 @@ helloworld
 
 变量分为两种：环境变量（全局变量）、用户变量（局部变量）
 
-环境变量：可以在创建的shell及子shell中使用，==环境变量都是使用大写==
+环境变量：可以在创建的shell及子shell中使用，==环境变量使用大写表示==
 
 用户变量：只能在shell脚本或shell函数中使用
 
@@ -80,11 +101,15 @@ helloworld
 set：输出所有的变量，包括全局变量和局部变量
 env：只显示全局变量
 [scott@localhost.localdomain ~]$ name='jerry'
-[scott@localhost.localdomain ~]$
 [scott@localhost.localdomain ~]$ set | grep name
 name=jerry
 [scott@localhost.localdomain ~]$ env | grep name
 [scott@localhost.localdomain ~]$
+```
+
+常用的环境变量
+
+~~~shell
 #家目录
 [scott@localhost.localdomain ~]$ echo $HOME
 /home/scott
@@ -100,11 +125,11 @@ localhost.localdomain
 #用户名
 [scott@localhost.localdomain ~]$ echo $USER
 scott
-```
+~~~
 
-#### （1）定义环境变量
+### （1）定义环境变量
 
-临时配置方式：
+- 临时配置方式：
 
 ```shell
 #方式一
@@ -114,7 +139,7 @@ export 变量名=value
 export 变量名
 ```
 
-永久配置方式：
+- 永久配置方式：
 
 ~~~shell
 #用户文件中配置
@@ -126,12 +151,7 @@ export 变量名
 /etc/profile.d（若要在登录后初始化或显示加载内容，把脚本文件放在该目录下）
 ~~~
 
-#### （2）登录提示信息
-
-- 在 /etc/motd 中配置（motd是message of the day缩写）
-- 在 /etc/profile.d/ 下增加脚本
-
-#### （3）取消环境变量
+### （2）取消环境变量
 
 使用unset取消全局和局部变量
 
@@ -142,17 +162,16 @@ zhangsan
 [scott@localhost.localdomain ~]$ unset name
 [scott@localhost.localdomain ~]$ echo $name
 
-[scott@localhost.localdomain ~]$
 ~~~
 
-#### （4）环境变量初始化与文件生效顺序
+### （3）环境变量初始化与文件生效顺序
 
 ```shell
 #用户登录linux时(su - 用户名)，依次在以下文件中查找环境变量
 /etc/profile
 /etc/profile.d
 $HOME/.bash_profile -> $HOME/.bashrc -> /etc/bashrc
-#非登录方式（su 用户名或ssh连接）
+#非登录方式（su 用户名 或 ssh连接）
 $HOME/.bashrc -> /etc/bashrc
 ```
 
@@ -183,12 +202,12 @@ I am $name
 [scott@localhost.localdomain ~]$ name="zhang san"
 [scott@localhost.localdomain ~]$ echo "I am $name"
 I am zhang san
-#双引号中存在$符号时，需要转义
+#当需要输出$ ` \时，可以使用单引号，或者使用双引号+转义符
 [scott@localhost.localdomain ~]$ echo "The cost of the item is \$15"
 The cost of the item is $15
 ~~~
 
-### （2）将命令的结果作为变量内容赋值的方法
+### （2）命令的结果赋值变量
 
 ==命令替换会创建一个子shell来运行对应的命令==
 
@@ -210,7 +229,7 @@ echo ${name}
 
 ### 3、特殊变量
 
-#### $0、$n、$#、$*、$@、$?、$$
+### （1）$0、$n、$#、$*、$@、$?、$$
 
 | 位置变量 | 作用                                                         |
 | -------- | ------------------------------------------------------------ |
@@ -218,65 +237,65 @@ echo ${name}
 | $n       | 获取shell脚本的第n个参数，n大于9时，需要使用如 ${10}的方式   |
 | $#       | 获取shell脚本参数个数                                        |
 | $*       | 获取shell脚本所有传参，不加双引号和$@相同，加双引号"$*"，将所有参数作为单个字符串 |
-| $@       | 获取shell脚本所有传参，不加双引号，参数中包含双引号的参数也会被拆分为多个参数，加双引号"$@"，每个参数作为独立的字符串。<br />如sh test.sh "a b" 1 2，将分别打印 a、b、1、2，所以使用时一定要加上双引号 |
+| $@       | 获取shell脚本所有传参，不加双引号和$*相同，加双引号"$@"，每个参数作为独立的字符串。<br />不加双引号时，参数中包含双引号的参数会被拆分为多个参数。<br />如遍历参数，执行sh test.sh "a b" 1 2，将分别打印 a、b、1、2，所以使用时一定要加上双引号 |
 
-- dirname（获取脚本路径）
+### （2）dirname（获取脚本路径）
 
-  ~~~shell
-  [scott@localhost.localdomain ~]$ cat test.sh
-  #!/bin/bash
-  echo $(dirname $0)
-  [scott@localhost.localdomain ~]$ ./test.sh
-  .
-  [scott@localhost.localdomain ~]$ /home/scott/test.sh
-  /home/scott
-  [scott@localhost.localdomain ~]$ sh test.sh
-  .
-  ~~~
+~~~shell
+[scott@localhost.localdomain ~]$ cat test.sh
+#!/bin/bash
+echo $(dirname $0)
+[scott@localhost.localdomain ~]$ sh test.sh
+.
+[scott@localhost.localdomain ~]$ ./test.sh
+.
+[scott@localhost.localdomain ~]$ /home/scott/test.sh
+/home/scott
+~~~
 
-- basename（获取脚本名称）
+### （3）basename（获取脚本名称）
 
-  ~~~shell
-  [scott@localhost.localdomain ~]$ cat test.sh
-  #!/bin/bash
-  echo $(basename $0)
-  [scott@localhost.localdomain ~]$ ./test.sh
-  test.sh
-  [scott@localhost.localdomain ~]$ /home/scott/test.sh
-  test.sh
-  [scott@localhost.localdomain ~]$ sh test.sh
-  test.sh
-  ~~~
+~~~shell
+[scott@localhost.localdomain ~]$ cat test.sh
+#!/bin/bash
+echo $(basename $0)
+[scott@localhost.localdomain ~]$ sh test.sh
+test.sh
+[scott@localhost.localdomain ~]$ ./test.sh
+test.sh
+[scott@localhost.localdomain ~]$ /home/scott/test.sh
+test.sh
+~~~
 
 | 位置变量 | 作用                                               |
 | -------- | -------------------------------------------------- |
 | $?       | 上个命令的执行状态返回值（0表示成功，非0表示失败） |
 | $$       | 获取当前执行的shell脚本进程号                      |
 
+~~~shell
+#!/bin/bash
+pid_file="test.pid"
+#启动进程前，结束上一次进程
+if [ -f "$pid_file" ]
+then
+  kill -9 $(cat test.pid) &> /dev/null
+  rm -f "$pid_file"
+fi
+
+#重写pid文件
+echo $$ > "$pid_file"
+
+#每秒获取当前时间
+while true
+do
+  echo $(date +%F' '%r)
+  sleep 1
+done
+~~~
+
 ### 4、Bash内置变量命令
 
-  #### （1）echo
-
-- -n：输出后不换行
-
-  ~~~shell
-  [scott@localhost.localdomain ~]$ echo -n hello;echo world
-  helloworld
-  ~~~
-
-- -e：解析转义字符
-
-  \n：换行
-
-  \t：制表符
-
-  ~~~shell
-  [scott@localhost.localdomain ~]$ echo -e "hello\n\tworld"
-  hello
-          world
-  ~~~
-
-#### （2）eval
+### （1）eval
 
 执行eval语句时，shell读入参数，并将它们组合成一个新的命令并执行
 
@@ -285,18 +304,7 @@ echo ${name}
   Mon Nov 15 00:26:54 CST 2021
   ~~~
 
-#### （3）exec
-
-exec能够在不创建子shell的前提下，执行指定的命令
-
-~~~shell
-[scott@localhost.localdomain ~]$ exec date
-Mon Nov 15 00:30:24 CST 2021
-~~~
-
-#### （4）read
-
-#### （5）shift
+### （2）shift 
 
 每使用一次shift语句，所有位置参数向左移动一个位置，并使 $# 减1，直到为0。
 
@@ -314,6 +322,8 @@ b c d
 ~~~
 
 ### 5、shell子串
+
+==字串操作并不会修改原字符串内容==
 
 | ID   | 表达式                   | 说明                                      |
 | ---- | ------------------------ | ----------------------------------------- |
@@ -336,14 +346,12 @@ helloworld
 #返回变量长度
 [scott@localhost.localdomain ~]# echo ${#info}
 10
+
 #截取字串
 [scott@localhost.localdomain ~]# echo ${info:5}
 world
 [scott@localhost.localdomain ~]# echo ${info:0:5}
 hello
-#字串操作并不会修改原变量
-[scott@localhost.localdomain ~]# echo $info
-helloworld
 [scott@localhost.localdomain ~]# info="123abc123def"
 [scott@localhost.localdomain ~]# echo ${info#123}
 abc123def
@@ -356,6 +364,7 @@ abc123def
 abc123def
 [scott@localhost.localdomain ~]# echo ${info##1*3}
 def
+
 #字符串替换操作
 [scott@localhost.localdomain ~]# echo ${info/123/|}
 |abc123def
@@ -363,19 +372,22 @@ def
 |abc|def
 ~~~
 
-### 6、IFS
+### 6、分隔符IFS
 
-~~~markdown
+~~~shell
+#设置分隔符前使用变量保存原分隔符
 IFS.OLD=$IFS
+#设置新分隔符
 IFS=$'\n'
-<在代码中使用新的IFS值>
+#在代码中使用新的IFS值
+#使用完成后，恢复原分隔符
 IFS=$IFS.OLD
 
-将IFS的值设为冒号
+#将IFS的值设为冒号
 IFS=:
-如果要指定多个IFS字符，只要将它们在赋值行串起来就行。
+#如果要指定多个IFS字符，只要将它们在赋值行串起来就行
+#这个赋值会将换行符、冒号、分号和双引号作为字段分隔符
 IFS=$'\n':;"
-这个赋值会将换行符、冒号、分号和双引号作为字段分隔符
 ~~~
 
 ## 三、运算符
