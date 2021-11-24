@@ -86,6 +86,18 @@ hello
 
 调试方式，显示执行的每一条语句
 
+### 7、后台运行脚本
+
+脚本运行日志默认写到当前路径下的nohup.out文件中
+
+&只是让脚本在后台运行，不会受到Ctrl+C的影响，但是用户退出时，脚本会停止执行。
+
+nohup让脚本忽略SIGHUP的信号，退出也不会停止脚本执行。
+
+~~~shell
+nohup sh 脚本名 &
+~~~
+
 ## 二、Shell变量
 
 变量分为两种：环境变量（全局变量）、用户变量（局部变量）
@@ -127,7 +139,7 @@ localhost.localdomain
 scott
 ~~~
 
-### （1）定义环境变量
+#### （1）定义环境变量
 
 - 临时配置方式：
 
@@ -151,7 +163,7 @@ export 变量名
 /etc/profile.d（若要在登录后初始化或显示加载内容，把脚本文件放在该目录下）
 ~~~
 
-### （2）取消环境变量
+#### （2）取消环境变量
 
 使用unset取消全局和局部变量
 
@@ -164,7 +176,7 @@ zhangsan
 
 ~~~
 
-### （3）环境变量初始化与文件生效顺序
+#### （3）环境变量初始化与文件生效顺序
 
 ```shell
 #用户登录linux时(su - 用户名)，依次在以下文件中查找环境变量
@@ -179,7 +191,7 @@ $HOME/.bashrc -> /etc/bashrc
 
 用户变量只在当前shell中有效。
 
-### （1）定义本地变量
+#### （1）定义本地变量
 
 ==赋值=之所以两边没有空格，因为需要和命令区分。当=两边允许有空格时，无法判断=前的值是变量还是命令==
 
@@ -207,7 +219,7 @@ I am zhang san
 The cost of the item is $15
 ~~~
 
-### （2）命令的结果赋值变量
+#### （2）命令的结果赋值变量
 
 ==命令替换会创建一个子shell来运行对应的命令==
 
@@ -218,7 +230,7 @@ The cost of the item is $15
 变量名=$(命令)
 ~~~
 
-### （3）变量表示
+#### （3）变量表示
 
 ~~~shell
 #方式一
@@ -229,7 +241,7 @@ echo ${name}
 
 ### 3、特殊变量
 
-### （1）$0、$n、$#、$*、$@、$?、$$
+#### （1）$0、$n、$#、$*、$@、$?、$$
 
 | 位置变量 | 作用                                                         |
 | -------- | ------------------------------------------------------------ |
@@ -239,7 +251,7 @@ echo ${name}
 | $*       | 获取shell脚本所有传参，不加双引号和$@相同，加双引号"$*"，将所有参数作为单个字符串 |
 | $@       | 获取shell脚本所有传参，不加双引号和$*相同，加双引号"$@"，每个参数作为独立的字符串。<br />不加双引号时，参数中包含双引号的参数会被拆分为多个参数。<br />如遍历参数，执行sh test.sh "a b" 1 2，将分别打印 a、b、1、2，所以使用时一定要加上双引号 |
 
-### （2）dirname（获取脚本路径）
+#### （2）dirname（获取脚本路径）
 
 ~~~shell
 [scott@localhost.localdomain ~]$ cat test.sh
@@ -253,7 +265,7 @@ echo $(dirname $0)
 /home/scott
 ~~~
 
-### （3）basename（获取脚本名称）
+#### （3）basename（获取脚本名称）
 
 ~~~shell
 [scott@localhost.localdomain ~]$ cat test.sh
@@ -295,7 +307,7 @@ done
 
 ### 4、Bash内置变量命令
 
-### （1）eval
+#### （1）eval
 
 执行eval语句时，shell读入参数，并将它们组合成一个新的命令并执行
 
@@ -304,9 +316,11 @@ done
   Mon Nov 15 00:26:54 CST 2021
   ~~~
 
-### （2）shift 
+#### （2）shift 
 
 每使用一次shift语句，所有位置参数向左移动一个位置，并使 $# 减1，直到为0。
+
+shift  n：一次可以移除多个参数
 
 ~~~shell
 [scott@localhost.localdomain ~]$ cat test.sh
@@ -319,6 +333,76 @@ echo "$@"
 a b c d
 =====================
 b c d
+~~~
+
+#### （3）read
+
+read -p 提示信息 -t 超时时间 多个变量名
+
+~~~shell
+[scott@localhost.localdomain ~]# read -p "请输入2个数字：" -t 10 num1 num2
+请输入2个数字：1 2
+[scott@localhost.localdomain ~]# echo $num1
+1
+[scott@localhost.localdomain ~]# echo $num2
+2
+~~~
+
+-s 参数可以隐藏输入的内容
+
+~~~shell
+[scott@localhost.localdomain ~]$ cat test.sh
+#!/bin/bash
+read -s -p "Enter your password:" passwd
+echo
+echo "your password is:$passwd"
+#运行
+[scott@localhost.localdomain ~]$ sh test.sh
+Enter your password:
+your password is:123123
+~~~
+
+==read读取文件，管道造成的陷阱==
+
+~~~shell
+#!/bin/bash
+file=hello.txt
+count=0
+#管道使得while语句在子shell中执行，子shell是无法访问父shell中变量，导致无法修改变量
+cat $file | while read line
+do
+  echo $line
+  count=$[count+1]
+done
+echo "There are $count lines in $file"
+
+[scott@localhost.localdomain ~]$ sh test.sh
+hello
+hello world
+hello linux
+hello shell
+There are 0 lines in hello.txt
+~~~
+
+可以使用重定向，从文件读取
+
+~~~shell
+#!/bin/bash
+file=hello.txt
+count=0
+while read line
+do
+  echo $line
+  count=$[count+1]
+done < $file
+echo "There are $count lines in $file"
+
+[scott@localhost.localdomain ~]$ sh test.sh
+hello
+hello world
+hello linux
+hello shell
+There are 4 lines in hello.txt
 ~~~
 
 ### 5、shell子串
@@ -390,15 +474,141 @@ IFS=:
 IFS=$'\n':;"
 ~~~
 
-## 三、运算符
+## 三、数组
 
-### 1、双小括号(())
+### 1、数组的定义
+
+~~~shell
+ #直接定义
+[scott@localhost.localdomain ~]$ names=(tom jack zhangsan lisi)
+[scott@localhost.localdomain ~]$ echo ${names[@]}
+tom jack zhangsan lisi
+[scott@localhost.localdomain ~]$ echo ${#names[@]}
+4
+ #带下标定义，下标可以不连续
+[scott@localhost.localdomain ~]$ values[0]=100
+[scott@localhost.localdomain ~]$ values[2]=200
+[scott@localhost.localdomain ~]$ echo ${values[@]}
+100 200
+[scott@localhost.localdomain ~]$ echo ${#values[@]}
+2
+~~~
+
+### 2、数组操作
+
+#### （1）取值
+
+~~~shell
+#数组取值
+[scott@localhost.localdomain ~]$ echo ${names[2]}
+zhangsan
+#获得数组中所有值，以空格隔开，可以在数组中遍历
+[scott@localhost.localdomain ~]$ echo ${names[@]}
+tom jack zhangsan lisi
+#获取的是一整个字符串
+[scott@localhost.localdomain ~]$ echo ${names[*]}
+tom jack zhangsan lisi
+#${数组名}等价于${数组名[0]}
+[scott@localhost.localdomain ~]$ echo ${names}
+tom
+~~~
+
+#### （2）赋值
+
+~~~shell
+[scott@localhost.localdomain ~]$ names[1]="jerry"
+[scott@localhost.localdomain ~]$ echo ${names[1]}
+jerry
+~~~
+
+#### （3）长度
+
+~~~shell
+[scott@localhost.localdomain ~]$ echo ${#names[@]}
+4
+[scott@localhost.localdomain ~]$ echo ${#names[*]}
+4
+~~~
+
+#### （4）删除
+
+~~~shell
+[scott@localhost.localdomain ~]$ echo ${names[@]}
+tom jerry zhangsan lisi
+#删除单个数组元素
+[scott@localhost.localdomain ~]$ unset names[1]
+[scott@localhost.localdomain ~]$ echo ${names[@]}
+tom zhangsan lisi
+#删除整个数组
+[scott@localhost.localdomain ~]$ unset names
+[scott@localhost.localdomain ~]$ echo ${names[@]}
+
+~~~
+
+#### （5）遍历
+
+- for循环，根据元素遍历
+
+~~~shell
+#!/bin/bash
+names=(tom jack zhangsan lisi)
+for name in ${names[@]}
+do
+  echo $name
+done
+
+[scott@localhost.localdomain ~]$ sh test.sh
+tom
+jack
+zhangsan
+lisi
+~~~
+
+- for循环，根据索引遍历，==使用${!数组名[@]}获取数组所有下标==
+
+~~~shell
+#!/bin/bash
+names=(tom jack zhangsan lisi)
+for i in ${!names[@]}
+do
+  echo ${names[$i]}
+done
+
+[scott@localhost.localdomain ~]$ sh test.sh
+tom
+jack
+zhangsan
+lisi
+~~~
+
+- while循环，根据索引遍历
+
+~~~shell
+#!/bin/bash
+names=(tom jack zhangsan lisi)
+i=0
+while [ $i -lt ${#names[@]} ]
+do
+  echo ${names[$i]}
+  i=$[i+1]
+done
+
+[scott@localhost.localdomain ~]$ sh test.sh
+tom
+jack
+zhangsan
+lisi
+~~~
+
+## 四、运算符
+
+### 1、(( ))
 
 (( ))允许使用高级数学表达式。进行数值运算和数值比较，只能操作整数
 
 命令执行时不需要加$，输出时需要加$
 
-如果表达式的结果为0，那么返回的退出状态码为1，或者 是"假"，而一个非零值的表达式所返回的退出状态码将为0，或者是"true"
+如果表达式的结果为0，那么返回的退出状态码为1，或者 是"假"；而一个非零值的表达式所返回的退出状态码将为0，或者是"true"
 
 - ((i=i+1))：先运算后赋值，将 i+1 的值赋值给 i
 
@@ -412,9 +622,6 @@ IFS=$'\n':;"
 
 - ((--a))：自减后返回
 
-- value=10;echo $((value+1))：支持使用变量计算
-
-- let i=1+1;echo $i：let命令等同于(())
 
 ~~~shell
 #!/bin/bash
@@ -449,9 +656,6 @@ fi
 #不支持小数运算
 [scott@localhost.localdomain ~]$ echo $[1.1+1]
 -bash: 1.1+1: syntax error: invalid arithmetic operator (error token is ".1+1")
-#不支持单独使用
-[scott@localhost.localdomain ~]$ [1+2]
--bash: [1+2]: command not found
 ~~~
 
 （2）[ ] 为test的另一种形式，bash的内置命令
@@ -460,7 +664,24 @@ fi
 
 大于号和小于号必须要转义，否则会被解释为重定向
 
-[ $num1 == $num2 ]
+==除了赋值不允许有空格，其他场景都要使用空格分隔==
+
+~~~shell
+[scott@localhost.localdomain ~]$ num1=10
+[scott@localhost.localdomain ~]$ num2=20
+[scott@localhost.localdomain ~]$ if [ $num1 == $num2 ];then echo "match";else echo "not match";fi
+not match
+[scott@localhost.localdomain ~]$ if [ $num1 != $num2 ];then echo "match";else echo "not match";fi
+match
+#运算符两边要使用空格分隔
+[scott@localhost.localdomain ~]$ if [ $num1!=$num2 ];then echo "match";else echo "not match";fi
+match
+#数字比较推荐使用-gt、-lt等运算符
+[scott@localhost.localdomain ~]$ if [ $num1 \> $num2 ];then echo "match";else echo "not match";fi
+not match
+[scott@localhost.localdomain ~]$ if [ $num1 \< $num2 ];then echo "match";else echo "not match";fi
+match
+~~~
 
 ### 3、[[ ]]
 
@@ -468,11 +689,52 @@ fi
 
 [[ ]]中不再需要对大于号和小于号进行转义
 
+~~~shell
+[scott@localhost.localdomain ~]$ num1=10
+[scott@localhost.localdomain ~]$ num2=20
+[scott@localhost.localdomain ~]$ if [[ $num1 < $num2 ]];then echo "match";else echo "not match";fi
+match
+[scott@localhost.localdomain ~]$ if [[ $num1 > $num2 ]];then echo "match";else echo "not match";fi
+not match
+~~~
+
 (2)支持字符串的模式匹配
 
 正则匹配：[[ hello =~ [a-z]{5} ]]
 
-[[ hello == hell? ]]
+~~~shell
+[scott@localhost.localdomain ~]$ [[ "hello" =~ [a-z]{5} ]] && echo "match" || echo "not match"
+match
+[scott@localhost.localdomain ~]$ [[ "hello" =~ [abc]{5} ]] && echo "match" || echo "not match"
+not match
+# =~ 正则匹配，是部分匹配，而不是完整匹配
+[scott@localhost.localdomain ~]$  [[ "hello123" =~ [a-z]{5} ]] && echo "match" || echo "not match"
+match
+[scott@localhost.localdomain ~]$ [[ "hello" =~ * ]] && echo "match" || echo "not match"
+not match
+[scott@localhost.localdomain ~]$ [[ "hello" =~ .* ]] && echo "match" || echo "not match"
+match
+~~~
+
+shell中模式匹配只支持三个字符：*（任意多个字符）、?（单个字符）、[ ]（匹配包含的任意一个字符）
+
+模式匹配：[[ hello == hell? ]]
+
+~~~shell
+[scott@localhost.localdomain ~]$ [[ "hello" == hell? ]] && echo "match" || echo "not match"
+match
+#模式匹配不能加双引号
+[scott@localhost.localdomain ~]$ [[ "hello" == "hell?" ]] && echo "match" || echo "not match"
+not match
+[scott@localhost.localdomain ~]$ [[ "helloworld" == hell? ]] && echo "match" || echo "not match"
+not match
+[scott@localhost.localdomain ~]$ [[ "helloworld" == hell* ]] && echo "match" || echo "not match"
+match
+[scott@localhost.localdomain ~]$ [[ "hello" == hell[abc] ]] && echo "match" || echo "not match"
+not match
+[scott@localhost.localdomain ~]$ [[ "hello" == hell[opq] ]] && echo "match" || echo "not match"
+match
+~~~
 
 ### 4、expr
 
@@ -492,20 +754,7 @@ expr用于数学运算
 1
 ~~~
 
-### 5、read
-
-read -p 提示信息 -t 超时时间 多个变量名
-
-~~~shell
-[scott@localhost.localdomain ~]# read -p "请输入2个数字：" -t 10 num1 num2
-请输入2个数字：1 2
-[scott@localhost.localdomain ~]# echo $num1
-1
-[scott@localhost.localdomain ~]# echo $num2
-2
-~~~
-
-### 6、数值比较
+### 5、数值比较
 
 | 比较    | 描述       |
 | ------- | ---------- |
@@ -516,16 +765,16 @@ read -p 提示信息 -t 超时时间 多个变量名
 | a -lt b | a小于b     |
 | a -le b | a小于等于b |
 
-### 7、字符串比较
+### 6、字符串比较
 
-| 比较   | 描述          |
-| ------ | ------------- |
-| a = b  | 字符串相等    |
-| a != b | 字符串不等    |
-| -n a   | 字符串长度非0 |
-| -z a   | 字符串长度为0 |
+| 比较   | 描述                    |
+| ------ | ----------------------- |
+| a == b | 字符串相等，也可以使用= |
+| a != b | 字符串不等              |
+| -n a   | 字符串长度非0           |
+| -z a   | 字符串长度为0           |
 
-### 8、文件比较
+### 7、文件比较
 
 | 比较    | 描述               |
 | ------- | ------------------ |
@@ -535,21 +784,20 @@ read -p 提示信息 -t 超时时间 多个变量名
 | -r file | file是否可读       |
 | -w file | file是否可写       |
 | -x file | file是否可执行     |
-| -s file | file是否内容为空   |
-
-### 9、逻辑运算
-
-| 符号                       | 描述   |
-| -------------------------- | ------ |
-| condition1 && condition2   | 与关系 |
-| condition1 \|\| condition2 | 或关系 |
+| -s file | file是否有内容     |
 
 ~~~shell
-[scott@localhost.localdomain ~]$ [ 1 -eq 1 ] && echo yes || echo no
-yes
-[scott@localhost.localdomain ~]$ [ 1 -eq 2 ] && echo yes || echo no
+[scott@localhost.localdomain ~]$ ll
+total 8
+-rw-rw-r--. 1 scott scott  0 Nov 24 20:57 empty.txt
+-rw-rw-r--. 1 scott scott  5 Nov 23 23:24 test.pid
+[scott@localhost.localdomain ~]$ [ -s empty.txt ] && echo yes || echo no
 no
+[scott@localhost.localdomain ~]$ [ -s test.sh ] && echo yes || echo no
+yes
 ~~~
+
+### 8、逻辑运算
 
 | 符号             | 作用                                   |
 | ---------------- | -------------------------------------- |
@@ -557,7 +805,7 @@ no
 | 命令1 && 命令2   | 命令1执行成功($?=0)，命令2才会执行     |
 | 命令1 \|\| 命令2 | 命令1执行失败($?!=0)，命令2才会执行    |
 
-### 10、布尔运算符
+### 9、布尔运算符
 
 假定变量 a 为 10，变量 b 为 20，用于在 [ ]中使用
 
@@ -567,7 +815,7 @@ no
 | -o   | 或运算，有一个表达式为 true 则返回 true。[ $a -lt 20 -o $b -gt 100 ] 返回 true。 |
 | -a   | 与运算，两个表达式都为 true 才返回 true。[ $a -lt 20 -a $b -gt 100 ] 返回 false。 |
 
-## 四、结构化命令
+## 五、结构化命令
 
 ### 1、if-then
 
@@ -665,20 +913,6 @@ then
 else
   echo "未成年"
 fi
-~~~
-
-==数字比较切记不能使用 >、<、>=、<=等运算符，因此他们返回的结果为0==
-
-~~~shell
-[scott@localhost.localdomain ~]$ [ 3 > 1 ]
-[scott@localhost.localdomain ~]$ echo $?
-0
-[scott@localhost.localdomain ~]$ [ 3 < 1 ]
-[scott@localhost.localdomain ~]$ echo $?
-0
-[scott@localhost.localdomain ~]$ [ 3 -eq 1 ]
-[scott@localhost.localdomain ~]$ echo $?
-1
 ~~~
 
 ### 4、test
@@ -839,6 +1073,7 @@ sum=0
 index=1
 while [ $index -le 100 ]
 do
+# 等价于 sum=$[sum+index] 或 sum=$(expr $sum + $index)
   sum=$((sum+index))
   index=$((index+1))
 done
@@ -886,7 +1121,7 @@ done
 echo $sum
 ~~~
 
-## 五、重定向
+## 六、重定向
 
 ### 1、输入重定向
 
@@ -936,3 +1171,4 @@ abc
 ### 3、/dev/null
 
 输出到 /dev/null 的内容将全部丢弃，不需要显示输出时，可以重定向到该文件
+
