@@ -12,10 +12,10 @@ shell是一个命令解释器，存在于操作系统最外层，负责将用户
 ```
 
 ```shell
-#whoami用于获取当前用户名
+# whoami用于获取当前用户名
 [scott@localhost.localdomain ~]$ cat /etc/passwd | grep $(whoami)
 scott:x:1000:1000::/home/scott:/bin/bash
-#$USER中保存当前用户名
+# $USER中保存当前用户名
 [scott@localhost.localdomain ~]$ cat /etc/passwd | grep $USER
 scott:x:1000:1000::/home/scott:/bin/bash
 ```
@@ -31,9 +31,9 @@ scott:x:1000:1000::/home/scott:/bin/bash
 命令执行时，会从PATH路径中查找。当前路径 . 未在PATH中配置，因此需要通过相对或绝对路径执行脚本。
 
 ```shell
-#推荐方式（不需要赋执行权限）
+# 推荐方式（不需要赋执行权限）
 sh test.sh
-#脚本必须有执行权限，通过chmod u+x test.sh方式添加执行权限
+# 脚本必须有执行权限，通过chmod u+x test.sh方式添加执行权限
 ./test.sh
 ```
 
@@ -74,7 +74,7 @@ hello
 
 默认情况下，shell脚本会以脚本中最后一个命令的退出状态码退出。
 
-可以手动指定状态码退出，使用“exit 状态码”的形式。一般结合 if-then  语句一起使用。
+可以手动指定状态码退出，使用“exit 状态码”的形式。
 
 ### 6、脚本调试
 
@@ -84,16 +84,16 @@ hello
 
 - sh -x  脚本名
 
-调试方式，显示执行的每一条语句
+调试脚本，显示执行的每一条语句
 
 ### 7、后台运行脚本
 
-脚本运行日志默认写到当前路径下的nohup.out文件中
+nohup命令运行日志默认写到当前路径下的nohup.out文件中
 
 &只是让脚本在后台运行，不会受到Ctrl+C的影响，但是用户退出时，脚本会停止执行。
 
 ~~~shell
-#任务后台执行，1表示作业号，2594表示进程pid
+# 任务后台执行，1表示作业号，2594表示进程pid
 [scott@localhost.localdomain ~]$ sleep 100 &
 [1] 2594
 [scott@localhost.localdomain ~]$ ps -f
@@ -101,10 +101,10 @@ UID         PID   PPID  C STIME TTY          TIME CMD
 scott      2518   2517  0 23:19 pts/0    00:00:00 -bash
 scott      2594   2518  0 23:35 pts/0    00:00:00 sleep 100
 scott      2596   2518  0 23:35 pts/0    00:00:00 ps -f
-#jobs -l可以显示后台作业任务信息
+# jobs -l可以显示后台作业任务信息
 [scott@localhost.localdomain ~]$ jobs -l
 [1]+  2594 Running                 sleep 100 &
-#作业完成
+# 作业完成时会自动在前台显示结束通知
 [scott@localhost.localdomain ~]$
 [1]+  Done                    sleep 100
 ~~~
@@ -126,7 +126,7 @@ nohup sh 脚本名 &
 ### 1、环境变量
 
 ```shell
-#获取环境变量命令
+# 获取环境变量命令
 set：输出所有的变量，包括全局变量和局部变量
 env：只显示全局变量
 [scott@localhost.localdomain ~]$ name='jerry'
@@ -139,19 +139,19 @@ name=jerry
 常用的环境变量
 
 ~~~shell
-#家目录
+# 家目录
 [scott@localhost.localdomain ~]$ echo $HOME
 /home/scott
-#主机名
+# 主机名
 [scott@localhost.localdomain ~]$ echo $HOSTNAME
 localhost.localdomain
-#退出超时时间，单位：秒
+# 退出超时时间，单位：秒
 [scott@localhost.localdomain ~]$ echo $TMOUT
 
-#用户uid
+# 用户uid
 [scott@localhost.localdomain ~]$ echo $UID
 1000
-#用户名
+# 用户名
 [scott@localhost.localdomain ~]$ echo $USER
 scott
 ~~~
@@ -161,9 +161,9 @@ scott
 - 临时配置方式：
 
 ```shell
-#方式一
+# 方式一
 export 变量名=value
-#方式二
+# 方式二
 变量名=value
 export 变量名
 ```
@@ -171,10 +171,10 @@ export 变量名
 - 永久配置方式：
 
 ~~~shell
-#用户文件中配置
+# 用户文件中配置
 .bashrc（推荐）
 .bash_profile
-#全局配置文件
+# 全局配置文件
 /etc/bashrc（推荐）
 /etc/profile
 /etc/profile.d（若要在登录后初始化或显示加载内容，把脚本文件放在该目录下）
@@ -196,11 +196,11 @@ zhangsan
 #### （3）环境变量初始化与文件生效顺序
 
 ```shell
-#用户登录linux时(su - 用户名)，依次在以下文件中查找环境变量
+# 用户登录linux时(通过终端登录shell 或 su - 用户名)，依次在以下文件中查找环境变量
 /etc/profile
 /etc/profile.d
 $HOME/.bash_profile -> $HOME/.bashrc -> /etc/bashrc
-#非登录方式（su 用户名 或 ssh连接）
+# 非登录方式（su 用户名 或 ssh连接）
 $HOME/.bashrc -> /etc/bashrc
 ```
 
@@ -208,57 +208,57 @@ $HOME/.bashrc -> /etc/bashrc
 
 用户变量只在当前shell中有效。
 
-#### （1）定义本地变量
+#### （1）定义用户变量
 
-==赋值=之所以两边没有空格，因为需要和命令区分。当=两边允许有空格时，无法判断=前的值是变量还是命令==
-
-普通变量一般有三种写法：
+用户变量一般有三种写法：
 变量名=value
 变量名='value'
 变量名="value"
 
+==使用=进行赋值，=两边没有空格，是因为需要和命令区分。当=两边允许有空格时，无法判断=前的值是变量还是命令==
+
 ~~~shell
 [scott@localhost.localdomain ~]$ name=zhangsan
-#双引号会解析 $ ` \
+# 双引号会解析 $ ` \
 [scott@localhost.localdomain ~]$ echo "I am $name"
 I am zhangsan
-#单引号不会解析 $ ` \ 原样输出
+# 单引号不会解析 $ ` \ 原样输出
 [scott@localhost.localdomain ~]$ echo 'I am $name'
 I am $name
-#将变量值中存在空格等字符时，必须使用双引号
+# 变量值中存在空格等字符时，必须使用双引号
 [scott@localhost.localdomain ~]$ name=zhang san
 -bash: san: command not found
 [scott@localhost.localdomain ~]$ name="zhang san"
 [scott@localhost.localdomain ~]$ echo "I am $name"
 I am zhang san
-#当需要输出$ ` \时，可以使用单引号，或者使用双引号+转义符
+# 当需要输出$ ` \时，可以使用单引号，或者使用双引号+转义符
 [scott@localhost.localdomain ~]$ echo "The cost of the item is \$15"
 The cost of the item is $15
 ~~~
 
-#### （2）命令的结果赋值变量
+#### （2）命令结果赋值
 
 ==命令替换会创建一个子shell来运行对应的命令==
 
 ~~~shell
-#方式一
+# 方式一
 变量名=`命令`
-#方式二（推荐）
+# 方式二（推荐）
 变量名=$(命令)
 ~~~
 
 #### （3）变量表示
 
 ~~~shell
-#方式一
+# 方式一
 echo $name
-#方式二，当变量后连接其他字符时，必须使用${}表示边界
+# 方式二，当变量后连接其他字符时，必须使用${}表示边界
 echo ${name}
 ~~~
 
 #### （4）readonly
 
-- readonly命令可以查看所有的只读变量
+单独使用readonly命令可以查看所有的只读变量
 
 ~~~shell
 [scott@localhost.localdomain ~]$ readonly
@@ -269,10 +269,9 @@ declare -ir EUID="1000"
 declare -ir PPID="3845"
 declare -r SHELLOPTS="braceexpand:emacs:hashall:histexpand:history:interactive-comments:monitor"
 declare -ir UID="1000"
-declare -r name="zhangsan"
 ~~~
 
-- readonly定义的变量无法被修改
+readonly定义的变量无法被修改
 
 ~~~shell
 [scott@localhost.localdomain ~]$ readonly name=zhangsan
@@ -280,7 +279,7 @@ declare -r name="zhangsan"
 zhangsan
 [scott@localhost.localdomain ~]$ name=lisi
 -bash: name: readonly variable
-#unset无法删除变量
+# unset无法删除变量
 [scott@localhost.localdomain ~]$ unset name
 -bash: unset: name: cannot unset: readonly variable
 ~~~
@@ -296,70 +295,71 @@ zhangsan
 | $#       | 获取shell脚本参数个数                                        |
 | $*       | 获取shell脚本所有传参，不加双引号和$@相同，加双引号"$*"，将所有参数作为单个字符串 |
 | $@       | 获取shell脚本所有传参，不加双引号和$*相同，加双引号"$@"，每个参数作为独立的字符串。<br />不加双引号时，参数中包含双引号的参数会被拆分为多个参数。<br />如遍历参数，执行sh test.sh "a b" 1 2，将分别打印 a、b、1、2，所以使用时一定要加上双引号 |
-
-#### （2）dirname（获取脚本路径）
-
-~~~shell
-[scott@localhost.localdomain ~]$ cat test.sh
-#!/bin/bash
-echo $(dirname $0)
-[scott@localhost.localdomain ~]$ sh test.sh
-.
-[scott@localhost.localdomain ~]$ ./test.sh
-.
-[scott@localhost.localdomain ~]$ /home/scott/test.sh
-/home/scott
-~~~
-
-#### （3）basename（获取脚本名称）
-
-~~~shell
-[scott@localhost.localdomain ~]$ cat test.sh
-#!/bin/bash
-echo $(basename $0)
-[scott@localhost.localdomain ~]$ sh test.sh
-test.sh
-[scott@localhost.localdomain ~]$ ./test.sh
-test.sh
-[scott@localhost.localdomain ~]$ /home/scott/test.sh
-test.sh
-~~~
-
-| 位置变量 | 作用                                               |
-| -------- | -------------------------------------------------- |
-| $?       | 上个命令的执行状态返回值（0表示成功，非0表示失败） |
-| $$       | 获取当前执行的shell脚本进程号                      |
+| $?       | 上个命令的执行状态返回值（0表示成功，非0表示失败）           |
+| $$       | 获取当前执行的shell脚本进程号                                |
 
 ~~~shell
 #!/bin/bash
 pid_file="test.pid"
-#启动进程前，结束上一次进程
+# 启动进程前，结束上一次进程
 if [ -f "$pid_file" ]
 then
-  kill -9 $(cat test.pid) &> /dev/null
+  kill -9 "$(cat test.pid)" &> /dev/null
   rm -f "$pid_file"
 fi
 
-#重写pid文件
+# 重写pid文件
 echo $$ > "$pid_file"
 
-#每秒获取当前时间
+# 每秒获取当前时间
 while true
 do
-  echo $(date +%F' '%r)
+  echo $(date "+%F %r")
   sleep 1
 done
+~~~
+
+#### （2）dirname（获取路径）
+
+忽略最后一个/及后面的内容，如果最后一个/后无内容，忽略倒数第二个/及后面的内容
+
+~~~shell
+[scott@192.168.232.129 ~]$ dirname /home/scott/test.sh
+/home/scott
+[scott@192.168.232.129 ~]$ dirname /home/scott/abc
+/home/scott
+[scott@192.168.232.129 ~]$ dirname /home/scott/abc/
+/home/scott
+~~~
+
+#### （3）basename（获取目录或文件名称）
+
+保留最后一个/后面的内容，如果最后一个/后无内容，保留倒数第二个/之后，最后一个/之前的内容
+
+~~~shell
+[scott@192.168.232.129 ~]$ basename /home/scott/test.sh
+test.sh
+[scott@192.168.232.129 ~]$ basename /home/scott/abc
+abc
+[scott@192.168.232.129 ~]$ basename /home/scott/abc/
+abc
+[scott@192.168.232.129 ~]$ basename ./test.sh
+test.sh
 ~~~
 
 ### 4、Bash内置变量命令
 
 #### （1）eval
 
-执行eval语句时，shell读入参数，并将它们组合成一个新的命令并执行
+执行eval语句时，shell读入参数，并将它们组合成一个新的命令并执行。eval可以执行含有带字符串的命令。
 
   ~~~shell
-  [scott@localhost.localdomain ~]$ eval $(echo date)
-  Mon Nov 15 00:26:54 CST 2021
+  [scott@192.168.232.129 ~]$ "$(echo date) $(echo "+%F")"
+  -bash: date +%F: command not found
+  [scott@192.168.232.129 ~]$ echo "$(echo date) $(echo "+%F")"
+  date +%F
+  [scott@192.168.232.129 ~]$ eval "$(echo date) $(echo "+%F")"
+  2021-12-05
   ~~~
 
 #### （2）shift 
@@ -369,12 +369,12 @@ done
 shift  n：一次可以移除多个参数
 
 ~~~shell
-[scott@localhost.localdomain ~]$ cat test.sh
 #!/bin/bash
 echo "$@"
 shift
 echo "====================="
 echo "$@"
+
 [scott@localhost.localdomain ~]$ sh test.sh a b c d
 a b c d
 =====================
@@ -397,24 +397,23 @@ read -p 提示信息 -t 超时时间 多个变量名
 -s 参数可以隐藏输入的内容
 
 ~~~shell
-[scott@localhost.localdomain ~]$ cat test.sh
 #!/bin/bash
 read -s -p "Enter your password:" passwd
 echo
 echo "your password is:$passwd"
-#运行
+
 [scott@localhost.localdomain ~]$ sh test.sh
 Enter your password:
 your password is:123123
 ~~~
 
-==read读取文件，管道造成的陷阱==
+==read读取文件，管道造成的陷阱。==
 
 ~~~shell
 #!/bin/bash
 file=hello.txt
 count=0
-#管道使得while语句在子shell中执行，子shell是无法访问父shell中变量，导致无法修改变量
+# 管道使得while语句在子shell中执行，子shell是无法访问父shell中变量，导致无法修改变量
 cat $file | while read line
 do
   echo $line
@@ -453,39 +452,38 @@ There are 4 lines in hello.txt
 
 ### 5、shell子串
 
-==字串操作并不会修改原字符串内容==
+==子串操作并不会修改原字符串内容==
 
 | ID   | 表达式                   | 说明                                      |
 | ---- | ------------------------ | ----------------------------------------- |
-| 1    | ${param}                 | 返回$param的内容                          |
-| 2    | ${#param}                | 返回$param的长度                          |
-| 3    | ${param:offset}          | 返回offset开始的param的字串               |
-| 4    | ${param:offset:length}   | 返回offset开始，长度为length的param的字串 |
-| 5    | ${param#world}           | 从param开头开始删除最短匹配的world字串    |
-| 6    | ${param##world}          | 从param开头开始删除最长匹配的world字串    |
-| 7    | ${param%world}           | 从param结尾开始删除最短匹配的world字串    |
-| 8    | ${param%%world}          | 从param结尾开始删除最长匹配的world字串    |
-| 9    | ${param/pattern/string}  | 使用string代替第一个匹配的pattern         |
-| 10   | ${param//pattern/string} | 使用string代替所有匹配的pattern           |
+| 1    | ${#param}                | 返回$param的长度                          |
+| 2    | ${param:offset}          | 返回offset开始的param的子串               |
+| 3    | ${param:offset:length}   | 返回offset开始，长度为length的param的子串 |
+| 4    | ${param#world}           | 从param开头开始删除最短匹配的world子串    |
+| 5    | ${param##world}          | 从param开头开始删除最长匹配的world子串    |
+| 6    | ${param%world}           | 从param结尾开始删除最短匹配的world子串    |
+| 7    | ${param%%world}          | 从param结尾开始删除最长匹配的world子串    |
+| 8    | ${param/pattern/string}  | 使用string代替第一个匹配的pattern         |
+| 9    | ${param//pattern/string} | 使用string代替所有匹配的pattern           |
 
 ~~~shell
 [scott@localhost.localdomain ~]# info="helloworld"
-#返回变量
 [scott@localhost.localdomain ~]# echo $info
 helloworld
-#返回变量长度
+# 返回变量长度
 [scott@localhost.localdomain ~]# echo ${#info}
 10
 
-#截取字串
+# 截取字串
 [scott@localhost.localdomain ~]# echo ${info:5}
 world
 [scott@localhost.localdomain ~]# echo ${info:0:5}
 hello
+
 [scott@localhost.localdomain ~]# info="123abc123def"
 [scott@localhost.localdomain ~]# echo ${info#123}
 abc123def
-#删除字串操作，必须以删除的字串开头或结尾，否则不能正常删除
+# 删除字串操作，必须以待删除的字串开头或结尾，否则不能正常删除
 [scott@localhost.localdomain ~]# echo ${info%123}
 123abc123def
 [scott@localhost.localdomain ~]# echo ${info%def}
@@ -495,43 +493,47 @@ abc123def
 [scott@localhost.localdomain ~]# echo ${info##1*3}
 def
 
-#字符串替换操作
-[scott@localhost.localdomain ~]# echo ${info/123/|}
-|abc123def
-[scott@localhost.localdomain ~]# echo ${info//123/|}
-|abc|def
+# 字符串替换操作
+[scott@localhost.localdomain ~]# echo ${info/123/#}
+#abc123def
+[scott@localhost.localdomain ~]# echo ${info//123/#}
+#abc#def
+[scott@localhost.localdomain ~]# echo ${info//123/}
+abcdef
 ~~~
 
 ### 6、分隔符IFS
 
+读取文件时，可以修改默认的分隔符，按行读取
+
 ~~~shell
-#设置分隔符前使用变量保存原分隔符
+# 设置分隔符前使用变量保存原分隔符
 IFS.OLD=$IFS
-#设置新分隔符
+# 设置新分隔符
 IFS=$'\n'
-#在代码中使用新的IFS值
-#使用完成后，恢复原分隔符
+# 在代码中使用新的IFS值
+# 使用完成后，恢复原分隔符
 IFS=$IFS.OLD
 
-#将IFS的值设为冒号
+# 将IFS的值设为冒号
 IFS=:
-#如果要指定多个IFS字符，只要将它们在赋值行串起来就行
-#这个赋值会将换行符、冒号、分号和双引号作为字段分隔符
+# 如果要指定多个IFS字符，只要将它们在赋值行串起来就行
+# 这个赋值会将换行符、冒号、分号和双引号作为字段分隔符
 IFS=$'\n':;"
 ~~~
 
 ## 三、数组
 
-### 1、数组的定义
+### 1、数组定义
 
 ~~~shell
- #直接定义
+ # 直接定义
 [scott@localhost.localdomain ~]$ names=(tom jack zhangsan lisi)
 [scott@localhost.localdomain ~]$ echo ${names[@]}
 tom jack zhangsan lisi
 [scott@localhost.localdomain ~]$ echo ${#names[@]}
 4
- #带下标定义，下标可以不连续
+ # 带下标定义，下标可以不连续
 [scott@localhost.localdomain ~]$ values[0]=100
 [scott@localhost.localdomain ~]$ values[2]=200
 [scott@localhost.localdomain ~]$ echo ${values[@]}
@@ -545,16 +547,16 @@ tom jack zhangsan lisi
 #### （1）取值
 
 ~~~shell
-#数组取值
+# 数组取值，数组下标从0开始
 [scott@localhost.localdomain ~]$ echo ${names[2]}
 zhangsan
-#获得数组中所有值，以空格隔开，可以在数组中遍历
+# 获得数组中所有值，以空格隔开，可以在循环中遍历
 [scott@localhost.localdomain ~]$ echo ${names[@]}
 tom jack zhangsan lisi
-#获取的是一整个字符串
+# 获取的是一整个字符串
 [scott@localhost.localdomain ~]$ echo ${names[*]}
 tom jack zhangsan lisi
-#${数组名}等价于${数组名[0]}
+# ${数组名}等价于${数组名[0]}
 [scott@localhost.localdomain ~]$ echo ${names}
 tom
 ~~~
@@ -610,7 +612,7 @@ zhangsan
 lisi
 ~~~
 
-- for循环，根据索引遍历，==使用${!数组名[@]}获取数组所有下标==
+- for循环，根据索引遍历，使用 ${!数组名[@]} 获取数组所有下标
 
 ~~~shell
 #!/bin/bash
@@ -648,32 +650,50 @@ lisi
 
 ## 四、运算符
 
-==支持算术运算符号：$(( ))、$[ ]、let、expr==
+==支持算术运算：$(( ))、$[ ]、let、expr==
 
-==支持条件判断符号：[ ]、test、[[]]、(( ))，条件判断常用在if、while语句中，也常用在cmd1 && cmd2 || cmd3格式的命令行中。==
+==支持条件判断：[ ]、test、[[]]、(( ))，条件判断常用在if、while语句中，也常用在cmd1 && cmd2 || cmd3格式的命令行中。==
 
 ### 1、(( ))
 
-(( ))允许使用高级数学表达式。进行数值运算和数值比较，只能操作整数
+(( ))允许使用高级数学表达式。进行数值运算和数值比较，只能操作整数。
 
 命令执行时不需要加$，输出时需要加$
 
+~~~shell
+[scott@localhost.localdomain ~]$ i=10
+[scott@localhost.localdomain ~]$ ((i=i+1));echo $i
+11
+[scott@localhost.localdomain ~]$ i=$((i+1));echo $i
+12
+[scott@localhost.localdomain ~]$ echo $((2+1))
+3
+[scott@localhost.localdomain ~]$ a=20
+[scott@localhost.localdomain ~]$ ((a++));echo $a
+21
+[scott@localhost.localdomain ~]$ ((--a));echo $a
+20
+~~~
+
 如果表达式的结果为0，那么返回的退出状态码为1，或者 是"假"；而一个非零值的表达式所返回的退出状态码将为0，或者是"true"
 
-- ((i=i+1))：先运算后赋值，将 i+1 的值赋值给 i
+(( ))判断数字大小只能使用>、<等符号，不能使用-gt、-lt等符号
 
-- i=$((i+1))：i+1的值计算后，赋值给 i
-
-- ((8>7 && 5==5))：用于条件判断，结果为1，表示true
-
-- echo $((2+1))：输出计算的结果
-
-- ((a++))：返回后自增
-
-- ((--a))：自减后返回
+((8>7 && 5==5))：用于条件判断，结果为1，表示true
 
 
 ~~~shell
+[scott@localhost.localdomain ~]$ (( 10 < 100 ));echo $?
+0
+[scott@localhost.localdomain ~]$ (( 10 > 100 ));echo $?
+1
+[scott@localhost.localdomain ~]$ (( 10 -lt 100 ));echo $?
+-bash: ((: 10 -lt 100 : syntax error in expression (error token is "100 ")
+1
+[scott@localhost.localdomain ~]$ (( 10 -gt 100 ));echo $?
+-bash: ((: 10 -gt 100 : syntax error in expression (error token is "100 ")
+1
+
 #!/bin/bash
 if (( $1 > 10 ))
 then
@@ -685,9 +705,7 @@ fi
 
 ### 2、[ ]
 
-（1）$[ ]用于数学运算
-
-支持传入变量，只支持整数运算
+（1）$[ ]用于数学运算，只能操作整数
 
 ~~~shell
 [scott@localhost.localdomain ~]$ echo $[1+2]
@@ -696,85 +714,76 @@ fi
 3
 [scott@localhost.localdomain ~]$ echo $[ 1 + 2 ]
 3
-[scott@localhost.localdomain ~]$ value=10
-#支持变量，直接使用变量名
-[scott@localhost.localdomain ~]$ echo $[value+1]
+[scott@localhost.localdomain ~]$ value=10;echo $[value+1]
 11
-[scott@localhost.localdomain ~]$ num=$[10*10]
-[scott@localhost.localdomain ~]$ echo $num
+[scott@localhost.localdomain ~]$ num=$[10*10];echo $num
 100
-#不支持小数运算
-[scott@localhost.localdomain ~]$ echo $[1.1+1]
--bash: 1.1+1: syntax error: invalid arithmetic operator (error token is ".1+1")
 ~~~
 
 （2）[ ] 为test的另一种形式，bash的内置命令
 
-[ ]中括号内左侧和右侧必须存在空格
-
-大于号和小于号必须要转义，否则会被解释为重定向
-
-==除了赋值不允许有空格，其他场景都要使用空格分隔==
+==[ ]中括号内左侧和右侧必须存在空格==，大于号和小于号必须要转义，否则会被解释为重定向
 
 ~~~shell
+[scott@localhost.localdomain ~]$ [ 10 \< 100 ];echo $?
+0
+[scott@localhost.localdomain ~]$ [ 10 \> 100 ];echo $?
+1
+[scott@localhost.localdomain ~]$ [ 10 -lt 100 ];echo $?
+0
+[scott@localhost.localdomain ~]$ [ 10 -gt 100 ];echo $?
+1
 [scott@localhost.localdomain ~]$ num1=10
 [scott@localhost.localdomain ~]$ num2=20
-[scott@localhost.localdomain ~]$ if [ $num1 == $num2 ];then echo "match";else echo "not match";fi
-not match
-[scott@localhost.localdomain ~]$ if [ $num1 != $num2 ];then echo "match";else echo "not match";fi
-match
-#运算符两边要使用空格分隔
-[scott@localhost.localdomain ~]$ if [ $num1!=$num2 ];then echo "match";else echo "not match";fi
-match
-#数字比较推荐使用-gt、-lt等运算符
-[scott@localhost.localdomain ~]$ if [ $num1 \> $num2 ];then echo "match";else echo "not match";fi
-not match
-[scott@localhost.localdomain ~]$ if [ $num1 \< $num2 ];then echo "match";else echo "not match";fi
-match
+[scott@localhost.localdomain ~]$ if [ $num1 == $num2 ];then echo yes;else echo no;fi
+no
+[scott@localhost.localdomain ~]$ if [ $num1 != $num2 ];then echo yes;else echo no;fi
+yes
+# 运算符两边要使用空格分隔
+[scott@localhost.localdomain ~]$ if [ $num1==$num2 ];then echo yes;else echo no;fi
+yes
+# 数字比较推荐使用-gt、-lt等运算符
+[scott@localhost.localdomain ~]$ if [ $num1 \> $num2 ];then echo yes;else echo no;fi
+no
+[scott@localhost.localdomain ~]$ if [ $num1 \< $num2 ];then echo yes;else echo no;fi
+yes
+# 字符串比较必须使用>、<
+[scott@localhost.localdomain ~]$ value1=a
+[scott@localhost.localdomain ~]$ value2=b
+[scott@localhost.localdomain ~]$ if [ $value1 \> $value2 ];then echo yes;else echo no;fi
+no
+[scott@localhost.localdomain ~]$ if [ $value1 \< $value2 ];then echo yes;else echo no;fi
+yes
 ~~~
 
-### 3、let
-
-let用于数学运算
-
-~~~shell
-[scott@localhost.localdomain ~]$ num=10
-[scott@localhost.localdomain ~]$ let num=num+1
-[scott@localhost.localdomain ~]$ echo $num
-11
-~~~
-
-### 4、expr
-
-expr用于数学运算
-
-~~~shell
-[scott@localhost.localdomain ~]$ expr 1 + 2
-3
-[scott@localhost.localdomain ~]$ echo $(expr 1 + 2)
-3
-[scott@localhost.localdomain ~]$ value=$(expr 1 + 2)
-[scott@localhost.localdomain ~]$ echo $value
-3
-[scott@localhost.localdomain ~]$ expr 10 / 3
-3
-[scott@localhost.localdomain ~]$ expr 10 % 3
-1
-~~~
-
-### 5、[[ ]]
+### 3、[[ ]]
 
 (1)[[ ]]是[ ]的增强，并不是一个命令
 
 [[ ]]中不再需要对大于号和小于号进行转义
 
 ~~~shell
+[scott@localhost.localdomain ~]$ [[ 10 < 100 ]];echo $?
+0
+[scott@localhost.localdomain ~]$ [[ 10 > 100 ]];echo $?
+1
+[scott@localhost.localdomain ~]$ [[ 10 -lt 100 ]];echo $?
+0
+[scott@localhost.localdomain ~]$ [[ 10 -gt 100 ]];echo $?
+1
 [scott@localhost.localdomain ~]$ num1=10
 [scott@localhost.localdomain ~]$ num2=20
 [scott@localhost.localdomain ~]$ if [[ $num1 < $num2 ]];then echo "match";else echo "not match";fi
 match
 [scott@localhost.localdomain ~]$ if [[ $num1 > $num2 ]];then echo "match";else echo "not match";fi
 not match
+# 字符串比较必须使用>、<
+[scott@localhost.localdomain ~]$ value1=a
+[scott@localhost.localdomain ~]$ value2=b
+[scott@localhost.localdomain ~]$ if [[ $value1 > $value2 ]];then echo yes;else echo no;fi
+no
+[scott@localhost.localdomain ~]$ if [[ $value1 < $value2 ]];then echo yes;else echo no;fi
+yes
 ~~~
 
 (2)支持字符串的模式匹配
@@ -789,6 +798,10 @@ not match
 # =~ 正则匹配，是部分匹配，而不是完整匹配
 [scott@localhost.localdomain ~]$  [[ "hello123" =~ [a-z]{5} ]] && echo "match" || echo "not match"
 match
+[scott@localhost.localdomain ~]$ [[ "hello123" =~ ^[a-z]{5}$ ]] && echo "match" || echo "not match"
+not match
+[scott@localhost.localdomain ~]$ [[ "hello" =~ ^[a-z]{5}$ ]] && echo "match" || echo "not match"
+match
 [scott@localhost.localdomain ~]$ [[ "hello" =~ * ]] && echo "match" || echo "not match"
 not match
 [scott@localhost.localdomain ~]$ [[ "hello" =~ .* ]] && echo "match" || echo "not match"
@@ -802,7 +815,7 @@ shell中模式匹配只支持三个字符：*（任意多个字符）、?（单�
 ~~~shell
 [scott@localhost.localdomain ~]$ [[ "hello" == hell? ]] && echo "match" || echo "not match"
 match
-#模式匹配不能加双引号
+# 模式匹配不能加双引号
 [scott@localhost.localdomain ~]$ [[ "hello" == "hell?" ]] && echo "match" || echo "not match"
 not match
 [scott@localhost.localdomain ~]$ [[ "helloworld" == hell? ]] && echo "match" || echo "not match"
@@ -814,8 +827,48 @@ not match
 [scott@localhost.localdomain ~]$ [[ "hello" == hell[opq] ]] && echo "match" || echo "not match"
 match
 ~~~
+### 4、let
 
-### 6、数值比较
+let用于数学运算
+
+~~~shell
+[scott@localhost.localdomain ~]$ num=10
+[scott@localhost.localdomain ~]$ let num=num+1
+[scott@localhost.localdomain ~]$ echo $num
+11
+~~~
+
+### 5、expr
+
+expr用于数学运算
+
+~~~shell
+[scott@localhost.localdomain ~]$ expr 1 + 2
+3
+[scott@localhost.localdomain ~]$ value=$(expr 1 + 2)
+[scott@localhost.localdomain ~]$ echo $value
+3
+[scott@localhost.localdomain ~]$ expr 10 \* 3
+30
+[scott@localhost.localdomain ~]$ expr 10 / 3
+3
+[scott@localhost.localdomain ~]$ expr 10 % 3
+1
+~~~
+
+### 6、declare -i
+
+使用declare -i 定义一个数字类型的变量，直接进行算术运算
+
+~~~shell
+[scott@192.168.232.129 ~]$ declare -i num=10
+[scott@192.168.232.129 ~]$ num=$num+1
+[scott@192.168.232.129 ~]$ echo $num
+11
+~~~
+### 7、数值比较
+
+数值比较不要使用>、<等符号，防止非预期结果。
 
 | 比较    | 描述       |
 | ------- | ---------- |
@@ -826,7 +879,7 @@ match
 | a -lt b | a小于b     |
 | a -le b | a小于等于b |
 
-### 7、字符串比较
+### 8、字符串比较
 
 | 比较   | 描述                    |
 | ------ | ----------------------- |
@@ -835,7 +888,7 @@ match
 | -n a   | 字符串长度非0           |
 | -z a   | 字符串长度为0           |
 
-### 8、文件比较
+### 9、文件比较
 
 | 比较    | 描述               |
 | ------- | ------------------ |
@@ -858,9 +911,7 @@ no
 yes
 ~~~
 
-### 9、逻辑运算
-
-==&&和||只能在[[ ]]中使用==
+### 10、逻辑运算
 
 | 符号             | 作用                                   |
 | ---------------- | -------------------------------------- |
@@ -868,17 +919,17 @@ yes
 | 命令1 && 命令2   | 命令1执行成功($?=0)，命令2才会执行     |
 | 命令1 \|\| 命令2 | 命令1执行失败($?!=0)，命令2才会执行    |
 
-### 10、布尔运算符
-
-假定变量 a 为 10，变量 b 为 20
+### 11、布尔运算符
 
 ==-a和-o只能在[ ]和test中使用==
 
-| 符号 | 描述                                                         |
-| ---- | ------------------------------------------------------------ |
-| !    | 非运算，表达式为 true 则返回 false，否则返回 true。[ ! false ] 返回 true。 |
-| -o   | 或运算，有一个表达式为 true 则返回 true。[ $a -lt 20 -o $b -gt 100 ] 返回 true。 |
-| -a   | 与运算，两个表达式都为 true 才返回 true。[ $a -lt 20 -a $b -gt 100 ] 返回 false。 |
+==&&和||只能在[[ ]]和(( ))中使用，&&和||存在短路功能==
+
+| 符号       | 描述                                                |
+| ---------- | --------------------------------------------------- |
+| !          | 非运算，表达式为 true 则返回 false，否则返回 true。 |
+| -o 或 \|\| | 或运算，有一个表达式为 true 则返回 true。           |
+| -a 或 &&   | 与运算，两个表达式都为 true 才返回 true。           |
 
 ## 五、结构化命令
 
@@ -1363,6 +1414,8 @@ echo $value
 
 使用local可以将函数内定义的变量声明为局部变量，只能在函数内使用
 
+当函数中存在局部变量和全局变量重名时，修改局部变量不会导致修改全局变量
+
 ~~~shell
 #!/bin/bash
 function test {
@@ -1719,7 +1772,7 @@ hello.txt:hello shell
 
 ### 2、不创建子shell
 
-- { }不会创建子shell
+- { }不会创建子shell，{ }其实是一个匿名函数
 
 ~~~shell
 # 大括号组合的多个命令是在当前Shell中执行
