@@ -1,7 +1,8 @@
 package com.test.basic.day02;
 
 /**
- * 算术运算符(+、-、*、/、%)
+ * 算术运算符(+、-、*、/、%、++、--)
+ * 一元运算符优先级高于二元运算符
  * 在二元运算符中，算术运算符优先级最高
  */
 public class ArithmeticOperatorDemo {
@@ -13,11 +14,11 @@ public class ArithmeticOperatorDemo {
         // double类型 / int类型 = double类型
         System.out.println((double) 14 / 4); // 3.5
 
-        // 取模，就是取余数
-        System.out.println(13 % 5); // 3
-        System.out.println(-13 % 5); // -3
-        System.out.println(13 % -5); // 3
-        System.out.println(-13 % -5); // -3
+        // 取模，就是求余数
+        System.out.println(13 % 5); // 3，商为2
+        System.out.println(-13 % 5); // -3，商为-2
+        System.out.println(13 % -5); // 3，商为-2
+        System.out.println(-13 % -5); // -3，商为2
 
         // 前自增，先将a1自增1，再返回a1的值
         int a1 = 10;

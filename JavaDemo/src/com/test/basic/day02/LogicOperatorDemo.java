@@ -11,26 +11,27 @@ package com.test.basic.day02;
  */
 public class LogicOperatorDemo {
     public static void main(String[] args) {
-        boolean a = true; // 非0为true
-        boolean b = false; // 0为false
+        boolean a = true;
+        boolean b = false;
         System.out.println(a & b); // false
         System.out.println(a && b); // false
         System.out.println(a | b); // true
         System.out.println(a || b); // true
-        System.out.println(a ^ b); // true，相同为false，不同为true
+        // 异或，相同为false，不同为true
+        System.out.println(a ^ b); // true
         System.out.println(!a); // false
 
         int num1 = 10;
         int num2 = 20;
         // |操作，所有条件都进行判断
-        if (num1 == 10 | num2++ != 0) {
+        if (num1 > 0 | num2++ < 0) {
             System.out.println("num1=" + num1 + ",num2=" + num2); // num1=10,num2=21
         }
 
         num1 = 10;
         num2 = 20;
         // ||操作，运算符左边结果为true，右边不再进行运算
-        if (num1 == 10 || num2++ != 0) {
+        if (num1 > 0 || num2++ < 0) {
             System.out.println("num1=" + num1 + ",num2=" + num2); // num1=10,num2=20
         }
     }

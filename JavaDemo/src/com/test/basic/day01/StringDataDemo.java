@@ -7,7 +7,7 @@ package com.test.basic.day01;
  */
 public class StringDataDemo {
     public static void main(String[] args) {
-        // 字符串定义
+        // 定义字符串
         String str1 = "Hello";
         // 定义一个空的字符串
         String str2 = "";
@@ -30,10 +30,11 @@ public class StringDataDemo {
         // String str4 = 123;
 
         // 使用String类和包装类中提供的API实现字符串和数字转换
-        // int -> String，调用String类中的valueOf()方法
+        // int -> String，使用String类中的valueOf()方法
         String str5 = String.valueOf(123);
         System.out.println(str5); // 123
-        // String -> int，调用Integer类中的parseInt()方法
+
+        // String -> int，使用Integer类中的parseInt()方法
         int num = Integer.parseInt(str5);
         System.out.println(num); // 123
     }
