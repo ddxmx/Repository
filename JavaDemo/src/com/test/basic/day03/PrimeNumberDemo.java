@@ -1,7 +1,7 @@
 package com.test.basic.day03;
 
 /**
- * 1~100000的质数
+ * 获取1~100000的质数
  * 2、3、5、7、11、13、17、19、23、29、31、37、41、43、47、53、59、61、67、71、73、79、83、89、97、
  */
 public class PrimeNumberDemo {
@@ -10,13 +10,14 @@ public class PrimeNumberDemo {
         // 方式一
         {
             long startTime = System.currentTimeMillis();
+            // 最小的质数是2
             for (int i = 2; i <= limit; i++) {
                 // 是否是质数
                 boolean flag = true;
 
                 // 只能被1和其本身整除的数就是质数
                 for (int j = 2; j < i; j++) {
-                    // 不是质数
+                    // 存在约数，不是质数
                     if (i % j == 0) {
                         flag = false;
                         break;
@@ -28,9 +29,8 @@ public class PrimeNumberDemo {
                     System.out.print(i + "、");
                 }
             }
-            System.out.println();
             long endTime = System.currentTimeMillis();
-            System.out.println("耗时：" + (endTime - startTime) + "毫秒"); // 耗时：1093毫秒
+            System.out.println("\n耗时：" + (endTime - startTime) + "毫秒"); // 耗时：1093毫秒
         }
 
 
@@ -51,9 +51,8 @@ public class PrimeNumberDemo {
                 }
                 System.out.print(i + "、");
             }
-            System.out.println();
             long endTime = System.currentTimeMillis();
-            System.out.println("耗时：" + (endTime - startTime) + "毫秒"); // 耗时：47毫秒
+            System.out.println("\n耗时：" + (endTime - startTime) + "毫秒"); // 耗时：47毫秒
         }
     }
 }

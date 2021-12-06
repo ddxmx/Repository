@@ -1,13 +1,13 @@
 package com.test.basic.day03;
 
 /**
+ * 如果明确的知道循环的次数，使用for循环
  * 循环四个部分：
  * 1、初始化语句；(for循环的循环控制变量超过for循环的范围不能再使用)
  * 2、循环条件判断；
  * 3、执行循环体
  * 4、修改循环控制变量。
  * 执行顺序：1、2、3、4、2、3、4、2、3、4...2
- * 如果明确的知道循环的次数，使用for循环
  */
 public class ForDemo {
     public static void main(String[] args) {
@@ -36,14 +36,13 @@ public class ForDemo {
         }
 
         /*
-            for循环中每个部分都可以有多个语句，语句之间使用,分隔，在多个语句中不能存在声明的语句
+            for循环中每个部分都可以有多个语句，语句之间使用,分隔
             运行结果：
             i = 0,j = 5
             i = 1,j = 4
             i = 2,j = 3
          */
-        int i, j;
-        for (i = 0, j = 5; i < 3 && j > 0; i++, j--) {
+        for (int i = 0, j = 5; i < 3 && j > 0; i++, j--) {
             System.out.println("i = " + i + ",j = " + j);
         }
 

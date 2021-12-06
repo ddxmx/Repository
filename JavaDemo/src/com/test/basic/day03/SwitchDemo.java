@@ -5,13 +5,13 @@ package com.test.basic.day03;
  * switch支持的表达式类型如下：
  * |- byte short int char
  * |- enum 1.5支持
- * |- String 7.0支持
+ * |- String 1.7支持
  * switch语句都可以使用if-else改写
  * case后必须跟常量，不能使用变量
  * |- 在多个常量值中选一，推荐使用switch语句
  * |- 判断范围，推荐使用if-else语句
  * switch结构在底层实际上使用跳转表实现的，所有case条件会根据数值排序（枚举通过order，String通过hash()方法计算）
- * if-else if-else可能存在多次跳转，而switch只需要一次跳转，性能高于if语句
+ * if-elseif-else可能存在多次跳转，而switch只需要一次跳转，性能高于if语句
  * 因为跳转表存储空间为32位，因此指令只支持int类型数据，不支持long类型
  */
 public class SwitchDemo {
@@ -47,7 +47,8 @@ public class SwitchDemo {
             case "周一":
             case "周二":
             case "周三":
-            case "周四": // case语句没有break,则继续向下执行，但不再判断case条件，直到遇到break或switch语句执行结束
+            // case语句没有break,则继续向下执行，但不再判断case条件，直到遇到break或switch语句执行结束
+            case "周四":
             case "周五":
                 System.out.println("工作日");
                 break;

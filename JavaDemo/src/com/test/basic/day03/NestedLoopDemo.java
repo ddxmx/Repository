@@ -49,7 +49,8 @@ public class NestedLoopDemo {
             int bai = i / 100;
             int shi = i % 100 / 10;
             int ge = i % 10;
-            int result = bai * bai * bai + shi * shi * shi + ge * ge * ge;
+            // Math.pow(double a, double b) 用于计算a的b次方
+            int result = (int) (Math.pow(bai, 3) + Math.pow(shi, 3) + Math.pow(ge, 3));
             if (i == result) {
                 System.out.print(i + "\t");
             }

@@ -6,7 +6,7 @@ import java.util.Scanner;
  * 统计正数和负数的个数，0表示结束程序
  * 无限循环可以通过if语句+break退出循环
  */
-public class EndlessLoopDemo {
+public class EndlessLoopBreakDemo {
     public static void main(String[] args) {
         // 正数数量
         int positiveCount = 0;

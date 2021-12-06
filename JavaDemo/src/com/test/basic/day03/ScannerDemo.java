@@ -3,7 +3,7 @@ package com.test.basic.day03;
 import java.util.Scanner;
 
 /**
- * 从键盘获取三个数字，并排序
+ * 从键盘获取三个数字，找出最小的数
  * Scanner类用于从键盘获取输入值，常用方法如下：
  * next()、nextInt()、nextDouble() 、nextLine()、next(String pattern)
  * <p>
@@ -32,16 +32,7 @@ public class ScannerDemo {
         int second = numbers[1];
         int third = numbers[2];
 
-        int tempMax = Math.max(first, second);
-        int tempMin = Math.min(first, second);
-        if (third > tempMax) {
-            System.out.println(third + ">" + tempMax + ">" + tempMin);
-        } else {
-            if (third > tempMin) {
-                System.out.println(tempMax + ">" + third + ">" + tempMin);
-            } else {
-                System.out.println(tempMax + ">" + tempMin + ">" + third);
-            }
-        }
+        int min = Math.min(Math.min(first, second), third);
+        System.out.println("最小值为：" + min);
     }
 }

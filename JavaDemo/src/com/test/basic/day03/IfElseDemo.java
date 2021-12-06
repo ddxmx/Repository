@@ -16,7 +16,6 @@ public class IfElseDemo {
             System.out.println("余额不足，无法购买");
         }
 
-        System.out.println("*****************************");
         int score = 50;
         // if(条件表达式){语句1} else{语句2}
         if (score >= 60) {
@@ -25,7 +24,6 @@ public class IfElseDemo {
             System.out.println("不及格，准备补考吧");
         }
 
-        System.out.println("*****************************");
         int age = 55;
         // if(条件表达式1){语句1} else if(条件表达式2){语句2} ... else{语句n}
         // 表示范围小的条件写在上面，表示范围大的条件写在下面
