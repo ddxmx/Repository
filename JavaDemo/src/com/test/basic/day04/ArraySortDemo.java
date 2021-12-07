@@ -7,7 +7,7 @@ import java.util.Arrays;
  * |- 冒泡排序
  * |- 线性排序
  */
-public class BubbleSortDemo {
+public class ArraySortDemo {
     public static void main(String[] args) {
         int[] arr = new int[]{21, 64, 38, 96, 14, 33, 72, 35, 9};
 
@@ -22,6 +22,7 @@ public class BubbleSortDemo {
             第7次排序：[14, 9, 21, 33, 35, 38, 64, 72, 96]
             第8次排序：[9, 14, 21, 33, 35, 38, 64, 72, 96]
          */
+        System.out.println("========冒泡排序========");
         // n个元素，最多需要排序n-1轮
         for (int i = 0; i < arr.length - 1; i++) {
             // 每次排序使用j和j+1比较，每轮后将最大值排序到最后
@@ -34,7 +35,6 @@ public class BubbleSortDemo {
             }
             System.out.println("第" + (i + 1) + "次排序：" + Arrays.toString(arr));
         }
-        System.out.println("***********************************");
 
         /*
             另一种排序实现，每轮比较后将最小的值排序到开头
@@ -47,6 +47,7 @@ public class BubbleSortDemo {
             第7次排序：[9, 14, 21, 33, 35, 38, 64, 96, 72]
             第8次排序：[9, 14, 21, 33, 35, 38, 64, 72, 96]
          */
+        System.out.println("========线性排序========");
         arr = new int[]{21, 64, 38, 96, 14, 33, 72, 35, 9};
         for (int i = 0; i < arr.length - 1; i++) {
             // 每轮使用开头的元素依次和后续元素比较

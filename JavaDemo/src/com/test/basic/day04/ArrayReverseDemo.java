@@ -3,7 +3,7 @@ package com.test.basic.day04;
 import java.util.Arrays;
 
 /**
- * 一维数组和二维数组的反转
+ * 数组反转
  */
 public class ArrayReverseDemo {
     public static void main(String[] args) {
@@ -26,7 +26,7 @@ public class ArrayReverseDemo {
             2	5	8
             3	6	9
          */
-        // 二维数组反转
+        // 二维数组反转，前提：二维数组行和列长度一致
         int[][] arr2 = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         for (int i = 0; i < arr2.length; i++) {
             // 沿着左上右下对角线反转

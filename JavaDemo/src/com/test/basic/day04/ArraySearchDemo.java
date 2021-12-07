@@ -13,25 +13,24 @@ public class ArraySearchDemo {
         // 查找索引结果，未查找到返回-1
         int index = -1;
 
-        // 线性查找
+        // 线性查找，从头开始依次查找
         for (int i = 0; i < array.length; i++) {
             if (key == array[i]) {
                 index = i;
-                // 找到后结束查找
                 break;
             }
         }
         System.out.println(index); // 5
 
         /*
-         * 二分法查找
-         * 二分法查找前提：数组是已经排序过的数组
+         * 二分法查找，前提：数组已经排序过
          */
         // 数组排序
         Arrays.sort(array);
         System.out.println(Arrays.toString(array)); // [14, 21, 23, 33, 35, 38, 64, 72, 96]
-        // 调用API方式
+        // 调用Arrays类中binarySearch()方法实现
         System.out.println(Arrays.binarySearch(array, key)); // 3
+
         // 手工实现二分法查找
         int head = 0;
         int tail = array.length - 1;

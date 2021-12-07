@@ -9,7 +9,7 @@ public class TwoDimArrayDemo {
         // 静态初始化
         int[][] arr1 = new int[][]{{1, 2}, {3, 4, 5}, {6, 7, 8, 9}};
 
-        // 动态初始化
+        // 动态初始化，方式一
         String[][] arr2 = new String[3][2];
         arr2[0][0] = "hello";
         arr2[1][0] = "java";
@@ -28,6 +28,7 @@ public class TwoDimArrayDemo {
             System.out.println();
         }
 
+        // 动态初始化，方式二
         // 二维数组不开辟内层元素空间
         int[][] arr3 = new int[2][];
         // 内层元素没有实例化，NullPointerException
@@ -45,6 +46,7 @@ public class TwoDimArrayDemo {
             System.out.println();
         }
 
+        // 面试题
         int[][] arr4 = new int[2][3];
         System.out.println(arr4); // [[I@1540e19d
         System.out.println(arr4[0]); // [I@677327b6

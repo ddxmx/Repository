@@ -36,6 +36,7 @@ public class OneDimArrayDemo {
         int[] arr4 = new int[]{1, 2, 3};
         // 修改堆内存空间的值
         arr4[1] = 20;
+        System.out.println(Arrays.toString(arr4)); // [1, 20, 3]
         // 更改指向的堆内存空间，原堆内存空间没有被栈内存空间指向，成为垃圾，等待GC回收
         arr4 = new int[5];
         System.out.println(Arrays.toString(arr4)); // [0, 0, 0, 0, 0]

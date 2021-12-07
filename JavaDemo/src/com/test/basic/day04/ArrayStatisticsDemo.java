@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * 生成10个随机数，获取其中最大值、最小值、总和、平均值
+ * 生成长度为10的int类型数组，数组元素随机
+ * 获取数组的最大值、最小值、总和、平均值
  */
 public class ArrayStatisticsDemo {
     public static void main(String[] args) {
@@ -34,6 +35,7 @@ public class ArrayStatisticsDemo {
             }
             sum += array[i];
         }
+
         avg = (double) sum / array.length;
 
         System.out.println("最大值：" + max); // 最大值：99

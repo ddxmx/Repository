@@ -13,6 +13,10 @@ public class StringDataDemo {
         String str2 = "";
         // String类型是引用数据类型，可以使用null赋值
         String str3 = null;
+        System.out.println(str3); // null
+
+        // 编译失败，null常量不能直接打印
+        // System.out.println(null);
 
         // 字符串连接
         System.out.println("计算结果：" + 1 + 2); // 计算结果：12
