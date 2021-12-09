@@ -16,19 +16,18 @@ class Person {
     // 成员变量
     String name;
     int age;
-    boolean isMale;
 
     // 成员方法
     public void eat() {
-        System.out.println("eat...");
+        System.out.println("Person.eat");
     }
 
     public void sleep() {
-        System.out.println("sleep...");
+        System.out.println("Person.sleep");
     }
 
     public void talk(String language) {
-        System.out.println("talk " + language + "...");
+        System.out.println("Person.talk " + language);
     }
 }
 
@@ -38,29 +37,31 @@ public class ClassDemo {
         Person p1 = new Person();
 
         // 方式二：分为两个步骤，分别进行声明和实例化
-        // Person p1 = null;
-        // p1 = new Person();
+        Person per = null;
+        per = new Person();
 
         // 设置属性
         p1.name = "张三";
         p1.age = 20;
-        p1.isMale = true;
-        System.out.println("姓名：" + p1.name + "，年龄：" + p1.age + "，男：" + p1.isMale); // 姓名：张三，年龄：20，男：true
+        System.out.println("姓名：" + p1.name + "，年龄：" + p1.age); // 姓名：张三，年龄：20
 
         // 调用方法
-        p1.eat(); // eat...
-        p1.sleep(); // sleep...
-        p1.talk("Chinese"); // talk Chinese...
+        p1.eat(); // Person.eat
+        p1.sleep(); // Person.sleep
+        p1.talk("Chinese"); // Person.talk Chinese
 
-        // 实例化一个新的对象
+        // 创建一个新的对象
         Person p2 = new Person();
-        // String类型的默认值是null
+        // 属性未赋值，使用对应数据类型默认值
+        // String是引用数据类型，默认值是null
         System.out.println(p2.name); // null
 
         // 类的引用传递
-        Person p3 = p1; // p1和p3指向同一块堆内存空间
+        // p1和p3指向同一块堆内存空间
+        Person p3 = p1;
         System.out.println(p3.name); // 张三
-        p3.age = 22; // 修改指向的堆内存空间的属性，当前p1和p3指向同一块堆内存空间
+        // 修改指向的堆内存空间的属性，当前p1和p3指向同一块堆内存空间
+        p3.age = 22;
         System.out.println(p1.age); // 22
     }
 }
