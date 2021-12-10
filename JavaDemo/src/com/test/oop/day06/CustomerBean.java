@@ -1,4 +1,4 @@
-package com.test.oop.day07;
+package com.test.oop.day06;
 
 /**
  * JavaBean的特点
@@ -7,12 +7,12 @@ package com.test.oop.day07;
  * |- 属性使用private封装
  * |- 属性提供了setter和getter方法
  */
-public class Customer {
+public class CustomerBean {
     private int id;
     private String name;
 
     // 无参构造，通过反射进行对象实例化默认调用无参构造
-    public Customer() {
+    public CustomerBean() {
     }
 
     public int getId() {
@@ -31,3 +31,4 @@ public class Customer {
         this.name = name;
     }
 }
+

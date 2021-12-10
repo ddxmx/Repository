@@ -1,4 +1,4 @@
-package com.test.oop.day07;
+package com.test.oop.day06;
 
 /**
  * 构造器：一般用于对类中的属性初始化
@@ -8,18 +8,20 @@ package com.test.oop.day07;
  * 多个构造器之间形成构造器的重载
  */
 class Student {
-    private String name;
-    private int age;
+    String name;
+    int age;
 
-    // 如果没有明确定义构造器，则当前类会默认生成如下的构造器
-    // 实际上默认生成的构造器的访问权限，和类的访问权限一致
+    /**
+     * 如果没有明确定义构造器，则当前类会默认生成如下的构造器
+     * 实际上默认生成的构造器的访问权限，和类的访问权限一致
+     */
     Student() {
     }
 
-    public Student(String _name, int _age) {
+    public Student(String n, int a) {
         // 在构造器中对类中的属性进行赋值
-        name = _name;
-        age = _age;
+        name = n;
+        age = a;
     }
 
     public void study() {
@@ -36,6 +38,7 @@ public class ConstructorDemo {
         // 实例化对象时，实际上就是调用构造器：new 构造器()
         Student stu = new Student();
         stu.study(); // Student.study
+        // 对象中属性没有手动赋值时，使用对应数据类型的默认值
         stu.show(); // 姓名：null，年龄：0
 
         Student stu2 = new Student("张三", 12);
