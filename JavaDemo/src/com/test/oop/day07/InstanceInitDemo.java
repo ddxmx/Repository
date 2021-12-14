@@ -6,6 +6,11 @@ class SuperClass {
     public SuperClass() {
         System.out.println(superValue);
         System.out.println("父类对象实例化");
+        test();
+    }
+
+    public void test() {
+        System.out.println("SuperClass.test：" + superValue);
     }
 }
 
@@ -16,6 +21,11 @@ class SubClass extends SuperClass {
         System.out.println(subValue);
         System.out.println("子类对象实例化");
     }
+
+    @Override
+    public void test() {
+        System.out.println("SubClass.test：" + subValue);
+    }
 }
 
 /**
@@ -24,14 +34,20 @@ class SubClass extends SuperClass {
  * 子类实例化对象的过程：会依次调用父类的构造器(不会创建父类对象)，在堆内存中的子类对象中会存在所有父类的属性
  * 父类构造优先于子类构造执行
  */
-public class InstanceDemo {
+public class InstanceInitDemo {
     public static void main(String[] args) {
         /*
             10
             父类对象实例化
+            SubClass.test：0
             20
             子类对象实例化
         */
+        /*
+            子类对象的实例化过程中，先调用父类构造
+            父类构造执行时，调用的父类方法被子类重写时，实际上调用的是子类的方法
+            子类方法执行时，此时子类属性和构造都还没有执行，变量只是默认值
+         */
         new SubClass();
     }
 }
