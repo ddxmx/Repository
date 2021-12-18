@@ -1,4 +1,4 @@
-package com.test.oop.day10;
+package com.test.oop.day09;
 
 import java.util.Objects;
 
@@ -40,6 +40,7 @@ class User {
         if (null == obj) {
             return false;
         }
+
         if (obj == this) {
             return true;
         }
@@ -64,7 +65,7 @@ class User {
 
 /**
  * Object类是所有类的根父类
- * 如果一个类没有使用extends显示继承其他类，则默认继承java.lang.Object类
+ * 如果一个类没有显式使用extends继承其他类，则默认继承java.lang.Object类
  * Object类可以接收所有的引用数据类型，包括数组和接口
  */
 public class ObjectDemo {
@@ -74,7 +75,7 @@ public class ObjectDemo {
         User user3 = new User("张三", 22);
 
         System.out.println(user1 == user2); // false
-        System.out.println(user1.equals(user2)); // true，覆写equals方法后，属性都相等，结果相等
+        System.out.println(user1.equals(user2)); // true
         System.out.println(user1.equals(user1)); // true
         System.out.println(user1.equals(null)); // false
         System.out.println(user1.equals(user3)); // false

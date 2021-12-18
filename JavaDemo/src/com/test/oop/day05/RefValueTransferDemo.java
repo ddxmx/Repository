@@ -1,4 +1,4 @@
-package com.test.oop.day06;
+package com.test.oop.day05;
 
 class Data {
     int m = 10;

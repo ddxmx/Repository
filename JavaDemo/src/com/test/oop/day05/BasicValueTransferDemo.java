@@ -1,4 +1,4 @@
-package com.test.oop.day06;
+package com.test.oop.day05;
 
 /**
  * 参数的值传递机制

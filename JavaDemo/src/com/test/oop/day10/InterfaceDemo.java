@@ -1,4 +1,4 @@
-package com.test.oop.day11;
+package com.test.oop.day10;
 
 interface USB {
     // 全局常量，可以省略 public static final

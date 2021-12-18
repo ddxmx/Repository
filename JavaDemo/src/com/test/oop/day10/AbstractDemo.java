@@ -1,4 +1,4 @@
-package com.test.oop.day11;
+package com.test.oop.day10;
 
 abstract class Person {
     private String name;

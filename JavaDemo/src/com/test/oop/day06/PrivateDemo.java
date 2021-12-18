@@ -49,7 +49,7 @@ public class PrivateDemo {
 
         // 属性未封装，外部直接调用，可以随便给属性赋值，数据不安全
         // 属性使用private封装后，以下代码编译错误
-        // per.age = -20;
+        // customer.age = -20;
 
         // 通过类提供的方法设置类中的属性值，非法值进行了校验
         per.setAge(-20);

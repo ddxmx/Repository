@@ -1,4 +1,4 @@
-package com.test.oop.day11;
+package com.test.oop.day10;
 
 abstract class User {
     public abstract String getContent();

@@ -80,7 +80,7 @@ class Person {
  * |- 继承：is A，Apple继承Fruit，apple is a fruit
  * |- 包含：has A，Library包含Book，library has a book
  */
-public class FiledRefDemo {
+public class ClassRefDemo {
     public static void main(String[] args) {
         Book book1 = new Book("java编程思想", 89.9);
         Book book2 = new Book("一千零一夜", 19.9);

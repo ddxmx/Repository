@@ -1,19 +1,6 @@
-package com.test.oop.day10;
+package com.test.oop.day09;
 
-/**
- * 类中结构执行的先后顺序：
- * 1、父类静态属性/父类静态代码块
- * 2、子类静态属性/子类静态代码块
- * 3、父类实例属性/父类普通代码块
- * 4、父类构造方法
- * 5、子类实例属性/子类普通代码块
- * 6、子类构造方法
- */
 class Person {
-    private String name = "张三";
-    private int age = 20;
-    private static String desc = "person";
-
     // 静态代码块
     static {
         System.out.println("Person static block");
@@ -27,43 +14,9 @@ class Person {
     public Person() {
         System.out.println("Person constructor");
     }
-
-    public Person(String name, int age) {
-        this();
-        this.name = name;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public static String getDesc() {
-        System.out.println("Person static method");
-        return desc;
-    }
-
-    public static void setDesc(String desc) {
-        Person.desc = desc;
-    }
 }
 
 class Student extends Person {
-    private double score = 95.5;
-    private static String info = "student";
-
     // 静态代码块
     static {
         System.out.println("Student static block");
@@ -77,27 +30,6 @@ class Student extends Person {
     public Student() {
         System.out.println("Student constructor");
     }
-
-    public Student(String name, int age, double score) {
-        super(name, age);
-        this.score = score;
-    }
-
-    public double getScore() {
-        return score;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
-    }
-
-    public static String getInfo() {
-        return info;
-    }
-
-    public static void setInfo(String info) {
-        Student.info = info;
-    }
 }
 
 /**
@@ -105,6 +37,13 @@ class Student extends Person {
  * 静态代码块：随着类的加载而执行，只执行一次
  * 非静态代码块：随着对象的创建而执行，每次创建对象都会执行
  * 主类中的静态块优先于主方法执行
+ * 类中结构执行的先后顺序：
+ * 1、父类静态属性/父类静态代码块
+ * 2、子类静态属性/子类静态代码块
+ * 3、父类实例属性/父类普通代码块
+ * 4、父类构造方法
+ * 5、子类实例属性/子类普通代码块
+ * 6、子类构造方法
  */
 public class BlockDemo {
     // 主方法中的静态代码块

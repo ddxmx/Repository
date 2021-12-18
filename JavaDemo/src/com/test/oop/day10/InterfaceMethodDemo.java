@@ -1,4 +1,4 @@
-package com.test.oop.day11;
+package com.test.oop.day10;
 
 /**
  * 默认方法支持的原因：当接口中需要提供新的功能，方法需要在接口中定义。但是所有子类必须要覆写接口中的抽象方法。
