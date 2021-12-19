@@ -42,14 +42,6 @@ abstract class Person {
     public void sleep() {
         System.out.println("Person.sleep");
     }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
 }
 
 /**
@@ -77,16 +69,16 @@ class Student extends Person {
  * 抽象类也存在构造器，子类实例化需要依赖抽象父类构造器
  * 抽象方法只有方法声明，没有方法体
  * 包含抽象方法的类，需要声明为抽象类。但抽象类不一定包含抽象方法
- * 继承抽象类的子类需要覆写父类中所有的抽象方法，如果子类不覆写，子类需要声明为抽象的
+ * 继承抽象类的子类需要覆写父类中所有的抽象方法，如果子类不覆写，子类需要继续使用abstract修饰
  */
 public class AbstractDemo {
     public static void main(String[] args) {
         // 抽象类不能直接实例化
-        // Person p1 = new Person();
+        // Person per = new Person();
 
         // 抽象类可以通过子类实例化
-        Person p2 = new Student("张三", 20);
-        System.out.println(p2.toString()); // Person{name='张三', age=20}
-        p2.eat(); // Student.eat
+        Person per = new Student("张三", 20);
+        // 调用的是被子类覆写的方法
+        per.eat(); // Student.eat
     }
 }

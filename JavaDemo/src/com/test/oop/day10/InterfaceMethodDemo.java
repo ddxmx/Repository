@@ -61,7 +61,9 @@ class SubClass extends SuperClass implements SuperInterfaceA, SuperInterfaceB {
         System.out.println("SubClass.defaultMethod");
     }
 
-    // 子类可以覆写接口中的default方法
+    /**
+     * 子类可以覆写接口中的default方法
+     */
     @Override
     public void defaultMethod2() {
         System.out.println("SubClass.defaultMethod2");
@@ -70,21 +72,19 @@ class SubClass extends SuperClass implements SuperInterfaceA, SuperInterfaceB {
     public void invoke() {
         /*
             接口中的default方法需要通过实例化对象调用
-            当子类继承父类，并实现接口时，使用super.方法名()只会从父类中查找方法，不会从父接口中查找default方法
-            调用接口中的默认方法需要使用接口名称.super.方法名()的格式
+            当子类继承父类，并实现接口时，使用"super.方法名()"只会从父类中查找方法，不会从父接口中查找default方法
+            调用接口中的default方法需要使用"接口名称.super.方法名()"的格式
          */
-        // SuperInterfaceA
-        SuperInterfaceA.super.defaultMethod();
-        SuperInterfaceA.super.defaultMethod2();
-        SuperInterfaceA.super.defaultMethod3();
+        SuperInterfaceA.super.defaultMethod(); // SuperInterfaceA.defaultMethod
+        SuperInterfaceB.super.defaultMethod(); // SuperInterfaceB.defaultMethod
+        SuperInterfaceA.super.defaultMethod2(); // SuperInterfaceA.defaultMethod2
+        // 父类中的方法
+        defaultMethod3(); // SuperClass.defaultMethod3
+        super.defaultMethod3(); // SuperClass.defaultMethod3
+        SuperInterfaceA.super.defaultMethod3(); // SuperInterfaceA.defaultMethod3
         // 直接从父接口继承，无需指定
-        defaultMethod4();
-
-        System.out.println("---------------------------------------");
-        SuperInterfaceB.super.defaultMethod();
-
-        System.out.println("---------------------------------------");
-        super.defaultMethod3();
+        defaultMethod4(); // SuperInterfaceA.defaultMethod4
+        SuperInterfaceA.super.defaultMethod4(); // SuperInterfaceA.defaultMethod4
     }
 }
 
@@ -101,22 +101,12 @@ public class InterfaceMethodDemo {
         instance.defaultMethod(); // SubClass.defaultMethod
         // 调用子类覆写的方法
         instance.defaultMethod2(); // SubClass.defaultMethod2
-        /*
-            子类继承父类，实现接口，父类和接口中存在重名的实现方法，优先调用父类的方法
-         */
+        // 子类继承父类，实现接口，父类和接口中存在重名的实现方法，优先调用父类的方法
         instance.defaultMethod3(); // SuperClass.defaultMethod3
+        // 调用子类继承的方法，父类中不存在，从父接口中查找
+        instance.defaultMethod4(); // SuperInterfaceA.defaultMethod4
 
-        System.out.println("********************************");
-        /*
-            SuperInterfaceA.defaultMethod
-            SuperInterfaceA.defaultMethod2
-            SuperInterfaceA.defaultMethod3
-            SuperInterfaceA.defaultMethod4
-            ---------------------------------------
-            SuperInterfaceB.defaultMethod
-            ---------------------------------------
-            SuperClass.defaultMethod3
-         */
+        System.out.println("========子类中调用父类方法========");
         instance.invoke();
     }
 }
