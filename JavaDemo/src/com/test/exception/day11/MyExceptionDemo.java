@@ -1,7 +1,8 @@
-package com.test.exception.day12;
+package com.test.exception.day11;
 
 /**
  * 自定义异常只需要继承Exception类或RuntimeException类
+ * 一般都继承RuntimeException类或其子类
  */
 class MyException extends RuntimeException {
     public MyException(String message) {
@@ -24,7 +25,7 @@ public class MyExceptionDemo {
          */
         try {
             checkAge(age);
-        } catch (Exception e) {
+        } catch (MyException e) {
             e.printStackTrace();
         }
 

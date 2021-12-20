@@ -1,4 +1,4 @@
-package com.test.exception.day12;
+package com.test.exception.day11;
 
 class Info {
     private int id;
@@ -20,16 +20,16 @@ class Info {
 
 /**
  * throw用于手动抛出一个异常
- * 实际开发中通过将系统异常捕获后，抛出一个业务异常
+ * 实际开发中通常将系统异常捕获后，抛出一个业务异常
  */
 public class ThrowDemo {
     public static void main(String[] args) {
         Info info = new Info();
         try {
-            info.register(-100);
+            info.register(-1001);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("hello world");
+        System.out.println(info.getId()); // 0
     }
 }
