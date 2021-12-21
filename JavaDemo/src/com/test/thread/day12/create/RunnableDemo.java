@@ -1,5 +1,9 @@
-package com.test.thread.day13;
+package com.test.thread.day12.create;
 
+/**
+ * 实现多线程的方法二：
+ * 实现Runnable接口，覆写接口中的run()方法
+ */
 class MyRunnable implements Runnable {
     @Override
     public void run() {
@@ -9,18 +13,14 @@ class MyRunnable implements Runnable {
     }
 }
 
-/**
- * 实现多线程的方法二：
- * 实现Runnable接口，覆写接口中的run()方法
- */
 public class RunnableDemo {
     public static void main(String[] args) {
         MyRunnable runnable = new MyRunnable();
 
         /*
-            线程Thread-0运行，i = 0
             线程Thread-1运行，i = 0
             线程Thread-1运行，i = 1
+            线程Thread-0运行，i = 0
             线程Thread-1运行，i = 2
             线程Thread-0运行，i = 1
             线程Thread-1运行，i = 3

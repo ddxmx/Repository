@@ -1,4 +1,4 @@
-package com.test.thread.day13;
+package com.test.thread.day12.create;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -22,7 +22,7 @@ class MyCallable implements Callable<Integer> {
             } else if (ticket == 0) {
                 return 0;
             } else {
-                throw new Exception("线程" + Thread.currentThread().getName() + "：call()方法抛出异常");
+                throw new Exception("线程" + Thread.currentThread().getName() + "：ticket不能小于0");
             }
         }
     }
@@ -34,17 +34,6 @@ class MyCallable implements Callable<Integer> {
  */
 public class CallableDemo {
     public static void main(String[] args) {
-        /*
-            等待线程结束，获取结果...
-            线程Thread-0卖票，余票：2
-            线程Thread-1卖票，余票：3
-            线程Thread-2卖票，余票：4
-            线程Thread-0卖票，余票：0
-            0
-            线程Thread-1卖票，余票：-1
-            线程Thread-2卖票，余票：1
-            java.lang.Exception: 线程Thread-1：call()方法抛出异常
-         */
         MyCallable callable = new MyCallable();
 
         // 创建异步任务
@@ -52,6 +41,7 @@ public class CallableDemo {
         FutureTask task2 = new FutureTask(callable);
         FutureTask task3 = new FutureTask(callable);
 
+        System.out.println("========将task作为Runnable对象使用，不会抛出异常========");
         /*
             Thread-0卖票，余票：4
             Thread-0卖票，余票：3
@@ -63,8 +53,16 @@ public class CallableDemo {
         new Thread(task2).start();
         new Thread(task3).start();
 
-        System.out.println("等待线程结束，获取结果...");
-
+        System.out.println("========使用FutureTask的get获取========");
+        /*
+            线程Thread-0卖票，余票：4
+            线程Thread-1卖票，余票：2
+            线程Thread-2卖票，余票：3
+            线程Thread-1卖票，余票：0
+            线程Thread-0卖票，余票：-1
+            线程Thread-2卖票，余票：1
+            java.util.concurrent.ExecutionException: java.lang.Exception: 线程Thread-0：ticket不能小于0
+         */
         try {
             // FutureTask的get()方法是阻塞的
             System.out.println(task.get());
@@ -72,8 +70,10 @@ public class CallableDemo {
             System.out.println(task3.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch (ExecutionException e) {  // callable中的异常被捕获处理后，抛出ExecutionException
-            System.out.println(e.getMessage());
+        }
+        // callable中的异常被捕获处理后，抛出ExecutionException
+        catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 }

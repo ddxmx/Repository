@@ -1,6 +1,9 @@
-package com.test.thread.day13;
+package com.test.thread.day12;
 
-class RunnableTicket implements Runnable {
+/**
+ * 使用Runnable接口，可以共享资源
+ */
+class TicketRunnable implements Runnable {
     private int ticket = 5;
 
     @Override
@@ -16,11 +19,12 @@ class RunnableTicket implements Runnable {
 }
 
 /**
- * 多线程使用方式推荐实现Runnable接口，避免类单继承的局限性
+ * 多线程使用方式不推荐使用Thread类，具有单继承局限性
  */
-public class RunnableTicketDemo {
+public class TicketRunnableDemo {
     public static void main(String[] args) {
-        RunnableTicket runnable = new RunnableTicket();
+        // TicketRunnable中ticket被多个线程共享
+        TicketRunnable runnable = new TicketRunnable();
 
         /*
             Thread-0卖票，余票：4

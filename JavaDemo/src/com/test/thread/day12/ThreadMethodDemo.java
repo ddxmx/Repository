@@ -1,4 +1,4 @@
-package com.test.thread.day13;
+package com.test.thread.day12;
 
 /**
  * 线程的常用方法
@@ -6,27 +6,24 @@ package com.test.thread.day13;
 public class ThreadMethodDemo {
     public static void main(String[] args) {
         /*
-            true
-            RUNNABLE
-            main线程优先级：5
             main：i = 0
             main：i = 1
             main：i = 2
             线程A优先级：10，i = 0
-            线程C优先级：1，i = 0
             线程B优先级：5，i = 0
+            线程C优先级：1，i = 0
             线程A优先级：10，i = 1
-            线程B优先级：5，i = 1
             线程C优先级：1，i = 1
+            线程B优先级：5，i = 1
             线程A优先级：10，i = 2
-            线程B优先级：5，i = 2
             线程C优先级：1，i = 2
+            线程B优先级：5，i = 2
             线程B优先级：5，i = 3
-            线程A优先级：10，i = 3
             线程C优先级：1，i = 3
+            线程A优先级：10，i = 3
+            线程A优先级：10，i = 4
             线程B优先级：5，i = 4
             线程C优先级：1，i = 4
-            线程A优先级：10，i = 4
             main：i = 3
             main：i = 4
             main：i = 5
