@@ -1,4 +1,4 @@
-package com.test.thread.day14;
+package com.test.thread.day13;
 
 /**
  * volatile：内存可见性
@@ -16,11 +16,16 @@ public class VolatileDemo {
             while (true) {
                 // synchronized也会强制读取共享内存
                 // synchronized (VolatileDemo.class) {
+                //     if (flag) {
+                //         System.out.println(flag);
+                //         break;
+                //     }
+                // }
+
                 if (flag) {
                     System.out.println(flag);
                     break;
                 }
-                // }
             }
         }).start();
 

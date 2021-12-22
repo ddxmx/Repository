@@ -1,4 +1,4 @@
-package com.test.thread.day14;
+package com.test.thread.day13;
 
 class A {
     public void get() {
@@ -22,12 +22,13 @@ class B {
 
 /**
  * 死锁
+ * 造成死锁的原因：在持有一个锁的同时去获取另一个锁
  * 释放锁的场景：
  * |- 执行完同步代码块，就会释放锁。（synchronized）
  * |- 在执行同步代码块的过程中，遇到异常而导致线程终止，锁也会被释放。（exception）
  * |- 在执行同步代码块的过程中，执行了锁所属对象的wait()方法，这个线程会释放锁，进入对象的等待池。(wait)
  * 不释放锁的场景：
- * |- 执行同步代码块的过程中，执行了Thread.sleep()方法，当前线程放弃CPU，开始睡眠，在睡眠中不会释放锁。
+ * |- 执行同步代码块的过程中，执行了Thread.sleep()方法，当前线程放弃CPU，开始休眠，在休眠中不会释放锁。
  * |- 在执行同步代码块的过程中，执行了Thread.yield()方法，当前线程放弃CPU，但不会释放锁。
  */
 public class DeathLockDemo {
@@ -47,6 +48,7 @@ public class DeathLockDemo {
                     e.printStackTrace();
                 }
 
+                // 获取b锁，b锁被线程2持有
                 synchronized (b) {
                     b.show();
                 }
@@ -64,6 +66,7 @@ public class DeathLockDemo {
                     e.printStackTrace();
                 }
 
+                // 获取a锁，a锁被线程1持有
                 synchronized (a) {
                     a.show();
                 }

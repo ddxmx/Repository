@@ -1,4 +1,4 @@
-package com.test.thread.day14;
+package com.test.thread.day13;
 
 class SignalRunnable implements Runnable {
     private int number = 1;
