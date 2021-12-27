@@ -18,31 +18,31 @@ import java.util.concurrent.TimeUnit;
  * B线程运行，number=0
  * ...
  */
-class Info {
-    private int number = 0;
-
-    public synchronized void set() throws InterruptedException {
-        while (number != 0) { // 使用while，不使用if，防止虚假唤醒
-            super.wait();
-        }
-
-        TimeUnit.MILLISECONDS.sleep(100);
-        System.out.println(Thread.currentThread().getName() + "线程运行，number=" + ++number);
-        super.notifyAll();
-    }
-
-    public synchronized void get() throws InterruptedException {
-        while (number == 0) { // 使用while，不使用if，防止虚假唤醒
-            super.wait();
-        }
-
-        TimeUnit.MILLISECONDS.sleep(70);
-        System.out.println(Thread.currentThread().getName() + "线程运行，number=" + --number);
-        super.notifyAll();
-    }
-}
-
 public class ProducerConsumerDemo01 {
+    private static class Info {
+        private int number = 0;
+
+        public synchronized void set() throws InterruptedException {
+            while (number != 0) { // 使用while，不使用if，防止虚假唤醒
+                super.wait();
+            }
+
+            TimeUnit.MILLISECONDS.sleep(100);
+            System.out.println(Thread.currentThread().getName() + "线程运行，number=" + ++number);
+            super.notifyAll();
+        }
+
+        public synchronized void get() throws InterruptedException {
+            while (number == 0) { // 使用while，不使用if，防止虚假唤醒
+                super.wait();
+            }
+
+            TimeUnit.MILLISECONDS.sleep(70);
+            System.out.println(Thread.currentThread().getName() + "线程运行，number=" + --number);
+            super.notifyAll();
+        }
+    }
+
     public static void main(String[] args) {
         Info info = new Info();
         // 生产者
@@ -77,6 +77,5 @@ public class ProducerConsumerDemo01 {
                 }
             }
         }, "C").start();
-
     }
 }

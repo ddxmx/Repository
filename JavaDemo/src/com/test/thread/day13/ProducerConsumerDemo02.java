@@ -13,52 +13,52 @@ import java.util.concurrent.locks.ReentrantLock;
  * condition的await，signal和 wait，notify都需要在锁之间运行。
  * condition也被用来实现阻塞队列。
  */
-class Info02 {
-    private int number;
-    private Lock lock = new ReentrantLock();
-    // 通过lock对象实例化
-    private Condition condition = lock.newCondition();
-
-    public void set() {
-        lock.lock();
-
-        try {
-            while (number != 0) {
-                condition.await();
-            }
-
-            TimeUnit.MILLISECONDS.sleep(100);
-            System.out.println(Thread.currentThread().getName() + "运行，number=" + ++number);
-            condition.signalAll();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    public void get() {
-        lock.lock();
-
-        try {
-            while (number == 0) {
-                condition.await();
-            }
-
-            TimeUnit.MILLISECONDS.sleep(70);
-            System.out.println(Thread.currentThread().getName() + "运行，number=" + --number);
-            condition.signalAll();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            lock.unlock();
-        }
-    }
-}
-
 public class ProducerConsumerDemo02 {
+    private static class Info {
+        private int number;
+        private Lock lock = new ReentrantLock();
+        // 通过lock对象实例化
+        private Condition condition = lock.newCondition();
+
+        public void set() {
+            lock.lock();
+
+            try {
+                while (number != 0) {
+                    condition.await();
+                }
+
+                TimeUnit.MILLISECONDS.sleep(100);
+                System.out.println(Thread.currentThread().getName() + "运行，number=" + ++number);
+                condition.signalAll();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+            }
+        }
+
+        public void get() {
+            lock.lock();
+
+            try {
+                while (number == 0) {
+                    condition.await();
+                }
+
+                TimeUnit.MILLISECONDS.sleep(70);
+                System.out.println(Thread.currentThread().getName() + "运行，number=" + --number);
+                condition.signalAll();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        Info02 info = new Info02();
+        Info info = new Info();
 
         new Thread(() -> {
             for (int i = 0; i < 20; i++) {
