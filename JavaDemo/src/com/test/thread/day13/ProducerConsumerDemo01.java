@@ -13,10 +13,6 @@ import java.util.concurrent.TimeUnit;
  * A线程运行，number=1
  * C线程运行，number=0
  * A线程运行，number=1
- * B线程运行，number=0
- * A线程运行，number=1
- * C线程运行，number=0
- * A线程运行，number=1
  * C线程运行，number=0
  * A线程运行，number=1
  * B线程运行，number=0

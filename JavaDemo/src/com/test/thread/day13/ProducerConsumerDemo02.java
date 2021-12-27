@@ -23,7 +23,7 @@ class Info02 {
         lock.lock();
 
         try {
-            while (number != 0) { // 避免虚假唤醒
+            while (number != 0) {
                 condition.await();
             }
 

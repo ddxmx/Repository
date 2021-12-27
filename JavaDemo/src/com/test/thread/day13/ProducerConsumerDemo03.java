@@ -20,7 +20,7 @@ class Info03 {
         lock.lock();
 
         try {
-            while (number != 1) { // 避免虚假唤醒
+            while (number != 1) {
                 condition1.await();
             }
 
@@ -39,7 +39,7 @@ class Info03 {
         lock.lock();
 
         try {
-            while (number != 2) { // 避免虚假唤醒
+            while (number != 2) {
                 condition2.await();
             }
 
@@ -58,14 +58,14 @@ class Info03 {
         lock.lock();
 
         try {
-            while (number != 3) { // 避免虚假唤醒
+            while (number != 3) {
                 condition3.await();
             }
 
             TimeUnit.MILLISECONDS.sleep(500);
             System.out.println(Thread.currentThread().getName() + "运行，number=" + number);
             number = 1;
-            condition1.signal();// 精准唤醒1
+            condition1.signal(); // 精准唤醒1
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
