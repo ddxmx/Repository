@@ -1,4 +1,4 @@
-package com.test.api.day16;
+package com.test.api.day14;
 
 import java.util.Arrays;
 
@@ -35,18 +35,18 @@ public class StringMethodDemo3 {
 
             String s2 = "abc123中国";
             // UTF-8：3个字节表示一个中文
-            byte[] bytes2 = s2.getBytes();
-            System.out.println(Arrays.toString(bytes2)); // [97, 98, 99, 49, 50, 51, -28, -72, -83, -27, -101, -67]
+            byte[] bytes_utf8 = s2.getBytes();
+            System.out.println(Arrays.toString(bytes_utf8)); // [97, 98, 99, 49, 50, 51, -28, -72, -83, -27, -101, -67]
             // GBK：2个字节表示一个中文
-            byte[] gbks = s2.getBytes("GBK");
-            System.out.println(Arrays.toString(gbks)); // [97, 98, 99, 49, 50, 51, -42, -48, -71, -6]
+            byte[] bytes_gbk = s2.getBytes("GBK");
+            System.out.println(Arrays.toString(bytes_gbk)); // [97, 98, 99, 49, 50, 51, -42, -48, -71, -6]
 
-            String s3 = new String(bytes2);
+            String s3 = new String(bytes_utf8);
             System.out.println(s3); // abc123中国
 
             // 编码和解码使用的编码方式不同，造成乱码
-            System.out.println(new String(gbks)); // abc123�й�
-            System.out.println(new String(gbks, "GBK")); // abc123中国
+            System.out.println(new String(bytes_gbk)); // abc123�й�
+            System.out.println(new String(bytes_gbk, "GBK")); // abc123中国
         }
     }
 }

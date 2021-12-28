@@ -1,4 +1,4 @@
-package com.test.api.day16;
+package com.test.api.day14;
 
 import java.util.Arrays;
 
@@ -28,8 +28,8 @@ public class StringMethodDemo2 {
         String s2 = s1.replace("l", "z");
         System.out.println(s2); // hezzoworzd
         System.out.println(s1); // helloworld
-        System.out.println(s1.replaceFirst("l", "z")); // hezloworld
         // 支持正则
+        System.out.println(s1.replaceFirst("l", "z")); // hezloworld
         System.out.println("123abc123".replaceFirst("\\d+", "")); // abc123
         // 支持正则
         System.out.println("123abc123".replaceAll("\\d+", "")); // abc

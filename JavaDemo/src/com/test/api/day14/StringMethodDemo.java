@@ -1,4 +1,4 @@
-package com.test.api.day16;
+package com.test.api.day14;
 
 /**
  * String的常用方法
@@ -35,7 +35,7 @@ public class StringMethodDemo {
         System.out.println("helloWorld".compareTo("helloWorld")); // 0
 
         // 字符串格式化，变量可以都使用%s占位
-        String s5 = String.format("姓名：%s，年龄：%d，成绩：%5.2f", "张三", 18, 98.7654321);
+        String s5 = String.format("姓名：%s，年龄：%d，成绩：%.2f", "张三", 18, 98.7654321);
         System.out.println(s5); // 姓名：张三，年龄：18，成绩：98.77
     }
 }

@@ -1,4 +1,4 @@
-package com.test.api.day16;
+package com.test.api.day14;
 
 class Person {
     String name;
@@ -10,26 +10,28 @@ class Person {
     }
 }
 
+/**
+ * String类的使用
+ */
 public class StringDemo {
     public static void main(String[] args) {
         String str1 = "hello"; // 字面量直接入池
         String str2 = "hello"; // 直接使用常量池中的对象
         System.out.println(str1 == str2); // true
 
-        System.out.println("***********************************");
         String str3 = str2;
-        // 修改了引用指向的堆内存地址
+        // 字符串的值一旦创建不可修改，只是修改了引用指向的堆内存地址
         str3 += " world";
         System.out.println(str3); // hello world
-        System.out.println(str2); // hello，字符串的值一旦创建不可修改
+        System.out.println(str2); // hello
 
-        System.out.println("***********************************");
         // 空字符串
         System.out.println("[" + new String() + "]"); // []
         System.out.println("[" + "" + "]"); // []
 
         String str4 = "abc";
-        String str5 = new String("abc"); // 在堆空间中开辟新空间
+        // 在堆空间中开辟新空间
+        String str5 = new String(str4);
         System.out.println(str4 == str5); // false
 
         Person p1 = new Person("Tom", 20);
@@ -47,11 +49,11 @@ public class StringDemo {
 
         /*
             面试题
-            String s = new String("abc");方式创建对象，在内存中创建了几个对象？
+            使用String s = new String("abc");的方式创建对象，在内存中创建了几个对象？
             两个：一个是堆空间中new出来的abc对象，另一个是常量池中的abc对象。
          */
 
-        System.out.println("***********************************");
+        System.out.println("========字符串==比较========");
         {
             String s1 = "hello";
             String s2 = "world";
@@ -66,11 +68,17 @@ public class StringDemo {
             String s9 = s8 + "world";
 
             // 字符串使用常量拼接，结果保存在常量池中；使用变量进行连接时，不会使用常量池，直接在堆内存中开辟空间
+            // 都在常量池中保存
             System.out.println(s3 == s4); // true
+            // s5使用变量拼接，保存在堆内存
             System.out.println(s3 == s5); // false
+            // s6使用变量拼接，保存在堆内存
             System.out.println(s3 == s6); // false
+            // s5和s6开辟的不同的堆内存
             System.out.println(s5 == s6); // false
+            // intern()方法导致结果放入常量池中再引用，常量池中已经存在，直接引用常量池中对象
             System.out.println(s3 == s7); // true
+            // 常量拼接，在常量池中保存
             System.out.println(s3 == s9); // true
         }
     }
