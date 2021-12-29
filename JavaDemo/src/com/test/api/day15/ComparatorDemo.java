@@ -1,4 +1,4 @@
-package com.test.api.day17;
+package com.test.api.day15;
 
 import java.util.Arrays;
 
@@ -49,13 +49,13 @@ public class ComparatorDemo {
         Student[] students = new Student[]{stu1, stu2, stu3, stu4};
 
         // 按照年龄从小到大排序，年龄相同，按照姓名字母倒序排序
-        Arrays.sort(students, (Student o1, Student o2) -> {
-            if (o1.getAge() < o2.getAge()) {
+        Arrays.sort(students, (Student s1, Student s2) -> {
+            if (s1.getAge() < s2.getAge()) {
                 return -1;
-            } else if (o1.getAge() > o2.getAge()) {
+            } else if (s1.getAge() > s2.getAge()) {
                 return 1;
             } else {
-                return o2.getName().compareTo(o1.getName());
+                return s2.getName().compareTo(s1.getName());
             }
         });
 

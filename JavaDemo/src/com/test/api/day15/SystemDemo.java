@@ -1,4 +1,4 @@
-package com.test.api.day17;
+package com.test.api.day15;
 
 import java.util.Arrays;
 
@@ -24,7 +24,7 @@ public class SystemDemo {
         System.out.println(System.getProperty("java.version")); // 1.8.0_261
         // Java 类文件版本号
         System.out.println(System.getProperty("java.class.version")); // 52.0
-        // 	Java安装根目录
+        // Java安装根目录
         System.out.println(System.getProperty("java.home")); // D:\Java\jdk1.8.0_261\jre
         // 用户账号
         System.out.println(System.getProperty("user.name")); // Yu
@@ -33,10 +33,7 @@ public class SystemDemo {
         // 用户当前工作目录
         System.out.println(System.getProperty("user.dir")); // e:\IdeaProjects\java-basic
 
-        // 0表示正常退出，1表示异常退出
+        // 0表示正常退出，1表示异常退出，退出语句后的语句无法执行到
         System.exit(0);
-
-        // 退出后的语句无法执行到
-        System.out.println("hello world");
     }
 }

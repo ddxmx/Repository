@@ -1,7 +1,8 @@
-package com.test.api.day17;
+package com.test.api.day15.math;
 
 /**
  * Math类
+ * Math类中的方法都是静态方法
  */
 public class MathDemo {
     public static void main(String[] args) {
@@ -23,10 +24,13 @@ public class MathDemo {
         System.out.println(Math.abs(-1)); // 1
         System.out.println(Math.abs(1)); // 1
 
+        // 乘方
+        System.out.println(Math.pow(2, 3)); // 8
+
         // 随机数，范围[0,1)
         System.out.println(Math.random()); // 0.49422791378780184
 
-        // +0.5后向下取整
+        // 四舍五入，+0.5后向下取整
         System.out.println(Math.round(1.5)); // 2
         System.out.println(Math.round(1.2)); // 1
         System.out.println(Math.round(-1.5)); // -1

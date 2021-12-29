@@ -1,4 +1,4 @@
-package com.test.api.day17;
+package com.test.api.day15.math;
 
 import java.util.Random;
 
@@ -10,7 +10,7 @@ public class RandomDemo {
         Random random = new Random();
         System.out.println(random.nextInt()); // 生成int范围内随机数
         System.out.println(random.nextInt(100)); // 成为[0,100)的随机整数
-        System.out.println(random.nextInt(40 + 1) + 60); // 生成[60,100]随机整数
+        System.out.println(random.nextInt(41) + 60); // 生成[60,100]随机整数
 
         System.out.println(random.nextFloat()); // 生成(0,1)之间的随机float小数
         System.out.println(random.nextDouble()); // 生成(0,1)之间的随机double小数
@@ -22,9 +22,9 @@ public class RandomDemo {
          */
         for (int i = 0; i < 3; i++) {
             // 指定随机数种子，种子相同，获取的随机数相同
-            Random instance = new Random(100);
+            Random model = new Random(100);
             for (int j = 0; j < 10; j++) {
-                System.out.print(instance.nextInt(50) + "\t");
+                System.out.print(model.nextInt(50) + "\t");
             }
             System.out.println();
         }

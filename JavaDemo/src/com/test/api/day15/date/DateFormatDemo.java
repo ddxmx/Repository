@@ -1,4 +1,4 @@
-package com.test.api.day17;
+package com.test.api.day15.date;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * 日期时间格式化
- * DateFormat和SimpleDateFormat都是非线程安全的，多线程场景下可能出现异常
+ * DateFormat和SimpleDateFormat都是非线程安全的，多线程场景下可能出现线程安全问题
  */
 public class DateFormatDemo {
     public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class DateFormatDemo {
 
         // 格式化的pattern中指定非匹配字符，应该使用单引号引起来
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-        String dateStr2 = sdf2.format(new Date());
-        System.out.println(dateStr2); // 2021-02-08T21:56:50.544
+        String dateStr2 = sdf2.format(date);
+        System.out.println(dateStr2); // 2021-02-08T21:43:26.546
     }
 }

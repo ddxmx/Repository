@@ -1,10 +1,10 @@
-package com.test.api.day17;
+package com.test.api.day15;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Runtime是单例模式，只有一个实例化对象
+ * Runtime是单例模式，JVM中只有一个实例化对象
  */
 public class RuntimeDemo {
     public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class RuntimeDemo {
 
         // 执行系统命令
         try {
-            Process process = runtime.exec("notepad");
+            Process process = runtime.exec("notepad.exe");
             TimeUnit.SECONDS.sleep(5);
             // 销毁进程
             process.destroy();

@@ -1,10 +1,13 @@
-package com.test.api.day17;
+package com.test.api.day15;
 
 import java.time.LocalDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * TimerTask实际上也实现了Runnable接口
+ */
 class MyTask extends TimerTask {
     private int count = 0;
 
@@ -43,8 +46,9 @@ public class TimerTaskDemo {
             Timer-0->2021-11-14T13:24:53.289,count = 2
             Timer-0->2021-11-14T13:24:56.295,count = 3
             Timer-0->2021-11-14T13:24:59.295,count = 4
-            Timer-0->2021-11-14T13:25:09.318,count = 5  13:25:02开始的定时任务
-            Timer-0->2021-11-14T13:25:09.827,count = 6  下一次执行时间已经过了，立即执行一次，调整当前时间为开始时间
+            // 13:25:02开始的定时任务，下次执行时间：13:25:05、13:25:08已经过了，立即执行一次，调整当前时间为开始时间
+            Timer-0->2021-11-14T13:25:09.318,count = 5
+            Timer-0->2021-11-14T13:25:09.827,count = 6
             Timer-0->2021-11-14T13:25:12.839,count = 7
             Timer-0->2021-11-14T13:25:15.844,count = 8
             Timer-0->2021-11-14T13:25:18.842,count = 9
@@ -59,19 +63,20 @@ public class TimerTaskDemo {
             Timer-0->2021-11-14T13:18:50.238,count = 2
             Timer-0->2021-11-14T13:18:53.250,count = 3
             Timer-0->2021-11-14T13:18:56.244,count = 4
-            Timer-0->2021-11-14T13:19:06.244,count = 5  13:18:59开始的定时任务
-            Timer-0->2021-11-14T13:19:06.757,count = 6  下一次执行时间一斤过了，13:19:06之前少执行2次
-            Timer-0->2021-11-14T13:19:07.269,count = 7  13:19:06之前少执行2次，13:18:52、13:18:55，需要补足
+            // 13:18:59开始的定时任务，下一次执行时间：13:19:02、13:19:05已经过了，13:19:06之前少执行2次，需要全部补足
+            Timer-0->2021-11-14T13:19:06.244,count = 5
+            Timer-0->2021-11-14T13:19:06.757,count = 6
+            Timer-0->2021-11-14T13:19:07.269,count = 7
             Timer-0->2021-11-14T13:19:08.246,count = 8
             Timer-0->2021-11-14T13:19:11.253,count = 9
             Timer-0->2021-11-14T13:19:21.251,count = 10
          */
-        timer.scheduleAtFixedRate(new MyTask(),
-                TimeUnit.MILLISECONDS.convert(1, TimeUnit.SECONDS),
-                TimeUnit.MILLISECONDS.convert(3, TimeUnit.SECONDS));
+        timer.scheduleAtFixedRate(new MyTask(), 1000, 3000);
+
+        // 等待定时任务运行30秒
+        TimeUnit.SECONDS.sleep(30);
 
         // 优雅停止定时任务
-        TimeUnit.SECONDS.sleep(30);
         timer.cancel();
     }
 }
