@@ -1,7 +1,7 @@
 package com.test.basic.day01;
 
 /**
- * 数值表示形式有四种：二进制、八进制、十进制和十六进制
+ * 常见的进制表示形式有四种：二进制、八进制、十进制和十六进制
  * 二进制 0b开头
  * 八进制 0开头
  * 十六进制 0x开头
@@ -13,7 +13,7 @@ package com.test.basic.day01;
  * |- 使用原码的方式 1-1=1+(-1)=0000_0001 + 1000_0001 = 1000_0010，不用原码表示是因为原码计算结果不正确
  * |- 使用补码的方式 1-1=1+(-1)=0000_0001 + 1111_1111 = 0000_0000 = 0
  */
-public class BinaryDataDemo {
+public class RadixDemo {
     public static void main(String[] args) {
         System.out.println("========进制表示========");
         int i1 = 0b1100; // 二进制

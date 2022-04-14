@@ -3,13 +3,13 @@ package com.test.basic.day01;
 /**
  * 数据类型转换：
  * |- 自动类型转换：表示范围小的类型向表示范围大的类型进行自动转换。
- * |- 强制类型转换：不同表示范围类型的数据之间进行转换，可能会损失精度。
- * 7种基本数据类型之间可以进行自动类型转换，不支持boolean类型和数值类型之间的转换。
+ * |- 强制类型转换：不同表示范围类型的数据之间进行转换，可能会损失精度。(部分场景下，因为数据类型的要求，存在显示进行小转大的情况)
+ * 7种基本数值类型之间可以进行自动类型转换，不支持boolean类型和数值类型之间的转换。
  * byte、short、char < int < long < float < double
  * byte单独使用时，可以转换为short，byte和short不能和char类型转换
- * byte、short、char参与运算时，都先转换为int类型，再进行计算
+ * byte、short、char参与运算时，都会先转换为int类型，再进行计算
  */
-public class DataConversionDemo {
+public class TypeConversionDemo {
     public static void main(String[] args) {
         System.out.println("========自动类型转换========");
         {
@@ -27,7 +27,7 @@ public class DataConversionDemo {
 
             byte b3 = 10;
             short s3 = 20;
-            // 编译失败，byte、short、char进行运算时，很容易计算结果溢出，因此java先转换为int类型再计算
+            // 编译失败，byte、short、char进行运算时，计算结果很容易溢出，因此java先转换为int类型再计算
             // short sum3 = b3 + s3;
             int sum3 = b3 + s3;
             System.out.println(sum3); // 30
@@ -45,6 +45,7 @@ public class DataConversionDemo {
             byte sum5 = 10 + 20;
             // 编译失败，常量计算结果已经超过byte的范围-128~127
             // byte sum6 = 10 + 118;
+
             byte b5 = 10;
             byte b6 = 20;
             // 编译失败，b5和b6都是变量，无法保证计算结果在byte范围内，需要使用int类型接收
@@ -66,20 +67,19 @@ public class DataConversionDemo {
             int min = Integer.MIN_VALUE; // int类型的最小值
             System.out.println("int类型最大值：" + max); // int类型最大值：2147483647
             System.out.println("int类型最小值：" + min); // int类型最小值：-2147483648
-            System.out.println("----------------");
+            System.out.println("--------数据溢出--------");
             // 出现数据溢出，int类型 + int类型 = int类型
             System.out.println("最大值 + 1 = " + (max + 1)); // 最大值 + 1 = 最小值，-2147483648
             System.out.println("最大值 + 2 = " + (max + 2)); // 最大值 + 2 = 次小值，-2147483647
             System.out.println("最小值 - 1 = " + (min - 1)); // 最小值 - 1 = 最大值，2147483647
-            System.out.println("----------------");
-            // 扩大数据类型，解决数据溢出的问题，强制类型转换不一定是表示范围大的类型转换为表示范围小的类型
+            System.out.println("--------数据溢出解决--------");
+            // 数据溢出解决方法：扩大数据类型
             System.out.println("最大值 + 1 = " + ((long) max + 1)); // 最大值 + 1 = 2147483648
             System.out.println("最大值 + 2 = " + (max + 2L)); // 最大值 + 2 = 2147483649
             System.out.println("最小值 - 1 = " + (min - (long) 1)); // 最小值 - 1 = -2147483649
 
-            // 自动类型转换
             double d1 = 10.8;
-            // double类型强制转换为int类型，直接舍弃小数位，表示范围大的类型转换为表示范围小的类型
+            // double类型强制转换为int类型，直接舍弃小数位
             int i1 = (int) d1;
             System.out.println(i1); // 10
 

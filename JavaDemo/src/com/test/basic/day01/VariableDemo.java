@@ -3,23 +3,23 @@ package com.test.basic.day01;
 /**
  * 变量本质就是一个内存地址，变量的修改实际上是对地址指向的内存的修改（基本数据类型）或对地址的修改（引用数据类型）
  * 变量先声明再使用，格式：数据类型 变量名 = 值;
- * 变量分为成员变量和局部变量：
+ * 变量分为局部变量和成员变量：
  * - 局部变量没有系统默认值，使用前必须手动赋值；成员变量有系统默认值
  * - 局部变量存储在栈内存中，超过作用域，变量就被销毁了；成员变量存储在堆内存中，随着对象的消失而消失
  * - 局部变量的定义位置：方法或构造器中的参数、方法、构造器或代码块中定义的变量；成员变量直接定义在类中
  * <p>
  * 数据类型：
  * |- 基本数据类型：
- * （1）整型：byte、short、int、long
+ * （1）整型：byte(-128~127)、short(-32768~32767)、int(-21_4000_0000~21_4000_0000)、long
  * （2）浮点型：float、double
- * （3）字符型：char
+ * （3）字符型：char(0~65535)
  * （4）布尔型：boolean
  * |- 引用数据类型：
  * （1）数组
  * （2）类
  * （3）接口
  */
-public class DataTypeDemo {
+public class VariableDemo {
     public static void main(String[] args) {
         System.out.println("==========整型：byte、short、int、long==========");
         // 声明变量并赋值
@@ -50,10 +50,11 @@ public class DataTypeDemo {
         System.out.println(b1); // 10
 
         int num4 = 10;
-        // 编译失败，int类型变量值即使在byte类型表示范围内，也无法直接赋值，需要强制转换
+        // 编译失败，int类型变量无法直接赋值，需要强制转换
         // byte b2 = num4;
+        byte b2 = (byte) num4;
 
-        // 整型默认类型int，当数值常量超过int类型表示范围时，常量必须以l或L结尾来表示长整型
+        // 整型默认类型int，当数值常量超过int类型表示范围时，常量必须以L结尾来表示长整型
         long var1 = 30_0000_0000L; // _可以分隔数字，JDK1.7新特性
         System.out.println(var1); // 3000000000
 
@@ -69,8 +70,9 @@ public class DataTypeDemo {
 
         System.out.println("==========字符型：char==========");
         // java使用unicode字符集，前128个字符和ASCII字符集一致
-        // 实际开发中使用的是UTF-8，变长的Unicode编码实现
+        // 实际存储时使用的是UTF-8，变长的Unicode编码实现
         // '0' - 48，'A' - 65，'a' - 97
+        // char变量赋值方式一：使用字符赋值
         char c1 = 'a';
         System.out.println(c1); // a
         // char类型可以和数字直接进行数值运算，使用的是字符编码
@@ -79,6 +81,7 @@ public class DataTypeDemo {
         // 编译失败，char类型必须包含一个字符
         // char c2 = '';
 
+        // char变量赋值方式二：使用unicode编码赋值
         // 使用四位16进制表示字符
         char c3 = '\u0041';
         System.out.println(c3); // A
@@ -86,10 +89,12 @@ public class DataTypeDemo {
         char c4 = '中';
         System.out.println(c4); // 中
 
+        // char变量赋值方式三：使用转义字符赋值
         // 转义字符：\\（反斜杠）、\t（制表符）、\'（单引号）、\"（双引号）、\n（换行符）
         char c5 = '\\';
         System.out.println(c5); // \
 
+        // char变量赋值方式四：使用字符编码值赋值
         // 使用数字给char类型赋值，表示的是char的字符编码
         char c6 = 98;
         System.out.println(c6); // b

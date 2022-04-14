@@ -37,7 +37,7 @@ public class HelloWorld {
 }
 
 /**
- * 一个java源文件可以定义多个class，编译后根据class名称生成不同的*.class文件
+ * 一个java源文件可以定义多个class，编译后根据class名称生成不同的class文件
  * 一个java源文件只能定义一个public class，java文件名称必须和public class类名称一致
  * 当前文件编译后会生成3个class文件，HelloWorld.class、A.class、B.class
  * HelloWorld.class中存在main方法，因此可以直接执行。
