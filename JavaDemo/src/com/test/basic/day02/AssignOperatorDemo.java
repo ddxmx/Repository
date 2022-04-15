@@ -26,7 +26,12 @@ public class AssignOperatorDemo {
         s1 += 1;
         System.out.println(s1); // 11
 
-        // 实现+1结果的不同方式
+        byte b1 = 127;
+        // 数据溢出
+        b1 += 1;
+        System.out.println(b1); // -128
+
+        // +1的不同实现方式
         int i5 = 5;
         // 方式一
         i5++;

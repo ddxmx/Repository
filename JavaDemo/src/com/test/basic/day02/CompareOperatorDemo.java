@@ -24,9 +24,9 @@ public class CompareOperatorDemo {
         // 编译错误，String类型和Date类型没有父子关系，不允许直接比较
         // System.out.println("10" == new Date());
 
-        String str1 = "hello";
-        Object obj = str1;
-        System.out.println(str1 == obj); // true
-        System.out.println(str1 != obj); // false
+        String str = "hello";
+        Object obj = str;
+        System.out.println(str == obj); // true
+        System.out.println(str != obj); // false
     }
 }

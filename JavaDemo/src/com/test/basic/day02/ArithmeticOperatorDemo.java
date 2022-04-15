@@ -29,14 +29,5 @@ public class ArithmeticOperatorDemo {
         int a2 = 10;
         int b2 = a2--;
         System.out.println("a2=" + a2 + ",b2=" + b2); // a2=9,b2=10
-
-        // 打印三位数的各个位置上的数字
-        int value = 573; // 5 * 100 + 7 * 10 + 3
-        int bai = value / 100;
-        int shi = value % 100 / 10;
-        int ge = value % 10;
-        System.out.println("百位数：" + bai); // 5
-        System.out.println("十位数：" + shi); // 7
-        System.out.println("个位数：" + ge); // 3
     }
 }

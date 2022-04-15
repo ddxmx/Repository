@@ -28,12 +28,12 @@ public class BitOperatorDemo {
         // 异或同一个数两次，等于本身
         System.out.println(3 ^ num3 ^ num3); // 3
 
-        // 异或完成两个数字交换
+        // 使用异或交换两个变量的值
         int x = 10;
         int y = 20;
         x = x ^ y;
         y = x ^ y; // 等价于：x ^ y ^ y = x
-        x = x ^ y; // 等价于：x ^ y ^ (x ^ y ^ y) = y
+        x = x ^ y; // 等价于：x ^ y ^ x = y
         System.out.println("x=" + x + ",y=" + y); // x=20,y=10
 
         System.out.println("========<<、>>、>>>操作========");
@@ -76,6 +76,8 @@ public class BitOperatorDemo {
         // 获取后N位就使用N位全为1的二进制进行 按位&运算
         int value = 0b1111 & 20;
         System.out.println(value);  // 4
+        // 正数两者表示形式基本一致
         System.out.println(Integer.toBinaryString(value)); // 100
+        System.out.println(Integer.toString(value, 2)); // 100
     }
 }

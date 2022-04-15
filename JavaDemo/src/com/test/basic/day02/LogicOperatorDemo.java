@@ -19,6 +19,7 @@ public class LogicOperatorDemo {
         System.out.println(a || b); // true
         // 异或，相同为false，不同为true
         System.out.println(a ^ b); // true
+        // 取反
         System.out.println(!a); // false
 
         int num1 = 10;

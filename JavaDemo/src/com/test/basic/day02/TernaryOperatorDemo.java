@@ -4,7 +4,6 @@ package com.test.basic.day02;
  * 三元运算符
  * 三元运算符的优先级次低，仅高于赋值运算符
  * 关于运算符优先级：一元运算符 > 二元运算符(算术运算符优先级最高，三元运算符优先级次低，赋值运算符优先级最低)
- * <p>
  * 三元运算符都可以使用if-else替换
  * 三元运算符格式：布尔表达式？表达式1:表达式2
  * 条件成立，运算结果取值表达式1；条件不成立，运算结果取值表达式2；表达式1或表达式2的结果就是三元运算符的结果
@@ -12,7 +11,7 @@ package com.test.basic.day02;
  */
 public class TernaryOperatorDemo {
     public static void main(String[] args) {
-        // 编译错误，System.out.println语句不是表达式
+        // 编译错误，System.out.println是语句，而不是表达式
         // System.out.println(true ? System.out.println(1) : System.out.println(2));
 
         int a = 10;
