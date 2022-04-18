@@ -1,7 +1,7 @@
-package com.test.basic.day03;
+package com.test.basic.day03.loop;
 
 /**
- * break、continue和标签语句一起使用，可以跳出或结束一次标签所在循环
+ * break、continue可以和标签语句一起使用，可以跳出或结束一次标签所在循环
  */
 public class BreakContinueLabelDemo {
     public static void main(String[] args) {

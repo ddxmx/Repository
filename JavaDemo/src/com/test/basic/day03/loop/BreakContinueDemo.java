@@ -1,11 +1,11 @@
-package com.test.basic.day03;
+package com.test.basic.day03.loop;
 
 /**
  * break场景
  * 1、switch语句：用于结束switch语句
- * 2、循环：用于终止当前所在循环
+ * 2、循环：用于终止当前所在层的循环，跳出循环
  * continue场景
- * 1、循环：用于结束本次当前所在循环
+ * 1、循环：用于结束本轮当前所在层的循环，继续下一轮循环
  * <p>
  * break或continue范围后不能有语句，语句无法被执行到
  */
@@ -14,7 +14,7 @@ public class BreakContinueDemo {
         for (int i = 0; i < 10; i++) {
             if (i == 3) {
                 break;
-                // 编译错误，语句无法被执行到
+                // 编译错误，break后的语句无法被执行到
                 // System.out.println("hello");
             }
             System.out.print(i + "\t"); // 0 1 2
@@ -22,6 +22,7 @@ public class BreakContinueDemo {
         System.out.println();
 
         for (int i = 0; i < 10; i++) {
+            // 只结束本轮一次循环
             if (i == 3) {
                 continue;
             }
@@ -29,7 +30,7 @@ public class BreakContinueDemo {
         }
         System.out.println();
 
-        // while循环中使用break、continue，修改循环控制变量不能写在break、continue之后
+        // while循环中使用break、continue，修改循环控制变量要写在break、continue之前
         int j = 0;
         while (j < 10) {
             if (j == 3) {

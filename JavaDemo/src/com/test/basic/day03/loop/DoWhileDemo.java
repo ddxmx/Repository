@@ -1,4 +1,4 @@
-package com.test.basic.day03;
+package com.test.basic.day03.loop;
 
 /**
  * do-while循环先执行一次循环体，再根据循环条件是否满足来决定是否继续执行循环体
