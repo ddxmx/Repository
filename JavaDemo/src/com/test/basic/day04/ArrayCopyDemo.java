@@ -10,7 +10,7 @@ public class ArrayCopyDemo {
         int[] a = new int[]{1, 2, 3, 4, 5};
         int[] b = new int[]{11, 22, 33, 44, 55, 66, 77, 88, 99};
 
-        // 拷贝的长度
+        // 拷贝长度
         int len = 3;
         // 数组a的开始拷贝索引
         int oA = 2;
@@ -31,6 +31,7 @@ public class ArrayCopyDemo {
         // copyOf是从开头拷贝指定个数元素，生成一个新数组
         int[] dest1 = Arrays.copyOf(a, 3);
         System.out.println(Arrays.toString(dest1)); // [1, 2, 3]
+
         // 拷贝长度超过原数组的长度，超出的元素设置为目标数组元素类型的默认值
         int[] dest2 = Arrays.copyOf(a, 7);
         System.out.println(Arrays.toString(dest2)); // [1, 2, 3, 4, 5, 0, 0]
@@ -38,6 +39,7 @@ public class ArrayCopyDemo {
         // copyOfRange指定拷贝的起止位置 [start,end) ，生成一个新数组
         int[] dest3 = Arrays.copyOfRange(a, 3, 5);
         System.out.println(Arrays.toString(dest3)); // [4, 5]
+
         // 拷贝目标位置超过了原数组的索引，超出的元素设置为目标数组元素类型的默认值
         int[] dest4 = Arrays.copyOfRange(a, 3, 7);
         System.out.println(Arrays.toString(dest4)); // [4, 5, 0, 0]

@@ -3,7 +3,7 @@ package com.test.basic.day04;
 import java.util.Arrays;
 
 /**
- * Arrays数组API使用
+ * java.util.Arrays类的使用
  */
 public class ArrayAPIDemo {
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class ArrayAPIDemo {
         System.out.println(Arrays.toString(arr)); // [7, 9, 11, 23, 34, 42, 65, 68, 96]
 
         // 二分法查找，public static int binarySearch(int[] a, int key)
-        // 二分查找前提：数组已经排序
+        // 二分查找前提：数组已经正向排序
         System.out.println(Arrays.binarySearch(arr, 34)); // 4
         // 元素没有查找到返回 -(插入位置+1)
         System.out.println(Arrays.binarySearch(arr, 55)); // -7

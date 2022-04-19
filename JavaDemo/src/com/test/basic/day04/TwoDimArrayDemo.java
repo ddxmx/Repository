@@ -16,12 +16,13 @@ public class TwoDimArrayDemo {
         arr2[1][1] = "python";
 
         /*
-            二维数组打印需要两层循环
-            hello	null
-            java	python
-            null	null
+            hello   null
+            java    python
+            null    null
          */
+        // 二维数组打印需要两层循环
         for (int i = 0; i < arr2.length; i++) {
+            // 根据每个元素的长度，打印元素的值
             for (int j = 0; j < arr2[i].length; j++) {
                 System.out.print(arr2[i][j] + "\t");
             }

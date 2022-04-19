@@ -23,7 +23,7 @@ public class ArraySearchDemo {
         System.out.println(index); // 5
 
         /*
-         * 二分法查找，前提：数组已经排序过
+         * 二分法查找，前提：数组已经正序排序
          */
         // 数组排序
         Arrays.sort(array);

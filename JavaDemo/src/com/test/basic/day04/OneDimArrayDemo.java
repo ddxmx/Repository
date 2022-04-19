@@ -12,7 +12,7 @@ public class OneDimArrayDemo {
     public static void main(String[] args) {
         // 静态初始化方式一（推荐方式）
         int[] arr1 = new int[]{1, 2, 3, 4, 5};
-        // 静态初始化方式二，类型推断
+        // 静态初始化方式二（类型推断），作为方法参数传递时，常量实参必须使用方式一的完整写法
         String[] arr2 = {"hello", "world", "java"};
 
         // 动态初始化，元素的初始值为元素数据类型的默认值
@@ -29,7 +29,7 @@ public class OneDimArrayDemo {
 
         // 遍历数组元素
         for (int i = 0; i < arr3.length; i++) {
-            System.out.print(arr3[i] + "\t"); // 10  20  30
+            System.out.print(arr3[i] + " "); // 10 20 30
         }
         System.out.println();
 
