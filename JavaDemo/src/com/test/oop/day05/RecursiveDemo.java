@@ -10,8 +10,9 @@ package com.test.oop.day05;
 public class RecursiveDemo {
     public static void main(String[] args) {
         System.out.println(sum(100)); // 5050
-        System.out.println(operating(10)); // 10497
+        System.out.println(func(10)); // 10497
         System.out.println(fibonacciSequence(8)); // 21
+        System.out.println(jump(30)); // 58425
     }
 
     /**
@@ -28,14 +29,14 @@ public class RecursiveDemo {
     /**
      * 已知 f(0)=1,f(1)=4, f(n+2)=2*f(n+1)+f(n)，n是大于等于0的正数，求 f(10)
      */
-    public static int operating(int num) {
+    public static int func(int num) {
         // f(n+2)=2*f(n+1)+f(n) -> f(n)=2*f(n-1)+f(n-2)
         if (num == 0) {
             return 1;
         } else if (num == 1) {
             return 4;
         } else {
-            return 2 * operating(num - 1) + operating(num - 2);
+            return 2 * func(num - 1) + func(num - 2);
         }
     }
 
@@ -49,5 +50,19 @@ public class RecursiveDemo {
         }
 
         return fibonacciSequence(num - 1) + fibonacciSequence(num - 2);
+    }
+
+    /**
+     * 一个顽猴在一座有30级太假的小山上爬山活跃，猴子上一步可跳1级或者3级，试求上山的30级台阶有多少种不同的爬法
+     * f(k) = f(k-1) + f(k-3)
+     */
+    public static int jump(int step) {
+        if (step == 1 || step == 2) {
+            return 1;
+        } else if (step == 3) {
+            return 2;
+        } else {
+            return jump(step - 1) + jump(step - 3);
+        }
     }
 }
