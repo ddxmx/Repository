@@ -2,7 +2,7 @@ package com.test.basic.day01;
 
 /**
  * String属于引用数据类型
- * 字符串连接使用符号 +
+ * 字符串连接使用符号+
  * 任何数据类型和字符串连接，都会向字符串类型转型
  */
 public class StringDemo {
@@ -18,8 +18,9 @@ public class StringDemo {
         // String类型是引用数据类型，可以使用null赋值
         String str3 = null;
         System.out.println(str3); // null
+        System.out.println(null + "abc"); // nullabc
 
-        // 编译失败，null常量不能直接打印
+        // 编译失败，Ambiguous method call. Both println(char[]) in PrintStream and println(String) in PrintStream match
         // System.out.println(null);
 
         // 字符串连接

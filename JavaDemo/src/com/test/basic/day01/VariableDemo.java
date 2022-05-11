@@ -13,7 +13,7 @@ package com.test.basic.day01;
  * （1）整型：byte(-128~127)、short(-32768~32767)、int(-21_4000_0000~21_4000_0000)、long
  * （2）浮点型：float、double
  * （3）字符型：char(0~65535)
- * （4）布尔型：boolean
+ * （4）布尔型：boolean(true、false)
  * |- 引用数据类型：
  * （1）数组
  * （2）类
@@ -69,9 +69,11 @@ public class VariableDemo {
         System.out.println(f1); // 0.1
 
         System.out.println("==========字符型：char==========");
-        // java使用unicode字符集，前128个字符和ASCII字符集一致
-        // 实际存储时使用的是UTF-8，变长的Unicode编码实现
-        // '0' - 48，'A' - 65，'a' - 97
+        /*
+            java使用unicode字符集，前128个字符和ASCII字符集一致
+            实际存储时使用的是UTF-8，变长的Unicode编码实现
+            '0' - 48，'A' - 65，'a' - 97
+         */
         // char变量赋值方式一：使用字符赋值
         char c1 = 'a';
         System.out.println(c1); // a
@@ -86,6 +88,7 @@ public class VariableDemo {
         char c3 = '\u0041';
         System.out.println(c3); // A
 
+        // char类型可以表示一个中文汉字
         char c4 = '中';
         System.out.println(c4); // 中
 
