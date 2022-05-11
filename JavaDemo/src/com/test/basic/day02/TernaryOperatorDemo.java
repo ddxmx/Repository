@@ -21,8 +21,8 @@ public class TernaryOperatorDemo {
         System.out.println(max); // 20
 
         // 表达式类型可以不一致，实际上都是Object的子类，数字自动装箱为Integer
-        Object value = a > 0 ? "abc" : 2;
-        System.out.println(value); // abc
+        Object result = a > 0 ? "abc" : 2;
+        System.out.println(result); // abc
 
         int c = 15;
         int temp;

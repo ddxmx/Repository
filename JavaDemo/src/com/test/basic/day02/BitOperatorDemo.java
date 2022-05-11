@@ -15,6 +15,7 @@ public class BitOperatorDemo {
         System.out.println(num1 | num2); // 0000 0011 = 3
         System.out.println(num1 ^ num2); // 0000 0001 = 1
         /*
+            00000000_00000000_00000000_00000011 num1的补码
             11111111_11111111_11111111_11111100 ~num1的补码
             10000000_00000000_00000000_00000100 ~num1的原码
          */
@@ -76,8 +77,15 @@ public class BitOperatorDemo {
         // 获取后N位就使用N位全为1的二进制进行 按位&运算
         int value = 0b1111 & 20;
         System.out.println(value);  // 4
-        // 正数两者表示形式基本一致
-        System.out.println(Integer.toBinaryString(value)); // 100
-        System.out.println(Integer.toString(value, 2)); // 100
+
+        /*
+            Integer.toBinaryString(value)和Integer.toString(value, 2)的区别
+            value值为正数，表示结果一致
+            value值为负数，toBinaryString使用补码表示，toString直接在对应正数前添加负号"-"表示
+         */
+        System.out.println(Integer.toBinaryString(4)); // 100
+        System.out.println(Integer.toString(4, 2)); // 100
+        System.out.println(Integer.toBinaryString(-4)); // 11111111111111111111111111111100
+        System.out.println(Integer.toString(-4, 2)); // -100
     }
 }

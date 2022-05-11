@@ -14,6 +14,9 @@ public class ArithmeticOperatorDemo {
         // double类型 / int类型 = double类型
         System.out.println((double) 14 / 4); // 3.5
 
+        // 除法运算中，除数为0将抛出java.lang.ArithmeticException异常
+        // int value = 10 / 0;
+
         // 取模，就是求余数
         System.out.println(13 % 5); // 3，商为2
         System.out.println(-13 % 5); // -3，商为-2
