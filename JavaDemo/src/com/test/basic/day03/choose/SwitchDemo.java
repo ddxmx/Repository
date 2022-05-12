@@ -35,7 +35,7 @@ public class SwitchDemo {
         }
 
         String today = "周四";
-        // switch语句中变量表达式为null时，将出现java.lang.NullPointerException异常
+        // switch语句中变量表达式为null时，调用字符串的hashCode()方法将出现java.lang.NullPointerException异常
         // today = null;
         switch (today) {
             // default可以写在case语句之前，但是执行的时候依然先匹配case，所有case不满足再执行default

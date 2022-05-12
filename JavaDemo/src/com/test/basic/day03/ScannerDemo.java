@@ -23,8 +23,14 @@ public class ScannerDemo {
                 if (scanner.hasNextInt()) {
                     numbers[i] = scanner.nextInt();
                 } else {
+                    /*
+                        next():只读取输入直到空格。next()在读取输入后将光标放在同一行中。
+                        nextLine():读取输入，包括单词之间的空格和除回车以外的所有符号(即读到行尾)。读取输入后，nextLine()将光标定位在下一行。
+                     */
                     System.out.println("输入的第" + (i + 1) + "个值为：" + scanner.next() + "，非数字，请重新输入三个数字");
+                    // 重新读取三个数字，则需要丢弃当前整行输入的内容
                     scanner.nextLine();
+                    numbers = new int[numbers.length];
                     continue outer;
                 }
             }
