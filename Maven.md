@@ -186,7 +186,7 @@ settings.xml 文件一般存在于以下两个位置，用户配置优先于全�
 | test            | ×      | √    | ×    | junit       |
 | runtime         | ×      | ×    | √    | jdbc        |
 
-### 六、模块管理
+## 六、模块管理
 
 ### 1、聚合
 
@@ -256,5 +256,225 @@ settings.xml 文件一般存在于以下两个位置，用户配置优先于全�
   <groupId></groupId>
   <artifactId></artifactId>
 </dependency>
+~~~
+
+## 七、属性
+
+### 1、自定义属性
+
+ 等同于定义变量，方便统一维护
+
+~~~xml
+<!--定义自定义属性-->
+<properties> 
+  <spring.version>5.1.9.RELEASE</spring.version>
+</properties>
+~~~
+
+~~~xml
+<dependency> 
+  <groupId>org.springframework</groupId> 
+  <artifactId>spring-context</artifactId> 
+  <!--使用自定义属性-->
+  <version>${spring.version}</version>
+</dependency>
+~~~
+
+### 2、内置属性
+
+- ${basedir}：表示项目的根路径，即包含pom.xml文件的目录
+- ${version}：表示项目版本
+- ${maven.build.timestamp}：表示项目构建开始时间
+- ${maven.build.timestamp.format}：表示${maven.build.timestamp}的展示格式，默认值为yyyyMMdd-HHmm 
+
+~~~xml
+<properties>
+    <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+</properties>
+~~~
+
+- maven.compiler.source、maven.compiler.target：编译和运行使用的JDK版本
+
+```xml
+<properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+</properties>
+```
+
+### 3、pom属性(使用pom属性可以引用到pom.xml文件对应元素的值)
+
+- ${project.basedir}：同${basedir}
+- ${project.baseUri}：表示项目文件地址
+
+- ${project.build.sourceEncoding}：表示主源码的编码格式， 默认为平台编码 
+
+  ~~~xml
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  ~~~
+
+- ${project.build.sourceDirectory}：表示主源码路径， 默认为 src/main/java/ 
+- ${project.build.testSourceDirectory}：表示测试源码目录，默认为 src/test/java/
+- ${project.build.directory}：表示构建目录，默认为target 
+- ${project.build.outputDirectory}：表示主代码编译输出目录，默认为 target/classes/
+- ${project.build.testOutputDirectory}：表示测试代码编译输出目录，默认为 target/testclasses/ 
+
+- ${project.build.finalName}：表示输出文件名称 ，缺省为${project.artifactId}-${project.version} 
+
+- ${project.version}：表示项目版本,与 ${version}相同
+
+### 4、setting属性
+
+使用以settings.开头的属性引用settings.xml文件中的XML元素值)
+
+~~~xml
+<!--本地仓库路径-->
+${settings.localRepository}
+~~~
+
+### 5、java系统属性(所有的Java系统属性都可以使用Maven属性引用)
+
+**使用 mvn help:system 命令可查看所有的Java系统属性**
+
+~~~xml
+<!--用户家目录-->
+${user.home}
+~~~
+
+### 6、环境变量属性
+
+**使用 mvn help:system 命令可查看所有的Java系统属性**
+
+环境变量以 env 开头
+
+~~~xml
+<!--java安装路径-->
+${env.JAVA_HOME}
+~~~
+
+## 八、版本管理
+
+- SNAPSHOT（快照版本） 
+
+- RELEASE（发布版本） 
+
+## 九、资源配置
+
+### 1、 配置文件引用pom文件中properties属性
+
+~~~xml
+<properties>
+    <jdbc.password>123456</jdbc.password>
+</properties>
+~~~
+
+~~~xml
+<!--开启配置文件加载pom属性-->
+<build>
+    .......
+      <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    ......
+</build>
+~~~
+
+在配置文件中使用  ${属性名}  方式引用
+
+~~~xml
+${jdbc.password}
+~~~
+
+### 2、resouce下的include和exclude的使用
+
+第一段<resource>配置声明：在src/main/resources目录下，仅jdbc.properties和mail.properties两个文件是资源文件，这两个文件需要被过滤。
+
+而第二段<resource>配置声明：同样在src/main/resources目录下，除jdbc.properties和mail.properties两个文件外的其他文件也是资源文件，但是它们不会被过滤。 
+
+~~~xml
+<resources>
+<!-- Filter jdbc.properties & mail.properties.-->
+<!-- NOTE: We don't filter applicationContext-*.xml -->
+  <resource>
+    <directory>src/main/resources</directory>
+    <filtering>true</filtering>
+    <includes>
+      <include>jdbc.properties</include>
+      <include>mail.properties</include>
+    </includes>
+  </resource>
+  <!-- Include other files as resources files. -->
+  <resource>
+    <directory>src/main/resources</directory>
+    <filtering>false</filtering>
+    <excludes>
+      <exclude>jdbc.properties</exclude>
+      <exclude>mail.properties</exclude>
+    </excludes>
+  </resource>
+</resources>
+~~~
+
+## 十、插件
+
+### 1、可运行jar包
+
+~~~xml
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-jar-plugin</artifactId>
+	<version>2.4</version>
+	<configuration>
+		<archive>
+			<!-- 生成的jar中，包含pom.xml和pom.properties这两个文件 -->
+			<addMavenDescriptor>true</addMavenDescriptor>
+			<!-- 生成MANIFEST.MF的设置 -->
+			<manifest>
+				<!--依赖以-SNAPSHOT结尾时，默认自动名称成时间戳名称，导致依赖的jar包
+				无法正常找到-->
+				<useUniqueVersions>false</useUniqueVersions>
+				<!-- 为依赖包添加路径, 这些路径会写在MANIFEST文件的Class-Path下 -->
+				<addClasspath>true</addClasspath>
+				<!-- 这个jar所依赖的jar包添加classPath的时候的前缀，如果这个jar本身
+				和依赖包在同一级目录，则不需要添加 -->
+				<classpathPrefix>lib/</classpathPrefix>
+				<!-- jar启动入口类 -->
+				<mainClass>com.ht.pojo.Test</mainClass>
+			</manifest>
+			<manifestEntries>
+				<!-- 在Class-Path下添加配置文件的路径 -->
+				<Class-Path>../config/</Class-Path>
+				<!--假如这个项目可能要引入一些外部资源，但是你打包的时候并不想把
+				这些资源文件打进包里面，这个时候你必须在这边额外指定一些这些资源 
+				文件的路径-->
+			</manifestEntries>
+		</archive>
+		<!-- jar包的位置 -->
+		<outputDirectory>${project.build.directory}/lib</outputDirectory>
+		<includes>
+			<!-- 打jar包时，打包class文件和config目录下面的 properties文件 -->
+			<!-- 有时候可能需要一些其他文件，这边可以配置，包括剔除的文件等等 -->
+			<include>**/*.class</include>
+			<include>**/*.properties</include>
+		</includes>
+	</configuration>
+</plugin>
 ~~~
 
