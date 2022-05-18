@@ -10,7 +10,7 @@ package com.test.oop.day05;
  * 对象创建和使用内存解析：
  * |-栈：存放局部变量
  * |-堆：存放对象实例
- * |-方法区：类信息、 常量、 静态变量
+ * |-方法区：类信息、常量、静态变量
  */
 class Person {
     // 成员变量
@@ -26,8 +26,8 @@ class Person {
         System.out.println("Person.sleep");
     }
 
-    public void talk(String language) {
-        System.out.println("Person.talk " + language);
+    public void talk(String content) {
+        System.out.println("Person.talk " + content);
     }
 }
 
@@ -48,13 +48,15 @@ public class ClassDemo {
         // 调用方法
         p1.eat(); // Person.eat
         p1.sleep(); // Person.sleep
-        p1.talk("Chinese"); // Person.talk Chinese
+        p1.talk("hello"); // Person.talk hello
 
         // 创建一个新的对象
         Person p2 = new Person();
         // 属性未赋值，使用对应数据类型默认值
         // String是引用数据类型，默认值是null
         System.out.println(p2.name); // null
+        // int类型默认值是0
+        System.out.println(p2.age); // 0
 
         // 类的引用传递
         // p1和p3指向同一块堆内存空间

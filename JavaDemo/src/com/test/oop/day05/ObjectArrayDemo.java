@@ -26,9 +26,10 @@ public class ObjectArrayDemo {
             // 学号[1,20]
             student.id = i + 1;
             // 年级[1，6]
-            student.grade = new Random().nextInt(6) + 1;
+            Random random = new Random();
+            student.grade = random.nextInt(6) + 1;
             // 成绩[0,100]
-            student.score = new Random().nextInt(101);
+            student.score = random.nextInt(101);
             students[i] = student;
         }
 
@@ -78,7 +79,6 @@ public class ObjectArrayDemo {
         for (int i = 0; i < students.length; i++) {
             System.out.println(students[i].getInfo());
         }
-
     }
 
     /**
@@ -86,14 +86,15 @@ public class ObjectArrayDemo {
      */
     public static void searchStudentsByGrade(Student[] students, int gradeKey) {
         for (int i = 0; i < students.length; i++) {
-            if (gradeKey == students[i].grade) {
-                System.out.println(students[i].getInfo());
+            Student student = students[i];
+            if (gradeKey == student.grade) {
+                System.out.println(student.getInfo());
             }
         }
     }
 
     /**
-     * 根据学生的成绩排序
+     * 根据学生的成绩倒序排序
      */
     public static void sortStudentsByScore(Student[] students) {
         // 冒泡排序

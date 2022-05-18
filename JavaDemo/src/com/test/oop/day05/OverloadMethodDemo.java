@@ -9,20 +9,18 @@ package com.test.oop.day05;
  */
 public class OverloadMethodDemo {
     public static void main(String[] args) {
-        /*
-            当public int add(int x, int y) 方法被注释后
-            调用add(1, 2)也能正常运行，此时实际调用的是 public double add(double x, double y)
-            参数进行了自动类型提升
-            匹配时先进行参数的精确匹配，无法精确匹配时，再根据自动类型提升后的结果进行匹配
-            结果为：3.0
-         */
         System.out.println(add(1, 2)); // 3
         System.out.println(add(10.1, 20.3)); // 30.4
         System.out.println(add(10, 20, 30)); // 60
+
+        // 此时实际调用的是 public double add(double x, double y)
+        // 参数进行了自动类型提升，匹配时先进行参数的精确匹配，无法精确匹配时，再根据自动类型提升后的结果进行匹配
+        System.out.println(add(100.1f,30.2f)); // 130.29999923706055
     }
 
     /**
      * 以下三个方法构成重载
+     * 重载的方法返回值类型没有强制要求统一，但是一般统一返回值类型
      */
     public static int add(int x, int y) {
         System.out.println("两个int类型求和");

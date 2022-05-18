@@ -13,6 +13,7 @@ public class AnonObjectDemo {
         new Person().eat(); // Person.eat
         // 和上面的匿名对象不是同一个，每次new都会创建一个新对象
         new Person().eat(); // Person.eat
+        System.out.println(new Person() == new Person()); // false
 
         // 调用方法时，参数可以使用匿名对象传递
         action(new Person());

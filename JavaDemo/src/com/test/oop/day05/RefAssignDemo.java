@@ -8,12 +8,12 @@ class Data {
 /**
  * 引用数据类型的值传递
  */
-public class RefValueTransferDemo {
+public class RefAssignDemo {
     public static void main(String[] args) {
         Data data = new Data();
         System.out.println("m=" + data.m + ",n=" + data.n); // m=10,n=20
 
-        // 引用数据类型中属性值交换
+        // 交换引用数据类型的属性值
         int temp = data.m;
         data.m = data.n;
         data.n = temp;
@@ -28,6 +28,11 @@ public class RefValueTransferDemo {
         System.out.println("m=" + data.m + ",n=" + data.n); // m=10,n=20
     }
 
+    /**
+     * 交换引用数据类型中属性的值
+     *
+     * @param data
+     */
     public static void swap(Data data) {
         int temp = data.m;
         data.m = data.n;
