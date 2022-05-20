@@ -9,7 +9,7 @@ package com.test.oop.day06;
  */
 class Singleton {
     // static修饰，保证全局唯一
-    private static Singleton instance = new Singleton();
+    private static final Singleton INSTANCE = new Singleton();
 
     /**
      * 单例模式，需要将构造方法私有化，只允许在类中实例化
@@ -21,17 +21,16 @@ class Singleton {
      * 提供方法获取实例化对象
      */
     public static Singleton getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
-    public void show() {
-        System.out.println("Singleton.show");
+    public void action() {
+        System.out.println("Singleton.action");
     }
 }
 
 /**
- * 懒汉式，非线程安全
- * 需要进行线程安全处理
+ * 懒汉式，非线程安全，需要进行线程安全处理
  */
 class SingletonLazy {
     private static SingletonLazy instance;
@@ -60,8 +59,8 @@ class SingletonLazy {
         return instance;
     }
 
-    public void show() {
-        System.out.println("SingletonLazy.show");
+    public void action() {
+        System.out.println("SingletonLazy.action");
     }
 }
 
@@ -74,12 +73,12 @@ class SingletonLazy {
 public class SingletonDemo {
     public static void main(String[] args) {
         SingletonLazy instanceA = SingletonLazy.getInstance();
-        instanceA.show(); // SingletonLazy.show
         SingletonLazy instanceB = SingletonLazy.getInstance();
-        instanceB.show(); // SingletonLazy.show
         SingletonLazy instanceC = SingletonLazy.getInstance();
-        instanceC.show(); // SingletonLazy.show
+
         System.out.println(instanceA == instanceB); // true
         System.out.println(instanceA == instanceC); // true
+
+        instanceA.action(); // SingletonLazy.action
     }
 }

@@ -14,7 +14,7 @@ import java.util.Objects;
 class Emp {
     private String name;
     private int age;
-    private double salary = 2500.0;
+    private double salary = 5000.0;
 
     public Emp() {
         System.out.println("实例化Emp对象");
@@ -35,7 +35,7 @@ class Emp {
     }
 
     /**
-     * getter和setter方法
+     * private封装的属性，建议给属性都设置getter和setter方法
      */
     public void setName(String name) {
         this.name = name;
@@ -61,9 +61,11 @@ class Emp {
         return this.salary;
     }
 
-    public void show() {
+    public void printInfo() {
         // this.方法名()表示调用类中的方法
-        System.out.println("姓名：" + this.getName() + "，年龄：" + this.getAge() + "，薪资：" + this.getSalary());
+        System.out.println("姓名：" + this.getName()
+                + "，年龄：" + this.getAge()
+                + "，薪资：" + this.getSalary());
     }
 
     /**
@@ -74,6 +76,7 @@ class Emp {
             return false;
         }
 
+        // 使用this表示当前对象
         if (this == emp) {
             return true;
         }
@@ -95,17 +98,18 @@ public class ThisDemo {
             姓名：Smith，年龄：24，薪资：3800.0
          */
         Emp emp = new Emp("Smith", 24, 3800.0);
-        emp.show();
+        emp.printInfo();
 
         /*
             实例化Emp对象
-            姓名：Tom，年龄：22，薪资：2500.0
+            姓名：Tom，年龄：22，薪资：5000.0
          */
         Emp emp2 = new Emp("Tom", 22);
-        emp2.show();
+        emp2.printInfo();
 
         // 实例化Emp对象
         Emp emp3 = new Emp("Tom", 22);
+
         System.out.println("emp equals emp ?：" + emp.equals(emp)); // emp equals emp ?：true
         System.out.println("emp equals emp2 ?：" + emp.equals(emp2)); // emp equals emp2 ?：false
         System.out.println("emp2 equals emp3 ?：" + emp2.equals(emp3)); // emp2 equals emp3 ?：true
