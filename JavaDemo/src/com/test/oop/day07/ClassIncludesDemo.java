@@ -3,6 +3,7 @@ package com.test.oop.day07;
 class Book {
     private String title;
     private double price;
+    // Book类中包含Person类属性，是包含关系
     private Person owner;
 
     public Book(String title, double price) {
@@ -30,7 +31,7 @@ class Book {
 class Person {
     private String name;
     private int age;
-    // 包含其他类对象
+    // 包含Book类对象
     private Book book;
     // 包含当前类对象
     private Person father;
@@ -77,10 +78,10 @@ class Person {
 
 /**
  * 类之间的关系：
- * |- 继承：is A，Apple继承Fruit，apple is a fruit
- * |- 包含：has A，Library包含Book，library has a book
+ * |- 继承：is A，Apple继承Fruit：apple is a fruit
+ * |- 包含：has A，Library包含Book：library has a book
  */
-public class ClassRefDemo {
+public class ClassIncludesDemo {
     public static void main(String[] args) {
         Book book1 = new Book("java编程思想", 89.9);
         Book book2 = new Book("一千零一夜", 19.9);
@@ -90,7 +91,7 @@ public class ClassRefDemo {
         Person child1 = new Person("张小花", 6);
         Person child2 = new Person("张小虎", 8);
 
-        // 绑定Person和Book的关系，给book设置owner属性
+        // 绑定Person和Book的关系，给Book设置owner属性
         book1.setOwner(person);
         book2.setOwner(child1);
         book3.setOwner(child2);
@@ -100,7 +101,7 @@ public class ClassRefDemo {
         child1.setBook(book2);
         child2.setBook(book3);
 
-        // 绑定Person和children属性的关系
+        // 绑定person和children属性的关系
         person.setChildren(new Person[]{child1, child2});
         child1.setFather(person);
         child2.setFather(person);
@@ -119,11 +120,11 @@ public class ClassRefDemo {
             child1的书 -> child2的书
             Book{title='格林童话', price=24.9}
          */
-        Person[] children2 = book2.getOwner().getFather().getChildren();
-        for (Person child : children2) {
-            Book book = child.getBook();
-            if (book != book2) {
-                System.out.println(book);
+        Person[] allChildren = book2.getOwner().getFather().getChildren();
+        for (Person child : allChildren) {
+            Book temp = child.getBook();
+            if (temp != book2) {
+                System.out.println(temp);
             }
         }
     }

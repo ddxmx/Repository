@@ -1,40 +1,40 @@
 package com.test.oop.day07.access2;
 
-import com.test.oop.day07.access1.Access;
+import com.test.oop.day07.access1.AccessPrivateDemo;
 
 /**
  * 验证不同包下类、属性和方法的访问权限
  */
-public class AccessTest {
+public class AccessPublicDemo {
     public static void main(String[] args) {
-        Access access = new Access();
+        AccessPrivateDemo demo = new AccessPrivateDemo();
 
         // 验证属性
         // 编译失败，'privateVar' has private access，private属性无法在其他类中访问
-        // access.privateVar = 10;
+        // System.out.println(demo.privateVar);
 
         // 编译失败，'defaultVar' is not public，缺省属性无法在其他包中访问
-        // access.defaultVar = 20;
+        // System.out.println(demo.defaultVar);
 
         // 'protectedVar' has protected access，protected属性无法在其他包非子类中访问
-        // access.protectedVar = 30;
+        // System.out.println(demo.protectedVar);
 
-        access.publicVar = 40;
+        System.out.println(demo.publicVar);
 
         // 验证方法
         // 编译失败，'privateMethod()' has private access，private方法无法在其他类中访问
-        // access.privateMethod();
+        // demo.privateMethod();
 
         // 编译失败，'defaultMethod()' is not public，缺省方法无法在其他包中访问
-        // access.defaultMethod();
+        // demo.defaultMethod();
 
         // 'protectedMethod()' has protected access，protected方法无法在其他包非子类中访问
-        // access.protectedMethod();
+        // demo.protectedMethod();
 
-        access.publicMethod();
+        demo.publicMethod();
 
         // 验证类
-        // 编译失败，'com.test.oop.day10.access1.DefaultClass' is not public，缺省类无法在其他包中访问
-        // DefaultClass defaultClass = new DefaultClass();
+        // 编译失败，'com.test.oop.day07.access1.DefaultClass' is not public，缺省类无法在其他包中访问
+        // new DefaultClass();
     }
 }

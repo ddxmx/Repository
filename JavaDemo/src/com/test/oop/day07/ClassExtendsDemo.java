@@ -74,7 +74,7 @@ class Bird extends Animal {
     }
 }
 
-public class ExtendsDemo {
+public class ClassExtendsDemo {
     public static void main(String[] args) {
         Bird bird = new Bird("天鹅", 6, 2);
         // 调用从父类继承的方法获取父类属性

@@ -7,11 +7,13 @@ package com.test.oop.day07;
  * |- data，用于存储数据
  * |- next，用于指向下一个节点对象
  */
-class LinkedList {
+class MyLinkedList {
     // 根节点
     private Node root;
 
-    // 添加元素
+    /**
+     * 添加元素
+     */
     public void add(String data) {
         Node node = new Node(data);
         // 链表为空，将当前节点作为根节点
@@ -22,13 +24,18 @@ class LinkedList {
         }
     }
 
-    // 打印链表
+    /**
+     * 打印链表
+     */
     public void print() {
         if (null != this.root) {
             this.root.print();
         }
     }
 
+    /**
+     * 链表中节点对象类
+     */
     private class Node {
         private String data;
 
@@ -73,7 +80,7 @@ class LinkedList {
             // 打印当前节点数据
             System.out.println(this.getData());
 
-            // 判断子节点是否存在，如果存在继续打印
+            // 判断是否是最后一个节点
             if (null != this.next) {
                 this.next.print();
             }
@@ -82,11 +89,12 @@ class LinkedList {
 }
 
 /**
- * 单向链表基本使用
+ * 单向链表的创建和基本使用
  */
-public class LinkedListDemo {
+public class MyLinkedListDemo {
     public static void main(String[] args) {
-        LinkedList list = new LinkedList();
+        MyLinkedList list = new MyLinkedList();
+        // 添加元素时自动关联节点之间的关系
         list.add("A");
         list.add("B");
         list.add("C");
