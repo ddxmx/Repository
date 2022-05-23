@@ -39,7 +39,8 @@ class Producer extends User {
 }
 
 /**
- * 向下转型以及instanceof
+ * 向下转型
+ * 使用instanceof进行安全转型的判断
  * a instanceof A：对象a是否是类A的实例
  */
 public class InstanceofDemo {

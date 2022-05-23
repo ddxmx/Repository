@@ -22,7 +22,6 @@ class Person {
  * 可以在子类的方法或构造器中使用super.属性或super.方法名()的方式显式调用父类的成员
  * 可以在子类的构造器中使用super(形参列表)的方式显示调用父类的构造器
  * super(形参列表)，必须声明在子类构造器的首行
- * <p>
  * this和super的区别:
  * |- this访问本类中的属性，如果本类没有此属性则从父类中继续查找，super直接访问父类中的属性
  * |- this访问本类中的方法，如果本类没有此方法则从父类中继续查找，super直接访问父类中的方法
@@ -50,12 +49,18 @@ class Student extends Person {
         this.score = score;
     }
 
+    public void printId(){
+        // 在子类中使用super调用父类的属性
+        System.out.println(super.id);
+        System.out.println(this.id);
+    }
+
     /**
      * 覆写父类的getInfo()方法
      */
     @Override
     public String getInfo() {
-        // 在子类中使用super调用父类方法、属性
+        // 在子类中使用super调用父类方法
         return super.getInfo() + "，成绩：" + score;
     }
 }
@@ -63,15 +68,18 @@ class Student extends Person {
 public class SuperDemo {
     public static void main(String[] args) {
         Student stu = new Student("张三", 20, 94.5);
+        /*
+            1001
+            1002
+         */
+        stu.printId();
         System.out.println(stu.getInfo()); // 姓名：张三，年龄：20，成绩：94.5
-
         // 父子类同名的属性，调用时取决于声明的类型
         System.out.println(stu.id); // 1002
 
         // 向上转型
         Person per = new Student();
         System.out.println(per.id); // 1001
-
         System.out.println(new Student().id); // 1002
     }
 }

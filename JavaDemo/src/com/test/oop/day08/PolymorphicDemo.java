@@ -1,19 +1,19 @@
 package com.test.oop.day08;
 
 class Animal {
-    int age = 10;
+    int age = 5;
 
     public void shout() {
         System.out.println("Animal.shout");
     }
 
-    public void showAge() {
-        System.out.println("age：" + age);
+    public void printAge() {
+        System.out.println("Animal age：" + age);
     }
 }
 
 class Dog extends Animal {
-    int age = 20;
+    int age = 15;
 
     @Override
     public void shout() {
@@ -22,7 +22,7 @@ class Dog extends Animal {
 }
 
 class Cat extends Animal {
-    int age = 30;
+    int age = 12;
 
     @Override
     public void shout() {
@@ -30,7 +30,7 @@ class Cat extends Animal {
     }
 
     @Override
-    public void showAge() {
+    public void printAge() {
         System.out.println("Cat age：" + age);
     }
 }
@@ -58,24 +58,23 @@ public class PolymorphicDemo {
         Animal animal2 = new Dog();
         animal2.shout(); // Dog.shout
         // 父子类中同名属性取决于声明类型
-        System.out.println(animal2.age); // 10
+        System.out.println(animal2.age); // 5
         // 就近原则，子类未覆写父类方法，父类方法执行时直接找到父类中的age属性
-        animal2.showAge(); // age：10
+        animal2.printAge(); // Animal age：5
 
-        System.out.println("***********************************");
         Animal animal3 = new Cat();
         // 调用被子类覆写的方法，就近原则，直接找到子类中的age属性
-        animal3.showAge(); // Cat age：30
+        animal3.printAge(); // Cat age：12
 
         System.out.println("***********************************");
-        show(new Dog()); // Dog.shout
-        show(new Cat()); // Cat.shout
+        doShout(new Dog()); // Dog.shout
+        doShout(new Cat()); // Cat.shout
     }
 
     /**
      * 对象的多态性可以统一方法的参数，不再需要针对父类的每一个子类进行重载，直接使用父类引用接收子类对象
      */
-    public static void show(Animal animal) {
+    public static void doShout(Animal animal) {
         animal.shout();
     }
 }
