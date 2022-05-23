@@ -1,6 +1,6 @@
 package com.test.oop.day09;
 
-import com.test.oop.day09.sub.SubClass;
+import com.test.oop.day09.subpackage.SubClass;
 
 import java.util.Date;
 
@@ -9,9 +9,9 @@ import static java.lang.Math.random;
 
 /**
  * 常见包
- * |- java.lang----包含java语言的核心类， 如String、 Math、 Integer、 System、Thread等。
+ * |- java.lang----包含java语言的核心类，如String、Math、Integer、System、Thread等。
  * |- java.lang.reflect----包含java反射机制的类。
- * |- java.util----包含一些实用工具类， 如定义系统特性、 集合框架类、 日期时间类。
+ * |- java.util----包含一些实用工具类，如定义系统特性、 集合框架类、 日期时间类。
  * |- java.text----包含了一些格式化相关的类。
  * |- java.io ----包含能提供多种输入/输出功能的类。
  * |- java.sql----包含了java进行JDBC数据库编程的相关类和接口。
@@ -23,7 +23,8 @@ public class PackageImportDemo {
         Date date = new Date();
 
         // 如果没有导入包名，则需要使用"包.类名称"的形式
-        String str = java.util.Arrays.toString(new int[]{1, 2, 3});
+        int[] array = new int[]{1, 2, 3};
+        String str = java.util.Arrays.toString(array);
 
         // java.lang包默认自动导入，使用时无需手动导入包
         String str2 = "hello";
@@ -40,11 +41,9 @@ public class PackageImportDemo {
         System.out.println(date); // Sun Jan 24 01:18:53 CST 2021
 
         /*
-            静态导入，import语句写到属性或方法一层（实际开发中并不推荐使用，不利于阅读）
+            静态导入，import static语句写到属性或方法一层（实际开发中并不推荐使用，不利于阅读）
             静态导入类中的所有方法和属性：import static java.lang.Math.*;
             静态导入类中指定的方法或属性：import static java.lang.Math.属性名或方法名;
-            import static java.lang.Math.PI;
-            import static java.lang.Math.random;
          */
         System.out.println(PI);
         System.out.println(random());

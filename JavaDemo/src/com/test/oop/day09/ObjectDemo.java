@@ -32,8 +32,7 @@ class User {
 
     /**
      * 覆写equals方法
-     * java.lang.Object类中的equals方法默认比较的是内存地址
-     * Object类的equals()方法默认实现使用 == 进行比较
+     * java.lang.Object类中的equals方法默认实现使用 == 进行比较，比较的是内存地址
      */
     @Override
     public boolean equals(Object obj) {
@@ -82,6 +81,6 @@ public class ObjectDemo {
 
         // 单独使用对象或与字符串拼接时，默认会调用对象的toString()方法
         System.out.println(user1); // User{name='张三', age=20}
-        System.out.println(user1.toString()); // User{name='张三', age=20}
+        System.out.println("用户信息：" + user1); // 用户信息：User{name='张三', age=20}
     }
 }

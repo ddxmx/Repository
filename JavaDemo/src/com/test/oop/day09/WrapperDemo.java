@@ -32,19 +32,25 @@ public class WrapperDemo {
             System.out.println(b2.booleanValue()); // false
 
             // Character判断字符
-            System.out.println("--------------------------------");
+            System.out.println("---------------判断数字或字母-----------------");
             System.out.println(Character.isDigit('a')); // false
             System.out.println(Character.isDigit('1')); // true
             System.out.println(Character.isLetter('a')); // true
             System.out.println(Character.isLetter('1')); // false
-            System.out.println(Character.isLetterOrDigit('a')); // true
-            System.out.println(Character.isLetterOrDigit('1')); // true
-            System.out.println("--------------------------------");
+            // 使用isLetter()，中文也会认为是字母，因此不能使用该方法
+            System.out.println(Character.isLetter('中')); // true
+            // 判断字母推荐使用以下方式
+            System.out.println(Character.isLowerCase('a') || Character.isUpperCase('a')); // true
+            System.out.println(Character.isLowerCase('A') || Character.isUpperCase('A')); // true
+            System.out.println(Character.isLowerCase('中') || Character.isUpperCase('中')); // false
+
+            System.out.println("----------------判断大小写----------------");
             System.out.println(Character.isLowerCase('a')); // true
             System.out.println(Character.isLowerCase('A')); // false
             System.out.println(Character.isUpperCase('a')); // false
             System.out.println(Character.isUpperCase('A')); // true
-            System.out.println("--------------------------------");
+
+            System.out.println("----------------判断空白符----------------");
             System.out.println(Character.isWhitespace('\t')); // true
             System.out.println(Character.isWhitespace('\n')); // true
             System.out.println(Character.isWhitespace('\r')); // true
@@ -54,13 +60,13 @@ public class WrapperDemo {
 
         System.out.println("========自动装箱和自动拆箱========");
         {
-            // 基本数据类型直接使用包装类接收
+            // 自动装箱，基本数据类型直接使用包装类接收
             Integer i1 = 20;
-            // 包装类直接使用基本数据类型接收
+            // 自动拆箱，包装类直接使用基本数据类型接收
             int num2 = i1;
             System.out.println(num2); // 20
 
-            // 包装类可以和基本数据类型直接进行运算
+            // 自动拆箱，包装类可以和基本数据类型直接进行运算
             System.out.println(i1 + 1); // 21
             System.out.println(i1 == 20); // true
 

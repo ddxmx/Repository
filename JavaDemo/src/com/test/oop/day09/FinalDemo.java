@@ -3,12 +3,12 @@ package com.test.oop.day09;
 /**
  * final可以用来修饰类、属性、方法，表示最终的
  * 修饰类：类不能被继承，比如String类、包装类等
- * 修饰变量（成员变量、局部变量和方法的参数）：变量不可修改，基本数据类型值不能修改，引用数据类型地址不能修改
+ * 修饰变量（类中成员变量、方法中定义的变量和方法的参数）：变量不可修改（基本数据类型值不能修改，引用数据类型地址不能修改）
  * 修饰方法：方法不能被覆写
  */
 public class FinalDemo {
     // 全局常量
-    public static final String YEAR = "2021";
+    public static final String YEAR = "2022";
 
     /**
      * 静态私有内部类，类无法被外部访问，不需要实例化外部类就可以访问内部类
@@ -16,7 +16,7 @@ public class FinalDemo {
     private static class Order {
         int id = 10;
 
-        // final修饰的成员变量，声明时或实例化前必须赋值，且只能被赋值一次
+        // final修饰的成员变量，声明时或对象实例化时必须赋值，且只能被赋值一次
         final String info;
 
         public Order() {

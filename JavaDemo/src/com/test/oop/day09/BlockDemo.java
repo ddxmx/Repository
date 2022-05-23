@@ -48,19 +48,19 @@ class Student extends Person {
 public class BlockDemo {
     // 主方法中的静态代码块
     static {
-        System.out.println("Main static block");
+        System.out.println("main static block");
     }
 
     // 主方法中的非静态代码块
     {
-        System.out.println("Main normal block");
+        System.out.println("main normal block");
     }
 
     public static void main(String[] args) {
         /*
-            Main static block
+            main static block
             main method
-            Main normal block
+            main normal block
             test method
 
             Person static block
@@ -81,10 +81,8 @@ public class BlockDemo {
 
     public void test() {
         System.out.println("test method");
-
         System.out.println();
         new Student();
-
         System.out.println();
         new Student();
     }
