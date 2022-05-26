@@ -1,13 +1,11 @@
 package com.test.oop.day10;
 
 /**
- * 默认方法支持的原因：当接口中需要提供新的功能，方法需要在接口中定义。但是所有子类必须要覆写接口中的抽象方法。
+ * 1、默认方法支持的原因：当接口中需要提供新的功能，方法需要在接口中定义。但是所有子类必须要覆写接口中的抽象方法。
  * 这种情况下将导致子类修改的复杂性。因此在接口中提供默认方法来统一为所有子类实现相同的能力。
- * <p>
- * 静态方法支持的原因：当接口需要提供一些通用能力的时候，一般通过接口工具类的方式，比如Collection对应的工具类Collections。
+ * 2、静态方法支持的原因：当接口需要提供一些通用能力的时候，一般通过接口工具类的方式，比如Collection对应的工具类Collections。
  * JDK8之后可以直接将工具类的能力，在接口中进行定义。
- * <p>
- * 私有方法支持的原因：接口中多个默认方法或静态方法存在重复代码，需要抽取，但是抽取的方法不希望直接被外部直接访问。
+ * 3、私有方法支持的原因：接口中多个默认方法或静态方法存在重复代码，需要抽取，但是抽取的方法不希望直接被外部直接访问。
  * 私有方法包括私有默认方法和私有静态方法。JDK9之后开始支持私有方法。
  */
 interface SuperInterfaceA {
@@ -58,6 +56,8 @@ class SubClass extends SuperClass implements SuperInterfaceA, SuperInterfaceB {
      */
     @Override
     public void defaultMethod() {
+        SuperInterfaceA.super.defaultMethod();
+        SuperInterfaceB.super.defaultMethod();
         System.out.println("SubClass.defaultMethod");
     }
 
@@ -66,21 +66,20 @@ class SubClass extends SuperClass implements SuperInterfaceA, SuperInterfaceB {
      */
     @Override
     public void defaultMethod2() {
+        SuperInterfaceA.super.defaultMethod2();
         System.out.println("SubClass.defaultMethod2");
     }
 
     public void invoke() {
         /*
             接口中的default方法需要通过实例化对象调用
-            当子类继承父类，并实现接口时，使用"super.方法名()"只会从父类中查找方法，不会从父接口中查找default方法
+            当子类继承父类并实现接口时，使用"super.方法名()"只会从父类中查找方法，不会从父接口中查找default方法
             调用接口中的default方法需要使用"接口名称.super.方法名()"的格式
          */
-        SuperInterfaceA.super.defaultMethod(); // SuperInterfaceA.defaultMethod
-        SuperInterfaceB.super.defaultMethod(); // SuperInterfaceB.defaultMethod
-        SuperInterfaceA.super.defaultMethod2(); // SuperInterfaceA.defaultMethod2
         // 父类中的方法
         defaultMethod3(); // SuperClass.defaultMethod3
         super.defaultMethod3(); // SuperClass.defaultMethod3
+        // 父接口中的方法
         SuperInterfaceA.super.defaultMethod3(); // SuperInterfaceA.defaultMethod3
         // 直接从父接口继承，无需指定
         defaultMethod4(); // SuperInterfaceA.defaultMethod4
@@ -95,15 +94,29 @@ class SubClass extends SuperClass implements SuperInterfaceA, SuperInterfaceB {
 public class InterfaceMethodDemo {
     public static void main(String[] args) {
         SubClass instance = new SubClass();
-        // 接口中的静态方法只能通过接口名调用
+        System.out.println("==========接口中的静态方法只能通过接口名调用==========");
         SuperInterfaceA.staticMethod(); // SuperInterfaceA.staticMethod
-        // 调用子类覆写的方法
-        instance.defaultMethod(); // SubClass.defaultMethod
-        // 调用子类覆写的方法
-        instance.defaultMethod2(); // SubClass.defaultMethod2
+
+        System.out.println("==========调用子类覆写的方法==========");
+        /*
+            SuperInterfaceA.defaultMethod
+            SuperInterfaceB.defaultMethod
+            SubClass.defaultMethod
+         */
+        instance.defaultMethod();
+        System.out.println("--------------------");
+        /*
+            SuperInterfaceA.defaultMethod2
+            SubClass.defaultMethod2
+         */
+        instance.defaultMethod2();
+
+        System.out.println("==========父类和父接口中存在重名的实现方法==========");
         // 子类继承父类，实现接口，父类和接口中存在重名的实现方法，优先调用父类的方法
+        // 子类实现的多个父接口，接口中存在重名的实现方法，子类必须要覆写该方法
         instance.defaultMethod3(); // SuperClass.defaultMethod3
-        // 调用子类继承的方法，父类中不存在，从父接口中查找
+
+        System.out.println("==========调用子类继承的方法，父类中不存在，从父接口中查找==========");
         instance.defaultMethod4(); // SuperInterfaceA.defaultMethod4
 
         System.out.println("========子类中调用父类方法========");

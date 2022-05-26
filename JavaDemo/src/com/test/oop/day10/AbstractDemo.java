@@ -1,5 +1,13 @@
 package com.test.oop.day10;
 
+/**
+ * abstract可以用来修饰抽象类和抽象方法
+ * 抽象类不能直接实例化，实例化时需要依赖子类
+ * 抽象类也存在构造器，子类实例化需要依赖抽象父类构造器
+ * 抽象方法只有方法声明，没有方法体
+ * 包含抽象方法的类，需要声明为抽象类。但抽象类不一定包含抽象方法
+ * 继承抽象类的子类需要覆写抽象类中所有的抽象方法，如果子类不覆写，子类需要继续使用abstract修饰
+ */
 abstract class Person {
     private String name;
     private int age;
@@ -63,17 +71,9 @@ class Student extends Person {
     }
 }
 
-/**
- * abstract可以用来修饰抽象类和抽象方法
- * 抽象类不能直接实例化，实例化时需要依赖子类
- * 抽象类也存在构造器，子类实例化需要依赖抽象父类构造器
- * 抽象方法只有方法声明，没有方法体
- * 包含抽象方法的类，需要声明为抽象类。但抽象类不一定包含抽象方法
- * 继承抽象类的子类需要覆写父类中所有的抽象方法，如果子类不覆写，子类需要继续使用abstract修饰
- */
 public class AbstractDemo {
     public static void main(String[] args) {
-        // 抽象类不能直接实例化
+        // 编译错误，抽象类不能直接实例化
         // Person per = new Person();
 
         // 抽象类可以通过子类实例化
