@@ -31,7 +31,7 @@ class Worker extends User {
 }
 
 /**
- * 模板设计模式
+ * 抽象类设计：模板设计模式
  * 父类规定了行为，子类需要覆写指定方法来实现部分行为细节
  */
 public class TemplateDemo {
@@ -42,6 +42,7 @@ public class TemplateDemo {
             User.talk stop
          */
         new Teacher().talk();
+
         /*
             User.talk start
             Worker.getContent

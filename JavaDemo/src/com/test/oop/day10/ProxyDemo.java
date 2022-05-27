@@ -21,29 +21,24 @@ class ProxyNet implements Net {
     // 代理类内部使用对象接收真实类对象
     private Net net;
 
+    /*
+        构造方法接收接口的实现类对象
+     */
     public ProxyNet(Net net) {
         this.net = net;
     }
 
-    public void start() {
-        System.out.println("初始化代理");
-    }
-
-    public void stop() {
-        System.out.println("停止代理");
-    }
-
     @Override
     public void browse() {
-        this.start();
+        System.out.println("初始化代理");
         // 调用真实类的操作
         this.net.browse();
-        this.stop();
+        System.out.println("停止代理");
     }
 }
 
 /**
- * 静态代理设计模式
+ * 接口设计：静态代理设计模式
  */
 public class ProxyDemo {
     public static void main(String[] args) {
