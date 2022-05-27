@@ -1,16 +1,15 @@
 package com.test.exception.day11;
 
-class Info {
+class Message {
     private int id;
 
     public void register(int id) throws Exception {
-        if (id > 0) {
-            this.id = id;
-            return;
+        if (id <= 0) {
+            // 手动抛出一个异常
+            throw new Exception("Id is invalid.");
         }
 
-        // 手动抛出一个异常
-        throw new Exception("Id is invalid.");
+        this.id = id;
     }
 
     public int getId() {
@@ -24,12 +23,14 @@ class Info {
  */
 public class ThrowDemo {
     public static void main(String[] args) {
-        Info info = new Info();
+        Message msg = new Message();
+
         try {
-            info.register(-1001);
+            msg.register(-1001);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(info.getId()); // 0
+
+        System.out.println(msg.getId()); // 0
     }
 }
