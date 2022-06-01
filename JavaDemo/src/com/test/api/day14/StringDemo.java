@@ -1,15 +1,5 @@
 package com.test.api.day14;
 
-class Person {
-    String name;
-    int age;
-
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-}
-
 /**
  * String类的使用
  */
@@ -26,26 +16,12 @@ public class StringDemo {
         System.out.println(str2); // hello
 
         // 空字符串
-        System.out.println("[" + new String() + "]"); // []
-        System.out.println("[" + "" + "]"); // []
+        System.out.println("".equals(new String())); // true
 
         String str4 = "abc";
         // 在堆空间中开辟新空间
         String str5 = new String(str4);
         System.out.println(str4 == str5); // false
-
-        Person p1 = new Person("Tom", 20);
-        Person p2 = new Person("Tom", 20);
-        Person p3 = new Person(new String("Tom"), 20);
-        System.out.println(p1 == p2); // false
-        System.out.println(p1.name.equals(p2.name)); // true
-        System.out.println(p1.name == p2.name); // true，字符串直接赋值的方式，数据入常量池
-        System.out.println(p1.name == p3.name); // false
-
-        // 修改了p1的name属性指向的堆内存空间
-        p1.name = "Jerry";
-        System.out.println(p1.name); // Jerry
-        System.out.println(p2.name); // Tom
 
         /*
             面试题
@@ -76,7 +52,7 @@ public class StringDemo {
             System.out.println(s3 == s6); // false
             // s5和s6开辟的不同的堆内存
             System.out.println(s5 == s6); // false
-            // intern()方法导致结果放入常量池中再引用，常量池中已经存在，直接引用常量池中对象
+            // intern()方法将字符串放入常量池中再引用，常量池中已经存在，直接返回常量池中对象
             System.out.println(s3 == s7); // true
             // 常量拼接，在常量池中保存
             System.out.println(s3 == s9); // true
