@@ -10,7 +10,9 @@ public class ErrorDemo {
         main(args);
 
         // 堆异常
-        // java.lang.OutOfMemoryError: Requested array size exceeds VM limit
-        int[] array = new int[Integer.MAX_VALUE];
+        // 设置JVM参数：-Xmx20m
+        // java.lang.OutOfMemoryError: Java heap space
+        int size = 10 * 1024 * 1024;
+        int[] array = new int[size];
     }
 }
