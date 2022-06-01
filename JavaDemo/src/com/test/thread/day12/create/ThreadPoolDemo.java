@@ -8,7 +8,7 @@ class MyTask implements Runnable {
     public void run() {
         for (int i = 1; i <= 5; i++) {
             try {
-                Thread.sleep(1000);
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -23,35 +23,21 @@ class MyTask implements Runnable {
  */
 public class ThreadPoolDemo {
     public static void main(String[] args) {
-        /*
-            2021-12-21T22:22:46.667，线程pool-2-thread-2运行，i=1
-            2021-12-21T22:22:46.667，线程pool-1-thread-1运行，i=1
-            2021-12-21T22:22:46.668，线程pool-2-thread-1运行，i=1
-            2021-12-21T22:22:46.668，线程pool-1-thread-2运行，i=1
-
-            2021-12-21T22:22:47.669，线程pool-1-thread-1运行，i=2
-            2021-12-21T22:22:47.669，线程pool-2-thread-2运行，i=2
-            2021-12-21T22:22:47.669，线程pool-2-thread-1运行，i=2
-            2021-12-21T22:22:47.669，线程pool-1-thread-2运行，i=2
-
-            2021-12-21T22:22:48.680，线程pool-2-thread-1运行，i=3
-            2021-12-21T22:22:48.680，线程pool-1-thread-1运行，i=3
-            2021-12-21T22:22:48.680，线程pool-2-thread-2运行，i=3
-            2021-12-21T22:22:48.680，线程pool-1-thread-2运行，i=3
-
-            2021-12-21T22:22:49.691，线程pool-1-thread-2运行，i=4
-            2021-12-21T22:22:49.691，线程pool-2-thread-2运行，i=4
-            2021-12-21T22:22:49.691，线程pool-2-thread-1运行，i=4
-            2021-12-21T22:22:49.691，线程pool-1-thread-1运行，i=4
-
-            2021-12-21T22:22:50.704，线程pool-1-thread-2运行，i=5
-            2021-12-21T22:22:50.704，线程pool-2-thread-2运行，i=5
-            2021-12-21T22:22:50.704，线程pool-1-thread-1运行，i=5
-            2021-12-21T22:22:50.704，线程pool-2-thread-1运行，i=5
-         */
         Runnable task = new MyTask();
 
         // 使用Executors工具类创建线程池
+        /*
+            2022-05-29T11:53:29.351，线程pool-1-thread-1运行，i=1
+            2022-05-29T11:53:29.351，线程pool-1-thread-2运行，i=1
+            2022-05-29T11:53:30.372，线程pool-1-thread-2运行，i=2
+            2022-05-29T11:53:30.372，线程pool-1-thread-1运行，i=2
+            2022-05-29T11:53:31.375，线程pool-1-thread-2运行，i=3
+            2022-05-29T11:53:31.375，线程pool-1-thread-1运行，i=3
+            2022-05-29T11:53:32.391，线程pool-1-thread-2运行，i=4
+            2022-05-29T11:53:32.391，线程pool-1-thread-1运行，i=4
+            2022-05-29T11:53:33.399，线程pool-1-thread-2运行，i=5
+            2022-05-29T11:53:33.399，线程pool-1-thread-1运行，i=5
+         */
         {
             // 创建固定线程数量的线程池
             ExecutorService service = Executors.newFixedThreadPool(10);
@@ -62,9 +48,28 @@ public class ThreadPoolDemo {
 
             // 线程池关闭，执行方法后，线程池任务执行结束后就关闭了
             service.shutdown();
+
+            // 等待线程池任务执行结束
+            try {
+                service.awaitTermination(1, TimeUnit.MINUTES);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         // 使用ThreadPoolExecutor类创建线程池
+        /*
+            2022-05-29T11:58:54.197，线程pool-2-thread-1运行，i=1
+            2022-05-29T11:58:54.197，线程pool-2-thread-2运行，i=1
+            2022-05-29T11:58:55.206，线程pool-2-thread-1运行，i=2
+            2022-05-29T11:58:55.206，线程pool-2-thread-2运行，i=2
+            2022-05-29T11:58:56.222，线程pool-2-thread-1运行，i=3
+            2022-05-29T11:58:56.222，线程pool-2-thread-2运行，i=3
+            2022-05-29T11:58:57.237，线程pool-2-thread-2运行，i=4
+            2022-05-29T11:58:57.237，线程pool-2-thread-1运行，i=4
+            2022-05-29T11:58:58.252，线程pool-2-thread-1运行，i=5
+            2022-05-29T11:58:58.252，线程pool-2-thread-2运行，i=5
+         */
         {
             // 核心线程数，初始线程的数量
             int corePoolSize = 3;

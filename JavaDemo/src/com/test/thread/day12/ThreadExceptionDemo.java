@@ -6,8 +6,7 @@ package com.test.thread.day12;
  */
 public class ThreadExceptionDemo {
     public static void main(String[] args) {
-        // 创建线程类对象
-        Thread thread = new Thread(() -> {
+        Runnable runnable = () -> {
             for (int i = 0; i < 10; i++) {
                 if (i == 3) {
                     // 只能抛出RuntimeException异常，否则必须使用try-catch处理
@@ -15,7 +14,10 @@ public class ThreadExceptionDemo {
                 }
                 System.out.println("i = " + i);
             }
-        }, "线程A");
+        };
+
+        // 创建线程类对象
+        Thread thread = new Thread(runnable, "线程A");
 
         // Thread可以通过setUncaughtExceptionHandler注册一个回调接口
         thread.setUncaughtExceptionHandler((t, e) -> {

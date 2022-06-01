@@ -3,7 +3,11 @@ package com.test.thread.day12.sync;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 同步方法
+ * 方式二：同步方法
+ * 实现Runnable接口，使用同步方法
+ * （1）方式一：
+ * 方法声明中使用synchronized关键字
+ * 同步方法监视器对象就是this
  */
 class SyncMethod implements Runnable {
     private int ticket = 5;
@@ -21,17 +25,18 @@ class SyncMethod implements Runnable {
      * 同步方法，同步监视器就是this
      */
     public synchronized boolean sell() {
-        if (ticket > 0) {
-            try {
-                TimeUnit.MILLISECONDS.sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
-            return true;
+        if (ticket <= 0) {
+            return false;
         }
 
-        return false;
+        try {
+            TimeUnit.MILLISECONDS.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
+
+        return true;
     }
 }
 
@@ -51,10 +56,10 @@ class SyncStaticMethod implements Runnable {
      * 如果需要对static修饰的对象进行同步操作，需要使用static的同步方法
      */
     public static synchronized void calculate() {
-        //value = value * 2 + 1
+        // value = value * 2 + 1
         value *= 2;
         try {
-            Thread.sleep(30);
+            Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -67,13 +72,6 @@ class SyncStaticMethod implements Runnable {
     }
 }
 
-/**
- * 方式二：同步方法
- * 实现Runnable接口，使用同步方法
- * （1）方式一：
- * 方法声明中使用synchronized关键字
- * 同步方法监视器对象就是this
- */
 public class SyncMethodDemo {
     public static void main(String[] args) {
         SyncMethod runnable = new SyncMethod();

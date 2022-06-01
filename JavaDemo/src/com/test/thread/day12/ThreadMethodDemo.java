@@ -6,31 +6,29 @@ package com.test.thread.day12;
 public class ThreadMethodDemo {
     public static void main(String[] args) {
         /*
+            true
+            TIMED_WAITING
+            main线程优先级：5
             main：i = 0
             main：i = 1
             main：i = 2
-            线程A优先级：10，i = 0
-            线程B优先级：5，i = 0
-            线程C优先级：1，i = 0
-            线程A优先级：10，i = 1
-            线程C优先级：1，i = 1
-            线程B优先级：5，i = 1
-            线程A优先级：10，i = 2
-            线程C优先级：1，i = 2
-            线程B优先级：5，i = 2
-            线程B优先级：5，i = 3
-            线程C优先级：1，i = 3
-            线程A优先级：10，i = 3
-            线程A优先级：10，i = 4
-            线程B优先级：5，i = 4
-            线程C优先级：1，i = 4
+            线程B，i = 0，优先级：5
+            线程C，i = 0，优先级：1
+            线程A，i = 0，优先级：10
+            线程A，i = 1，优先级：10
+            线程B，i = 1，优先级：5
+            线程C，i = 1，优先级：1
+            线程A，i = 2，优先级：10
+            线程B，i = 2，优先级：5
+            线程C，i = 2，优先级：1
+            线程A，i = 3，优先级：10
+            线程C，i = 3，优先级：1
+            线程B，i = 3，优先级：5
+            线程A，i = 4，优先级：10
+            线程C，i = 4，优先级：1
+            线程B，i = 4，优先级：5
             main：i = 3
             main：i = 4
-            main：i = 5
-            main：i = 6
-            main：i = 7
-            main：i = 8
-            main：i = 9
          */
         Runnable runnable = () -> {
             for (int i = 0; i < 5; i++) {
@@ -48,8 +46,8 @@ public class ThreadMethodDemo {
                 Thread currentThread = Thread.currentThread();
                 // thread.getName() 获取线程名称
                 // thread.getPriority() 获取线程优先级
-                System.out.println(currentThread.getName() + "优先级：" + currentThread.getPriority()
-                        + "，i = " + i);
+                System.out.println(currentThread.getName() + "，i = " + i
+                        + "，优先级：" + currentThread.getPriority());
             }
         };
 
@@ -81,7 +79,7 @@ public class ThreadMethodDemo {
         // main线程优先级：5
         System.out.println(Thread.currentThread().getName() + "线程优先级：" + Thread.currentThread().getPriority());
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             if (i == 3) {
                 try {
                     // thread.join() 当前线程等待指定线程先执行结束后再执行，只有当前线程会阻塞，不会导致其他线程阻塞

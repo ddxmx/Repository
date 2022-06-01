@@ -7,6 +7,7 @@ package com.test.thread.day12;
  * 就绪：调用了start()方法，等待CPU的调用
  * 运行：获得CPU执行权（CPU时间片结束或调用yield()方法，回到就绪状态）
  * 阻塞：sleep、join、wait、等待同步锁（sleep时间结束、join优先执行的线程结束、notify、获取同步锁时，回到就绪状态）
+ *
  * 消亡：线程执行结束或被终止
  */
 public class ThreadStateDemo {

@@ -12,21 +12,21 @@ class SyncBlock implements Runnable {
     @Override
     public void run() {
         while (true) {
-            // 同步监视器，就是锁，任何一个类的对象都可以作为同步监视器，多个线程要共用一个锁才能同步
+            // 同步监视器，就是锁，任何一个类的对象都可以作为同步监视器，多个线程要共用一个同步监视器才能同步
             // synchronized (this) {
-            // synchronized (SyncBlockRunnable.class) {
+            // synchronized (SyncBlock.class) {
             synchronized (obj) {
-                if (ticket > 0) {
-                    try {
-                        TimeUnit.MILLISECONDS.sleep(30);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
-                } else {
+                if (ticket <= 0) {
                     break;
                 }
+
+                try {
+                    TimeUnit.MILLISECONDS.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
             }
         }
     }
@@ -41,11 +41,10 @@ class SyncBlock implements Runnable {
  * }
  * 方式二：使用同步方法
  * 权限修饰符 synchronized 返回值 方法名(参数列表)
- * <p>
  * synchronized的特点：
- * 1、可重入的：同一个执行线程获取锁后，调用其他相同锁的代码，可以直接调用
- * 2、直接读写共享内存
- * 3、过多的同步容易引起死锁，应该尽量避免持有一个锁的同时去申请另一个锁
+ * |- 可重入的：同一个执行线程获取锁后，调用其他相同锁的代码，可以直接调用
+ * |- 直接读写共享内存
+ * |- 过多的同步容易引起死锁，应该尽量避免持有一个锁的同时去申请另一个锁
  */
 public class SyncBlockDemo {
     public static void main(String[] args) {

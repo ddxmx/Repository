@@ -5,6 +5,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 同步锁
+ * 使用lock锁实现同步
+ * lock锁要手动释放
  */
 class SyncLock implements Runnable {
     private int ticket = 5;
@@ -16,27 +18,22 @@ class SyncLock implements Runnable {
     public void run() {
         while (true) {
             lock.lock();
-            if (ticket > 0) {
-                try {
-                    Thread.sleep(30);
-                } catch (InterruptedException e) {
-                    lock.unlock();
-                    e.printStackTrace();
+
+            try {
+                if (ticket <= 0) {
+                    break;
                 }
+                Thread.sleep(50);
                 System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
-            } else {
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
                 lock.unlock();
-                break;
             }
-            lock.unlock();
         }
     }
 }
 
-/**
- * 使用Lock锁实现同步
- * lock锁要手动释放
- */
 public class SyncLockDemo {
     public static void main(String[] args) {
         SyncLock runnable = new SyncLock();

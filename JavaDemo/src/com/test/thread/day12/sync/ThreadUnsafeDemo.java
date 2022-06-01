@@ -8,17 +8,17 @@ class MyRunnable implements Runnable {
     @Override
     public void run() {
         while (true) {
-            if (ticket > 0) {
-                try {
-                    TimeUnit.MILLISECONDS.sleep(30);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
-            } else {
+            if (ticket <= 0) {
                 break;
             }
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
         }
     }
 }
@@ -27,7 +27,7 @@ class MyRunnable implements Runnable {
  * 线程不安全的问题
  * 一个对象被多个线程同时操作时，造成操作结果异常
  */
-public class SyncProblemDemo {
+public class ThreadUnsafeDemo {
     public static void main(String[] args) {
         MyRunnable runnable = new MyRunnable();
         /*

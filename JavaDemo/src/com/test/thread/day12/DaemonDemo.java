@@ -10,16 +10,13 @@ public class DaemonDemo {
     public static void main(String[] args) {
         /*
             线程A是否是守护线程：true
-            线程A当前第1次执行
+            main是否是守护线程：false
             main当前第1次执行
+            线程A当前第1次执行
             main当前第2次执行
             线程A当前第2次执行
-            线程A当前第3次执行
             main当前第3次执行
-            线程A当前第4次执行
-            main当前第4次执行
-            main当前第5次执行
-            线程A当前第5次执行
+            线程A当前第3次执行
          */
         Thread thread = new Thread(() -> {
             for (int i = 0; i < 10; i++) {
@@ -37,8 +34,11 @@ public class DaemonDemo {
         thread.start();
         System.out.println(thread.getName() + "是否是守护线程：" + thread.isDaemon());
 
-        // 主方法，非守护线程，先于守护线程执行完成。主方法执行完成后，JVM退出，守护线程停止执行
-        for (int i = 0; i < 5; i++) {
+        // 主方法，非守护线程
+        System.out.println(Thread.currentThread().getName() + "是否是守护线程：" + Thread.currentThread().isDaemon());
+
+        // 先于守护线程执行完成。主方法执行完成后，JVM退出，守护线程停止执行
+        for (int i = 0; i < 3; i++) {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -46,6 +46,5 @@ public class DaemonDemo {
             }
             System.out.println(Thread.currentThread().getName() + "当前第" + (i + 1) + "次执行");
         }
-
     }
 }

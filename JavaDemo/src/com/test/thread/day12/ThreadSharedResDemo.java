@@ -1,6 +1,7 @@
 package com.test.thread.day12;
 
 /**
+ * 多线程使用方式不推荐使用Thread类，具有单继承局限性
  * 使用Runnable接口，可以共享资源
  */
 class TicketRunnable implements Runnable {
@@ -9,19 +10,15 @@ class TicketRunnable implements Runnable {
     @Override
     public void run() {
         while (true) {
-            if (ticket > 0) {
-                System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
-            } else {
+            if (ticket <= 0) {
                 break;
             }
+            System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
         }
     }
 }
 
-/**
- * 多线程使用方式不推荐使用Thread类，具有单继承局限性
- */
-public class TicketRunnableDemo {
+public class ThreadSharedResDemo {
     public static void main(String[] args) {
         // TicketRunnable中ticket被多个线程共享
         TicketRunnable runnable = new TicketRunnable();
