@@ -8,17 +8,16 @@ import java.util.Date;
 public class DateTimeDemo {
     public static void main(String[] args) {
         // 1970-01-01 00:00:00.000到现在的毫秒数
-        long millis = System.currentTimeMillis();
-        System.out.println(millis); // 1612790429573
+        System.out.println(System.currentTimeMillis()); // 1612790429573
 
         /*
-         * java.util.Date类  父类
-         * |- java.sql.Date类   子类
+         * java.util.Date类（父类）
+         * |- java.sql.Date类（子类）
          */
         // 一、无参构造，当前时间
         Date now = new Date();
         System.out.println(now); // Mon Feb 08 21:23:56 CST 2021
-        // date对象对应时间的毫秒数
+        // Date对象对应时间的毫秒数
         System.out.println(now.getTime()); // 1612790701850
 
         // 二、有参构造，指定时间

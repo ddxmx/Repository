@@ -1,4 +1,4 @@
-package com.test.api.day15.math;
+package com.test.api.day15.random;
 
 import java.util.Random;
 
@@ -8,12 +8,16 @@ import java.util.Random;
 public class RandomDemo {
     public static void main(String[] args) {
         Random random = new Random();
-        System.out.println(random.nextInt()); // 生成int范围内随机数
+        // public int nextInt()，生成int范围内随机数
+        System.out.println(random.nextInt());
+        // public int nextInt(int bound)，范围[0，bound)
         System.out.println(random.nextInt(100)); // 成为[0,100)的随机整数
         System.out.println(random.nextInt(41) + 60); // 生成[60,100]随机整数
 
-        System.out.println(random.nextFloat()); // 生成(0,1)之间的随机float小数
-        System.out.println(random.nextDouble()); // 生成(0,1)之间的随机double小数
+        // public float nextFloat()，生成[0,1)之间的随机float小数
+        System.out.println(random.nextFloat());
+        // public double nextDouble()，生成[0,1)之间的随机double小数
+        System.out.println(random.nextDouble());
 
         /*
             15	0	24	38	41	16	36	38	23	13

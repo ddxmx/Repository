@@ -1,4 +1,4 @@
-package com.test.api.day15;
+package com.test.api.day15.compare;
 
 import java.util.Arrays;
 
@@ -31,7 +31,7 @@ class Person implements Comparable<Person> {
     }
 
     /**
-     * 按年龄从大到小排序，年龄相同，按姓名字母正序排序
+     * 按年龄从大到小排序，年龄相同，按姓名字母正向排序
      */
     @Override
     public int compareTo(Person per) {

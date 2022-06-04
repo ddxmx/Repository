@@ -13,25 +13,25 @@ public class CalendarDemo {
         Calendar calendar = Calendar.getInstance();
 
         // 常用方法
-        // get()
+        // public int get(int field)
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH); // month是从0开始的
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         System.out.println("year=" + year + ",month=" + month + ",day=" + day); // year=2021,month=11,day=29
 
-        // set()
+        // public void set(int field, int value)
         calendar.set(Calendar.DAY_OF_MONTH, 15);
         System.out.println(calendar.get(Calendar.DAY_OF_MONTH)); // 15
 
-        // add()
+        // public void add(int field, int amount)
         calendar.add(Calendar.YEAR, -1);
         System.out.println(calendar.get(Calendar.YEAR)); // 2020
 
-        // getTime()，Calendar -> Date
+        // public final Date getTime()，Calendar -> Date
         Date date = calendar.getTime();
         System.out.println(date); // Tue Dec 15 22:43:22 CST 2020
 
-        // setTime()，Date -> Calendar
+        // public final void setTime(Date date)，Date -> Calendar
         Date date2 = new Date();
         calendar.setTime(date2);
         System.out.println(calendar.get(Calendar.MONTH)); // 11

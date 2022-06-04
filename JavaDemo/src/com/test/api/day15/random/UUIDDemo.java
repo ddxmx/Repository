@@ -1,4 +1,4 @@
-package com.test.api.day15;
+package com.test.api.day15.random;
 
 import java.util.UUID;
 
