@@ -1,7 +1,9 @@
-package com.test.jdk5.day18;
+package com.test.jdk5.day16.annotation;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 
 /**
@@ -10,6 +12,7 @@ import java.lang.reflect.Method;
  * 从来没有见过接口中可以定义属性，都是方法；而且方法都是有返回值的。
  */
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
 @interface MyAnnotation {
     /*
         1、如果注解内没有成员，表示一个标识注解
@@ -25,6 +28,8 @@ import java.lang.reflect.Method;
         （6）上述类型的数组
      */
     String value() default "test";
+
+    String desc() default "my defined desc";
 }
 
 /**
@@ -33,14 +38,17 @@ import java.lang.reflect.Method;
 public class MyAnnotationDemo {
     public static void main(String[] args) throws NoSuchMethodException {
         // 利用反射获取到方法
-        Method method = MyAnnotationDemo.class.getMethod("fun");
+        Method[] methods = MyAnnotationDemo.class.getMethods();
 
-        // 注解必须是RUNTIME声明周期，运行时才可以获取到
-        // 判断方法上是否存在此注解
-        if (method.isAnnotationPresent(MyAnnotation.class)) {
-            // 获取注解对象
-            MyAnnotation myAnnotation = method.getAnnotation(MyAnnotation.class);
-            System.out.println(myAnnotation.value()); // hello
+        for (Method method : methods) {
+            // 注解必须是RUNTIME声明周期，运行时才可以获取到
+            // 判断方法上是否存在此注解
+            if (method.isAnnotationPresent(MyAnnotation.class)) {
+                // 获取注解对象
+                MyAnnotation myAnnotation = method.getAnnotation(MyAnnotation.class);
+                System.out.println(myAnnotation.value()); // hello
+                System.out.println(myAnnotation.desc()); // my defined desc
+            }
         }
     }
 
@@ -48,5 +56,8 @@ public class MyAnnotationDemo {
     // @MyAnnotation
     @MyAnnotation(value = "hello")
     public static void fun() {
+    }
+
+    public static void test() {
     }
 }

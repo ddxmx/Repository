@@ -1,4 +1,4 @@
-package com.test.jdk5.day19;
+package com.test.jdk5.day16.generic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,11 +47,12 @@ public class GenericSuperExtendsDemo {
         // 编译时只知道类型是Person类或Person类的父类，不知道具体是哪个父类，只能使用Object接收
         Object obj = list2.get(0);
 
-        // super可以写入数据：
+        // extends不可以写入数据：
         // 编译失败，无法确定其中的元素是Person的哪个子类类型
         // list1.add(new Student());
         // list1.add(new Person());
 
+        // super可以写入数据：
         // 明确的知道其中的元素是Person类或Person类的父类，因此传入Person类型肯定能够被接收
         list2.add(new Person());
         list2.add(new Student()); // Student对象也是一个Person实例

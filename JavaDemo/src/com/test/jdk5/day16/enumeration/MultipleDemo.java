@@ -1,4 +1,4 @@
-package com.test.jdk5.day18;
+package com.test.jdk5.day16.enumeration;
 
 /**
  * 多例模式
@@ -13,6 +13,9 @@ class Season {
 
     private String name;
 
+    /**
+     * 构造方法私有化
+     */
     private Season(String name) {
         this.name = name;
     }
@@ -21,8 +24,8 @@ class Season {
         return this.name;
     }
 
-    public static Season getInstance(int index) {
-        switch (index) {
+    public static Season getInstance(int order) {
+        switch (order) {
             case 1:
                 return SPRING;
             case 2:
@@ -40,6 +43,8 @@ class Season {
 public class MultipleDemo {
     public static void main(String[] args) {
         Season instance = Season.getInstance(2);
-        System.out.println(instance.getName()); // 夏天
+        if (null != instance) {
+            System.out.println(instance.getName()); // 夏天
+        }
     }
 }

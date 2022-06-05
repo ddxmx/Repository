@@ -1,4 +1,4 @@
-package com.test.jdk5.day19;
+package com.test.jdk5.day16.generic;
 
 import java.util.*;
 
@@ -19,10 +19,10 @@ public class GenericDemo {
             // 问题一：类型不安全，可以添加任何的类型
             // list.add("Tom");
 
-            for (Object score : list) {
+            for (Object element : list) {
                 // 问题二：强转时，由于元素类型可能不一致，导致出现ClassCastException
-                int scoreValue = (Integer) score;
-                System.out.println(scoreValue);
+                int value = (Integer) element;
+                System.out.println(value);
             }
         }
 
@@ -38,15 +38,15 @@ public class GenericDemo {
 
             // 遍历方式一：
             // 避免了强转操作
-            for (Integer score : list) {
-                System.out.println(score);
+            for (Integer element : list) {
+                System.out.println(element);
             }
 
             // 遍历方式二：
             Iterator<Integer> iterator = list.iterator();
             while (iterator.hasNext()) {
-                int scoreValue = iterator.next();
-                System.out.println(scoreValue);
+                int value = iterator.next();
+                System.out.println(value);
             }
         }
 
@@ -68,7 +68,7 @@ public class GenericDemo {
                 Map.Entry<String, Integer> entry = iterator.next();
                 String key = entry.getKey();
                 int value = entry.getValue();
-                System.out.println(key + "----" + value);
+                System.out.println(key + ":" + value);
             }
         }
 
@@ -83,6 +83,5 @@ public class GenericDemo {
             System.out.println(class2.getName()); // java.util.ArrayList
             System.out.println(class1 == class2); // true
         }
-
     }
 }

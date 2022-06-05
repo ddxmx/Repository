@@ -1,4 +1,4 @@
-package com.test.jdk5.day19;
+package com.test.jdk5.day16.generic;
 
 /**
  * 泛型接口
@@ -20,14 +20,10 @@ class MessageImpl<T> implements IMessage<T> {
 /**
  * 子类实现泛型接口方式二：子类不使用泛型
  */
-class MessageImpl2 implements IMessage<Integer> {
+class IntegerMessage implements IMessage<Integer> {
     @Override
     public void show(Integer msg) {
-        long sum = 0;
-        for (int i = 1; i <= msg; i++) {
-            sum += i;
-        }
-        System.out.println(sum);
+        System.out.println(msg);
     }
 }
 
@@ -46,11 +42,11 @@ public class GenericInterfaceDemo {
 
         // 泛型接口实现方式二使用
         // 声明时只能使用IMessage<Integer>接收
-        IMessage<Integer> msg3 = new MessageImpl2();
-        msg3.show(100); // 5050
+        IMessage<Integer> msg3 = new IntegerMessage();
+        msg3.show(100); // 100
 
         // 不使用泛型，直接使用接口名称接收，存在转型的风险
-        IMessage msg4 = new MessageImpl2();
+        IMessage msg4 = new IntegerMessage();
         msg4.show("hello"); // java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Integer
     }
 }

@@ -1,4 +1,4 @@
-package com.test.jdk5.day19;
+package com.test.jdk5.day16.generic;
 
 /**
  * 泛型类

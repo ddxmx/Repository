@@ -1,4 +1,4 @@
-package com.test.jdk5.day19;
+package com.test.jdk5.day16.generic;
 
 /**
  * 泛型方法，是在调用方法的时候指明泛型的具体类型
@@ -14,8 +14,8 @@ public class GenericMethodDemo {
         System.out.println(info);
     }
 
-    public static <T> void print(T... list) {
-        for (T element : list) {
+    public static <T> void print(T... array) {
+        for (T element : array) {
             System.out.println(element);
         }
     }

@@ -1,7 +1,8 @@
-package com.test.jdk5.day18;
+package com.test.jdk5.day16;
 
 /**
- * JDK 5.0支持方法可变参数
+ * JDK5.0方法支持可变参数
+ * 可变参数实际上使用数组接收
  * 可变参数在一个方法的参数列表中只能存在一个，并且只能在所有参数的末尾
  * 可变参数的方法和普通方法一样，支持重载
  */
@@ -23,9 +24,10 @@ public class VarArgsDemo {
         return x + y;
     }
 
-    /*
-        方法参数定义为可变参数，可变参数实际上使用数组接收
-        因此可变参数方法不能和同名的数组类型方法构成重载
+    /**
+     * 方法参数定义为可变参数，可变参数实际上使用数组接收
+     * 因此可变参数方法不能和同名的数组类型方法构成重载
+     * public static int add(int[] args)
      */
     public static int add(int... args) {
         int sum = 0;
@@ -35,20 +37,9 @@ public class VarArgsDemo {
         return sum;
     }
 
-    /*
-        编译失败，和可变参数方法重复定义
-     */
-    // public static int add(int[] args) {
-    //     int sum = 0;
-    //     for (int i = 0; i < args.length; i++) {
-    //         sum += args[i];
-    //     }
-    //     return sum;
-    // }
+    // 编译错误，可变参数要放在参数列表的末尾
+    // public void test(int... args, String str) {}
 
-    // 编译错误 Vararg parameter must be the last in the list
-    // public void show(int... args,String str){}
-
-    // 编译失败 Vararg parameter must be the last in the list
-    // public void show(int... args,String... strs){}
+    // 编译失败，可变参数要放在参数列表的末尾，因此方法参数列表中最多只能有一个可变参数
+    // public void test(int... args, String... strs) {}
 }
