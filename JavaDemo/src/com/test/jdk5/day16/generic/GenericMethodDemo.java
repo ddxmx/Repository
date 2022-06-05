@@ -28,13 +28,6 @@ public class GenericMethodDemo {
 
         /*
             不支持泛型数组的原因：
-            任何的数组类型都可以向Object[]转型，任何类型都可以向Object转型
-            因此如下2步操作导致存在ClassCastException的可能
-            Object[] arr = new ArrayList<String>[3]; // 其中的元素类型为ArrayList<String>
-            arr[0] = new ArrayList<Integer>(); // 导致其中的元素类型被修改
-            因为ArrayList<String>和ArrayList<Integer>类型不兼容 ，所以会出现ClassCastException
-         */
-        /*
             List<String>[] listArr = new List<String>[10]; //  Not really allowed.
             // 任何数组类型可以向Object[]类型转型
             Object[] objArr = listArr;
@@ -46,16 +39,14 @@ public class GenericMethodDemo {
         /*
             对于其他类型不会出现ClassCastException异常，原因在于修改值的时候已经会抛出ArrayStoreException异常
             但是对于ArrayList<String>和ArrayList<Integer>却可以通过检查
-            String[] strArr = new String[10];
-            // 任何数组类型可以向Object[]类型转型
-            Object[] objArr = strArr;
-            Integer li = Integer.valueOf(100);
-            objArr[1] = li; //  java.lang.ArrayStoreException: java.lang.Integer
-            String s = strArr[1];
-        */
+         */
+        String[] strArr = new String[10];
+        Object[] objArr = strArr;
+        Integer li = Integer.valueOf(100);
+        objArr[1] = li; //  java.lang.ArrayStoreException: java.lang.Integer
+        String s = strArr[1];
 
         // 可变参数和泛型方法
         print(1, 2, 3);
     }
-
 }
