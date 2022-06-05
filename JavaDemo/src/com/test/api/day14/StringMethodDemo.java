@@ -1,5 +1,7 @@
 package com.test.api.day14;
 
+import java.util.Arrays;
+
 /**
  * String的常用方法
  */
@@ -39,7 +41,13 @@ public class StringMethodDemo {
         // public String concat(String str)
         System.out.println("hello".concat("world")); // helloworld
 
-        // 字符串排序，后续集合排序依赖此方法，如TreeSet<String>
+        String[] array = new String[]{"aa", "bb", "cc"};
+        // public static String join(CharSequence delimiter, CharSequence... elements)
+        System.out.println(String.join("-", array)); // aa-bb-cc
+        // public static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements)
+        System.out.println(String.join("-", Arrays.asList("11", "22", "33"))); // 11-22-33
+
+        // 字符串排序，后续集合或数组排序依赖此方法，如TreeSet<String>、Arrays.sort()
         // public int compareTo(String anotherString)
         System.out.println("helloworld".compareTo("abc")); // 7
         System.out.println("helloWorld".compareTo("helloworld")); // -32
