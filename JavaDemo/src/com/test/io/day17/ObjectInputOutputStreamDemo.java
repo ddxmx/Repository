@@ -1,4 +1,4 @@
-package com.test.io.day21;
+package com.test.io.day17;
 
 import java.io.*;
 
@@ -76,6 +76,5 @@ public class ObjectInputOutputStreamDemo {
               |- country = null
          */
         System.out.println(person2);
-
     }
 }

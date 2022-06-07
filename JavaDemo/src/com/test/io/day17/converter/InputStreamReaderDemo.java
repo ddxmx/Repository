@@ -1,8 +1,9 @@
-package com.test.io.day21;
+package com.test.io.day17.converter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 转换流，字节流->字符流
@@ -10,12 +11,16 @@ import java.io.InputStreamReader;
  */
 public class InputStreamReaderDemo {
     public static void main(String[] args) {
-        try (InputStreamReader reader = new InputStreamReader(new FileInputStream("hello.txt"), "utf-8")) {
+        // public InputStreamReader(InputStream in, String charsetName) throws UnsupportedEncodingException
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream("hello.txt"),
+                StandardCharsets.UTF_8.toString())) {
+            StringBuffer sb = new StringBuffer();
             char[] chars = new char[1024];
             int len = 0;
             while ((len = reader.read(chars)) != -1) {
-                System.out.print(new String(chars, 0, len));
+                sb.append(new String(chars, 0, len));
             }
+            System.out.println(sb);
         } catch (IOException e) {
             e.printStackTrace();
         }

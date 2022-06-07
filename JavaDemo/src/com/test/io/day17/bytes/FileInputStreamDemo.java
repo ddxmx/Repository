@@ -1,4 +1,4 @@
-package com.test.io.day21;
+package com.test.io.day17.bytes;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,29 +15,21 @@ public class FileInputStreamDemo {
         File file = new File("hello.txt");
 
         StringBuilder sb = new StringBuilder();
-        FileInputStream in = null;
-        try {
-            in = new FileInputStream(file);
+        // public FileInputStream(File file) throws FileNotFoundException
+        try (FileInputStream in = new FileInputStream(file)) {
             byte[] bytes = new byte[5]; // 数组大小指定为5为了演示读取乱码的问题
             int len = 0;
+            // 已经读取到文件的末尾，返回-1，public int read(byte b[]) throws IOException
             while ((len = in.read(bytes)) != -1) {
                 sb.append(new String(bytes, 0, len));
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (null != in) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
 
         /*
-            hello world
-            你好��中���
+            你��，���国
+            hello China
          */
         System.out.println(sb.toString());
     }

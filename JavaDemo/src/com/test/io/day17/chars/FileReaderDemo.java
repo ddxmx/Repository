@@ -1,4 +1,4 @@
-package com.test.io.day21;
+package com.test.io.day17.chars;
 
 
 import java.io.File;
@@ -13,36 +13,30 @@ public class FileReaderDemo {
     public static void main(String[] args) {
         File file = new File("hello.txt");
 
-        FileReader reader = null;
-        try {
-            // 创建字符输入流
-            reader = new FileReader(file);
+        // public FileReader(File file) throws FileNotFoundException
+        try (FileReader reader = new FileReader(file)) {
+            StringBuffer sb = new StringBuffer();
 
             // 数据读入，方式一：每次读取一个字符 返回-1表示读取完毕
             /*
                 int temp = 0;
+                // public int read() throws IOException
                 while ((temp = reader.read()) != -1) {
-                    System.out.print((char) temp);
+                    sb.append((char) temp);
                 }
              */
 
             // 数据读入，方式二：每次读取多个字节，返回-1表示读取完毕
             char[] chars = new char[3];
             int len = 0;
+            // public int read(char cbuf[]) throws IOException
             while ((len = reader.read(chars)) != -1) {
-                System.out.print(new String(chars, 0, len));
+                sb.append(new String(chars, 0, len));
             }
+
+            System.out.println(sb);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            // 流的关闭
-            if (null != reader) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.test.io.day21;
+package com.test.io.day17.chars;
 
 import java.io.*;
 
@@ -12,8 +12,8 @@ public class FileReaderWriterDemo {
         File srcFile = new File("hello.txt");
         File destFile = new File("/hello.txt");
 
-        if (!srcFile.exists()) {
-            throw new FileNotFoundException("源文件不存在");
+        if (destFile.exists()) {
+            destFile.delete();
         }
 
         // 一边读一边写的方式
@@ -29,6 +29,5 @@ public class FileReaderWriterDemo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
