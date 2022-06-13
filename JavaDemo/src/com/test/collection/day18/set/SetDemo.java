@@ -1,4 +1,6 @@
-package com.test.collection.day20;
+package com.test.collection.day18.set;
+
+import com.test.collection.day18.Person;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -15,31 +17,31 @@ public class SetDemo {
     public static void main(String[] args) {
         /*
             无序性，不等于随机性，存储的数据在底层数组中不是按照数组索引顺序添加，而是按照数据的hashCode()方法添加
-            不可重复性：需要元素覆写equals方法，来判断元素内容是否相同
-            元素重复是根据hashCode和equals方法进行判断，使用数据结构：数组+链表的方法存储
+            不可重复性：元素重复是根据hashCode和equals方法进行判断，使用数据结构：数组+链表的方法存储
             hashcode决定存放位置，equals进一步判断是否为同一个元素，相同则只会存储一个，不同则添加到同一个位置的链表上
          */
-        HashSet<Object> set = new HashSet<>();
-        addChild(set);
-        set.add(new Person("Tom", 12));
-        System.out.println(set); // [AA, CC, 456, 123, Person{name='Tom', age=12}]
+        System.out.println("***************HashSet是无序的***************");
+        Set<Object> hashSet = new HashSet<>();
+        addElement(hashSet);
+        hashSet.add(new Person("Tom", 12));
+        System.out.println(hashSet); // [AA, CC, 456, 123, Person{name='Tom', age=12}]
 
-        Iterator<Object> iterator = set.iterator();
+        Iterator<Object> iterator = hashSet.iterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next()); // [AA, CC, 456, 123, Person{name='Tom', age=12}]
         }
 
-        System.out.println("--------------------------------");
-        LinkedHashSet<Object> linkedSet = new LinkedHashSet<>();
-        addChild(linkedSet);
+        System.out.println("***************LinkedHashSet逻辑上是有序的，存储是无序的***************");
+        Set<Object> linkedHashSet = new LinkedHashSet<>();
+        addElement(linkedHashSet);
         // 遍历的顺序就是添加的顺序
-        Iterator<Object> linkedIterator = linkedSet.iterator();
+        Iterator<Object> linkedIterator = linkedHashSet.iterator();
         while (linkedIterator.hasNext()) {
             System.out.println(linkedIterator.next()); // [456, 123, AA, CC, Person{name='Tom', age=12}]
         }
     }
 
-    public static void addChild(Set<Object> set) {
+    public static void addElement(Set<Object> set) {
         set.add(456);
         set.add(123);
         set.add("AA");

@@ -1,4 +1,4 @@
-package com.test.collection.day20;
+package com.test.collection.day18.collection;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -18,12 +18,13 @@ import java.util.concurrent.TimeUnit;
  * list的add、remove等操作会修改modCount值，造成值不一致
  * <p>
  * 解决方案是使用CopyOnWriteArrayList类：
- * CopyOnWriteArrayList的add、set、remove等会改变原数组的方法中，都是先copy一份原来的array，再在copy数组上进行add、set、remove操作，这就才不影响COWIterator那份数组
+ * CopyOnWriteArrayList的add、set、remove等操作，都是先拷贝副本，副本中操作完成后替换
  */
 public class FailFastDemo {
     public static void main(String[] args) {
-        // List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-        List<Integer> list = new CopyOnWriteArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        List<Integer> rawList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        // ArrayList<Integer> list = new ArrayList<>(rawList);
+        List<Integer> list = new CopyOnWriteArrayList<>(rawList);
 
         new Thread(() -> {
             Iterator<Integer> iterator = list.iterator();

@@ -1,6 +1,11 @@
-package com.test.collection.day20;
+package com.test.collection.day18.set;
 
-import java.util.*;
+import com.test.collection.day18.Person;
+
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * TreeSet判断元素是否相等，是按照compareTo方法进行判断
@@ -8,22 +13,22 @@ import java.util.*;
  */
 public class TreeSetDemo {
     public static void main(String[] args) {
-        TreeSet<Integer> set = new TreeSet();
-        set.add(15);
-        set.add(32);
-        set.add(-28);
-        set.add(45);
-        set.add(9);
-        printSet(set); // [-28,9,15,32,45]
+        Set<Integer> treeSet = new TreeSet();
+        treeSet.add(15);
+        treeSet.add(32);
+        treeSet.add(-28);
+        treeSet.add(45);
+        treeSet.add(9);
+        printSet(treeSet); // [-28,9,15,32,45]
 
-        System.out.println("***********************");
-        TreeSet<Person> set2 = new TreeSet();
+        System.out.println("***************元素实现Comparable接口用于排序***************");
+        Set<Person> personTreeSet = new TreeSet();
         // TreeSet元素必须要实现java.utils.comparable接口
-        set2.add(new Person("Jack", 22));
-        set2.add(new Person("Helen", 20));
-        set2.add(new Person("Tom", 24));
-        set2.add(new Person("Jerry", 21));
-        set2.add(new Person("Bob", 22));
+        personTreeSet.add(new Person("Jack", 22));
+        personTreeSet.add(new Person("Helen", 20));
+        personTreeSet.add(new Person("Tom", 24));
+        personTreeSet.add(new Person("Jerry", 21));
+        personTreeSet.add(new Person("Bob", 22));
         /*
             Person{name='Tom', age=24}
             Person{name='Bob', age=22}
@@ -31,9 +36,9 @@ public class TreeSetDemo {
             Person{name='Jerry', age=21}
             Person{name='Helen', age=20}
          */
-        printSet(set2);
+        printSet(personTreeSet);
 
-        System.out.println("***********************");
+        System.out.println("***************使用传入的Comparator实现排序***************");
         Comparator comparator = (o1, o2) -> {
             Person p1 = (Person) o1;
             Person p2 = (Person) o2;
@@ -46,8 +51,8 @@ public class TreeSetDemo {
             }
         };
 
-        TreeSet set3 = new TreeSet(comparator);
-        set3.addAll(set2);
+        Set personSet = new TreeSet(comparator);
+        personSet.addAll(personTreeSet);
         /*
             Person{name='Helen', age=20}
             Person{name='Jerry', age=21}
@@ -55,7 +60,7 @@ public class TreeSetDemo {
             Person{name='Jack', age=22}
             Person{name='Tom', age=24}
          */
-        printSet(set3);
+        printSet(personSet);
     }
 
     public static void printSet(Set set) {

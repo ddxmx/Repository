@@ -1,5 +1,6 @@
-package com.test.collection.day20;
+package com.test.collection.day18.collection;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -38,11 +39,11 @@ public class CollectionsDemo {
         // 获取元素在list中出现的次数
         System.out.println(Collections.frequency(list, 11)); // 3
 
-        List<Integer> list2 = Arrays.asList(new Integer[list.size()]);
-        System.out.println(list2); // [null, null, null, null, null, null, null]
-        // list拷贝,目标list必须有足够大小
-        Collections.copy(list2, list);
-        System.out.println(list2); // [11, 22, 11, 33, 11, 44, 55]
+        List<Integer> destList = new ArrayList<>(list.size());
+        System.out.println(destList); // [null, null, null, null, null, null, null]
+        // list拷贝，目标list必须有足够大小，否则出现java.lang.IndexOutOfBoundsException: Source does not fit in dest
+        Collections.copy(destList, list);
+        System.out.println(destList); // [11, 22, 11, 33, 11, 44, 55]
 
         // Collections中存在多个synchronizedXxx()方法用来获取线程安全的集合
     }
