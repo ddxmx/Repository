@@ -1,10 +1,11 @@
-package com.test.net.day22;
+package com.test.net.day19;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +52,8 @@ public class HttpRequestDemo {
         System.out.println(conn.getResponseMessage());
 
         // 获取响应体
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(),
+                StandardCharsets.UTF_8.toString()));
         StringBuffer sb = new StringBuffer();
         char[] buf = new char[1024];
         int len = 0;
