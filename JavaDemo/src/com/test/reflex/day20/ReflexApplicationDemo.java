@@ -1,4 +1,4 @@
-package com.test.reflex.day23;
+package com.test.reflex.day20;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 /**
  * 反射实践操作
  */
-public class ReflectionDemo {
+public class ReflexApplicationDemo {
     public static void main(String[] args) throws Exception {
         {
             // 反射之前，对于Person的操作

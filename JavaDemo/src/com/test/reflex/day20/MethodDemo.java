@@ -1,4 +1,4 @@
-package com.test.reflex.day23;
+package com.test.reflex.day20;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -12,21 +12,21 @@ public class MethodDemo {
     public static void main(String[] args) {
         Class clazz = Person.class;
 
-        // getMethods():获取当前运行时类及其所有父类中声明为public权限的方法
+        // getMethods():获取当前类及其所有父类中声明为public权限的方法
         Method[] methods = clazz.getMethods();
         for (Method m : methods) {
             System.out.println(m);
         }
 
         System.out.println("*******************************");
-        // getDeclaredMethods():获取当前运行时类中声明的所有方法。（不包含父类中声明的方法）
+        // getDeclaredMethods():获取当前类中声明的所有方法（不包含父类中声明的方法）
         /*
             public	java.lang.String	toString()
             public	java.lang.String	getName()
             public	void	setName(java.lang.String args_0)
             private	void	test()	throws java.io.IOException
             public	void	setAge(int args_0)
-            public	int	getAge()
+            public	int	    getAge()
             public	void	show()
             public	void	show(java.lang.String args_0)
             public	void	eat()

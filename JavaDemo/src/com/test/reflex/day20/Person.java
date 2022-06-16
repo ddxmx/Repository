@@ -1,4 +1,4 @@
-package com.test.reflex.day23;
+package com.test.reflex.day20;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -14,16 +14,16 @@ public class Person extends Animal implements Serializable {
     public static String city = "北京";
 
     public Person() {
-        System.out.println("Person()...");
+        System.out.println("Person() constructor invoke");
     }
 
     private Person(String name) {
-        System.out.println("Person(String name)...");
+        System.out.println("Person(String name) constructor invoke");
         this.name = name;
     }
 
     public Person(String name, int age) {
-        System.out.println("Person(String name, int age)...");
+        System.out.println("Person(String name, int age) constructor invoke");
         this.name = name;
         this.age = age;
     }
@@ -44,14 +44,6 @@ public class Person extends Animal implements Serializable {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
-
     public void show() {
         show("中国");
     }
@@ -67,5 +59,13 @@ public class Person extends Animal implements Serializable {
     @Override
     public void eat() {
         System.out.println("Person eat");
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

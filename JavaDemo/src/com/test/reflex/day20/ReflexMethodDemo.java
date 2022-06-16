@@ -1,17 +1,20 @@
-package com.test.reflex.day23;
+package com.test.reflex.day20;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 
-public class OtherDemo {
+/**
+ * reflex其他方法的使用
+ */
+public class ReflexMethodDemo {
     public static void main(String[] args) {
         {
             // 获取构造器结构
             Class clazz = Person.class;
             // getConstructors():获取当前运行时类中声明为public的构造器
             /*
-                public com.test.reflex.day28.Person()
-                public com.test.reflex.day28.Person(java.lang.String,int)
+                public com.test.reflex.day20.Person(java.lang.String,int)
+                public com.test.reflex.day20.Person()
              */
             Constructor[] constructors = clazz.getConstructors();
             for (Constructor c : constructors) {
@@ -21,9 +24,9 @@ public class OtherDemo {
             System.out.println("*******************************");
             // getDeclaredConstructors():获取当前运行时类中声明的所有的构造器
             /*
-                public com.test.reflex.day28.Person(java.lang.String,int)
-                private com.test.reflex.day28.Person(java.lang.String)
-                public com.test.reflex.day28.Person()
+                public com.test.reflex.day20.Person(java.lang.String,int)
+                private com.test.reflex.day20.Person(java.lang.String)
+                public com.test.reflex.day20.Person()
              */
             Constructor[] declaredConstructors = clazz.getDeclaredConstructors();
             for (Constructor c : declaredConstructors) {
@@ -33,7 +36,7 @@ public class OtherDemo {
             System.out.println("*******************************");
             // 获取运行时类的父类
             Class superclass = clazz.getSuperclass();
-            System.out.println(superclass); // class com.test.reflex.day28.Animal
+            System.out.println(superclass); // class com.test.reflex.day20.Animal
 
             System.out.println("*******************************");
             // 获取运行时类实现的接口
@@ -52,7 +55,7 @@ public class OtherDemo {
             System.out.println("*******************************");
             // 获取运行时类所在的包
             Package pack = clazz.getPackage();
-            System.out.println(pack); // package com.test.reflex.day28
+            System.out.println(pack); // package com.test.reflex.day20
 
             System.out.println("*******************************");
             // 获取运行时类声明的注解

@@ -1,10 +1,10 @@
-package com.test.reflex.day23;
+package com.test.reflex.day20;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * 获取当前运行时类的属性结构
+ * 获取运行时类的属性结构
  */
 public class FieldDemo {
     public static void main(String[] args) {
@@ -17,14 +17,14 @@ public class FieldDemo {
         }
 
         // 获取属性结构
-        // getFields():获取当前运行时类及其父类中声明为public访问权限的属性
+        // getFields():获取当前类及其父类中声明为public访问权限的属性
         Field[] fields = clazz.getFields();
         for (Field f : fields) {
-            System.out.println(f); // public static java.lang.String com.test.reflex.day28.Person.city
+            System.out.println(f); // public static java.lang.String com.test.reflex.day20.Person.city
         }
 
         System.out.println("************************************");
-        // getDeclaredFields():获取当前运行时类中声明的所有属性。（不包含父类中声明的属性）
+        // getDeclaredFields():获取当前类中声明的所有属性（不包含父类中声明的属性）
         /*
             private	java.lang.String name 张三
             private	int	age 20
@@ -49,6 +49,7 @@ public class FieldDemo {
                 // 变量不可见的情况下，无法直接通过get(Object obj)方式获取，会出现IllegalAccessException异常
                 // 设置访问权限为可见
                 f.setAccessible(true);
+                // 获取对象中属性值
                 System.out.println(f.get(per));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

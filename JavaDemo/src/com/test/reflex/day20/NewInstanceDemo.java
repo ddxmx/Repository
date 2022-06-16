@@ -1,4 +1,4 @@
-package com.test.reflex.day23;
+package com.test.reflex.day20;
 
 /**
  * 通过反射创建对应的运行时类的对象
@@ -26,24 +26,22 @@ public class NewInstanceDemo {
         // 实例化Class对象方式三
         Class<?> clazz = null;
         try {
-            clazz = Class.forName("com.test.reflex.day23.Person");
+            clazz = Class.forName(Person.class.getName());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
         // 方式四：使用类的加载器：ClassLoader  (了解)
         // ClassLoader classLoader = NewInstanceDemo.class.getClassLoader();
-        // Class clazz = classLoader.loadClass("com.test.reflex.day28.Person");
+        // Class clazz = classLoader.loadClass(Person.class.getName());
 
         Person person = null;
         try {
             // 使用无参构造实例化
-            person = (Person) clazz.newInstance(); // Person()...
+            person = (Person) clazz.newInstance(); // Person() constructor invoke
             // 使用带参数的构造方法实例化
             // person = (Person) clazz.getConstructor(String.class, int.class).newInstance("jerry", 20);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
 

@@ -1,12 +1,12 @@
-package com.test.reflex.day23;
+package com.test.reflex.day20;
 
 import java.io.IOException;
 
 /**
  * 类的加载器
- * 引导类加载器：JVM自带的类加载器，加载核心类库，无法直接获取
- * 扩展类加载器：负责jre/lib/ext目录下jar包的加载
- * 系统类加载器：自定义类的加载
+ * 1、系统类加载器：自定义类的加载
+ * 2、扩展类加载器：负责jre/lib/ext目录下jar包的加载
+ * 3、引导类加载器：JVM自带的类加载器，加载核心类库，无法直接获取
  */
 public class ClassLoaderDemo {
     public static void main(String[] args) throws IOException {
