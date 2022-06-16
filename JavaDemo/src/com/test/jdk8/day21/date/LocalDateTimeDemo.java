@@ -1,4 +1,4 @@
-package com.test.jdk8.day24;
+package com.test.jdk8.day21.date;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

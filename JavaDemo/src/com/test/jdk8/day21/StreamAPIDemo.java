@@ -1,4 +1,4 @@
-package com.test.jdk8.day24;
+package com.test.jdk8.day21;
 
 import java.util.Arrays;
 import java.util.IntSummaryStatistics;
@@ -169,7 +169,7 @@ public class StreamAPIDemo {
         System.out.println(list.stream().findAny().get()); // hello
         System.out.println(list.parallelStream().findAny().get()); // java
 
-        //  count——返回流中元素的总个数
+        // count——返回流中元素的总个数
         System.out.println(list.stream().filter(e -> e.contains("o")).count()); // 3
 
         // max(Comparator c)——返回流中最大值

@@ -1,4 +1,4 @@
-package com.test.jdk8.day24;
+package com.test.jdk8.day21;
 
 import java.util.Date;
 import java.util.function.Consumer;
