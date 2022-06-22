@@ -10,15 +10,15 @@ import java.io.IOException;
  */
 public class ClassLoaderDemo {
     public static void main(String[] args) throws IOException {
-        // 对于自定义类，使用系统类加载器进行加载
+        // 1、对于自定义类，使用系统类加载器进行加载
         ClassLoader classLoader = ClassLoaderDemo.class.getClassLoader();
         System.out.println(classLoader); // sun.misc.Launcher$AppClassLoader@18b4aac2
 
-        // 调用系统类加载器的getParent()：获取扩展类加载器
+        // 2、调用系统类加载器的getParent()：获取扩展类加载器
         ClassLoader superClassLoader = classLoader.getParent();
         System.out.println(superClassLoader); // sun.misc.Launcher$ExtClassLoader@677327b6
 
-        // 调用扩展类加载器的getParent()：无法获取引导类加载器
+        // 3、调用扩展类加载器的getParent()：无法获取引导类加载器
         // 引导类加载器主要负责加载java的核心类库，无法加载自定义类的。
         ClassLoader topClassLoader = superClassLoader.getParent();
         System.out.println(topClassLoader); // null
