@@ -30,8 +30,9 @@ maven下载地址：https://maven.apache.org/download.cgi
 - 将 %MAVEN_HOME%\bin 加入Path
 - 执行  mvn –v  验证安装
 
-
 ## 三、Maven仓库
+
+maven依赖查询站点：https://mvnrepository.com/
 
 Maven项目  ->  **本地仓库**  -> **远程仓库**  ->  **中央仓库**
 

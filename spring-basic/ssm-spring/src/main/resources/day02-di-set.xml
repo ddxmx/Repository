@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="car" class="com.test.basic.day02.di.bean.Car">
+        <property name="brand" value="宝马"/>
+        <property name="price" value="300000"/>
+    </bean>
+
+
+    <!--
+    util:list 创建一个java.util.List类型的bean， 其中包含值或引用
+    util:map 创建一个java.util.Map类型的bean， 其中包含值或引用
+    util:properties 创建一个java.util.Properties类型的bean
+    util:set 创建一个java.util.Set类型的bean， 其中包含值或引用
+    -->
+
+    <!--注入属性时引用集合-->
+    <util:list id="myHobbies">
+        <value>上网</value>
+        <value>打游戏</value>
+        <value>睡觉</value>
+    </util:list>
+
+    <!---->
+    <bean id="person" class="com.test.basic.day02.di.bean.Person">
+        <!--property设置必须要提供set方法，name属性的值实际上是set对应的方法名-->
+        <property name="name" value="jerry"/>
+        <property name="age" value="30"/>
+        <property name="car" ref="car"/>
+
+        <!--数组注入方式-->
+        <property name="books">
+            <array>
+                <value>三国演义</value>
+                <value>水浒传</value>
+                <value>西游记</value>
+                <value>红楼梦</value>
+            </array>
+        </property>
+
+        <!--list注入方式-->
+        <!--在外部通过util:list方式定义，通过引用方式引用-->
+        <property name="hobbies" ref="myHobbies">
+            <!--<list>
+                <value>读书</value>
+                <value>音乐</value>
+                <value>唱歌</value>
+            </list>-->
+        </property>
+
+        <!--map注入方式-->
+        <property name="parents">
+            <map>
+                <entry key="爸爸" value="35"></entry>
+                <entry key="妈妈" value="32"></entry>
+                <entry key="爷爷" value="60"></entry>
+                <entry key="奶奶" value="58"></entry>
+            </map>
+        </property>
+
+        <!--set注入方式-->
+        <property name="games">
+            <set>
+                <value>英雄联盟</value>
+                <value>魔兽世界</value>
+                <value>绝地求生</value>
+            </set>
+        </property>
+
+        <!--空注入，和不注入一样-->
+        <property name="wife">
+            <null></null>
+        </property>
+
+        <!--properties属性输入-->
+        <property name="info">
+            <props>
+                <prop key="语文">95</prop>
+                <prop key="数学">98</prop>
+                <prop key="英语">92</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="car" class="com.test.Car">
+        <property name="brand" value="宝马"/>
+        <property name="price" value="300000"/>
+    </bean>
+
+    <!--对象中引用其他bean对象-->
+    <bean id="person" class="com.test.Person">
+        <property name="name" value="tom"/>
+        <property name="age" value="30"/>
+        <!--使用ref引用其他bean对象-->
+        <property name="car" ref="car"/>
+    </bean>
+
+    <!--对象中生成依赖的bean对象-->
+    <bean id="person2" class="com.test.Person">
+        <property name="name" value="jerry"/>
+        <property name="age" value="32"/>
+        <!--对象只能使用一次-->
+        <property name="car">
+            <bean class="com.test.Car" p:brand="奔驰" p:price="250000"/>
+        </property>
+    </bean>
+
+    <!--构造方法引用其他bean-->
+    <bean id="person3" class="com.test.Person">
+        <constructor-arg name="name" value="jack"/>
+        <constructor-arg name="age" value="28"/>
+        <constructor-arg name="car" ref="car"/>
+    </bean>
+</beans>

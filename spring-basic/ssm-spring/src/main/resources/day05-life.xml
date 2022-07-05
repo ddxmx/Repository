@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--bean对象默认是单例的，IOC容器启动时会实例化所有bean，使用lazy-init可以在获取bean时才创建-->
+    <!--可以使用init-method和destroy-method设置实例化后和对象销毁前执行的方法-->
+    <!--<bean id="user" class="com.test.basic.day05.life.bean.User" lazy-init="true" init-method="init" destroy-method="destroy"/>-->
+
+    <!--使用多例方式，多例下bean都是在获取时才进行实例化-->
+    <!--多例模式下destroy-method方法时不会被执行的，因为不确认执行哪个对象的销毁方法-->
+    <bean id="user" class="com.test.basic.day05.life.bean.User" scope="prototype" init-method="init"
+          destroy-method="destroy"/>
+</beans>

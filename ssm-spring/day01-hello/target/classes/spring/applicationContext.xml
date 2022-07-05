@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--bean实例化方式有三种：1、通过构造方法实例化 2、通过静态工厂实例化 3、通过非静态工厂实例化-->
+
+    <!--id是bean的唯一标识，一般为类名首字母小写-->
+    <!--class是bean的全路径类名，包.类名称-->
+    <bean id="userDao" class="com.test.dao.UserDaoMysqlImpl"/>
+
+    <bean id="userService" class="com.test.service.UserServiceImpl">
+        <!--手动装配，给类中的属性赋值，ref表示引用一个bean-->
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+</beans>

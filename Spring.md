@@ -3,12 +3,11 @@
 # 一、引言
 
 ~~~markdown
-Spring是⼀个轻量级的JavaEE解决⽅案，整合众多优秀的设计模式
-1. 对运⾏环境没有额外要求
-开源 tomcat jetty
-收费 weblogic websphere
-2. 代码移植性⾼
-不需要实现额外接⼝
+1、Spring是轻量级的开源的JAVAEE框架。
+2、Spring可以解决企业开发的复杂性。
+3、Spring有两个核心部分：IOC、AOP
+（1）IOC：将对象的创建和管理交给Spring
+（2）AOP：不修改源代码进行能力增强
 ~~~
 
 ```xml
@@ -16,21 +15,21 @@ Spring是⼀个轻量级的JavaEE解决⽅案，整合众多优秀的设计模�
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-context</artifactId>
-    <version>5.3.8</version>
+    <version>5.3.21</version>
 </dependency>
 
 <!--lombok依赖-->
 <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
-    <version>1.18.20</version>
+    <version>1.18.24</version>
 </dependency>
 
 <!--aop依赖-->
 <dependency>
 	<groupId>org.aspectj</groupId>
 	<artifactId>aspectjweaver</artifactId>
-	<version>1.9.6</version>
+	<version>1.9.9.1</version>
 </dependency>
 ```
 
@@ -53,18 +52,21 @@ Spring是⼀个轻量级的JavaEE解决⽅案，整合众多优秀的设计模�
 
 # 二、IOC（控制反转）
 
-IOC是一种设计思想，就是 将原本在程序中手动创建对象的控制权，交由Spring框架来管理。 IoC 容器实际上就是个Map，Map 中存放的是各种对象。
+IOC是一种设计思想，就是将原本在程序中手动创建对象的控制权，交由Spring框架来管理。 IoC 容器实际上就是个Map，Map 中存放的是各种对象。
 Spring的IOC底层实现原理是**工厂设计模式+反射+XML配置文件。**
 
 ## 1、获取IOC容器方式
+
+**ApplicationContext在加载配置文件时，实例化其中的bean对象。**
 
 ### 1）ClassPathXmlApplicationContext
 
 通过classpath下的xml文件实例化IOC容器
 
 ```java
-ApplicationContext context = new ClassPathXmlApplicationContext("day01-ioc.xml");
-UserService userService = context.getBean("userService", UserService.class);
+ApplicationContext context =
+    new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+User user = context.getBean("user", User.class);
 ```
 
 ### 2）FileSystemXmlApplicationContext
@@ -72,9 +74,10 @@ UserService userService = context.getBean("userService", UserService.class);
 通过绝对路径下的xml文件实例化IOC容器
 
 ```java
-String resource = "E:/IdeaProjects/spring-basic/ssm-spring/src/main/resources/day01-ioc.xml";
-ApplicationContext context = new FileSystemXmlApplicationContext(resource);
-UserService userService = (UserService)context.getBean("userService");
+String path = UserTest.class.getClassLoader().getResource("spring/applicationContext.xml").getPath();
+ApplicationContext context =
+    new FileSystemXmlApplicationContext(path);
+User user = context.getBean("user", User.class);
 ```
 
 ### 3）AnnotationConfigApplicationContext
@@ -86,30 +89,31 @@ ApplicationContext context = new AnnotationConfigApplicationContext(UserConfig.c
 UserDao userDao = context.getBean(UserMysqlDaoImpl.class);
 ```
 
-### 4）XmlWebApplicationContext 
-
-web环境下的IOC容器
-
-## 2、获取Bean的方式
+## 2、容器中获取Bean的方式
 
 ~~~java
-//通过bean的id和类型获取bean
-Person person = ctx.getBean("person", Person.class);
+// 通过bean的id和类型获取bean
+ctx.getBean("person", Person.class).print(); // Person.print
 
-//只通过类型获取bean，当存在多个相同类型的bean时将会出现异常
-Person person = ctx.getBean(Person.class);
+// 只通过类型获取bean，当存在多个相同类型的bean时将会出现异常
+ctx.getBean(Person.class).print(); // Person.print
 
-//获取的是Spring⼯⼚配置⽂件中所有bean标签的id值
+// 获取的是Spring⼯⼚配置⽂件中所有bean标签的id值
 String[] beanDefinitionNames = ctx.getBeanDefinitionNames();
+System.out.println(Arrays.toString(beanDefinitionNames)); // [person]
 
-//根据类型获得Spring配置⽂件中对应的id值
+// 根据类型获得Spring配置⽂件中对应的id值
 String[] beanNamesForType = ctx.getBeanNamesForType(Person.class);
+System.out.println(Arrays.toString(beanNamesForType)); // [person]
 
-//⽤于判断是否存在指定的bean，只会根据id属性判断，不会根据name属性判断
-ctx.containsBeanDefinition("person")
- 
-//⽤于判断是否存在指定的bean，会根据id和name属性判断
-ctx.containsBean("person")
+// ⽤于判断是否存在指定的bean，只会根据id属性判断，不会根据name属性判断
+System.out.println(ctx.containsBeanDefinition("person")); // true
+System.out.println(ctx.containsBeanDefinition("per")); // false
+
+// ⽤于判断是否存在指定的bean，会根据id和name属性判断
+System.out.println(ctx.containsBean("person")); // true
+System.out.println(ctx.containsBean("per")); // true
+System.out.println(ctx.containsBean("test")); // false
 ~~~
 
 ```xml
@@ -120,14 +124,14 @@ ctx.containsBean("person")
 
 ## 3、Bean 实例化方式
 
-### 1）构造器实例化
+### 1）方式一、构造器实例化
 
 ```xml
 <!--使用默认构造器实例化-->
 <bean id="student" class="com.test.bean.Student"/>
 ```
 
-### 2）静态工厂类实例化
+### 2）方式二、静态工厂类实例化
 
 ```java
 /**
@@ -143,11 +147,11 @@ public class UserServiceFactory {
 ```
 
 ```xml
-<!--静态工厂类-->
+<!--静态工厂类，bean对象类型是factory-method方法返回值类型-->
 <bean id="userServiceBean" class="com.test.factory.UserServiceFactory" factory-method="getUserService"/>
 ```
 
-### 3）非静态工厂类实例化
+### 3）方式三、非静态工厂类实例化
 
 ```java
 /**
@@ -164,51 +168,9 @@ public class StudentFactory {
 <!--非静态工厂类-->
 <!--首先非静态工厂类实例化-->
 <bean id="studentFactory" class="com.test.factory.StudentFactory"/>
-<!--然后通过非静态工厂类的非静态方法，实例化对象-->
+<!--然后通过非静态工厂类的非静态方法，实例化对象，bean对象类型是factory-method方法返回值类型-->
 <bean id="studentBean" factory-bean="studentFactory" factory-method="getStudent"/>
 ```
-
-### 4）FactoryBean接口实现类
-
-```java
-//实现FactoryBean接口
-public class ConnectionFactoryBean implements FactoryBean<Connection> {
-    private String driver;
-    private String url;
-    private String username;
-    private String password;
-    
-    //set、get方法略
-    
-    @Override
-    public Connection getObject() throws Exception {
-        Class.forName(driver);
-        Connection connection = DriverManager.getConnection(url, username, password);
-        return connection;
-    }
-
-    @Override
-    public Class<?> getObjectType() {
-        return Connection.class;
-    }
-
-    @Override
-    public boolean isSingleton() {
-        return false;
-    }
-}
-```
-
-~~~xml
-<!--当前bean定义获取到的是getObject()方法返回的对象-->
-<!--如果要获取ConnectionFactoryBean的实例，获取bean时使用ctx.getBean("&conn") 的方式-->
-<bean id="conn" class="com.test.day01.hello.factory.ConnectionFactoryBean">
-    <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false"/>
-    <property name="username" value="root"/>
-    <property name="password" value="123456"/>
-</bean>
-~~~
 
 ## 4、装配（注入）
 
@@ -217,12 +179,153 @@ public class ConnectionFactoryBean implements FactoryBean<Connection> {
 Spring装配有三种方式：
 
 - 使用XML方式显示配置
-
 - 在java中显示配置
-
 - 隐式的bean发现机制和自动装配
 
-### 1）自动装配
+### 1）xml方式装配
+
+- 空值：<property name="alias"><null/></property>
+
+- 特殊字符：
+
+  方式一：转义
+
+  ```xml
+  &lt;   <  小于
+  &gt;   >  大于
+  &amp;  &  and号
+  &apos; '  单引号
+  &quot; "  双引号
+  
+  <!--<<水浒传>>-->
+  <value>&lt;&lt;水浒传&gt;&gt;</value> 
+  ```
+
+  方式二：CDATA：<![CDATA[包含特殊字符的内容]]>
+
+  ```xml
+  <!--<<西游记>>-->
+  <value><![CDATA[<<西游记>>]]></value>
+  ```
+
+#### A、构造器注入
+
+```xml
+<bean id="book" class="com.test.bean.Book">
+    <!--name表示参数的名称-->
+    <constructor-arg name="title" value="一千零一夜"/>
+    <constructor-arg name="price" value="19.9"/>
+</bean>
+
+<!--value表示设置字面量，ref表示设置引用-->
+<bean id="student" class="com.test.bean.Student">
+    <constructor-arg name="name" value="张三"/>
+    <constructor-arg name="age" value="20"/>
+    <constructor-arg name="book" ref="book"/>
+</bean>
+```
+
+**c标签，简化<constructor-arg>标签**
+
+```xml
+<bean id="student" class="com.test.bean.Student" c:name="张三" c:age="20" c:book-ref="book"/>
+```
+
+**构造器标签可以装配集合，而c标签不能装配集合**
+
+```xml
+<bean id="person" class="com.test.bean.Person">
+    <constructor-arg name="name" value="张三"/>
+    <constructor-arg name="age" value="20"/>
+    <constructor-arg name="books">
+        <!--array注入方式-->
+        <array>
+            <value>三国演义</value>
+            <value>水浒传</value>
+            <value>西游记</value>
+            <value>红楼梦</value>
+        </array>
+    </constructor-arg>
+</bean>
+
+<!--list注入方式-->
+<list>
+    <value>读书</value>
+    <value>音乐</value>
+    <value>唱歌</value>
+</list>
+
+<!--set注入方式-->
+<set>
+    <value>英雄联盟</value>
+    <value>魔兽世界</value>
+    <value>绝地求生</value>
+</set>
+
+<!--map注入方式-->
+<map>
+    <entry key="爸爸" value="35"></entry>
+    <entry key="妈妈" value="32"></entry>
+    <entry key="爷爷" value="60"></entry>
+    <entry key="奶奶" value="58"></entry>
+</map>
+
+<!--properties属性输入-->
+<props>
+    <prop key="语文">95</prop>
+    <prop key="数学">98</prop>
+    <prop key="英语">92</prop>
+</props>
+```
+
+注入时引用外部集合
+
+```xml
+<!--
+	util:list 创建一个java.util.List类型的bean，其中包含值或引用
+	util:set 创建一个java.util.Set类型的bean，其中包含值或引用
+	util:map 创建一个java.util.Map类型的bean，其中包含值或引用
+	util:properties 创建一个java.util.Properties类型的bean
+-->
+<util:list id="books">
+    <value>三国演义</value>
+    <value>水浒传</value>
+    <value>西游记</value>
+    <value>红楼梦</value>
+</util:list>
+
+<bean id="person" class="com.test.bean.Person">
+    <constructor-arg name="name" value="张三"/>
+    <constructor-arg name="age" value="20"/>
+    <!--注入时使用外部集合-->
+    <constructor-arg name="books" ref="books"/>
+</bean>
+```
+
+#### B、set注入
+
+**set注入依赖于set方法，没有set方法无法进行使用set注入的方式**
+
+==使用构造器注入还是set注入?：强依赖使用构造器注入，而对可选性的依赖使用set注入==
+
+```xml
+<bean id="book" class="com.test.bean.Book" p:title="java编程思想" p:price="99.9"/>
+
+<bean id="student" class="com.test.bean.Student">
+    <!--name表示参数的名称-->
+    <property name="name" value="张三"/>
+    <property name="age" value="20"/>
+    <property name="book" ref="book"/>
+</bean>
+```
+
+**p标签，简化<property>标签**
+
+```xml
+<bean id="student" class="com.test.bean.Student" p:name="张三" p:age="20" p:book-ref="book"/>
+```
+
+### 2）自动装配
 
 #### A、@Component和@ComponentScan
 
@@ -368,7 +471,7 @@ public class UserServiceImpl implements UserService {
 }
 ```
 
-### 2）通过java方式手动装配bean
+### 3）通过java方式手动装配bean
 
 #### @Configuration 和@Bean
 
@@ -403,131 +506,6 @@ public Student student() {
 public Student student(Book book) { 
     return new Student("张三", 18, book);
 }
-```
-
-### 3）xml方式装配
-
-```xml
-<!--定义bean,id唯一标识-->
-<bean id="book" class="com.test.bean.Book"/>
-```
-
-#### A、构造器注入
-
-```xml
-<bean id="book" class="com.test.bean.Book">
-    <!--name表示参数的名称-->
-    <constructor-arg name="title" value="一千零一夜"/>
-    <constructor-arg name="price" value="19.9"/>
-</bean>
-
-<!--value表示设置字面量，ref表示设置引用-->
-<bean id="student" class="com.test.bean.Student">
-    <constructor-arg name="name" value="张三"/>
-    <constructor-arg name="age" value="20"/>
-    <constructor-arg name="book" ref="book"/>
-</bean>
-```
-
-**c标签，简化<constructor-arg>标签**
-
-```xml
-<bean id="student" class="com.test.bean.Student" c:name="张三" c:age="20" c:book-ref="book"/>
-```
-
-构造器标签可以装配集合，而c标签不能装配集合
-
-```xml
-<bean id="person" class="com.test.bean.Person">
-    <constructor-arg name="name" value="张三"/>
-    <constructor-arg name="age" value="20"/>
-    <constructor-arg name="books">
-        <!--array注入方式-->
-        <array>
-            <value>三国演义</value>
-            <value>水浒传</value>
-            <value>西游记</value>
-            <value>红楼梦</value>
-        </array>
-    </constructor-arg>
-</bean>
-
-<!--list注入方式-->
-<list>
-    <value>读书</value>
-    <value>音乐</value>
-    <value>唱歌</value>
-</list>
-
-<!--set注入方式-->
-<set>
-    <value>英雄联盟</value>
-    <value>魔兽世界</value>
-    <value>绝地求生</value>
-</set>
-
-<!--map注入方式-->
-<map>
-    <entry key="爸爸" value="35"></entry>
-    <entry key="妈妈" value="32"></entry>
-    <entry key="爷爷" value="60"></entry>
-    <entry key="奶奶" value="58"></entry>
-</map>
-
-<!--空注入，构造器中占位-->
-<null/>
-
-<!--properties属性输入-->
-<props>
-    <prop key="语文">95</prop>
-    <prop key="数学">98</prop>
-    <prop key="英语">92</prop>
-</props>
-```
-注入时引用外部集合
-```xml
-<!--
-	util:list 创建一个java.util.List类型的bean，其中包含值或引用
-	util:set 创建一个java.util.Set类型的bean，其中包含值或引用
-	util:map 创建一个java.util.Map类型的bean，其中包含值或引用
-	util:properties 创建一个java.util.Properties类型的bean
--->
-<util:list id="books">
-    <value>三国演义</value>
-    <value>水浒传</value>
-    <value>西游记</value>
-    <value>红楼梦</value>
-</util:list>
-
-<bean id="person" class="com.test.bean.Person">
-    <constructor-arg name="name" value="张三"/>
-    <constructor-arg name="age" value="20"/>
-    <!--注入时使用外部集合-->
-    <constructor-arg name="books" ref="books"/>
-</bean>
-```
-
-#### B、set注入
-
-**set注入依赖于set方法，没有set方法无法进行使用set注入的方式**
-
-==使用构造器注入还是set注入?：强依赖使用构造器注入，而对可选性的依赖使用set注入==
-
-```xml
-<bean id="book" class="com.test.bean.Book" p:title="java编程思想" p:price="99.9"/>
-
-<bean id="student" class="com.test.bean.Student">
-    <!--name表示参数的名称-->
-    <property name="name" value="张三"/>
-    <property name="age" value="20"/>
-    <property name="book" ref="book"/>
-</bean>
-```
-
-**p标签，简化<property>标签**
-
-```xml
-<bean id="student" class="com.test.bean.Student" p:name="张三" p:age="20" p:book-ref="book"/>
 ```
 
 ### 4）混合配置

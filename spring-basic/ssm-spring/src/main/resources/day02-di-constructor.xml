@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--通过set方法注入-->
+    <bean id="car" class="com.test.basic.day02.di.bean.Car">
+        <property name="brand" value="奔驰"/>
+        <property name="price" value="250000"/>
+    </bean>
+
+    <!--通过构造器注入-->
+    <bean id="worker" class="com.test.basic.day02.di.bean.Worker">
+        <!--构造器注入方式一：根据参数名称，推荐方式-->
+        <constructor-arg name="name" value="zhangsan"/>
+        <constructor-arg name="age" value="30"/>
+        <constructor-arg name="car">
+            <!--如果只使用一次，可以写在内部-->
+            <bean class="com.test.basic.day02.di.bean.Car">
+                <property name="brand" value="奔驰"/>
+                <property name="price" value="250000"/>
+            </bean>
+        </constructor-arg>
+
+        <!--构造器注入方式二：根据类型-->
+        <!--<constructor-arg type="java.lang.String" value="lisi"/>
+        <constructor-arg type="int" value="32"/>
+        &lt;!&ndash;ref表示引用xml中定义的bean&ndash;&gt;
+        <constructor-arg type="com.test.basic.day02.di.bean.Car" ref="car"/>-->
+
+        <!--构造器注入方式三：根据参数索引位置-->
+        <!--<constructor-arg index="0" value="wangwu"/>
+        <constructor-arg index="1" value="29"/>
+        <constructor-arg index="2" ref="car"/>-->
+
+    </bean>
+
+</beans>

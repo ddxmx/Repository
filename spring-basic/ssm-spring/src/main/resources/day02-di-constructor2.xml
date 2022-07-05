@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--bean之间相互依赖-->
+    <bean id="emp" class="com.test.basic.day02.di.bean.Emp">
+        <!--使用构造器注入会导致循环依赖的问题，需要使用set注入方式-->
+        <!--<constructor-arg name="name" value="Smith"/>
+        <constructor-arg name="dept" ref="dept"/>-->
+        <property name="name" value="Smith"/>
+        <property name="dept" ref="dept"/>
+    </bean>
+
+    <bean id="dept" class="com.test.basic.day02.di.bean.Dept">
+        <!--<constructor-arg name="location" value="上海"/>
+        <constructor-arg name="emp" ref="emp"/>-->
+        <property name="location" value="上海"/>
+        <property name="emp" ref="emp"/>
+    </bean>
+
+</beans>

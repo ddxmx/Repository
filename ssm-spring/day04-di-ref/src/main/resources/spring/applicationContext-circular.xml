@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--bean之间相互依赖-->
+    <!--使用构造器注入会导致循环依赖的问题，需要使用set注入方式-->
+
+    <bean id="emp" class="com.test.Emp">
+        <property name="ename" value="Smith"/>
+        <property name="dept" ref="dept"/>
+    </bean>
+
+    <bean id="emp2" class="com.test.Emp">
+        <property name="ename" value="Helen"/>
+        <property name="dept" ref="dept"/>
+    </bean>
+
+    <bean id="dept" class="com.test.Dept">
+        <property name="dname" value="研发部"/>
+        <!--属性类型为List<String>类型-->
+        <property name="location">
+            <list>
+                <value>伦敦</value>
+                <value>纽约</value>
+            </list>
+        </property>
+        <!--属性类型为对象数组类型-->
+        <property name="emps">
+            <array>
+                <ref bean="emp"/>
+                <ref bean="emp2"/>
+            </array>
+        </property>
+    </bean>
+
+</beans>
