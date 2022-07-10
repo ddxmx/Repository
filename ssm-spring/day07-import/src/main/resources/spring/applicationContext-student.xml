@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="student" class="com.test.xml.Student">
+        <property name="name" value="Tom"/>
+        <property name="teacher" ref="teacher"/>
+    </bean>
+
+    <!--导入其他xml配置-->
+    <import resource="applicationContext-teacher.xml"/>
+</beans>

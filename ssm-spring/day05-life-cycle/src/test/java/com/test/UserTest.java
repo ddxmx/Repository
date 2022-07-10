@@ -26,24 +26,6 @@ public class UserTest {
     }
 
     /**
-     * lazy-init让对象在获取时才进行创建
-     */
-    @Test
-    public void lazyInitTest() {
-        System.out.println("---------------加载xml配置---------------");
-        ApplicationContext ctx =
-                new ClassPathXmlApplicationContext("spring/applicationContext-lazyInit.xml");
-        System.out.println("---------------获取bean对象---------------");
-        /*
-            ---------------加载xml配置---------------
-            ---------------获取bean对象---------------
-            User对象被实例化...
-         */
-        ctx.getBean("user", User.class);
-    }
-
-
-    /**
      * 多例模式，获取时才创建bean
      */
     @Test
@@ -52,6 +34,13 @@ public class UserTest {
         ApplicationContext ctx =
                 new ClassPathXmlApplicationContext("spring/applicationContext-protoType.xml");
         System.out.println("---------------获取bean对象---------------");
+        /*
+            ---------------加载xml配置---------------
+            ---------------获取bean对象---------------
+            User对象被实例化...
+            User对象被实例化...
+            false
+         */
         User user = ctx.getBean("user", User.class);
         User user2 = ctx.getBean("user", User.class);
         System.out.println(user == user2);
@@ -64,11 +53,13 @@ public class UserTest {
     public void singletonLifeTest() {
         /*
             User对象被实例化...
+            before init
             User的init方法被执行...
+            after init
             User的destroy方法被执行...
          */
         ClassPathXmlApplicationContext ctx =
-                new ClassPathXmlApplicationContext("spring/applicationContext-lifeCycle-singleton.xml");
+                new ClassPathXmlApplicationContext("spring/applicationContext-lifecycle-singleton.xml");
         ctx.getBean("user", User.class);
         // 销毁容器
         ctx.close();
@@ -87,10 +78,28 @@ public class UserTest {
             User的init方法被执行...
          */
         ClassPathXmlApplicationContext ctx =
-                new ClassPathXmlApplicationContext("spring/applicationContext-lifeCycle-protoType.xml");
+                new ClassPathXmlApplicationContext("spring/applicationContext-lifecycle-protoType.xml");
         ctx.getBean("user", User.class);
         ctx.getBean("user", User.class);
         // 销毁容器
         ctx.close();
+    }
+
+
+    /**
+     * lazy-init让对象在获取时才进行创建
+     */
+    @Test
+    public void lazyInitTest() {
+        System.out.println("---------------加载xml配置---------------");
+        ApplicationContext ctx =
+                new ClassPathXmlApplicationContext("spring/applicationContext-lazyInit.xml");
+        System.out.println("---------------获取bean对象---------------");
+        /*
+            ---------------加载xml配置---------------
+            ---------------获取bean对象---------------
+            User对象被实例化...
+         */
+        ctx.getBean("user", User.class);
     }
 }

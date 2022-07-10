@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--根据id查找bean-->
+    <bean id="emp" class="com.test.xml.Emp" autowire="byName">
+        <property name="ename" value="Smith"/>
+    </bean>
+
+    <!--根据类型查找，找到多个时报错-->
+    <!--<bean id="emp2" class="com.test.xml.Emp" autowire="byType">
+        <property name="ename" value="Helen"/>
+    </bean>-->
+
+    <bean id="dept" class="com.test.xml.Dept">
+        <property name="dname" value="研发部"/>
+    </bean>
+
+    <bean id="dept2" class="com.test.xml.Dept">
+        <property name="dname" value="财务部"/>
+    </bean>
+
+</beans>

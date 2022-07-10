@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="logXmlAspect" class="com.test.aspect.LogXmlAspect"/>
+
+    <bean class="com.test.service.UserService"/>
+
+    <!--aop配置-->
+    <aop:config>
+        <!--定义切入点-->
+        <aop:pointcut id="cut" expression="execution(* com.test.service.UserService.*(..))"/>
+        <!--定义切面，切面包含切入点和通知-->
+        <aop:aspect ref="logXmlAspect">
+            <!--环绕通知-->
+            <aop:around method="around" pointcut-ref="cut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

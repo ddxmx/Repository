@@ -14,6 +14,9 @@
         <module>day03-di</module>
         <module>day04-di-ref</module>
         <module>day05-life-cycle</module>
+        <module>day06-autowire</module>
+        <module>day07-import</module>
+        <module>day08-aop</module>
     </modules>
 
     <dependencies>

@@ -25,11 +25,12 @@
     <version>1.18.24</version>
 </dependency>
 
-<!--aop依赖-->
+<!--junit依赖-->
 <dependency>
-	<groupId>org.aspectj</groupId>
-	<artifactId>aspectjweaver</artifactId>
-	<version>1.9.9.1</version>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.2</version>
+    <scope>test</scope>
 </dependency>
 ```
 
@@ -93,12 +94,12 @@ UserDao userDao = context.getBean(UserMysqlDaoImpl.class);
 
 ~~~java
 // 通过bean的id和类型获取bean
-ctx.getBean("person", Person.class).print(); // Person.print
+ctx.getBean("person", Person.class);
 
 // 只通过类型获取bean，当存在多个相同类型的bean时将会出现异常
-ctx.getBean(Person.class).print(); // Person.print
+ctx.getBean(Person.class);
 
-// 获取的是Spring⼯⼚配置⽂件中所有bean标签的id值
+// 获取的是Spring配置⽂件中所有bean标签的id值
 String[] beanDefinitionNames = ctx.getBeanDefinitionNames();
 System.out.println(Arrays.toString(beanDefinitionNames)); // [person]
 
@@ -122,7 +123,7 @@ System.out.println(ctx.containsBean("test")); // false
 <bean id="person" name="per" class="com.test.bean.Person"/>
 ```
 
-## 3、Bean 实例化方式
+## 3、Spring实例化bean方式
 
 ### 1）方式一、构造器实例化
 
@@ -132,6 +133,11 @@ System.out.println(ctx.containsBean("test")); // false
 ```
 
 ### 2）方式二、静态工厂类实例化
+
+~~~xml
+<!--静态工厂类，bean对象类型是factory-method方法返回值类型-->
+<bean id="userService" class="com.test.factory.UserServiceFactory" factory-method="getUserService"/>
+~~~
 
 ```java
 /**
@@ -146,12 +152,15 @@ public class UserServiceFactory {
 }
 ```
 
-```xml
-<!--静态工厂类，bean对象类型是factory-method方法返回值类型-->
-<bean id="userServiceBean" class="com.test.factory.UserServiceFactory" factory-method="getUserService"/>
-```
-
 ### 3）方式三、非静态工厂类实例化
+
+~~~xml
+<!--非静态工厂类-->
+<!--首先实例化非静态工厂类-->
+<bean id="studentFactory" class="com.test.factory.StudentFactory"/>
+<!--然后通过非静态工厂类的非静态方法，实例化对象，bean对象类型是factory-method方法返回值类型-->
+<bean id="student" factory-bean="studentFactory" factory-method="getStudent"/>
+~~~
 
 ```java
 /**
@@ -164,36 +173,32 @@ public class StudentFactory {
 }
 ```
 
-```xml
-<!--非静态工厂类-->
-<!--首先非静态工厂类实例化-->
-<bean id="studentFactory" class="com.test.factory.StudentFactory"/>
-<!--然后通过非静态工厂类的非静态方法，实例化对象，bean对象类型是factory-method方法返回值类型-->
-<bean id="studentBean" factory-bean="studentFactory" factory-method="getStudent"/>
-```
-
 ## 4、装配（注入）
 
 **注入：通过Spring⼯⼚及配置⽂件，为所创建对象的成员变量赋值。**可以注入JDK内置类型或自定义类型。
 
 Spring装配有三种方式：
 
-- 使用XML方式显示配置
-- 在java中显示配置
+- 使用XML文件方式显示配置
+- 在java类中显示配置
 - 隐式的bean发现机制和自动装配
 
 ### 1）xml方式装配
 
-- 空值：<property name="alias"><null/></property>
+- 空值
 
-- 特殊字符：
+  ~~~xml
+  <property name="alias"><null/></property>
+  ~~~
 
-  方式一：转义
+- 特殊字符处理
+
+  方式一：使用转义字符
 
   ```xml
   &lt;   <  小于
   &gt;   >  大于
-  &amp;  &  and号
+  &amp;  &  与号
   &apos; '  单引号
   &quot; "  双引号
   
@@ -201,14 +206,18 @@ Spring装配有三种方式：
   <value>&lt;&lt;水浒传&gt;&gt;</value> 
   ```
 
-  方式二：CDATA：<![CDATA[包含特殊字符的内容]]>
+  方式二：CDATA，表示其中的字符不进行转义
 
   ```xml
+  <![CDATA[包含特殊字符的内容]]>
+  
   <!--<<西游记>>-->
   <value><![CDATA[<<西游记>>]]></value>
   ```
 
 #### A、构造器注入
+
+构造器注入依赖于构造方法，不依赖set方法
 
 ```xml
 <bean id="book" class="com.test.bean.Book">
@@ -264,10 +273,10 @@ Spring装配有三种方式：
 
 <!--map注入方式-->
 <map>
-    <entry key="爸爸" value="35"></entry>
-    <entry key="妈妈" value="32"></entry>
-    <entry key="爷爷" value="60"></entry>
-    <entry key="奶奶" value="58"></entry>
+    <entry key="爸爸" value="35"/>
+    <entry key="妈妈" value="32"/>
+    <entry key="爷爷" value="60"/>
+    <entry key="奶奶" value="58"/>
 </map>
 
 <!--properties属性输入-->
@@ -278,7 +287,7 @@ Spring装配有三种方式：
 </props>
 ```
 
-注入时引用外部集合
+注入时引用外部集合，外部集合可以被多次使用
 
 ```xml
 <!--
@@ -304,9 +313,12 @@ Spring装配有三种方式：
 
 #### B、set注入
 
-**set注入依赖于set方法，没有set方法无法进行使用set注入的方式**
+set注入依赖于set方法，没有set方法无法使用set注入的方式
 
-==使用构造器注入还是set注入?：强依赖使用构造器注入，而对可选性的依赖使用set注入==
+~~~markdown
+使用构造器注入还是set注入?
+强依赖使用构造器注入，而对可选性的依赖使用set注入
+~~~
 
 ```xml
 <bean id="book" class="com.test.bean.Book" p:title="java编程思想" p:price="99.9"/>
@@ -327,9 +339,7 @@ Spring装配有三种方式：
 
 ### 2）自动装配
 
-#### A、@Component和@ComponentScan
-
-自动装配两个条件：组件扫描（@ComponentScan）、自动装配（@Autowired）
+#### A、@Component
 
 ```java
 @Component：用于类上，表明该类会作为组件类，并告知Spring要为这个类创建bean  
@@ -337,29 +347,40 @@ Spring装配有三种方式：
 @Service：用于对service层实现类进行标注（业务层）
 @Controller：用于对Controller层实现类进行标注（web层)
 ```
-组件扫描默认是不启用。需要手动开启。开启后类上的@Component注解才能够被识别。
-```java
-@ComponentScan：用于类或接口上，主要是指定扫描包及子包，spring会把指定路径下带有指定注解的类自动装配到bean容器里。
-会被自动装配的注解包括@Component、@Controller、@Service、@Repository等等。
-@ComponentScan作用等同于xml中<context:component-scan base-package="com.test.bean" />。
-```
-```java
-//注册组件
+@Component等同于xml中的<bean/>标签
+
+~~~java
+// 注册组件
 @Component
 @Data
 public class Book {
     private String title;
     private double price;
 }
-```
+~~~
+
+#### B、@ComponentScan
+
+@ComponentScan：用于类或接口上，主要是指定扫描包及子包，spring会把指定路径下带有指定注解的类自动装配到bean容器里。
+
+会被自动装配的注解包括@Component、@Controller、@Service、@Repository等等。
+
+组件扫描默认是不启用。需要手动开启。开启后类上的@Component注解才能够被识别。
+
+@ComponentScan作用等同于xml中<context:component-scan base-package=""/>标签。
+
+~~~xml
+<!--包中及子包中的类都会被扫描-->
+<context:component-scan base-package="com.test.annotation"/>
+<!--扫描多个包用逗号隔开-->
+<context:component-scan base-package="com.test.annotation,com.test.bean"/>
+~~~
 
 ```java
-//java配置类中使用组件扫描
 @Configuration
-@ComponentScan({"com.test.bean"})
-//等同于以下方式，使用class比使用字符串更加安全
-//扫描类所在的包及子包
-//@ComponentScan(basePackageClasses = {Book.class})
+@ComponentScan("com.test.bean")
+// 扫描类所在的包及子包，等同于以下方式，使用class比使用字符串更加安全
+// @ComponentScan(basePackageClasses = Book.class)
 public class BookConfig {
 }
 ```
@@ -369,7 +390,7 @@ public class BookConfig {
 - @ComponentScan(basePackageClasses = {Book.class, UserDao.class})
 - @ComponentScan({"com.test.bean","com.test.dao"})
 
-#### B、@Autowired
+#### C、@Autowired
 
 ```java
 @Autowired：可以使用在属性、构造器、普通方法、构造器参数上。
@@ -379,38 +400,37 @@ required属性为false时，没有装配成功不会抛出异常，但是未装�
 ```
 
 ```java
-//修饰属性时,不依赖set方法,通过反射方式注入
+// 修饰属性时,不依赖set方法,通过反射方式注入
 @Autowired
 private UserDao userDao;
 
-//修饰构造器时,使用该构造器实例化。构造器存在参数时,从ioc容器中自动获取。只有一个构造器时，@Autowired可以省略
+// 修饰构造器时,使用该构造器实例化。
+// 构造器存在参数时,从ioc容器中自动获取。只有一个构造器时，@Autowired可以省略
 @Autowired
 public UserService(UserDao userDao) {
     this.userDao = userDao;
 }
 
-//修饰构造器属性时,会自动注入属性。当类中只有一个构造器,且是有参构造,自动装配。
+// 修饰构造器属性时,会自动注入属性。当类中只有一个构造器,且是有参构造,自动装配。
 public UserService(@Autowired UserDao userDao) {
     this.userDao = userDao;
 }
 
-//修饰普通方式时,实例化后会调用该方法一次。如果方法有参数,从ioc容器中自动获取。
+// 修饰普通方式时,实例化后会调用该方法一次。如果方法有参数,从ioc容器中自动获取。
 @Autowired
 public void setUserDao(UserDao userDao) {
     this.userDao = userDao;
 }
 ```
 
-#### C：自动装配歧义解决
-
-- #### @Primary
+#### D、@Primary
 
 ```java
-@Primary：自动装配时当找到多个Bean时，被注解为@Primary的Bean将作为首选者
+@Primary：和@Component一起使用，自动装配时当找到多个Bean时，被注解为@Primary的Bean将作为首选者
 ```
 
 ```java
-//接口存在多个实现类
+// 接口存在多个实现类
 public interface UserDao {
     public void addUser();
 }
@@ -424,7 +444,6 @@ public class UserDaoImpl implements UserDao {
 }
 
 @Component
-//@Primary和@Component一起使用，当找到多个bean时，作为首选
 @Primary
 public class UserMysqlDaoImpl implements UserDao {
     @Override
@@ -434,10 +453,10 @@ public class UserMysqlDaoImpl implements UserDao {
 }
 ```
 
-- ==@Qualifier==
+#### E、@Qualifier
 
 ```java
-@Qualifier：自动装配时当出现多个Bean候选者时，根据指定名称选择bean注入
+@Qualifier：和@Autowired一起使用，自动装配时当出现多个Bean候选者时，根据指定名称选择bean注入
 ```
 
 ```java
@@ -453,10 +472,12 @@ public class UserServiceImpl implements UserService {
 }
 ```
 
-- ==@Resource==
+#### F、@Resource
 
 ```
 @Resource：先根据name查找bean，再根据type查找，可以指定名称
+只支持属性和setter注入，属于java注释，而非spring注释。
+@Autowired+@Qualifier一起使用时，和@Resource功能相同
 ```
 
 ```java
@@ -471,18 +492,30 @@ public class UserServiceImpl implements UserService {
 }
 ```
 
-### 3）通过java方式手动装配bean
+#### G、@Value
+
+@Value的作用是通过注解将常量、配置文件中的值、其他bean的属性值注入到变量中，作为变量的初始值。
+
+```java
+@Value("Tom")
+private String name;
+
+@Value("20")
+private int age;
+```
+
+### 3）在配置类中手动装配bean
 
 #### @Configuration 和@Bean
 
 ````java
-@Configuration：用于定义配置类，可替换xml配置文件，被注解的类内部包含有一个或多个被@Bean注解的方法，这些方法将会被AnnotationConfigApplicationContext或AnnotationConfigWebApplicationContext类进行扫描，并用于构建bean定义，初始化Spring容器。
+@Configuration：用于定义配置类，可替换xml配置文件，被注解的类内部包含有一个或多个被@Bean注解的方法，初始化Spring容器时Bean对象会被自动创建。
 ````
 
 ```java
 @Configuration
 public class BookConfig {
-    //bean的默认名称和方法名称一致，可以使用@Bean("book")方式设置bean的名称
+    // bean的默认名称和方法名称一致，可以使用@Bean("book")方式设置bean的名称
     @Bean
     public Book book() {
         return new Book("小学生作文选", 59.9);
@@ -490,18 +523,18 @@ public class BookConfig {
 }
 ```
 
-使用java方式，创建bean时，bean之间存在依赖，使用以下方式手动装配属性。
+创建bean时，bean之间存在依赖，使用以下方式手动装配属性。
 
 ```java
-//方式一
+// 方式一
 @Bean
 public Student student() {
-    //Spring会拦截对book()的调用并确保返回的是Spring所创建的bean
+    // Spring会拦截对book()的调用并确保返回的是Spring所创建的bean
     return new Student("张三", 18, book());
 }
 
-//方式二，推荐方式
-//会在spring容器中查找id为book的bean，自动装配
+// 方式二，推荐方式
+// 会在spring容器中查找id为book的bean，自动装配
 @Bean
 public Student student(Book book) { 
     return new Student("张三", 18, book);
@@ -510,13 +543,18 @@ public Student student(Book book) {
 
 ### 4）混合配置
 
+#### A、使用xml配置
+
+~~~xml
+<!--导入其他xml配置-->
+<import resource="applicationContext-teacher.xml"/>
+~~~
+
+#### B、在Configuration配置类中使用@Import
+
 #### @Import
 
-```java
-@Import：导入其他配置类，等同于xml中使用<import resource="application-context-second.xml"/>导入其他xml配置
-```
-
-```java
+~~~java
 @Configuration
 public class BookConfig {
     @Bean
@@ -524,21 +562,21 @@ public class BookConfig {
         return new Book("中学生作文选", 99.9);
     }
 }
-```
+~~~
 
-```java
+~~~java
 @Configuration
-//导入其他配置类
-@Import({BookConfig.class})
+// 导入其他配置类
+@Import(BookConfig.class)
 public class StudentConfig {
     @Bean
     public Student student(Book book) {
         return new Student("张三", 14, book);
     }
 }
-```
+~~~
 
-#### A：在JavaConfig中引用XML配置
+#### C：在JavaConfig中引用XML配置
 
 #### @ImportResource
 
@@ -553,7 +591,7 @@ public class StudentBookConfig {
 }
 ```
 
-#### B、在XML配置中引用JavaConfig  
+#### D、在XML配置中引用JavaConfig  
 
 ```java
 @Configuration
@@ -570,6 +608,7 @@ public class UserConfig {
 <bean class="com.test.config.UserConfig"/>
 
 <!--必须要加这个，否则javaConfig中的@Bean注解不能被识别-->
+<!--使用了context:component-scan，还具有在指定的package下扫描以及注册javabean的功能，不需要再使用context:annotation-config-->
 <context:annotation-config/>
 ```
 
@@ -602,17 +641,7 @@ public class BookConfig {
 
 ### 2）使用@PropertySource注解和${ }获取运行时外部值
 
-@Value的作用是通过注解将常量、配置文件中的值、其他bean的属性值注入到变量中，作为变量的初始值。
-
-```java
-//若构造器只有一个要注入的参数，也可以将@Value写在该构造器上
-@Value("张三")
-public void setName(String name) {
-	this.name = name;
-}
-```
-
-- java方式
+- 注解方式
 
 ```java
 @Component
@@ -629,9 +658,9 @@ public class Customer {
 ```java
 @Configuration
 public class CommonConfig {
-    //注册bean，用于将属性文件生成k-v键值对
+    // 注册bean，PropertySourcesPlaceholderConfigurer仅仅将属性文件生成k-v键值对，并不进行注入
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer(){
+    public static PropertySourcesPlaceholderConfigurer propertyConfigurer(){
         return new PropertySourcesPlaceholderConfigurer();
     }
 }
@@ -640,9 +669,10 @@ public class CommonConfig {
 - xml方式
 
 ```xml
+<!--使用${}的格式，引用资源文件中的属性-->
 <bean id="customer" class="com.test.bean.Customer" p:name="${name}" p:age="${age}"/>
 
-<!--使用${}依赖的bean，同时指定资源文件-->
+<!--指定占位符来源的资源文件-->
 <context:property-placeholder location="classpath:customer.properties"/>
 ```
 
@@ -807,7 +837,7 @@ public class MyDateConverter implements Converter<String, Date> {
 
 ## 8、Bean的作用域及生命周期
 
-- 调用反射实例化对象
+- 通过反射实例化对象
 - DI注入属性
 - BeanPostProcessor中before方法
 - init-method
@@ -816,23 +846,24 @@ public class MyDateConverter implements Converter<String, Date> {
 
 ### 1）scope
 
-- 单例（ Singleton） ： 默认作用域，在整个应用中， 只创建bean的一个实例。
-- 原型（ Prototype） ： 每次注入或者通过Spring Context获取的时候， 都会创建一个新的bean实例。
-- 会话（ Session） ： 在Web应用中， 为每个会话创建一个bean实例。
-- 请求（ Rquest） ： 在Web应用中， 为每个请求创建一个bean实例。
+单例（ Singleton） ： 默认作用域，在整个应用中， 只创建bean的一个实例。
+
+多例（ Prototype） ： 每次注入或者通过Spring Context获取的时候， 都会创建一个新的bean实例。
+
+- xml方式
 
 ```xml
-<!--xml方式-->
 <bean id="book" class="com.test.bean.Book" scope="singleton"/>
 <bean id="book" class="com.test.bean.Book" scope="prototype"/>
 ```
 
+- 注解方式
+
 ```java
-//注解方式
 @Data
 @Scope("prototype")
-//或使用ConfigurableBeanFactory中的常量值
-//@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+// 或使用ConfigurableBeanFactory中的常量值
+// @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class Book {
     private String title;
     private double price;
@@ -859,13 +890,13 @@ public class User {
 }
 ```
 
-A、xml方式
+- xml方式
 
 ```xml
 <bean id="user" class="com.test.bean.User" init-method="init"/>
 ```
 
-B、注解方式
+- 注解方式
 
 ```java
 @PostConstruct
@@ -878,15 +909,15 @@ public void init(){
 
 **destroy-method只对bean的scope是singleton时才生效**
 
-调用容器的close方法关闭容器时执行bean销毁操作，ClassPathXmlApplicationContext实例.close()
+调用容器的close方法关闭容器时执行bean销毁操作，ClassPathXmlApplicationContext实例对对象.close()
 
-A、xml方式
+- xml方式
 
 ```xml
 <bean id="user" class="com.test.bean.User" destroy-method="destroy"/>
 ```
 
-B、注解方式
+- 注解方式
 
 ```java
 @PreDestroy
@@ -899,16 +930,16 @@ public void destroy(){
 
 **lazy-init只对bean的scope是singleton时才生效，prototype方式默认就是获取时才实例化**
 
-A、xml方式
+- xml方式
 
 ```xml
 <!--bean对象默认是单例的，IOC容器启动时会实例化所有bean，使用lazy-init可以在获取bean时才创建-->
 <bean id="user" class="com.test.bean.User" lazy-init="true"/>
 ```
 
-B、注解方式
+- 注解方式
 
-在bean上使用注解@Lazy就表示延迟加载
+在bean上使用注解@Lazy就表示延迟加载，一般和@Component、@Autowire或@Bean一起使用。
 
 ### 5）BeanPostProcessor
 
@@ -926,31 +957,31 @@ BeanPostProcessor会对Spring⼯⼚中所有创建的对象进⾏加⼯。
 ```java
 public class MyBeanPostProcessor implements BeanPostProcessor {
     /**
-    作⽤： Spring创建完对象，并进⾏注⼊后，可以运⾏Before⽅法进⾏加⼯
-            获得Spring创建好的对象 ：通过⽅法的参数
-            最终通过返回值交给Spring框架
-	*/
+     * 作⽤： Spring创建完对象，并进⾏注⼊后，可以运⾏Before⽅法进⾏加⼯
+     * 获得Spring创建好的对象 ：通过⽅法的参数
+     * 最终通过返回值交给Spring框架
+     */
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-    	return bean;
+        System.out.println("before init");
+        return bean;
     }
-    
+
     /**
-    作⽤： Spring执⾏完对象的初始化操作后，可以运⾏After⽅法进⾏加⼯
-            获得Spring创建好的对象 ：通过⽅法的参数
-            最终通过返回值交给Spring框架
-    */
+     * 作⽤： Spring执⾏完对象的初始化操作后，可以运⾏After⽅法进⾏加⼯
+     * 获得Spring创建好的对象 ：通过⽅法的参数
+     * 最终通过返回值交给Spring框架
+     */
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        Categroy categroy = (Categroy) bean;
-        categroy.setName("xiaowb");
-        return categroy;
+        System.out.println("after init");
+        return bean;
     }
 }
 ```
 
 ```xml
-<bean id="myBeanPostProcessor" class="xxx.MyBeanPostProcessor"/>
+<bean id="myBeanPostProcessor" class="com.test.MyBeanPostProcessor"/>
 ```
 
 # 三、AOP（面向切面编程）
@@ -1079,17 +1110,36 @@ class NetCglibTest {
 
 ## 2、AOP基本概念
 
-- 通知（ Advice）：切面的工作被称为通知。
+~~~xml
+<!--aop依赖-->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-aop</artifactId>
+    <version>5.3.21</version>
+</dependency>
+
+<dependency>
+	<groupId>org.aspectj</groupId>
+	<artifactId>aspectjweaver</artifactId>
+	<version>1.9.9.1</version>
+</dependency>
+~~~
+
+- 连接点（Join point）：可以被增强的方法。Spring只支持方法级别的连接点。
+
+- 切入点（Poincut）：实际被增强的方法。
+
+- 通知（ Advice）：实际增强的逻辑。
 
   前置通知（Before） ： 在目标方法被调用之前调用通知功能；
-  后置通知（After） ： 在目标方法完成之后调用通知， 此时不会关心方法的输出是什么；
-  返回通知（After-returning） ： 在目标方法成功执行之后调用通知；
+
+  后置通知（After-returning） ： 在目标方法成功执行之后调用通知；
+
   异常通知（After-throwing） ： 在目标方法抛出异常后调用通知；
-  环绕通知（Around） ： 通知包裹了被通知的方法， 在被通知的方法调用之前和调用之后执行自定义的行为。  
 
-- 连接点（Join point）：连接点是在应用执行过程中能够插入切面的一个点。Spring只支持方法级别的连接点。
+  最终通知（After） ： 在目标方法完成之后调用通知， 此时不会关心方法是否出现异常；
 
-- 切点（Poincut）：一个切面并不需要通知应用的所有连接点，切点有助于缩小切面所通知的连接点范围。如果说通知定义了切面的“什么”和“何时”的话，那么切点就定义了“何处”。因此，切点其实就是定义了需要在哪些连接点上执行通知。
+  环绕通知（Around） ： 通知包裹了被通知的方法， 在被通知的方法调用之前和调用之后执行自定义的行为。
 
 - 切面（ Aspect）：切面是通知和切点的结合。通知和切点共同定义了切面的全部内容——它是什么，在何时和在何处完成其功能。  
 
@@ -1111,19 +1161,19 @@ execution (* com.sample.service.impl..*.*(..))
 ```
 
 ```java
-//拦截所有public方法
+// 拦截所有public方法
 execution(public * *(..))
 
-//拦截所有save开头的方法
+// 拦截所有save开头的方法
 execution(* save*(..))
 
-//拦截指定类的指定方法, 拦截时一定要定位到方法
+// 拦截指定类的指定方法, 拦截时一定要定位到方法
 execution(* com.test.dao.UserDao.save(..))
 
-//拦截指定类的所有方法
+// 拦截指定类的所有方法
 execution(* com.test.dao.UserDao.*(..))
 
-//拦截指定包，以及其子包下所有类的所有方法
+// 拦截指定包，以及其子包下所有类的所有方法
 execution(* com..*.*(..))
 ```
 
@@ -1136,13 +1186,13 @@ execution(* com..*.*(..))
 @Pointcut：切入点。表示需要切入的位置，比如某些类或者某些方法，也就是先定一个范围。
 @Before：Advice（通知）的一种，切入点的方法体执行之前执行。
 @AfterReturning：Advice（通知）的一种，在切入点正常运行结束后执行，异常则不执行
-@After：Advice（通知）的一种，在切入点正常运行结束后执行。
+@After：Advice（通知）的一种，在切入点运行结束后执行，无论是否出现异常。
 @AfterThrowing：Advice（通知）的一种，在切入点运行异常时执行。
 @Around：Advice（通知）的一种，环绕切入点执行也就是把切入点包裹起来执行。
 ```
 
 ```java
-//切面类注解
+// 切面类注解
 @Aspect
 public class LogAspect {
     // 定义切入点，可以被多个通知引用
@@ -1194,7 +1244,7 @@ public class LogAspect {
         System.out.println("前置通知");
         Object result = null;
         try {
-            //连接点方法调用
+            // 连接点方法调用
             result = joinPoint.proceed();
             System.out.println(result);
             System.out.println("正常返回通知");
@@ -1212,29 +1262,21 @@ public class LogAspect {
 
 ### 2）开启AOP代理能力
 
-#### A：注解方式
-
-```java
-@Configuration
-@EnableAspectJAutoProxy
-public class LogConfig {
-    @Bean
-    public LogAspect logAspect() {
-        return new LogAspect();
-    }
-
-    @Bean
-    public UserService userService() {
-        return new UserService();
-    }
-}
-```
-
-#### B：xml方式
+- xml方式
 
 ```xml
 <!--声明自动为spring容器中那些配置@aspectJ切面的bean创建代理，织入切面-->
 <aop:aspectj-autoproxy/>
+```
+
+- 注解方式
+
+```java
+@Configuration
+@ComponentScan(basePackageClasses = {LogAnnotationAspect.class,UserService.class})
+@EnableAspectJAutoProxy
+public class LogConfig {
+}
 ```
 
 ## 4、使用xml方式

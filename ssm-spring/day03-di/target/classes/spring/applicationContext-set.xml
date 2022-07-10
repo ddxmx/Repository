@@ -38,9 +38,9 @@
                     方式一：
                     &lt;	<	小于
                     &gt;	>	大于
-                    &amp;	&	和号
-                    &apos;	'	省略号
-                    &quot;	"	引号
+                    &amp;	&	and号
+                    &apos;	'	单引号
+                    &quot;	"	双引号
                 -->
                 <!--
                     方式二：CDATA

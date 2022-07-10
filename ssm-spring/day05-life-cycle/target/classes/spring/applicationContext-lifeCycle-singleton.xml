@@ -3,6 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="user" class="com.test.User" init-method="init" destroy-method="destroy"/>
+    <bean id="user" class="com.test.User" scope="singleton" init-method="init" destroy-method="destroy"/>
+
+    <bean id="myBeanPostProcessor" class="com.test.MyBeanPostProcessor"/>
 
 </beans>

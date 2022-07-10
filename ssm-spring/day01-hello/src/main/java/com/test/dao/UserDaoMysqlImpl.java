@@ -1,7 +1,7 @@
 package com.test.dao;
 
 /**
- * Dao接口实现一
+ * Dao接口mysql实现
  */
 public class UserDaoMysqlImpl implements UserDao {
     @Override

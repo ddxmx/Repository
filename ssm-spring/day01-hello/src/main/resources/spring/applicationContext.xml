@@ -3,8 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--bean实例化方式有三种：1、通过构造方法实例化 2、通过静态工厂实例化 3、通过非静态工厂实例化-->
-
     <!--id是bean的唯一标识，一般为类名首字母小写-->
     <!--class是bean的全路径类名，包.类名称-->
     <bean id="userDao" class="com.test.dao.UserDaoMysqlImpl"/>

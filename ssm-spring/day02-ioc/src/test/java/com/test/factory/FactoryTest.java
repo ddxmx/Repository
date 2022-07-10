@@ -5,9 +5,10 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import static org.junit.Assert.*;
-
 public class FactoryTest {
+    /**
+     * 静态工厂类不需要先实例化工厂类对象
+     */
     @Test
     public void staticFactoryTest() {
         ApplicationContext context =
@@ -16,6 +17,9 @@ public class FactoryTest {
         person.print();
     }
 
+    /**
+     * 非静态工厂类，需要先实例化工厂类对象
+     */
     @Test
     public void factoryTest() {
         ApplicationContext context =

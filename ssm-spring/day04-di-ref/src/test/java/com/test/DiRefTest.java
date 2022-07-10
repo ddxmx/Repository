@@ -22,6 +22,9 @@ public class DiRefTest {
         System.out.println(ctx.getBean("person3", Person.class));
     }
 
+    /**
+     * 循环依赖的问题，只能使用set注入方式，不能使用构造器注入
+     */
     @Test
     public void diRefCircularTest() {
         ApplicationContext ctx =

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="emp" class="com.test.annotation.Emp" autowire="byType">
+        <property name="name" value="Jerry"/>
+    </bean>
+
+    <bean class="com.test.bean.DeptConfig"/>
+
+    <!--必须要加这个，否则javaConfig中的@Bean注解不能被识别-->
+    <!--使用了context:component-scan，还具有在指定的package下扫描以及注册javabean的功能，不需要再使用context:annotation-config-->
+    <context:annotation-config/>
+</beans>
