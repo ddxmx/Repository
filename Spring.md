@@ -1305,7 +1305,7 @@ public class LogConfig {
 # 四、定时任务
 
 ```java
-在线生成地址：https://www.matools.com/cron/
+在线生成地址：https://qqe2.com/cron
 cron表达式是一个字符串，字符串分为6或7个域，每一个域代表一个含义
 格式：
 Seconds Minutes Hours DayofMonth Month DayofWeek Year
@@ -1350,36 +1350,55 @@ Seconds Minutes Hours DayofMonth Month DayofWeek
 
 ## 1、注解方式
 
-```java
-public class MonitorTask {
-    //10秒执行一次
-    @Scheduled(cron = "*/10 * * * * ?")
-    public void run() {
-		System.out.println(LocalDateTime.now() + " 监控窗口中...");
+1）定时任务注解生效，使用注解方式
+
+~~~xml
+@Component
+public class AnnotationTask {
+    private static int count = 0;
+
+    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.SECONDS)
+    public void date() {
+        System.out.println(LocalDateTime.now());
+    }
+
+    @Scheduled(cron = "0/5 * * * * ?")
+    public void total() {
+        System.out.println(LocalDateTime.now() + "，count= " + ++count);
     }
 }
-```
-
-1）java类方式
-
-```
-@EnableScheduling：在配置类上使用该注解开启对定时任务的支持
-```
+~~~
 
 ```java
 @Configuration
+@ComponentScan(basePackageClasses = AnnotationTask.class)
+// 在配置类上使用该注解开启对定时任务的支持
 @EnableScheduling
 public class TaskConfig {
-    @Bean
-    public MonitorTask monitorTask() {
-        return new MonitorTask();
-    }
 }
 ```
 
-2）xml方式
+2）定时任务注解生效，使用xml方式
+
+~~~xml
+public class AnnotationTask {
+    private static int count = 0;
+
+    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.SECONDS)
+    public void date() {
+        System.out.println(LocalDateTime.now());
+    }
+
+    @Scheduled(cron = "0/5 * * * * ?")
+    public void total() {
+        System.out.println(LocalDateTime.now() + "，count= " + ++count);
+    }
+}
+~~~
 
 ```xml
+<bean class="com.test.AnnotationTask"/>
+
 <!--开启对定时任务的支持-->
 <task:annotation-driven/>
 ```
@@ -1387,20 +1406,26 @@ public class TaskConfig {
 ## 2、xml方式
 
 ```java
-public class LogTask {
-    /**
-     * 定时任务，实际上就是一个普通方法
-     */
-    public void run() {
-        System.out.println(LocalDateTime.now() + " " + LogTask.class.getName());
+public class XmlTask {
+    private static int count = 0;
+
+    public void date() {
+        System.out.println(LocalDateTime.now());
+    }
+
+    public void total() {
+        System.out.println(LocalDateTime.now() + "，count= " + ++count);
     }
 }
 ```
 
 ```xml
+<bean id="myTask" class="com.test.XmlTask"/>
+
 <task:scheduled-tasks>
-    <!--10秒执行一次-->
-	<task:scheduled ref="logTask" method="run" cron="*/10 * * * * ?"/>
+    <task:scheduled ref="myTask" method="date" cron="*/1 * * * * ?"/>
+    <!--fixed-rate：固定开始频率，fixed-delay：固定结束间隔-->
+    <task:scheduled ref="myTask" method="total" initial-delay="5000" fixed-rate="3000"/>
 </task:scheduled-tasks>
 ```
 

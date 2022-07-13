@@ -17,6 +17,7 @@
         <module>day06-autowire</module>
         <module>day07-import</module>
         <module>day08-aop</module>
+        <module>day09-task</module>
     </modules>
 
     <dependencies>

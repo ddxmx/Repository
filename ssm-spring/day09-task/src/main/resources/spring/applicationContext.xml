@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <bean id="myTask" class="com.test.XmlTask"/>
+
+    <task:scheduled-tasks>
+        <task:scheduled ref="myTask" method="date" cron="*/1 * * * * ?"/>
+        <!--fixed-rate：固定开始频率，fixed-delay：固定结束间隔-->
+        <task:scheduled ref="myTask" method="total" initial-delay="5000" fixed-rate="3000"/>
+    </task:scheduled-tasks>
+</beans>
