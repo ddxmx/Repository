@@ -681,24 +681,24 @@ public class CommonConfig {
 ### 1）表示字面量
 
 ```java
-//数字
+// 数字
 #{3.14}
-//boolean常量
+// boolean常量
 #{false}
-//字符串
+// 字符串
 #{'hello'}
 ```
 
 ### 2）引用bean、属性和方法
 
 ```java
-//引用bean
+// 引用bean
 #{car}
-//引用属性
+// 引用属性
 #{car.brand}
-//引用方法
+// 引用方法
 #{car.setBrand('宝马')}
-//?.类型安全运算符，防止NullPointerException，判断不为null时才调用toUpperCase()，为null时直接返回null，不再调用后续方法
+// ?.类型安全运算符，防止NullPointerException，判断不为null时才调用toUpperCase()，为null时直接返回null，不再调用后续方法
 #{car.getBrand()?.toUpperCase()}
 ```
 
@@ -707,9 +707,9 @@ public class CommonConfig {
 在SpEL中访问类作用域的方法和常量的话， 要依赖T()运算符
 
 ```java
-//静态属性
+// 静态属性
 #{T(java.lang.Math).PI}
-//静态方法
+// 静态方法
 #{T(java.lang.Math).random()}
 ```
 
@@ -720,7 +720,7 @@ public class CommonConfig {
 | 算术运算   | +、 -、 * 、 /、 %、 ^                                 |
 | 比较运算   | < 、 > 、 == 、 <= 、 >= 、 lt 、 gt 、 eq 、 le 、 ge |
 | 逻辑运算   | and 、 or 、 not 、 │                                  |
-| 条件运算   | ?: (ternary) 、 ?: (Elvis)                             |
+| 条件运算   | ?: (三元) 、 ?: (默认值)                               |
 | 正则表达式 | matches                                                |
 
 ```java

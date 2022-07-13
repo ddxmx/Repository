@@ -18,6 +18,9 @@
         <module>day07-import</module>
         <module>day08-aop</module>
         <module>day09-task</module>
+        <module>day10-jdbc-template</module>
+        <module>day11-mybatis</module>
+        <module>day12-transaction</module>
     </modules>
 
     <dependencies>
