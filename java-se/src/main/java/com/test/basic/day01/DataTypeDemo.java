@@ -1,14 +1,13 @@
 package com.test.basic.day01;
 
 /**
- * 变量本质就是一个内存地址，变量的修改实际上是对地址指向的内存的修改（基本数据类型）或对地址的修改（引用数据类型）
+ * 1、变量本质就是一个内存地址，变量的修改实际上是对地址指向的内存的修改（基本数据类型）或对地址的修改（引用数据类型）
  * 变量先声明再使用，格式：数据类型 变量名 = 值;
- * 变量分为局部变量和成员变量：
+ * 2、变量分为局部变量和成员变量：
  * - 局部变量没有系统默认值，使用前必须手动赋值；成员变量有系统默认值
  * - 局部变量存储在栈内存中，超过作用域，变量就被销毁了；成员变量存储在堆内存中，随着对象的消失而消失
  * - 局部变量的定义位置：方法或构造器中的参数、方法、构造器或代码块中定义的变量；成员变量直接定义在类中
- * <p>
- * 数据类型：
+ * 3、数据类型的划分：
  * |- 基本数据类型：
  * （1）整型：byte(-128~127)、short(-32768~32767)、int(-21_4000_0000~21_4000_0000)、long
  * （2）浮点型：float、double
@@ -19,25 +18,24 @@ package com.test.basic.day01;
  * （2）类
  * （3）接口
  */
-public class VariableDemo {
+public class DataTypeDemo {
     public static void main(String[] args) {
         System.out.println("==========整型：byte、short、int、long==========");
         // 声明变量并赋值
         int num1 = 10;
+        System.out.println(num1); // 10
         // 修改变量的值，变量必须已经声明
         num1 = 15;
         System.out.println(num1); // 15
 
         // 声明变量和赋值分开写（不推荐）
         int num2;
+        // 编译报错，变量num2使用前未赋值
+        // System.out.println(num2);
         num2 = 20;
         System.out.println(num2); // 20
 
-        int num3;
-        // 编译报错，变量num3使用前未赋值
-        // System.out.println(num3);
-
-        // 编译报错，变量num1不能重复定义
+        // 编译报错，变量不能重复定义
         // int num1 = 20;
 
         int numA = 10;
@@ -45,18 +43,18 @@ public class VariableDemo {
         // int类型 / int类型 = int类型，小数位直接舍弃
         System.out.println(numA / numB); // 2
 
-        // int类型常量10在byte表示范围内，可以直接赋值，不需要强制转换
+        // int类型常量10在byte表示范围内，可以直接赋值，不需要强制类型转换
         byte b1 = 10;
         System.out.println(b1); // 10
 
-        int num4 = 10;
-        // 编译失败，int类型变量无法直接赋值，需要强制转换
-        // byte b2 = num4;
-        byte b2 = (byte) num4;
+        int num3 = 10;
+        // 编译失败，int类型变量无法直接赋值给byte类型变量，需要强制类型转换
+        // byte b2 = num3;
+        byte b2 = (byte) num3;
 
         // 整型默认类型int，当数值常量超过int类型表示范围时，常量必须以L结尾来表示长整型
-        long var1 = 30_0000_0000L; // _可以分隔数字，JDK1.7新特性
-        System.out.println(var1); // 3000000000
+        long num4 = 30_0000_0000L; // _可以分隔数字，JDK1.7新特性
+        System.out.println(num4); // 3000000000
 
         System.out.println("==========浮点型：float、double==========");
         double d1 = 0.1;

@@ -1,4 +1,4 @@
-package com.test.basic.day03;
+package com.test.basic.day03.jump;
 
 import java.util.Scanner;
 
@@ -9,15 +9,19 @@ import java.util.Scanner;
  */
 public class PrimeNumberDemo {
     public static void main(String[] args) {
+        System.out.println("请输入int范围的正整数");
         Scanner sc = new Scanner(System.in);
+
         if (sc.hasNextInt()) {
             int input = sc.nextInt();
+
             if (1 == input) {
                 return;
             }
 
             outer:
             while (true) {
+                // 判断输入的数是否有因子
                 for (int i = 2; i <= Math.sqrt(input); i++) {
                     if (input % i == 0) {
                         System.out.print(i + " ");
@@ -26,6 +30,7 @@ public class PrimeNumberDemo {
                     }
                 }
 
+                // 输入的数没有因子
                 System.out.println(input);
                 break;
             }

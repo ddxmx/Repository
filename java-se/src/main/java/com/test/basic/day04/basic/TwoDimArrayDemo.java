@@ -1,4 +1,4 @@
-package com.test.basic.day04;
+package com.test.basic.day04.basic;
 
 /**
  * 二维数组中每一个元素都是一维数组，每个一维数组长度可以不相同
@@ -31,6 +31,7 @@ public class TwoDimArrayDemo {
 
         // 动态初始化，方式二，每个元素长度可以不同
         // 二维数组不开辟内层元素空间
+        // 等价于int[][] arr3 = {null, null};
         int[][] arr3 = new int[2][];
         // 内层元素没有实例化，NullPointerException
         // System.out.println(arr3[1][1]);
@@ -48,11 +49,19 @@ public class TwoDimArrayDemo {
         }
 
         // 面试题
+        /*
+            0 0 0
+            0 0 0
+         */
         int[][] a = new int[2][3];
         System.out.println(a); // [[I@1540e19d
         System.out.println(a[0]); // [I@677327b6
         System.out.println(a[0][0]); // 0
 
+        /*
+            null
+            null
+         */
         double[][] b = new double[2][];
         System.out.println(b); // [[D@16b4a017
         System.out.println(b[0]); // null

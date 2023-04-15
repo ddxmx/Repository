@@ -34,13 +34,16 @@ public class ArraySearchDemo {
         // 手工实现二分法查找
         int head = 0;
         int tail = array.length - 1;
+
         while (head <= tail) {
             int center = (head + tail) / 2;
-            if (key < array[center]) {
+            int centerValue = array[center];
+
+            if (key < centerValue) { // 在前半部分
                 tail = center - 1;
-            } else if (key > array[center]) {
+            } else if (key > centerValue) { // 在后半部分
                 head = center + 1;
-            } else {
+            } else { // 已找到
                 index = center;
                 break;
             }

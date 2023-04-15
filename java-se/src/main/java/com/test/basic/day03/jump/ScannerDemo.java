@@ -1,4 +1,4 @@
-package com.test.basic.day03;
+package com.test.basic.day03.jump;
 
 import java.util.Scanner;
 
@@ -12,16 +12,18 @@ import java.util.Scanner;
  */
 public class ScannerDemo {
     public static void main(String[] args) {
-        int[] numbers = new int[3];
+        int[] digits = new int[3];
         System.out.println("请输入三个数字，以空格分隔");
+
         // 判断输入是否正确
         Scanner scanner = new Scanner(System.in);
 
+        // hasNext()和nextXXX()方法将阻塞程序，等待输入
         outer:
         while (true) {
-            for (int i = 0; i < numbers.length; i++) {
+            for (int i = 0; i < digits.length; i++) {
                 if (scanner.hasNextInt()) {
-                    numbers[i] = scanner.nextInt();
+                    digits[i] = scanner.nextInt();
                 } else {
                     /*
                         next():只读取输入直到空格。next()在读取输入后将光标放在同一行中。
@@ -30,7 +32,7 @@ public class ScannerDemo {
                     System.out.println("输入的第" + (i + 1) + "个值为：" + scanner.next() + "，非数字，请重新输入三个数字");
                     // 重新读取三个数字，则需要丢弃当前整行输入的内容
                     scanner.nextLine();
-                    numbers = new int[numbers.length];
+                    digits = new int[digits.length];
                     continue outer;
                 }
             }
@@ -38,9 +40,9 @@ public class ScannerDemo {
             break;
         }
 
-        int first = numbers[0];
-        int second = numbers[1];
-        int third = numbers[2];
+        int first = digits[0];
+        int second = digits[1];
+        int third = digits[2];
 
         int min = Math.min(Math.min(first, second), third);
         System.out.println("最小值为：" + min);

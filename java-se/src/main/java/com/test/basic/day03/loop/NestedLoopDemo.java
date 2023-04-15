@@ -1,4 +1,4 @@
-package com.test.basic.day03;
+package com.test.basic.day03.loop;
 
 /**
  * 嵌套循环

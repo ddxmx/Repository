@@ -1,13 +1,13 @@
 package com.test.basic.day01;
 
 /**
- * 数据类型转换：
+ * 1、数据类型转换：
  * |- 自动类型转换：表示范围小的类型向表示范围大的类型进行自动转换。
- * |- 强制类型转换：不同表示范围类型的数据之间进行转换，可能会损失精度。(部分场景下，因为数据类型的要求，存在显示进行小转大的情况)
+ * |- 强制类型转换：不同表示范围类型的数据之间进行转换，可能会损失精度。
+ * 2、自动类型转换规则：
  * 7种基本数值类型之间可以进行自动类型转换，不支持boolean类型和数值类型之间的转换。
  * byte、short、char < int < long < float < double
- * byte单独使用时，可以转换为short，byte和short不能和char类型转换
- * byte、short、char参与运算时，都会先转换为int类型，再进行计算
+ * byte、short、char参与运算时，都会先转换成int类型，再进行计算
  */
 public class TypeConversionDemo {
     public static void main(String[] args) {
@@ -15,13 +15,13 @@ public class TypeConversionDemo {
         {
             int i1 = 10;
             byte b1 = 20;
-            // int类型 = int类型 + byte类型
+            // int类型 + byte类型 = int类型
             int sum1 = i1 + b1;
             System.out.println(sum1); // 30
 
             int i2 = 100;
             double d2 = 10.01;
-            // double类型 = int类型 + double类型
+            // int类型 + double类型 = double类型
             double sum2 = i2 + d2;
             System.out.println(sum2); // 110.01
 
@@ -29,6 +29,7 @@ public class TypeConversionDemo {
             short s3 = 20;
             // 编译失败，byte、short、char进行运算时，计算结果很容易溢出，因此java先转换为int类型再计算
             // short sum3 = b3 + s3;
+            // byte类型 + short类型 = int类型
             int sum3 = b3 + s3;
             System.out.println(sum3); // 30
             // 直接进行转换，byte类型可以转换为short类型
@@ -37,11 +38,12 @@ public class TypeConversionDemo {
 
             int i4 = 10;
             char c4 = 'a';
-            // char类型计算时会转换为int类型，char类型转换为表示的字符编码值，'a'编码为97
+            // int类型 + char类型 = int类型
+            // char类型运算时会转换为int类型，char类型转换为表示的字符编码值，'a'编码为97
             int sum4 = i4 + c4;
             System.out.println(sum4); // 107
 
-            // 编译通过，常量计算结果在byte范围内直接赋值，等价于byte sum5 = 30;
+            // 编译通过，常量计算结果在byte范围内可以直接赋值，等价于byte sum5 = 30;
             byte sum5 = 10 + 20;
             // 编译失败，常量计算结果已经超过byte的范围-128~127
             // byte sum6 = 10 + 118;

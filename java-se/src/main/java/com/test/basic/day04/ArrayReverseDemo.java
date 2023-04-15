@@ -10,14 +10,10 @@ public class ArrayReverseDemo {
         // 一维数组反转
         int[] arr1 = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
         // 只需要交换数组一半的元素即可实现所有元素反转
-        int head = 0;
-        int tail = arr1.length - 1;
         for (int i = 0; i < arr1.length / 2; i++) {
-            int temp = arr1[head];
-            arr1[head] = arr1[tail];
-            arr1[tail] = temp;
-            head++;
-            tail--;
+            int temp = arr1[i];
+            arr1[i] = arr1[arr1.length - 1 - i];
+            arr1[arr1.length - 1 - i] = temp;
         }
         System.out.println(Arrays.toString(arr1)); // [9, 8, 7, 6, 5, 4, 3, 2, 1]
 
