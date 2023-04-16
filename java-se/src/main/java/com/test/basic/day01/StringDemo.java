@@ -20,7 +20,7 @@ public class StringDemo {
         System.out.println(str3); // null
         System.out.println(null + "abc"); // nullabc
 
-        // 编译失败，Both println(char[]) in PrintStream and println(String) in PrintStream match
+        // 编译错误，Both println(char[]) in PrintStream and println(String) in PrintStream match
         // System.out.println(null);
 
         // 字符串连接

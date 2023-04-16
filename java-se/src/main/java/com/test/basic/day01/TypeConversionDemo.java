@@ -27,7 +27,7 @@ public class TypeConversionDemo {
 
             byte b3 = 10;
             short s3 = 20;
-            // 编译失败，byte、short、char进行运算时，计算结果很容易溢出，因此java先转换为int类型再计算
+            // 编译错误，byte、short、char进行运算时，计算结果很容易溢出，因此java先转换为int类型再计算
             // short sum3 = b3 + s3;
             // byte类型 + short类型 = int类型
             int sum3 = b3 + s3;
@@ -45,12 +45,12 @@ public class TypeConversionDemo {
 
             // 编译通过，常量计算结果在byte范围内可以直接赋值，等价于byte sum5 = 30;
             byte sum5 = 10 + 20;
-            // 编译失败，常量计算结果已经超过byte的范围-128~127
+            // 编译错误，常量计算结果已经超过byte的范围-128~127
             // byte sum6 = 10 + 118;
 
             byte b5 = 10;
             byte b6 = 20;
-            // 编译失败，b5和b6都是变量，无法保证计算结果在byte范围内，需要使用int类型接收
+            // 编译错误，b5和b6都是变量，无法保证计算结果在byte范围内，需要使用int类型接收
             // byte sum7 = b5 + b6;
             int sum7 = b5 + b6;
             System.out.println(sum7); // 30

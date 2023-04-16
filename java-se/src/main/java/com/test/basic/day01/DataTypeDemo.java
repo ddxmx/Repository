@@ -48,7 +48,7 @@ public class DataTypeDemo {
         System.out.println(b1); // 10
 
         int num3 = 10;
-        // 编译失败，int类型变量无法直接赋值给byte类型变量，需要强制类型转换
+        // 编译错误，int类型变量无法直接赋值给byte类型变量，需要强制类型转换
         // byte b2 = num3;
         byte b2 = (byte) num3;
 
@@ -78,7 +78,7 @@ public class DataTypeDemo {
         // char类型可以和数字直接进行数值运算，使用的是字符编码
         System.out.println(c1 + 10); // 107
 
-        // 编译失败，char类型必须包含一个字符
+        // 编译错误，char类型必须包含一个字符
         // char c2 = '';
 
         // char变量赋值方式二：使用unicode编码赋值
