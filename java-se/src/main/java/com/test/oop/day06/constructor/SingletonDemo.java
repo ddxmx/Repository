@@ -1,11 +1,16 @@
-package com.test.oop.day06;
+package com.test.oop.day06.constructor;
 
 /**
+ * 单例设计模式
  * 饿汉式，线程安全，推荐方式
  * 实现方式：
  * |- 将类中构造方法私有化
- * |- 在类中只实例化一个类对象
- * |- 通过static的方法提供实例对象的获取
+ * |- 在类中只创建一个实例
+ * |- 通过static的方法提供实例的获取
+ * 构造方法私有化主要有3种场景
+ * |- 类不需要实例化，只提供static方法，如Arrays类，Math类等
+ * |- 单例设计模式，只允许生成一个实例
+ * |- 提取公共代码，消除重复
  */
 class Singleton {
     // static修饰，保证全局唯一
@@ -45,13 +50,12 @@ class SingletonLazy {
      * 解决线程安全的问题，可以采用同步方式
      */
     public static SingletonLazy getInstance() {
-        // 不在外层加锁，为了效率，防止每个请求都进行同步等待
+        // 不在外层加锁，为了提升效率，防止每次调用都进行同步等待
         if (null == instance) {
             synchronized (lock) {
-                // 同步代码块中再次判断，防止多个并发请求时，重复创建对象
+                // 同步代码块中再次判断，防止并发操作时，重复创建对象
                 if (null == instance) {
                     instance = new SingletonLazy();
-                    System.out.println("创建了实例化对象...");
                 }
             }
         }
@@ -74,11 +78,8 @@ public class SingletonDemo {
     public static void main(String[] args) {
         SingletonLazy instanceA = SingletonLazy.getInstance();
         SingletonLazy instanceB = SingletonLazy.getInstance();
-        SingletonLazy instanceC = SingletonLazy.getInstance();
 
         System.out.println(instanceA == instanceB); // true
-        System.out.println(instanceA == instanceC); // true
-
         instanceA.action(); // SingletonLazy.action
     }
 }

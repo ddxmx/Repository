@@ -1,4 +1,4 @@
-package com.test.oop.day05;
+package com.test.oop.day05.object;
 
 import java.util.Random;
 
@@ -17,10 +17,28 @@ class Student {
  */
 public class ObjectArrayDemo {
     public static void main(String[] args) {
-        // 声明并实例化对象数组
-        Student[] students = new Student[10];
+        Student[] students = genStudents(10);
 
-        // 随机生成数组元素
+        System.out.println("--------列出学生信息--------");
+        listStudents(students);
+
+        System.out.println("--------遍历3年级学生信息--------");
+        searchStudentsByGrade(students, 3);
+
+        System.out.println("--------按学生成绩倒序排列--------");
+        sortStudentsByScore(students);
+        listStudents(students);
+    }
+
+    /**
+     * 随机生成学生信息
+     *
+     * @param size
+     * @return
+     */
+    public static Student[] genStudents(int size) {
+        Student[] students = new Student[size];
+
         for (int i = 0; i < students.length; i++) {
             Student student = new Student();
             // 学号[1,20]
@@ -33,49 +51,25 @@ public class ObjectArrayDemo {
             students[i] = student;
         }
 
-        /*
-            学号：1，年级：3，成绩：95
-            学号：2，年级：4，成绩：39
-            学号：3，年级：4，成绩：89
-            学号：4，年级：1，成绩：69
-            学号：5，年级：1，成绩：66
-            学号：6，年级：1，成绩：79
-            学号：7，年级：5，成绩：38
-            学号：8，年级：4，成绩：21
-            学号：9，年级：3，成绩：87
-            学号：10，年级：5，成绩：89
-         */
-        System.out.println("--------列出学生信息--------");
-        listStudents(students);
-
-        /*
-            学号：1，年级：3，成绩：95
-            学号：9，年级：3，成绩：87
-         */
-        System.out.println("--------遍历3年级学生信息--------");
-        searchStudentsByGrade(students, 3);
-
-        /*
-            学号：1，年级：3，成绩：95
-            学号：3，年级：4，成绩：89
-            学号：10，年级：5，成绩：89
-            学号：9，年级：3，成绩：87
-            学号：6，年级：1，成绩：79
-            学号：4，年级：1，成绩：69
-            学号：5，年级：1，成绩：66
-            学号：2，年级：4，成绩：39
-            学号：7，年级：5，成绩：38
-            学号：8，年级：4，成绩：21
-         */
-        System.out.println("--------按学生成绩倒序排列--------");
-        sortStudentsByScore(students);
-        listStudents(students);
+        return students;
     }
 
     /**
      * 遍历Student数组中学生信息
      */
     public static void listStudents(Student[] students) {
+        /*
+            学号：1，年级：3，成绩：95
+            学号：2，年级：4，成绩：39
+            学号：3，年级：4，成绩：89
+            学号：4，年级：1，成绩：69
+            学号：5，年级：1，成绩：66
+            学号：6，年级：1，成绩：79
+            学号：7，年级：5，成绩：38
+            学号：8，年级：4，成绩：21
+            学号：9，年级：3，成绩：87
+            学号：10，年级：5，成绩：89
+         */
         for (int i = 0; i < students.length; i++) {
             System.out.println(students[i].getInfo());
         }
@@ -85,6 +79,10 @@ public class ObjectArrayDemo {
      * 根据grade查找学生信息
      */
     public static void searchStudentsByGrade(Student[] students, int gradeKey) {
+        /*
+            学号：1，年级：3，成绩：95
+            学号：9，年级：3，成绩：87
+         */
         for (int i = 0; i < students.length; i++) {
             Student student = students[i];
             if (gradeKey == student.grade) {
@@ -97,7 +95,18 @@ public class ObjectArrayDemo {
      * 根据学生的成绩倒序排序
      */
     public static void sortStudentsByScore(Student[] students) {
-        // 冒泡排序
+        /*
+            学号：1，年级：3，成绩：95
+            学号：3，年级：4，成绩：89
+            学号：10，年级：5，成绩：89
+            学号：9，年级：3，成绩：87
+            学号：6，年级：1，成绩：79
+            学号：4，年级：1，成绩：69
+            学号：5，年级：1，成绩：66
+            学号：2，年级：4，成绩：39
+            学号：7，年级：5，成绩：38
+            学号：8，年级：4，成绩：21
+         */
         for (int i = 0; i < students.length - 1; i++) {
             for (int j = 0; j < students.length - 1 - i; j++) {
                 // 根据学生的成绩从大到小排序

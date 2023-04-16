@@ -1,4 +1,4 @@
-package com.test.oop.day05;
+package com.test.oop.day05.method;
 
 /**
  * 方法的定义格式：

@@ -1,4 +1,4 @@
-package com.test.oop.day06;
+package com.test.oop.day06.keyword;
 
 /**
  * 类中的属性直接对外暴露，可能导致属性被赋值为非法值

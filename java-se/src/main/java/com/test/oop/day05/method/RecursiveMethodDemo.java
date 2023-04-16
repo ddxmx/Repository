@@ -1,4 +1,4 @@
-package com.test.oop.day05;
+package com.test.oop.day05.method;
 
 /**
  * 方法的递归调用：方法自己调用自己
@@ -10,6 +10,7 @@ package com.test.oop.day05;
 public class RecursiveMethodDemo {
     public static void main(String[] args) {
         System.out.println(sum(100)); // 5050
+        System.out.println(factorial(10)); // 3628800
         System.out.println(func(10)); // 10497
         System.out.println(fibonacciSequence(8)); // 21
         System.out.println(jump(30)); // 58425
@@ -31,17 +32,33 @@ public class RecursiveMethodDemo {
     }
 
     /**
+     * 计算 n的阶乘
+     *
+     * @param num
+     * @return
+     */
+    public static long factorial(int num) {
+        if (num == 1) {
+            return 1;
+        }
+
+        return num * factorial(num - 1);
+    }
+
+    /**
      * 已知 f(0)=1,f(1)=4, f(n+2)=2*f(n+1)+f(n)，n是大于等于0的正数，求 f(10)
      */
     public static int func(int num) {
         // f(n+2)=2*f(n+1)+f(n) -> f(n)=2*f(n-1)+f(n-2)
         if (num == 0) {
             return 1;
-        } else if (num == 1) {
-            return 4;
-        } else {
-            return 2 * func(num - 1) + func(num - 2);
         }
+
+        if (num == 1) {
+            return 4;
+        }
+
+        return 2 * func(num - 1) + func(num - 2);
     }
 
     /**

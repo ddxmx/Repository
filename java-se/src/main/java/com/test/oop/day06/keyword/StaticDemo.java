@@ -1,4 +1,4 @@
-package com.test.oop.day06;
+package com.test.oop.day06.keyword;
 
 /**
  * 属性：分为静态属性和非静态属性
@@ -14,11 +14,12 @@ class Chinese {
     private static int count = 0;
 
     public Chinese() {
-        // 使用static属性统计实例化个数
+        // 使用static属性统计实例化个数，每次实例化时进行累加计数
         count++;
     }
 
     public Chinese(String name, int age) {
+        // 调用无参构造方法
         this();
         this.name = name;
         this.age = age;

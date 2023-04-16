@@ -1,11 +1,11 @@
-package com.test.oop.day06;
+package com.test.oop.day06.keyword;
 
 import java.util.Objects;
 
 /**
  * this的使用
- * |- this表示当前对象（当前哪个对象在调用该属性或方法，哪个对象就是当前对象）
- * |- this.属性  明确的表示当前的属性是类中的属性，和方法的同名形参区分开来
+ * |- this表示当前对象（当前哪个对象在调用该方法，哪个对象就是当前对象）
+ * |- this.属性  明确的表示当前的属性是类中的属性，用于区分方法的同名形参
  * |- this.方法  明确的表示调用的是类中的方法
  * |- this() 表示调用类中的其他构造器
  * this调用类中其他构造器的语句，要放在构造器的首行，且不能形成递归调用
@@ -23,7 +23,7 @@ class Emp {
     public Emp(String name, int age) {
         // 调用类中无参构造器
         this();
-        // this.属性表示调用类中的属性，和构造器的参数区分
+        // this.属性表示调用类中的属性，和构造器的同名参数区分
         this.name = name;
         this.age = age;
     }
@@ -107,11 +107,11 @@ public class ThisDemo {
         Emp emp2 = new Emp("Tom", 22);
         emp2.printInfo();
 
-        // 实例化Emp对象
         Emp emp3 = new Emp("Tom", 22);
 
         System.out.println("emp equals emp ?：" + emp.equals(emp)); // emp equals emp ?：true
         System.out.println("emp equals emp2 ?：" + emp.equals(emp2)); // emp equals emp2 ?：false
         System.out.println("emp2 equals emp3 ?：" + emp2.equals(emp3)); // emp2 equals emp3 ?：true
+        System.out.println("emp2 == emp3 ?：" + (emp2 == emp3)); // emp2 == emp3 ?：false
     }
 }

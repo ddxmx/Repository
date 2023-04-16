@@ -1,4 +1,4 @@
-package com.test.oop.day07;
+package com.test.oop.day07.relation;
 
 class Animal {
     private String name;

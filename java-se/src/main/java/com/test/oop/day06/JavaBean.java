@@ -7,12 +7,12 @@ package com.test.oop.day06;
  * |- 属性使用private封装
  * |- 属性提供了setter和getter方法
  */
-public class CustomerBean {
+public class JavaBean {
     private String name;
     private int age;
 
     // 无参构造，通过反射进行对象实例化默认调用无参构造
-    public CustomerBean() {
+    public JavaBean() {
     }
 
     public String getName() {

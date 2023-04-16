@@ -1,11 +1,11 @@
-package com.test.oop.day05;
+package com.test.oop.day05.pass;
 
 /**
  * 参数的值传递机制
  * |-基本数据类型，传递的是数据的拷贝
  * |-引用数据类型，传递的是内存地址的拷贝
  */
-public class BasicAssignDemo {
+public class BasicPassDemo {
     public static void main(String[] args) {
         int m = 10;
         int n = 20;

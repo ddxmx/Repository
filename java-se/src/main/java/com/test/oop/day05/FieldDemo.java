@@ -15,15 +15,16 @@ class User {
         2、引用数据类型的默认值
             null
      */
-    String name; // 引用类型默认值：null
-    int age; // int类型默认值：0
-    boolean isMale; // boolean类型默认值false
+    String name;
+    int age;
+    boolean isMale;
 
     public void talk(String lang) { // 形参，局部变量
         // 方法中定义的变量也是局部变量
         String secondLang = "english";
         System.out.println("first language：" + lang);
         System.out.println("second language：" + secondLang);
+        
         String thirdLang;
         // 编译报错，局部变量没有默认值，使用前必须赋值
         // System.out.println(thirdLang);

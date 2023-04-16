@@ -1,4 +1,4 @@
-package com.test.oop.day05;
+package com.test.oop.day05.method;
 
 /**
  * 方法重载：方法名称相同，参数的类型或个数不同
@@ -13,7 +13,7 @@ public class OverloadMethodDemo {
         System.out.println(add(10.1, 20.3)); // 30.4
         System.out.println(add(10, 20, 30)); // 60
 
-        // 此时实际调用的是 public double add(double x, double y)
+        // float类型参数，此时实际调用的是 public double add(double x, double y)
         // 参数进行了自动类型提升，匹配时先进行参数的精确匹配，无法精确匹配时，再根据自动类型提升后的结果进行匹配
         System.out.println(add(100.1f,30.2f)); // 130.29999923706055
     }
