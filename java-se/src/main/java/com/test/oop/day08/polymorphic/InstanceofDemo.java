@@ -1,4 +1,4 @@
-package com.test.oop.day08;
+package com.test.oop.day08.polymorphic;
 
 interface A {
     public void testA();
@@ -25,16 +25,22 @@ class C implements A, B {
 }
 
 /**
- * 多态面试题
- * 向下转型是否成功，取决于实例类型是否是声明类型的子类
+ * 向下转型
+ * 使用instanceof进行安全转型的判断
+ * a instanceof A：对象a是否是类A的实例
  */
-public class PolymorphicTest {
+public class InstanceofDemo {
     public static void main(String[] args) {
         // b实际上指向的实例是C类型
         B b = new C();
-        // A和B接口实际上没有任何关系，但是因为类C同时是A和B类型的实现类，因此可以直接向下转型
+
+        // A和B接口实际上没有任何关系，但是因为类C同时是A和B类型的实现类，因此可以直接转型
         A a = (A) b;
+
         a.testA(); // C.testA
+        // 编译失败，可以调用的方法由声明类型决定
+        // a.testB();
+
         System.out.println(a instanceof A); // true
         System.out.println(a instanceof B); // true
         System.out.println(a instanceof C); // true

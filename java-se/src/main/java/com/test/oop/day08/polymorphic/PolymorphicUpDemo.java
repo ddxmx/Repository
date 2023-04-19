@@ -1,4 +1,4 @@
-package com.test.oop.day08;
+package com.test.oop.day08.polymorphic;
 
 class Animal {
     int age = 5;
@@ -43,9 +43,9 @@ class Cat extends Animal {
  * 总结：编译看左边，运行看右边
  * 子类继承父类，父类的引用指向子类的实例，调用父类方法时，实际调用的是被子类覆写的方法
  * 重载是编译时多态，覆写时运行时多态。重载也称为静态绑定，覆写称为动态绑定
- * 变量不存在覆写的概念，private方法、static方法也不能被覆写
+ * 变量不存在覆写的概念，private方法、static方法、final方法也不能被覆写
  */
-public class PolymorphicDemo {
+public class PolymorphicUpDemo {
     public static void main(String[] args) {
         Animal animal = new Animal();
         animal.shout(); // Animal.shout
@@ -53,9 +53,8 @@ public class PolymorphicDemo {
         Dog dog = new Dog();
         dog.shout(); // Dog.shout
 
-        System.out.println("***********************************");
         // 向上转型
-        Animal animal2 = new Dog();
+        Animal animal2 = dog;
         animal2.shout(); // Dog.shout
         // 父子类中同名属性取决于声明类型
         System.out.println(animal2.age); // 5
@@ -66,7 +65,7 @@ public class PolymorphicDemo {
         // 调用被子类覆写的方法，就近原则，直接找到子类中的age属性
         animal3.printAge(); // Cat age：12
 
-        System.out.println("***********************************");
+        // 向上转型统一了方法的参数
         doShout(new Dog()); // Dog.shout
         doShout(new Cat()); // Cat.shout
     }

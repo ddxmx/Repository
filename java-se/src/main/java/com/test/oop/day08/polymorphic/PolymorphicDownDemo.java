@@ -1,4 +1,4 @@
-package com.test.oop.day08;
+package com.test.oop.day08.polymorphic;
 
 class User {
     public void sleep() {
@@ -38,18 +38,14 @@ class Producer extends User {
     }
 }
 
-/**
- * 向下转型
- * 使用instanceof进行安全转型的判断
- * a instanceof A：对象a是否是类A的实例
- */
-public class InstanceofDemo {
+public class PolymorphicDownDemo {
     public static void main(String[] args) {
+        System.out.println("********************向上转型，可以调用的方法取决于声明类型********************");
         // 向上转型
         User user1 = new Consumer();
         user1.sleep(); // Consumer.sleep
         user1.eat(); // Consumer.eat
-        // 编译失败，user1是User类型，其中没有定义consume方法，方法是否可以被调用取决于声明类型
+        // 编译错误，user1是User类型，其中没有定义consume方法，方法是否可以被调用取决于声明类型
         // user1.consume();
 
         // 向下转型，向下转型之前必须要先进行向上转型，否则会出现ClassCastException异常
@@ -57,7 +53,7 @@ public class InstanceofDemo {
         // Consumer类中定义了consume方法，因此可以正常调用
         consumer.consume(); // Consumer.consume
 
-        System.out.println("****************************************");
+        System.out.println("*******************向下转型，使用instanceof判断对象是否是类的实例*********************");
         // 向上转型
         User user2 = new Producer();
         // 编译成功，运行失败，java.lang.ClassCastException: Producer cannot be cast to Consumer
@@ -75,19 +71,19 @@ public class InstanceofDemo {
         System.out.println(user2 instanceof Consumer); // false
         System.out.println(user2 instanceof Producer); // true
 
-        System.out.println("****************************************");
+        System.out.println("*******************实例类型和声明类型存在父子关系才允许转型*********************");
         Object obj = new Consumer();
         // 编译运行都通过
         User user3 = (User) obj;
 
         // 编译通过，运行不通过
-        // Consumer consumer3 = (Consumer) new User();
+        // Consumer consumer4 = (Consumer) new User();
 
         // 编译不通过，Producer类型和Consumer类型之间没有父子关系，不能强转
-        // Consumer consumer4 = (Consumer) new Producer();
+        // Consumer consumer5 = (Consumer) new Producer();
 
-        Object obj5 = new Consumer();
+        Object obj6 = new Consumer();
         // 编译通过，运行不通过，Producer类型和Consumer类型之间没有父子关系，不能强转
-        // Producer producer = (Producer) obj5;
+        // Producer producer = (Producer) obj6;
     }
 }
