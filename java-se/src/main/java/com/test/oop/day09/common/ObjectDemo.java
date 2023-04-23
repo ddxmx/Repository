@@ -1,4 +1,4 @@
-package com.test.oop.day09;
+package com.test.oop.day09.common;
 
 import java.util.Objects;
 
@@ -63,7 +63,7 @@ class User {
 }
 
 /**
- * Object类是所有类的根父类
+ * Object类是所有类的顶层父类
  * 如果一个类没有显式使用extends继承其他类，则默认继承java.lang.Object类
  * Object类可以接收所有的引用数据类型，包括数组和接口
  */

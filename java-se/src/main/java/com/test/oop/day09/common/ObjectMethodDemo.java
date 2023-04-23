@@ -1,4 +1,4 @@
-package com.test.oop.day09;
+package com.test.oop.day09.common;
 
 import java.util.Objects;
 
@@ -34,23 +34,15 @@ class Customer implements Cloneable {
     }
 
     /**
-     * 覆写clone方法的类必须要实现java.lang.Cloneable接口，该接口中无任何抽象方法，只是表示一种能力
-     * 为什么Object类中的clone()方法是使用protected修饰，而不是使用public修饰？
-     * |- Object类中的clone方法是一个浅拷贝的实现，无法实现深拷贝（属性是引用数据类型则再次clone）
-     * |- 业务如果想使用clone方法，必须在子类覆写该方法
+     * protected native Object clone() throws CloneNotSupportedException;
+     * （1）覆写clone方法的类必须要实现java.lang.Cloneable接口，该接口中无任何抽象方法，只是表示一种能力
+     * （2）为什么Object类中的clone()方法是使用protected修饰，而不是使用public修饰？
+     * |- Object类中的clone方法是一个浅拷贝的实现，无法实现深拷贝
+     * |- 业务如果想使用clone方法，必须在子类覆写该方法，明确拷贝的方式
      */
     @Override
     public Customer clone() throws CloneNotSupportedException {
         return (Customer) super.clone();
-    }
-
-    /**
-     * 对象回收时会自动调用该方法
-     * 永远不要手动去覆写该方法
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        System.out.println("Customer.finalize");
     }
 
     @Override
@@ -70,14 +62,12 @@ public class ObjectMethodDemo {
         System.out.println(c1 == c2); // false
         // 需要覆写equals方法
         System.out.println(c1.equals(c2)); // true
+        // 由于是浅拷贝，所以对象中的属性还是使用的同一个
+        System.out.println(c1.getName() == c2.getName()); // true
 
-        c1.setAge(10);
-        System.out.println(c1.getAge()); // 10
-        System.out.println(c2.getAge()); // 12
-
-        // 对象没有指向堆内存空间，成为垃圾
-        c2 = null;
-        // 使用Runtime类或System类的gc()方法建议GC进行垃圾回收，但是不一定会进行回收，程序无法精确控制垃圾回收的时机
-        System.gc(); // Customer.finalize
+        c1.setName("Jack");
+        System.out.println(c1.getName()); // Jack
+        // String的不可变特性，c1的name属性修改指向，指向其他的堆内存地址
+        System.out.println(c2.getName()); // Tom
     }
 }

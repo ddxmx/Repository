@@ -1,6 +1,6 @@
-package com.test.oop.day09;
+package com.test.oop.day09.pack;
 
-import com.test.oop.day09.subpackage.SubClass;
+import com.test.oop.day09.pack.subpackage.SubClass;
 
 import java.util.Date;
 
@@ -24,28 +24,27 @@ public class PackageImportDemo {
 
         // 如果没有导入包名，则需要使用"包.类名称"的形式
         int[] array = new int[]{1, 2, 3};
-        String str = java.util.Arrays.toString(array);
+        System.out.println(java.util.Arrays.toString(array)); // [1, 2, 3]
 
         // java.lang包默认自动导入，使用时无需手动导入包
         String str2 = "hello";
 
         // 当前包下的类，使用时也无需手动导入
-        User user = new User();
+        PackageClass packageClass = new PackageClass();
 
         // 当前包下的子包的类，使用时需要手动导入
         SubClass subClass = new SubClass();
 
         // 如果一个类中需要使用不同包中的同名类，需要使用完整的"包.类名称"
+        // 和已导入的java.util.Date类同名
         java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
-        System.out.println(sqlDate); // 2021-01-24
-        System.out.println(date); // Sun Jan 24 01:18:53 CST 2021
 
         /*
             静态导入，import static语句写到属性或方法一层（实际开发中并不推荐使用，不利于阅读）
             静态导入类中的所有方法和属性：import static java.lang.Math.*;
             静态导入类中指定的方法或属性：import static java.lang.Math.属性名或方法名;
          */
-        System.out.println(PI);
-        System.out.println(random());
+        System.out.println(PI); // 3.141592653589793
+        System.out.println(random()); // 0.3514306449816549
     }
 }

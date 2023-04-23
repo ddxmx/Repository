@@ -2,7 +2,7 @@ package com.test.oop.day09;
 
 /**
  * 命令行参数使用args数组接收
- * 命令行参数中存在空格，输入参数时使用双引号，如java MainDemo "hello world" hello test
+ * 命令行参数中存在空格，参数时使用双引号，如 java MainDemo "hello world" hello test
  */
 public class MainDemo {
     public static void main(String[] args) {
