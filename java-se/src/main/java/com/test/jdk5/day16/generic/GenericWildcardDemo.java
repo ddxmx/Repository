@@ -14,14 +14,14 @@ public class GenericWildcardDemo {
         ArrayList<Object> list1 = null;
         ArrayList<String> list2 = new ArrayList<>(Arrays.asList("hello"));
 
-        // 编译失败，ArrayList<Object>和ArrayList<String>类型不兼容
+        // 编译错误，ArrayList<Object>和ArrayList<String>类型不兼容
         // list1 = list2;
 
         // 泛型通配符？就是为了解决以上的问题
         ArrayList<?> list3 = list2;
         List<?> list4 = list2;
 
-        // 因为?是一种类型实参，String类型和?类型并不匹配，导致编译失败
+        // 因为?是一种类型实参，String类型和?类型并不匹配，导致编译错误
         // list3.add("world");
 
         // 只允许加入null

@@ -40,6 +40,6 @@ public class VarArgsDemo {
     // 编译错误，可变参数要放在参数列表的末尾
     // public void test(int... args, String str) {}
 
-    // 编译失败，可变参数要放在参数列表的末尾，因此方法参数列表中最多只能有一个可变参数
+    // 编译错误，可变参数要放在参数列表的末尾，因此方法参数列表中最多只能有一个可变参数
     // public void test(int... args, String... strs) {}
 }

@@ -33,7 +33,7 @@ public class GenericDemo {
             list.add(87);
             list.add(99);
             list.add(65);
-            // 编译失败，元素必须是Integer类型才可以添加
+            // 编译错误，元素必须是Integer类型才可以添加
             // list.add("Tom");
 
             // 遍历方式一：

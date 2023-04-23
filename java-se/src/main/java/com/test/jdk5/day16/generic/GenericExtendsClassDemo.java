@@ -32,7 +32,7 @@ public class GenericExtendsClassDemo {
         Double info2 = note2.getInfo();
         System.out.println(info2); // 123.45
 
-        // 编译失败，String不是Number类的子类
+        // 编译错误，String不是Number类的子类
         // Note<String> note = new Note<>("hello");
     }
 }

@@ -23,7 +23,7 @@ public class GenericMethodDemo {
     public static void main(String[] args) {
         show("hello");
 
-        // 不支持泛型数组，编译失败
+        // 不支持泛型数组，编译错误
         // List<String>[] list1 = new ArrayList<String>[10];
 
         /*
