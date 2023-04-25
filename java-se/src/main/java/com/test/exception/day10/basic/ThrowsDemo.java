@@ -1,4 +1,4 @@
-package com.test.exception.day11;
+package com.test.exception.day10.basic;
 
 /**
  * throws的使用场景：当前方法中无法处理异常或不知道如何处理异常，需要返回给调用者处理
@@ -7,7 +7,7 @@ package com.test.exception.day11;
  */
 public class ThrowsDemo {
     public static void main(String[] args) {
-        // 调用的方法存在异常，调用者需要处理，使用try-catch或继续抛出
+        // 调用的方法存在异常，调用者需要处理，使用try-catch捕获异常或直接抛出
         try {
             parseValue("abc");
         } catch (NumberFormatException e) {

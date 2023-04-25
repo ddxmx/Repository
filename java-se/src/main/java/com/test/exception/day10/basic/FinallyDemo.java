@@ -1,13 +1,13 @@
-package com.test.exception.day11;
+package com.test.exception.day10.basic;
 
 /**
- * 如下场景finally中的代码一定会被执行
+ * 1、如下场景，finally中的代码一定会被执行
  * |- catch未匹配try中抛出的异常
  * |- catch中抛出了异常
  * |- try-catch结构存在return语句
- * 使用finally和不使用finally的区别：
+ * 2、使用finally和不使用finally的区别：
  * 当程序抛出的异常未被处理时，finally中的语句会被执行，而try-catch-finally结构之后的语句不会被执行
- * 语句要保证在出现异常后也能够被执行，需要写在finally结构中
+ * 3、语句要保证在出现异常后也能够被执行，需要写在finally结构中
  */
 public class FinallyDemo {
     public static void main(String[] args) {

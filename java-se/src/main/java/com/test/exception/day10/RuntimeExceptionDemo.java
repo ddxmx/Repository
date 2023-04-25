@@ -1,11 +1,13 @@
-package com.test.exception.day11;
+package com.test.exception.day10;
+
+import java.util.Date;
 
 /**
  * java异常的顶级父类为Throwable
  * |- Error：java虚拟机的严重错误，发生后程序中无法处理
  * |- Exception：程序中需要处理的异常
- * --|- 编译时异常（受检异常，强制需要处理，否则编译不通过）：IOException、SQLException
- * --|- 运行时异常（非受检异常，RuntimeException）：NullPointerException、ArrayIndexOutOfBoundsException、
+ * --| 编译时异常（受检异常，强制需要处理，否则编译不通过）：IOException、SQLException、ClassNotFoundException
+ * --| 运行时异常（非受检异常，RuntimeException）：NullPointerException、ArrayIndexOutOfBoundsException、
  *      ClassCastException、NumberFormatException、ArithmeticException、InterruptedException
  * 不强制处理，但是一旦发生异常，且未使用try-catch处理，也会导致中断程序
  * 所以程序中对于受检异常和非受检异常都需要进行异常处理
@@ -28,5 +30,12 @@ public class RuntimeExceptionDemo {
 
         // java.lang.ArithmeticException: / by zero
         System.out.println(10 / 0);
+
+        // 受检异常，必须处理
+        try {
+            Class.forName(Date.class.getName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

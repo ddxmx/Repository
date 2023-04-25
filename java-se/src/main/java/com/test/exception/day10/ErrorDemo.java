@@ -1,4 +1,4 @@
-package com.test.exception.day11;
+package com.test.exception.day10;
 
 /**
  * Error异常分为栈异常和堆异常

@@ -1,21 +1,22 @@
-package com.test.exception.day11;
+package com.test.exception.day10.basic;
 
 /**
  * 1、异常处理过程
  * 程序在正常执行过程中，一旦出现异常，就会在异常代码处生成一个异常对象并抛出
  * 一旦抛出异常，且未处理，其后的代码不再继续执行
- * 抛出异常的方法，如果没有在调用处处理，则继续向上抛出，直到main方法
+ * 抛出的异常，如果没有在调用处处理，则继续向上抛出，直到main方法
  * main方法中如还未处理，则JVM进行默认的异常处理：终止程序运行，打印异常信息
  * 2、异常处理结构
  * （1）try-catch-finally，可以嵌套
  * try{
  *      可能存在异常的代码
- * }catch(异常类型1 变量名){
+ * }catch(匹配的异常类型1 变量名){
  *      异常处理方式1
  * }
- * catch(异常类型2 变量名){
+ * catch(匹配的异常类型2 变量名){
  *      异常处理方式2
  * }
+ * ...
  * finally{     // 可选的结构
  *      无论是否出现异常都会执行的代码
  * }
@@ -43,7 +44,7 @@ public class TryCatchDemo {
             int result = num1 / num2;
             System.out.println("计算结果：" + result);
         }
-        // 匹配上一个catch条件后，就不再匹配其他catch条件
+        // 匹配一个catch条件后，就不再匹配其他catch条件
         catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("传入的参数不足：" + e);
         } catch (NumberFormatException e) {

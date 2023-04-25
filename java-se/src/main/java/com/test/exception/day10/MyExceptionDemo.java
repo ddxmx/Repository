@@ -1,4 +1,6 @@
-package com.test.exception.day11;
+package com.test.exception.day10;
+
+import java.util.Random;
 
 /**
  * 自定义异常只需要继承Exception类或RuntimeException类
@@ -12,22 +14,18 @@ class MyException extends RuntimeException {
 
 public class MyExceptionDemo {
     public static void main(String[] args) {
-        int age = -10;
-
         /*
-            com.test.exception.day11.MyException: age is invalid
-                at com.test.exception.day11.MyExceptionDemo.main(MyExceptionDemo.java:25)
-            hello world
+            com.test.exception.day10.MyException: not pass
+                at com.test.exception.day10.MyExceptionDemo.main(MyExceptionDemo.java:25)
          */
         try {
-            if (age <= 0) {
-                throw new MyException("age is invalid");
+            Random random = new Random();
+            if (random.nextInt(101) < 60) {
+                throw new MyException("not pass");
             }
-            System.out.println("年龄：" + age);
-        } catch (Exception e) {
+            System.out.println("pass");
+        } catch (MyException e) {
             e.printStackTrace();
         }
-
-        System.out.println("hello world");
     }
 }
