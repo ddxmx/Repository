@@ -26,6 +26,9 @@ class Outer {
         // 内部类中和外部类重名的private属性
         private int value = 20;
 
+        // 编译失败，非静态内部类不能定义静态成员
+        // private static String info = "hello";
+
         /**
          * 内部类方法
          * 定义为private，用于演示外部类可以方便调用内部类的private方法
