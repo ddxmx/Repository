@@ -19,19 +19,20 @@ public class HelloWorld {
             运行结果：
             Hello World!Hello Java!
 
-            Hello China!
             name is Jerry,age is 24,salary is   8000.5
             name is Jerry,age is 24,salary is   8000.5
          */
         System.out.print("Hello World!");
         System.out.println("Hello Java!");
         System.out.println(); // 输出空行
-        System.out.println("Hello China!");
+        String formatStr = "name is %s,age is %d,salary is %8.1f\n";
         // %s表示字符串格式化，%d表示整数格式化，%f表示小数格式化，%8.1f表示8位长度，小数占1位，不足左边补空格
-        System.out.printf("name is %s,age is %d,salary is %8.1f", "Jerry", 24, 8000.45);
-        System.out.println();
+        System.out.printf(formatStr, "Jerry", 24, 8000.45);
         // String.format和printf格式化后的结果一致
-        System.out.println(String.format("name is %s,age is %d,salary is %8.1f", "Jerry", 24, 8000.45));
+        System.out.println(String.format(formatStr, "Jerry", 24, 8000.45));
+
+        // 不存在主方法的类，可以被其他类调用
+        new A();
     }
 }
 
@@ -47,3 +48,7 @@ class A {
 
 class B {
 }
+
+// Class 'C' is public, should be declared in a file named 'C.java'
+// public class C {
+// }
