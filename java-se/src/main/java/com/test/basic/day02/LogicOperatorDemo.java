@@ -22,6 +22,7 @@ public class LogicOperatorDemo {
         // 取反
         System.out.println(!a); // false
 
+        // &和&&，|和||的差异
         int num1 = 10;
         int num2 = 20;
         // |操作，所有条件都进行判断
