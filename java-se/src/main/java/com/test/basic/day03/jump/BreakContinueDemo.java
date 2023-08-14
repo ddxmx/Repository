@@ -1,16 +1,16 @@
 package com.test.basic.day03.jump;
 
 /**
- * break场景
- * 1、switch语句：用于结束switch语句
- * 2、循环：用于终止当前所在层的循环，跳出循环
- * continue场景
- * 1、循环：用于结束本轮当前所在层的循环，继续下一轮循环
- * <p>
- * break或continue范围后不能有语句，语句无法被执行到
+ * 1、break场景
+ * （1）switch语句：用于结束switch语句
+ * （2）循环：用于终止当前所在层的循环，跳出循环
+ * 2、continue场景
+ * （1）循环：用于结束本轮当前所在层的循环，继续下一轮循环
+ * 3、break或continue范围后不能有语句，语句无法被执行到
  */
 public class BreakContinueDemo {
     public static void main(String[] args) {
+        System.out.println("=====================break====================");
         for (int i = 0; i < 10; i++) {
             if (i == 3) {
                 break;
@@ -21,6 +21,7 @@ public class BreakContinueDemo {
         }
         System.out.println();
 
+        System.out.println("=====================continue====================");
         for (int i = 0; i < 10; i++) {
             // 只结束本轮一次循环
             if (i == 3) {
@@ -30,10 +31,12 @@ public class BreakContinueDemo {
         }
         System.out.println();
 
+        System.out.println("=====================break、continue与循环控制变量====================");
         // while循环中使用break、continue，修改循环控制变量要写在break、continue之前
         int j = 0;
         while (j < 10) {
             if (j == 3) {
+                // break或continue之前需要修改循环控制变量，防止死循环
                 j++;
                 continue;
             }
@@ -42,7 +45,7 @@ public class BreakContinueDemo {
         }
         System.out.println();
 
-        // 获取2个数的最大公约数、最小公倍数
+        // 获取两个数的最大公约数、最小公倍数
         int a = 12;
         int b = 20;
         // 最大公约数不会超过2个数中较小的数

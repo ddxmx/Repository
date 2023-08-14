@@ -1,7 +1,7 @@
 package com.test.basic.day03.loop;
 
 /**
- * 嵌套循环
+ * 嵌套循环（99乘法表）
  * 外层循环控制行数，内层循环控制列数
  */
 public class NestedLoopDemo {

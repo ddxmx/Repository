@@ -5,7 +5,7 @@ package com.test.basic.day03.choose;
  * switch支持的表达式类型如下：
  * |- byte short int char
  * |- enum (1.5支持)
- * |- String (1.7支持)
+ * |- String (7支持)
  * |- 因为跳转表存储空间为32位，因此指令只支持int类型数据，不支持long类型数据
  * switch语句都可以使用if-else改写
  * case后必须跟常量，不能使用变量
@@ -15,9 +15,10 @@ package com.test.basic.day03.choose;
  */
 public class SwitchDemo {
     public static void main(String[] args) {
+        // final修改的变量为常量
         final char aChar = 'a';
-        char value = 'b';
-        switch (value) {
+        char var = 'b';
+        switch (var) {
             // case后的常量必须不同
             case aChar:
                 System.out.println("字符为a");
@@ -28,7 +29,7 @@ public class SwitchDemo {
             case 'c':
                 System.out.println("字符为c");
                 break;
-            // 可选的default语句
+            // 可选的default语句，所有的case条件都不满足时执行default
             default:
                 System.out.println("字符不是a、b、c中的任何一个");
                 break;
@@ -46,7 +47,7 @@ public class SwitchDemo {
             case "周一":
             case "周二":
             case "周三":
-                // case语句没有break,则继续向下执行，但不再判断case条件，直到遇到break或switch语句执行结束
+            // case语句没有break，则继续向下执行，但不再判断case条件，直到遇到break或switch语句执行结束
             case "周四":
             case "周五":
                 System.out.println("工作日");
@@ -59,7 +60,7 @@ public class SwitchDemo {
 
         Color color = Color.BLUE;
         switch (color) {
-            // 枚举case标签必须为枚举常量的非限定名称，其实就是不能加类名
+            // 枚举case标签必须为枚举常量的非限定名称，不能加类名
             case RED:
                 System.out.println("红色");
                 break;

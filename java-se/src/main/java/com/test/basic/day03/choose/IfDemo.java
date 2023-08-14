@@ -2,9 +2,9 @@ package com.test.basic.day03.choose;
 
 /**
  * 选择结构，只会执行其中一个分支
- * |- if(条件表达式){语句}
- * |- if(条件表达式){语句1} else{语句2}
- * |- if(条件表达式1){语句1} else if(条件表达式2){语句2} ... else{语句n}
+ * (1) if(条件表达式){语句}
+ * (2) if(条件表达式){语句1} else{语句2}
+ * (3) if(条件表达式1){语句1} else if(条件表达式2){语句2} ... else{语句n}
  * 每一个else都隐含了之前的条件不满足
  */
 public class IfDemo {
