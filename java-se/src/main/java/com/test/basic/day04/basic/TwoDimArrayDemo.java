@@ -30,25 +30,22 @@ public class TwoDimArrayDemo {
         }
 
         // 动态初始化，方式二，每个元素长度可以不同
-        // 二维数组不开辟内层元素空间
-        // 等价于int[][] arr3 = {null, null};
+        // 二维数组不开辟内层元素空间，等价于int[][] arr3 = {null, null};
         int[][] arr3 = new int[2][];
-        // 内层元素没有实例化，NullPointerException
+
+        // 编译通过，运行异常，内层元素没有实例化，NullPointerException
         // System.out.println(arr3[1][1]);
-        arr3[0] = new int[2];
-        arr3[1] = new int[]{11, 22, 33};
+
         /*
             0		0
             11		22		33
          */
-        for (int i = 0; i < arr3.length; i++) {
-            for (int j = 0; j < arr3[i].length; j++) {
-                System.out.print(arr3[i][j] + "\t");
-            }
-            System.out.println();
-        }
+        // 内层元素的实例化
+        arr3[0] = new int[2];
+        arr3[1] = new int[]{11, 22, 33};
 
-        // 面试题
+
+        // 二维数组的内存结构
         /*
             0 0 0
             0 0 0

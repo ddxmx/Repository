@@ -1,4 +1,4 @@
-package com.test.basic.day04;
+package com.test.basic.day04.operator;
 
 import java.util.Arrays;
 
@@ -32,7 +32,6 @@ public class ArrayReverseDemo {
                 arr2[j][i] = temp;
             }
         }
-
         // 遍历二维数组
         for (int i = 0; i < arr2.length; i++) {
             for (int j = 0; j < arr2[i].length; j++) {

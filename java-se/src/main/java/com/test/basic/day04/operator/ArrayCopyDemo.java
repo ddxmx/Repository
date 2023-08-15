@@ -1,4 +1,4 @@
-package com.test.basic.day04;
+package com.test.basic.day04.operator;
 
 import java.util.Arrays;
 
@@ -41,8 +41,11 @@ public class ArrayCopyDemo {
         System.out.println(Arrays.toString(dest3)); // [4, 5]
 
         // 拷贝目标位置超过了原数组的索引，超出的元素设置为目标数组元素类型的默认值
-        // 拷贝起始位置超过索引将抛出java.lang.ArrayIndexOutOfBoundsException
         int[] dest4 = Arrays.copyOfRange(a, 3, 7);
         System.out.println(Arrays.toString(dest4)); // [4, 5, 0, 0]
+
+        // 编译通过，运行异常
+        // 拷贝起始位置超过索引将抛出java.lang.ArrayIndexOutOfBoundsException
+        int[] dest5 = Arrays.copyOfRange(a, 7, 10);
     }
 }

@@ -1,4 +1,4 @@
-package com.test.basic.day04;
+package com.test.basic.day04.operator;
 
 import java.util.Arrays;
 
@@ -13,7 +13,7 @@ public class ArraySearchDemo {
         // 查找索引结果，未查找到返回-1
         int index = -1;
 
-        // 线性查找，从头开始依次查找
+        // 方式一：线性查找，从头开始依次查找
         for (int i = 0; i < array.length; i++) {
             if (key == array[i]) {
                 index = i;
@@ -23,7 +23,7 @@ public class ArraySearchDemo {
         System.out.println(index); // 5
 
         /*
-         * 二分法查找，前提：数组已经正序排序
+         * 方式二：二分法查找（前提是数组已经正序排序）
          */
         // 数组排序
         Arrays.sort(array);

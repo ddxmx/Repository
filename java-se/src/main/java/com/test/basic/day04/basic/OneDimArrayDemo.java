@@ -36,6 +36,7 @@ public class OneDimArrayDemo {
         }
         System.out.println();
 
+        // 数组的内存结构
         int[] arr4 = new int[]{1, 2, 3};
         // 修改堆内存空间的值
         arr4[1] = 20;

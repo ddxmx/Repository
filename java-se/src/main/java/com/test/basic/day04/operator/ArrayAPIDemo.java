@@ -1,4 +1,4 @@
-package com.test.basic.day04;
+package com.test.basic.day04.operator;
 
 import java.util.Arrays;
 
@@ -23,7 +23,7 @@ public class ArrayAPIDemo {
         Arrays.fill(c, 10);
         System.out.println(Arrays.toString(c)); // [10, 10, 10]
 
-        // 数组排序，public static void sort(int[] a)
+        // 数组排序，public static void sort(int[] a)，直接对原数组进行修改
         int[] arr = new int[]{11, 23, 7, 9, 42, 65, 34, 96, 68};
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr)); // [7, 9, 11, 23, 34, 42, 65, 68, 96]
