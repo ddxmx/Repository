@@ -10,22 +10,37 @@ class MyException extends RuntimeException {
     public MyException(String message) {
         super(message);
     }
+
+    public MyException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
 
 public class MyExceptionDemo {
     public static void main(String[] args) {
-        /*
-            com.test.exception.day10.MyException: not pass
-                at com.test.exception.day10.MyExceptionDemo.main(MyExceptionDemo.java:25)
-         */
+        Random random = new Random();
+        int value = random.nextInt(3);
+
         try {
-            Random random = new Random();
-            if (random.nextInt(101) < 60) {
-                throw new MyException("not pass");
+            if (value == 0) {
+                throw new ArithmeticException("value is zero");
+            } else if (value == 2) {
+                throw new ArrayIndexOutOfBoundsException("array index out of bounds");
             }
-            System.out.println("pass");
-        } catch (MyException e) {
-            e.printStackTrace();
+        } catch (ArithmeticException e) { // 捕获普通异常，抛出业务异常
+            /*
+                Exception in thread "main" com.test.exception.day10.MyException: 参数错误：0
+	                at com.test.exception.day10.MyExceptionDemo.main(MyExceptionDemo.java:35)
+             */
+            throw new MyException("参数错误：0");
+        } catch (ArrayIndexOutOfBoundsException e) { // 捕获普通异常，抛出业务异常
+            /*
+                Exception in thread "main" com.test.exception.day10.MyException: 数组索引超过长度：2
+                    at com.test.exception.day10.MyExceptionDemo.main(MyExceptionDemo.java:43)
+                Caused by: java.lang.ArrayIndexOutOfBoundsException: array index out of bounds
+                    at com.test.exception.day10.MyExceptionDemo.main(MyExceptionDemo.java:28)
+             */
+            throw new MyException("数组索引超过长度：2", e);
         }
     }
 }
