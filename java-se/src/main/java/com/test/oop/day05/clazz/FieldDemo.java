@@ -1,9 +1,9 @@
-package com.test.oop.day05;
+package com.test.oop.day05.clazz;
 
 /**
  * 成员变量和局部变量
- * 成员变量直接定义在类中，可以使用访问权限修饰符（public > protected > 缺省的 > private），具有默认初始化值，保存在堆内存中
- * 局部变量定义在普通方法、构造方法和代码块内，普通方法和构造方法参数上，不能使用访问权限修饰符，没有默认初始化值，保存在栈内存中
+ * （1）成员变量直接定义在类中，可以使用访问权限修饰符（public > protected > 缺省的 > private），具有默认初始化值，保存在堆内存中
+ * （2）局部变量定义在普通方法、构造方法和代码块内，普通方法和构造方法参数上，不能使用访问权限修饰符，没有默认初始化值，保存在栈内存中
  */
 class User {
     /*
@@ -19,14 +19,14 @@ class User {
     int age;
     boolean isMale;
 
-    public void talk(String lang) { // 形参，局部变量
+    public void speak(String lang) { // 形参，局部变量
         // 方法中定义的变量也是局部变量
         String secondLang = "english";
         System.out.println("first language：" + lang);
         System.out.println("second language：" + secondLang);
-        
+
         String thirdLang;
-        // 编译报错，局部变量没有默认值，使用前必须赋值
+        // 编译报错，局部变量使用前必须赋值
         // System.out.println(thirdLang);
     }
 }
@@ -41,6 +41,6 @@ public class FieldDemo {
             first language：中文
             second language：english
          */
-        user.talk("中文");
+        user.speak("中文");
     }
 }

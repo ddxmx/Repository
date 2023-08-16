@@ -1,4 +1,4 @@
-package com.test.oop.day05.pass;
+package com.test.oop.day05.assign;
 
 class Data {
     int m = 10;
@@ -8,7 +8,7 @@ class Data {
 /**
  * 引用数据类型的值传递
  */
-public class RefPassDemo {
+public class AssignRefDemo {
     public static void main(String[] args) {
         Data data = new Data();
         System.out.println("m=" + data.m + ",n=" + data.n); // m=10,n=20

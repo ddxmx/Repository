@@ -27,14 +27,10 @@ public class ObjectArrayDemo {
 
         System.out.println("--------按学生成绩倒序排列--------");
         sortStudentsByScore(students);
-        listStudents(students);
     }
 
     /**
      * 随机生成学生信息
-     *
-     * @param size
-     * @return
      */
     public static Student[] genStudents(int size) {
         Student[] students = new Student[size];
@@ -118,6 +114,8 @@ public class ObjectArrayDemo {
                 }
             }
         }
+
+        listStudents(students);
     }
 
 }
