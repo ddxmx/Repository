@@ -1,4 +1,4 @@
-package com.test.basic.day04.apache;
+package com.test.basic.day04.util;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -10,7 +10,7 @@ import java.util.Map;
  * （1）对数据操作可能遇到的空指针异常进行了处理
  * （2）方法返回值返回了数组对象（新创建的对象，和传入的数组不是同一个对象），便于代码使用链式结构
  */
-public class ApacheArrayUtilsArray {
+public class ApacheArrayUtilsConvert {
     public static void main(String[] args) {
         int[] example = new int[]{1, 2, 3};
         int[] emptyArray = ArrayUtils.EMPTY_INT_ARRAY;
