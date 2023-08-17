@@ -1,19 +1,21 @@
-package com.test.oop.day06.constructor;
+package com.test.oop.day06.initialize;
 
 /**
- * 单例设计模式
- * 饿汉式，线程安全，推荐方式
- * 实现方式：
- * |- 将类中构造方法私有化
- * |- 在类中只创建一个实例
- * |- 通过static的方法提供实例的获取
- * 构造方法私有化主要有3种场景
- * |- 类不需要实例化，只提供static方法，如Arrays类，Math类等
- * |- 单例设计模式，只允许生成一个实例
- * |- 提取公共代码，消除重复
+ * 单例设计模式：整个JVM运行期间，类的实例化对象只有一个。java.lang.Runtime类就是使用的单例模式
+ * 1、单例设计模式实现分为饿汉式和懒汉式
+ * 饿汉式：类加载的时候对象就创建；线程安全的，推荐使用
+ * 懒汉式(懒加载)：获取对象时才创建，非线程安全的
+ * 2、单例模式实现方式：
+ * （1）将类中构造方法私有化
+ * （2）在类中只创建一个实例
+ * （3）通过static方法提供实例的获取
+ * 3、构造方法私有化主要有三种场景
+ * （1）类不需要实例化，只提供static方法，如Arrays类，Math类等
+ * （2）单例设计模式，只允许生成一个实例
+ * （3）提取构造器公共代码，消除重复
  */
 class Singleton {
-    // static修饰，保证全局唯一
+    // 在类内部实例化对象，只能类中的static方法访问
     private static final Singleton INSTANCE = new Singleton();
 
     /**
@@ -23,7 +25,7 @@ class Singleton {
     }
 
     /**
-     * 提供方法获取实例化对象
+     * 提供方法在类外部获取实例化对象
      */
     public static Singleton getInstance() {
         return INSTANCE;
@@ -50,7 +52,7 @@ class SingletonLazy {
      * 解决线程安全的问题，可以采用同步方式
      */
     public static SingletonLazy getInstance() {
-        // 不在外层加锁，为了提升效率，防止每次调用都进行同步等待
+        // 为了提升性能，不在外层加锁，防止实例化结束后方法每次调用仍进行同步等待
         if (null == instance) {
             synchronized (lock) {
                 // 同步代码块中再次判断，防止并发操作时，重复创建对象
@@ -68,18 +70,12 @@ class SingletonLazy {
     }
 }
 
-/**
- * 单例设计模式：整个JVM运行期间，类的实例化对象只有一个。实现方式分为饿汉式和懒汉式
- * java.lang.Runtime类就是使用的单例模式
- * 饿汉式：类加载的时候对象就创建；线程安全的
- * 懒汉式(懒加载)：获取对象时才创建，非线程安全的
- */
-public class SingletonDemo {
+public class ConstructorPrivateDemo {
     public static void main(String[] args) {
-        SingletonLazy instanceA = SingletonLazy.getInstance();
-        SingletonLazy instanceB = SingletonLazy.getInstance();
+        SingletonLazy s1 = SingletonLazy.getInstance();
+        s1.action(); // SingletonLazy.action
 
-        System.out.println(instanceA == instanceB); // true
-        instanceA.action(); // SingletonLazy.action
+        SingletonLazy s2 = SingletonLazy.getInstance();
+        System.out.println(s1 == s2); // true
     }
 }

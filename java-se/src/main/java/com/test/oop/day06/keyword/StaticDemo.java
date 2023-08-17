@@ -1,9 +1,9 @@
 package com.test.oop.day06.keyword;
 
 /**
- * 属性：分为静态属性和非静态属性
- * 静态属性，也叫类变量，使用static修饰，属性是所有对象共享的，随着类的加载而加载
- * 非静态属性，也叫实例变量，属性是对象独占的，不同对象的属性不同，对象实例化时生成
+ * 属性分为静态属性和非静态属性
+ * （1）静态属性，也叫类变量，使用static修饰，属性是所有对象共享的，随着类的加载而加载
+ * （2）非静态属性，也叫实例变量，属性是对象独占的，不同对象的属性不同，对象实例化时生成
  */
 class Chinese {
     private String name;
@@ -97,7 +97,6 @@ public class StaticDemo {
 
         // 推荐通过类访问static属性和方法，而不是使用对象访问
         Chinese.setCountry("China");
-
         c1.printInfo(); // 姓名：张三，年龄：20，国籍：China
         c2.printInfo(); // 姓名：李四，年龄：24，国籍：China
     }

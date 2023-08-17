@@ -1,11 +1,11 @@
-package com.test.oop.day06;
+package com.test.oop.day06.bean;
 
 /**
  * JavaBean的特点
- * |- 类的权限是public
- * |- 存在无参构造器
- * |- 属性使用private封装
- * |- 属性提供了setter和getter方法
+ * （1）类的权限是public
+ * （2）存在无参构造器
+ * （3）属性使用private封装
+ * （4）属性提供了setter和getter方法
  */
 public class JavaBean {
     private String name;
