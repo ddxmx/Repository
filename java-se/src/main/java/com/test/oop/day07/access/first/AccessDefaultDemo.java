@@ -1,12 +1,12 @@
-package com.test.oop.day07.access.basic;
+package com.test.oop.day07.access.first;
 
 /**
  * 同包不同类
  */
-public class SameAnotherClass {
+public class AccessDefaultDemo {
     public static void main(String[] args) {
         // public类可以被同包的其他类访问
-        AccessBasicDemo demo = new AccessBasicDemo();
+        AccessPublicDemo demo = new AccessPublicDemo();
 
         // default类可以被同包的其他类访问
         new DefaultClass();
@@ -26,3 +26,5 @@ public class SameAnotherClass {
         demo.publicMethod();
     }
 }
+
+

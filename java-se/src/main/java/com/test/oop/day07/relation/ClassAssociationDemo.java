@@ -3,7 +3,7 @@ package com.test.oop.day07.relation;
 class Book {
     private String title;
     private double price;
-    // Book类中包含Person类属性，是包含关系
+    // Book类中包含Person类属性，是关联关系
     private Person owner;
 
     public Book(String title, double price) {
@@ -43,6 +43,14 @@ class Person {
         this.age = age;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Book getBook() {
         return book;
     }
@@ -76,19 +84,14 @@ class Person {
     }
 }
 
-/**
- * 类之间的关系：
- * |- 继承：is A，Apple继承Fruit：apple is a fruit
- * |- 包含：has A，Library包含Book：library has a book
- */
-public class ClassIncludesDemo {
+public class ClassAssociationDemo {
     public static void main(String[] args) {
         Book book1 = new Book("java编程思想", 89.9);
         Book book2 = new Book("一千零一夜", 19.9);
         Book book3 = new Book("格林童话", 24.9);
 
-        Person person = new Person("张三", 30);
-        Person child1 = new Person("张小花", 6);
+        Person person = new Person("张三", 32);
+        Person child1 = new Person("张小花", 5);
         Person child2 = new Person("张小虎", 8);
 
         // 绑定Person和Book的关系，给Book设置owner属性
@@ -101,31 +104,24 @@ public class ClassIncludesDemo {
         child1.setBook(book2);
         child2.setBook(book3);
 
-        // 绑定person和children属性的关系
-        person.setChildren(new Person[]{child1, child2});
+        // 绑定person和father属性的关系
         child1.setFather(person);
         child2.setFather(person);
 
+        // 绑定person和children属性的关系
+        person.setChildren(new Person[]{child1, child2});
+
+        // father的书找到child的书
         /*
-            father的书 -> child的书
-            Book{title='一千零一夜', price=19.9}
-            Book{title='格林童话', price=24.9}
+            张小花：Book{title='一千零一夜', price=19.9}
+            张小虎：Book{title='格林童话', price=24.9}
          */
-        Person[] children = book1.getOwner().getChildren();
-        for (Person child : children) {
-            System.out.println(child.getBook());
+        for (Person child : book1.getOwner().getChildren()) {
+            System.out.println(child.getName() + "：" + child.getBook());
         }
 
-        /*
-            child1的书 -> child2的书
-            Book{title='格林童话', price=24.9}
-         */
-        Person[] allChildren = book2.getOwner().getFather().getChildren();
-        for (Person child : allChildren) {
-            Book temp = child.getBook();
-            if (temp != book2) {
-                System.out.println(temp);
-            }
-        }
+        // child的书找到father的书
+        // Book{title='java编程思想', price=89.9}
+        System.out.println(book3.getOwner().getFather().getBook());
     }
 }

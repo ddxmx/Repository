@@ -1,13 +1,13 @@
-package com.test.oop.day07.access.different;
+package com.test.oop.day07.access.second;
 
-import com.test.oop.day07.access.basic.AccessBasicDemo;
+import com.test.oop.day07.access.first.AccessPublicDemo;
 
 /**
  * 不同包非子类
  */
-public class DifferentNonSubClass {
+public class AccessPrivateDemo {
     public static void main(String[] args) {
-        AccessBasicDemo demo = new AccessBasicDemo();
+        AccessPublicDemo demo = new AccessPublicDemo();
 
         // 验证属性
         // 编译错误，'privateVar' has private access，private属性无法在其他类中访问
@@ -20,7 +20,7 @@ public class DifferentNonSubClass {
         // System.out.println(demo.protectedVar);
 
         // 编译错误，protected属性无法在其他包非子类中使用子类对象访问
-        // System.out.println(new DifferentSubClass().protectedVar);
+        // System.out.println(new AccessProtectedDemo().protectedVar);
 
         System.out.println(demo.publicVar);
 
@@ -35,7 +35,7 @@ public class DifferentNonSubClass {
         // demo.protectedMethod();
 
         // 编译错误，protected方法无法在其他包非子类中使用子类对象访问
-        // System.out.println(new DifferentSubClass().protectedMethod());
+        // System.out.println(new AccessProtectedDemo().protectedMethod());
 
         demo.publicMethod();
 

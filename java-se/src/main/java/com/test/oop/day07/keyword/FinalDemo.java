@@ -24,16 +24,12 @@ public class FinalDemo {
         // 编译错误，不能修改final修饰的引用类型的内存地址
         // array = new int[5];
 
-        // 不能修改引用指向的对象，但是可以修改对象中的属性
+        // 不能修改引用指向的对象，但是可以修改对象中的保存的值
         array[0] = 10;
         System.out.println(Arrays.toString(array)); // [10, 0, 0]
-
-        print(10); // 10
     }
 
-    public static void print(final int value) {
-        System.out.println(value);
-
+    public static void function(final int value) {
         // 编译错误，final修饰方法的参数，方法中不能对参数进行修改
         // value = 100;
     }
