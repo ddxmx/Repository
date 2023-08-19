@@ -1,12 +1,13 @@
 package com.test.oop.day08.interfaces;
 
 /**
- * 接口组成结构：
- * |- JDK7及之前：接口中只能定义全局常量和抽象方法
- * |- JDK8：新增了static方法和default方法
- * |- JDK9：新增了private方法
- * 接口中不能定义构造器，构造器主要为了给类中的成员变量初始化。接口中不存在成员变量，只存在全局常量
- * 类可以实现多个接口，弥补了类的单继承局限性，class A implements B,C
+ * 接口
+ * 1、接口组成结构：
+ * （1）JDK7及之前：接口中只能定义全局常量和抽象方法
+ * （2）JDK8：新增了static方法和default方法
+ * （3）JDK9：新增了private方法
+ * 2、接口中不能定义构造器，构造器主要为了给类中的成员变量初始化。接口中不存在成员变量，只存在全局常量
+ * 3、类可以实现多个接口，弥补类的单继承局限性，class A implements B,C
  * 类同时继承父类和实现接口，class A extends B implements C
  * 接口和接口之间可以实现多继承 interface A extends B,C
  */
@@ -22,7 +23,8 @@ interface USB {
 }
 
 /**
- * 类实现接口，覆写接口中所有的抽象方法
+ * 类实现接口，需要覆写接口中所有的抽象方法
+ * 如果不覆写所有的抽象方法，类需要使用abstract修饰
  */
 class Mouse implements USB {
     @Override
@@ -54,7 +56,7 @@ class Computer {
      * 将方法的参数类型设置为接口类型，只要是接口的实现类，都可以传入
      * 参数的操作依赖接口提供的方法，因此接口的设计至关重要
      */
-    public static void work(USB usb) {
+    public static void connect(USB usb) {
         usb.start();
         usb.stop();
     }
@@ -66,12 +68,12 @@ public class InterfaceDemo {
             Mouse.start
             Mouse.stop
          */
-        Computer.work(new Mouse());
+        Computer.connect(new Mouse());
 
         /*
             Keyboard.start
             Keyboard.stop
          */
-        Computer.work(new Keyboard());
+        Computer.connect(new Keyboard());
     }
 }

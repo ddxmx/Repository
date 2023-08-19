@@ -1,51 +1,51 @@
 package com.test.oop.day08.polymorphic;
 
-interface A {
+interface SuperA {
     public void testA();
 }
 
-interface B {
+interface SuperB {
     public void testB();
 }
 
 /**
- * 类 C是接口A、B的实现类
- * C的实例可以使用A或B类型的引用接收
+ * 类 Sub是接口SuperA、SuperB的实现类
+ * Sub的实例可以使用SuperA或SuperB类型的引用接收
  */
-class C implements A, B {
+class Sub implements SuperA, SuperB {
     @Override
     public void testA() {
-        System.out.println("C.testA");
+        System.out.println("Sub.testA");
     }
 
     @Override
     public void testB() {
-        System.out.println("C.testB");
+        System.out.println("Sub.testB");
     }
 }
 
 /**
- * 向下转型
- * 使用instanceof进行安全转型的判断
+ * 向下转型使用instanceof进行安全转型的判断
  * a instanceof A：对象a是否是类A的实例
  */
 public class InstanceofDemo {
     public static void main(String[] args) {
-        // b实际上指向的实例是C类型
-        B b = new C();
+        // superA实际上指向的实例是Sub类型
+        SuperA superA = new Sub();
 
-        // A和B接口实际上没有任何关系，但是因为类C同时是A和B类型的实现类，因此可以直接转型
-        A a = (A) b;
+        // SuperA和SuperB接口实际上没有任何关系，但是因为类Sub同时是SuperA和SuperB类型的实现类，因此可以直接转型
+        SuperB superB = (SuperB) superA;
 
-        a.testA(); // C.testA
+        superB.testB(); // Sub.testB
         // 编译失败，可以调用的方法由声明类型决定
-        // a.testB();
+        // superB.testA();
 
-        System.out.println(a instanceof A); // true
-        System.out.println(a instanceof B); // true
-        System.out.println(a instanceof C); // true
-        System.out.println(b instanceof A); // true
-        System.out.println(b instanceof B); // true
-        System.out.println(b instanceof C); // true
+        System.out.println(superA instanceof SuperA); // true
+        System.out.println(superA instanceof SuperB); // true
+        System.out.println(superA instanceof Sub); // true
+
+        System.out.println(superB instanceof SuperA); // true
+        System.out.println(superB instanceof SuperB); // true
+        System.out.println(superB instanceof Sub); // true
     }
 }

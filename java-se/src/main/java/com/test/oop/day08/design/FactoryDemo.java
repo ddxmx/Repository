@@ -30,7 +30,7 @@ class FruitFactory {
             if (instance instanceof Fruit) {
                 fruit = (Fruit) instance;
             }
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -39,8 +39,8 @@ class FruitFactory {
 }
 
 /**
- * 接口设计：工厂设计模式
- * 用于客户端解耦，通过工厂获取实例化对象
+ * 接口工厂设计模式
+ * 用于客户端解耦，不在客戶端直接New对象，通过工厂获取实例化对象
  */
 public class FactoryDemo {
     public static void main(String[] args) {

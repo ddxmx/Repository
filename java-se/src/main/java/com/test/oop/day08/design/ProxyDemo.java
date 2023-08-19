@@ -35,7 +35,7 @@ class ProxyNet implements Net {
 }
 
 /**
- * 接口设计：静态代理设计模式
+ * 接口静态代理设计模式
  */
 public class ProxyDemo {
     public static void main(String[] args) {
