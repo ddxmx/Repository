@@ -1,4 +1,4 @@
 package com.test.oop.day09.pack.subpackage;
 
-public class SubClass {
+public class SubPackageClass {
 }

@@ -1,8 +1,5 @@
 package com.test.oop.day09.inner;
 
-import java.util.Arrays;
-import java.util.function.Consumer;
-
 /**
  * 內部类是为了方便类之间私有成员的访问
  * 内部类：在类的内部声明另外一个类，外部的称为外部类，内部的称为内部类
@@ -27,6 +24,7 @@ class Outer {
         private int value = 20;
 
         // 编译失败，非静态内部类不能定义静态成员
+        // static属性不依赖实例化对象，如果内部类不是静态的，那么将依赖外部类的实例，导致外部类实例成员优先于内部类的静态成员初始化
         // private static String info = "hello";
 
         /**
@@ -34,14 +32,14 @@ class Outer {
          * 定义为private，用于演示外部类可以方便调用内部类的private方法
          */
         private void printInfo() {
-            System.out.println(number); // 10
+            System.out.println(number);
             // 就近原则，访问内部类中的value属性
-            System.out.println(value); // 20
+            System.out.println(value);
             // 在内部类中访问外部类中同名的属性，使用"外部类.this.属性名"的形式
-            System.out.println(Outer.this.value); // 10
+            System.out.println(Outer.this.value);
         }
 
-        public void printInfoPublic() {
+        public void print() {
             printInfo();
         }
     }
@@ -53,8 +51,8 @@ class Outer {
         // 实例化内部类对象
         Inner inner = new Inner();
         // 外部类可以通过内部类对象，直接访问内部类私有成员
-        System.out.println(inner.number); // 10
-        System.out.println(inner.value); // 20
+        System.out.println(inner.number);
+        System.out.println(inner.value);
         inner.printInfo();
     }
 
@@ -73,14 +71,14 @@ class Outer {
         private int number = 20;
 
         public void printInfo() {
-            System.out.println(number); // 20
+            System.out.println(number);
 
             // 编译错误，静态内部类不能访问外部类中的非静态成员
             // System.out.println(Outer.this.value);
 
             // 静态内部类可以直接访问外部类的静态成员
-            System.out.println(msg); // hello world
-            printMsg(); // hello world
+            System.out.println(msg);
+            printMsg();
         }
     }
 
@@ -93,16 +91,16 @@ class Outer {
         final int var2 = 100;
 
         // 变量没有在内部类中使用，则变量不会使用final修饰，可以修改
-        int var3 = 200;
-        var3 = 220;
-        System.out.println(var3); // 220
+        int var3 = 110;
+        var3 = 120;
+        System.out.println(var3);
 
         /**
          * 局部内部类
          * 只能在方法中实例化
          */
         class InnerLocal {
-            private int value = 99;
+            private int value = 50;
 
             public void printInfo() {
                 // 编译错误，内部类中使用方法的参数或局部变量，参数和局部变量都是使用final修饰的，无法修改
@@ -114,10 +112,10 @@ class Outer {
                 // 修改外部类中的成员变量
                 Outer.this.value = 40;
 
-                System.out.println(var1); // 50
-                System.out.println(var2); // 100
-                System.out.println(value); // 30
-                System.out.println(Outer.this.value); // 40
+                System.out.println(var1);
+                System.out.println(var2);
+                System.out.println(value);
+                System.out.println(Outer.this.value);
             }
         }
 
@@ -128,31 +126,54 @@ class Outer {
 
 public class InnerClassDemo {
     public static void main(String[] args) {
-        System.out.println("========非静态内部类，在外部类中实例化========");
-        Outer outer = new Outer();
-        outer.test();
+        System.out.println("================非静态内部类，在外部类中实例化================");
+        /*
+            10
+            20
+            10
+            20
+            10
+         */
+        new Outer().test();
 
-        System.out.println("========非静态内部类，在外部类之外实例化========");
+        System.out.println("================非静态内部类，在外部类之外实例化================");
+        /*
+            10
+            20
+            10
+         */
         // 内部类对象的实例化，依赖外部类对象
-        Outer.Inner inner = outer.new Inner();
-        inner.printInfoPublic();
+        Outer.Inner inner = new Outer().new Inner();
+        inner.print();
 
-        System.out.println("========静态内部类========");
+        System.out.println("================静态内部类================");
+        /*
+            20
+            hello world
+            hello world
+         */
         // 静态内部类，实例化内部类对象不依赖外部类对象
         Outer.InnerStatic innerStatic = new Outer.InnerStatic();
         innerStatic.printInfo();
 
-        System.out.println("========局部内部类========");
-        // 局部内部类
-        outer.test(50);
+        System.out.println("================局部内部类================");
+        /*
+            120
+            50
+            100
+            30
+            40
+         */
+        new Outer().test(50);
 
-        System.out.println("========匿名内部类========");
+        System.out.println("================匿名内部类================");
         // 匿名内部类，只使用一次，一般用于对象传参
-        Arrays.asList(1, 2, 3, 4, 5).forEach(new Consumer<Integer>() {
+        Thread thread = new Thread(new Runnable() {
             @Override
-            public void accept(Integer integer) {
-                System.out.println(integer * integer);
+            public void run() {
+                System.out.println("hello");
             }
         });
+        thread.start();
     }
 }

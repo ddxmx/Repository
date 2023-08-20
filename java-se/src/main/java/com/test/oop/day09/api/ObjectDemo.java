@@ -2,14 +2,14 @@ package com.test.oop.day09.api;
 
 import java.util.Objects;
 
-class User {
+class Person implements Cloneable {
     private String name;
     private int age;
 
-    public User() {
+    public Person() {
     }
 
-    public User(String name, int age) {
+    public Person(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -31,6 +31,18 @@ class User {
     }
 
     /**
+     * protected native Object clone() throws CloneNotSupportedException;
+     * 1、覆写clone方法的类必须要实现java.lang.Cloneable接口，该接口中无任何抽象方法，只是表示一种能力
+     * 2、为什么Object类中的clone()方法是使用protected修饰，而不是使用public修饰？
+     * （1）Object类中的clone方法是一个浅拷贝的实现，无法实现深拷贝
+     * （2）业务如果想使用clone方法，必须在子类覆写该方法，明确拷贝的实现
+     */
+    @Override
+    public Person clone() throws CloneNotSupportedException {
+        return (Person) super.clone();
+    }
+
+    /**
      * 覆写equals方法
      * java.lang.Object类中的equals方法默认实现使用 == 进行比较，比较的是内存地址
      */
@@ -45,9 +57,9 @@ class User {
         }
 
         if (obj.getClass() == this.getClass()) {
-            User user = (User) obj;
-            return Objects.equals(this.name, user.name) &&
-                    this.age == user.age;
+            Person per = (Person) obj;
+            return Objects.equals(this.name, per.name) &&
+                    this.age == per.age;
         }
 
         return false;
@@ -55,7 +67,7 @@ class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Person{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 '}';
@@ -68,19 +80,27 @@ class User {
  * Object类可以接收所有的引用数据类型，包括数组和接口
  */
 public class ObjectDemo {
-    public static void main(String[] args) {
-        User user1 = new User("张三", 20);
-        User user2 = new User("张三", 20);
-        User user3 = new User("张三", 22);
+    public static void main(String[] args) throws CloneNotSupportedException {
+        Person per1 = new Person("张三", 20);
+        Person per2 = new Person("张三", 20);
+        Person per3 = new Person("张三", 22);
 
-        System.out.println(user1 == user2); // false
-        System.out.println(user1.equals(user2)); // true
-        System.out.println(user1.equals(user1)); // true
-        System.out.println(user1.equals(null)); // false
-        System.out.println(user1.equals(user3)); // false
+        // equals方法
+        System.out.println(per1 == per2); // false
+        System.out.println(per1.equals(per2)); // true
+        System.out.println(per1.equals(per3)); // false
+        System.out.println(per1.equals(per1)); // true
+        System.out.println(per1.equals(null)); // false
+
+        // clone方法
+        Person per4 = per1.clone();
+        System.out.println(per1 == per4); // false
+        System.out.println(per1.equals(per4)); // true
+        // 由于是浅拷贝，所以对象中的属性还是使用的同一个
+        System.out.println(per1.getName() == per4.getName()); // true
 
         // 单独使用对象或与字符串拼接时，默认会调用对象的toString()方法
-        System.out.println(user1); // User{name='张三', age=20}
-        System.out.println("用户信息：" + user1); // 用户信息：User{name='张三', age=20}
+        System.out.println(per1); // Person{name='张三', age=20}
+        System.out.println("用户信息：" + per1); // 用户信息：Person{name='张三', age=20}
     }
 }

@@ -19,6 +19,7 @@ public class WrapperDemo {
             // 编译通过，运行错误，java.lang.NumberFormatException: For input string: "abc"
             // Integer i2 = Integer.valueOf("abc");
 
+            // 数值字符串转换成包装类
             Integer i3 = Integer.valueOf("123");
             System.out.println(i3.intValue()); // 123
 
@@ -33,26 +34,51 @@ public class WrapperDemo {
             System.out.println(b2.booleanValue()); // false
         }
 
+        System.out.println("========基本数据类型和String类型转换========");
+        {
+            // 基本数据类型转换为String，调用String的valueOf(xxx)方法
+            String s1 = String.valueOf(100);
+            System.out.println(s1); // 100
+
+            Boolean b1 = Boolean.valueOf("hello");
+            // String的valueOf(xxx)方法传参是对象时，会调用对象的toString()方法
+            String s2 = String.valueOf(b1);
+            System.out.println(s2); // false
+
+            // String转换为基本数据类型，调用包装类的parseXxx(xxx)方法
+            int i3 = Integer.parseInt("123");
+            System.out.println(i3); // 123
+
+            // 编译通过，运行错误，java.lang.NumberFormatException: For input string: "abc"
+            // int i4 = Integer.parseInt("abc");
+
+            // 字符串转换成boolean类型，传参不区分大小写
+            boolean b4 = Boolean.parseBoolean("True");
+            System.out.println(b4); // true
+        }
+
         System.out.println("========Character类的使用========");
         {
-            System.out.println("---------------判断数字或字母-----------------");
+            System.out.println("---------------判断数字-----------------");
             System.out.println(Character.isDigit('a')); // false
             System.out.println(Character.isDigit('1')); // true
+
+            System.out.println("---------------判断字母-----------------");
             System.out.println(Character.isLetter('a')); // true
             System.out.println(Character.isLetter('1')); // false
-
             // 使用isLetter()，中文也会认为是字母，因此不能使用该方法
             System.out.println(Character.isLetter('中')); // true
+
             // 判断字母推荐使用以下方式
             System.out.println(Character.isLowerCase('a') || Character.isUpperCase('a')); // true
             System.out.println(Character.isLowerCase('A') || Character.isUpperCase('A')); // true
             System.out.println(Character.isLowerCase('中') || Character.isUpperCase('中')); // false
 
             System.out.println("----------------判断空白符----------------");
+            System.out.println(Character.isWhitespace(' ')); // true
             System.out.println(Character.isWhitespace('\t')); // true
             System.out.println(Character.isWhitespace('\n')); // true
             System.out.println(Character.isWhitespace('\r')); // true
-            System.out.println(Character.isWhitespace(' ')); // true
             System.out.println(Character.isWhitespace('a')); // false
         }
 
@@ -73,26 +99,6 @@ public class WrapperDemo {
             System.out.println(obj.toString()); // 20，说明最终调用的不是Object的toString()方法，而是Integer的toString()方法
         }
 
-        System.out.println("========基本数据类型和String类型转换========");
-        {
-            // 基本数据类型转换为String，调用String的valueOf(xxx)方法
-            String s1 = String.valueOf(100);
-            System.out.println(s1); // 100
-
-            Boolean b2 = Boolean.valueOf("hello");
-            // String的valueOf(xxx)方法传参是对象时，会调用对象的toString()方法
-            String s2 = String.valueOf(b2);
-            System.out.println(s2); // false
-
-            // String转换为基本数据类型，调用包装类的parseXxx(xxx)方法
-            int i3 = Integer.parseInt("123");
-            System.out.println(i3); // 123
-
-            // Boolean对象实例化时，传参不区分大小写
-            boolean b4 = Boolean.parseBoolean("True");
-            System.out.println(b4); // true
-        }
-
         System.out.println("========Integer对象会缓存-128~127的实例========");
         {
             // new表示每次都进行堆内存空间创建
@@ -106,7 +112,7 @@ public class WrapperDemo {
             Integer i4 = 10;
             System.out.println(i3 == i4); // true
 
-            // valueOf()方式
+            // 调用valueOf()方法的方式
             Integer i5 = Integer.valueOf(10);
             Integer i6 = Integer.valueOf("10");
             System.out.println(i5 == i6); // true
@@ -115,6 +121,18 @@ public class WrapperDemo {
             Integer i7 = 128;
             Integer i8 = 128;
             System.out.println(i7 == i8); // false
+        }
+
+        System.out.println("========Character对象会缓存0~127的实例========");
+        {
+            // Character中缓存了0~127的字符
+            Character c1 = 127;
+            Character c2 = 127;
+            System.out.println(c1 == c2); // true
+
+            Character c3 = 128;
+            Character c4 = 128;
+            System.out.println(c3 == c4); // false
         }
     }
 }
