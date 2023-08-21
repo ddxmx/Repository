@@ -1,10 +1,10 @@
-package com.test.exception.day10.basic;
+package com.test.exception.day10.keyword;
 
 class Message {
-    public void register(int id) throws Exception {
+    public void register(int id) throws IllegalArgumentException {
         if (id <= 0) {
             // 手动抛出一个异常
-            throw new Exception("Id is invalid.");
+            throw new IllegalArgumentException("id is invalid");
         }
 
         System.out.println("register id is " + id);
@@ -21,7 +21,7 @@ public class ThrowDemo {
 
         try {
             msg.register(-1001);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
     }

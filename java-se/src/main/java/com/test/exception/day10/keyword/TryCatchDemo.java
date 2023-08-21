@@ -1,4 +1,4 @@
-package com.test.exception.day10.basic;
+package com.test.exception.day10.keyword;
 
 /**
  * 1、异常处理过程
@@ -20,7 +20,7 @@ package com.test.exception.day10.basic;
  * finally{     // 可选的结构
  *      无论是否出现异常都会执行的代码
  * }
- * （2）throws
+ * （2）throws  继续向上抛出异常，当前方法不处理
  */
 public class TryCatchDemo {
     public static void main(String[] args) {
@@ -52,6 +52,7 @@ public class TryCatchDemo {
         }
         // 异常类型存在父子类关系时，子类异常写在上面，父类异常写在下面，否则后续异常匹配代码永远都无法被执行到
         catch (Exception e) {
+            // 打印异常的堆栈信息
             e.printStackTrace();
         }
 

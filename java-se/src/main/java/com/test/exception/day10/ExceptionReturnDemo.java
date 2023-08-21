@@ -1,14 +1,14 @@
-package com.test.exception.day10.basic;
+package com.test.exception.day10;
 
 import java.util.Arrays;
 
 /**
  * try-catch-finally结构和return语句
- * |- 无异常产生，try中return执行前先执行finally结构，导致finally中的return先于try中的return执行
- * |- 产生异常并处理，catch中return执行前先执行finally结构，导致finally中的return先于catch中的return执行
- * |- 产生异常但未匹配，执行finally语句，finally中存在return导致直接结束，此时try中抛出的异常被屏蔽
+ * （1）无异常产生，try中return执行前先执行finally结构，导致finally中的return先于try中的return执行
+ * （2）产生异常并处理，catch中return执行前先执行finally结构，导致finally中的return先于catch中的return执行
+ * （3）产生异常但未匹配，执行finally语句，finally中存在return导致直接结束，此时try中抛出的异常被屏蔽
  */
-public class FinallyReturnDemo {
+public class ExceptionReturnDemo {
     public static void main(String[] args) {
         System.out.println("========try和finally中都有return语句，程序执行无异常========");
         /*
