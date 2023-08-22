@@ -1,15 +1,9 @@
-package com.test.thread.day12.sync;
-
-import java.util.concurrent.TimeUnit;
+package com.test.thread.day11.sync;
 
 /**
- * 方式二：同步方法
- * 实现Runnable接口，使用同步方法
- * （1）方式一：
- * 方法声明中使用synchronized关键字
- * 同步方法监视器对象就是this
+ * 同步方法
  */
-class SyncMethod implements Runnable {
+class SyncMethodRunnable implements Runnable {
     private int ticket = 5;
 
     @Override
@@ -25,25 +19,28 @@ class SyncMethod implements Runnable {
      * 同步方法，同步监视器就是this
      */
     public synchronized boolean sell() {
+        // 票卖完结束线程
         if (ticket <= 0) {
             return false;
         }
 
+        // 判断余票数量和卖票之间存在时间间隔，可能导致票在此期间已经被售卖
         try {
-            TimeUnit.MILLISECONDS.sleep(50);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
 
+        System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
         return true;
     }
 }
 
 /**
  * 静态同步方法
+ * 对静态变量进行同步，需要使用静态同步块
  */
-class SyncStaticMethod implements Runnable {
+class SyncStaticMethodRunnable implements Runnable {
     private static int value = 1;
 
     @Override
@@ -52,7 +49,7 @@ class SyncStaticMethod implements Runnable {
     }
 
     /**
-     * static修饰的同步方法，当前的监视器就是SyncStaticMethod.class
+     * static修饰的同步方法，当前的监视器就是SyncStaticMethodRunnable.class
      * 如果需要对static修饰的对象进行同步操作，需要使用static的同步方法
      */
     public static synchronized void calculate() {
@@ -66,15 +63,11 @@ class SyncStaticMethod implements Runnable {
         value += 1;
         System.out.println(Thread.currentThread().getName() + ",value = " + value);
     }
-
-    public static int getValue() {
-        return value;
-    }
 }
 
 public class SyncMethodDemo {
     public static void main(String[] args) {
-        SyncMethod runnable = new SyncMethod();
+        SyncMethodRunnable runnable = new SyncMethodRunnable();
 
         /*
             Thread-0卖票，余票：4
@@ -92,8 +85,9 @@ public class SyncMethodDemo {
             Thread-5,value = 7
             Thread-4,value = 15
          */
-        new Thread(new SyncStaticMethod()).start();
-        new Thread(new SyncStaticMethod()).start();
-        new Thread(new SyncStaticMethod()).start();
+        SyncStaticMethodRunnable staticMethodRunnable = new SyncStaticMethodRunnable();
+        new Thread(staticMethodRunnable).start();
+        new Thread(staticMethodRunnable).start();
+        new Thread(staticMethodRunnable).start();
     }
 }

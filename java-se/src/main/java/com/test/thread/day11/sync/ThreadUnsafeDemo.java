@@ -1,19 +1,20 @@
-package com.test.thread.day12.sync;
-
-import java.util.concurrent.TimeUnit;
+package com.test.thread.day11.sync;
 
 class MyRunnable implements Runnable {
+    // 多个线程同时卖5张票
     private int ticket = 5;
 
     @Override
     public void run() {
         while (true) {
+            // 票卖完结束线程
             if (ticket <= 0) {
                 break;
             }
 
+            // 判断余票数量和卖票之间存在时间间隔，可能导致票在此期间已经被售卖
             try {
-                TimeUnit.MILLISECONDS.sleep(50);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -30,6 +31,7 @@ class MyRunnable implements Runnable {
 public class ThreadUnsafeDemo {
     public static void main(String[] args) {
         MyRunnable runnable = new MyRunnable();
+
         /*
             Thread-1卖票，余票：4
             Thread-0卖票，余票：3

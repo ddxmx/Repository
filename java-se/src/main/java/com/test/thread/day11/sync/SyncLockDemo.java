@@ -1,4 +1,4 @@
-package com.test.thread.day12.sync;
+package com.test.thread.day11.sync;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 使用lock锁实现同步
  * lock锁要手动释放
  */
-class SyncLock implements Runnable {
+class SyncLockRunnable implements Runnable {
     private int ticket = 5;
 
     // 实例化lock对象，使用实现类ReentrantLock实例化
@@ -20,10 +20,14 @@ class SyncLock implements Runnable {
             lock.lock();
 
             try {
+                // 票卖完结束线程
                 if (ticket <= 0) {
                     break;
                 }
-                Thread.sleep(50);
+
+                // 判断余票数量和卖票之间存在时间间隔，可能导致票在此期间已经被售卖
+                Thread.sleep(500);
+
                 System.out.println(Thread.currentThread().getName() + "卖票，余票：" + --ticket);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -36,7 +40,7 @@ class SyncLock implements Runnable {
 
 public class SyncLockDemo {
     public static void main(String[] args) {
-        SyncLock runnable = new SyncLock();
+        SyncLockRunnable runnable = new SyncLockRunnable();
 
         /*
             Thread-0卖票，余票：4
