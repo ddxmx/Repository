@@ -43,6 +43,20 @@ class Person implements Cloneable {
     }
 
     /**
+     * hashCode的作用是获取哈希码（int整数），也称为散列码
+     * 1、对于使用hash方式存储的结构，为了提升效率，需要依赖hashCode()方法确定对象在哈希表中的索引位置，再通过equals()方法判断是否相等
+     * 2、hashCode方法实现的约束
+     * （1）重写equals()时必须重写hashCode()方法
+     * （2）两个对象hashCode值相等，对象不一定相等（hash碰撞）
+     * （3）两个对象hashCode值不相等，对象就不相等
+     * （4）两个对象相等，则hashCode值也相等
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+
+    /**
      * 覆写equals方法
      * java.lang.Object类中的equals方法默认实现使用 == 进行比较，比较的是内存地址
      */
