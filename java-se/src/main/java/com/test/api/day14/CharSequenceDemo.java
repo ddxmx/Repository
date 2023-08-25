@@ -2,12 +2,12 @@ package com.test.api.day14;
 
 /**
  * String、StringBuffer和StringBuilder异同
- * |- String：不可变的字符序列
- * |- StringBuffer：可变的字符序列，线程安全的，效率低
- * |- StringBuilder：JDK5.0新增，可变的字符序列，线程不安全的，效率高
- * |- 效率：StringBuilder > StringBuffer > String
+ * （1）String：不可变的字符序列
+ * （2）StringBuffer：可变的字符序列，线程安全的，效率低
+ * （3）StringBuilder：JDK5.0新增，可变的字符序列，线程不安全的，效率高
+ * 效率：StringBuilder > StringBuffer > String
  */
-public class StringBufferBuilderDemo {
+public class CharSequenceDemo {
     public static void main(String[] args) {
         StringBuffer sb = new StringBuffer();
         System.out.println(sb.length()); // 0
@@ -29,7 +29,7 @@ public class StringBufferBuilderDemo {
         System.out.println(sb); // 11abb
 
         // public synchronized StringBuffer reverse()
-        System.out.println(sb.reverse()); // bba11
+        sb.reverse();
         System.out.println(sb); // bba11
 
         // public int indexOf(String str)

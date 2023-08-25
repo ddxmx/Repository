@@ -30,7 +30,6 @@ public class StringMethodDemo2 {
         // public int lastIndexOf(String str, int fromIndex)
         System.out.println(s1.lastIndexOf("o", 5)); // 4
 
-        System.out.println("*************************************");
         // 替换所有出现的字符串，不支持正则
         // public String replace(CharSequence target, CharSequence replacement)
         String s2 = s1.replace("l", "z");

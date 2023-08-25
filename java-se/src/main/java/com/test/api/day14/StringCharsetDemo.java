@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * String和char[]和byte[]的转换
  */
-public class StringConvertDemo {
+public class StringCharsetDemo {
     public static void main(String[] args) throws Exception {
         // String和char[]转换
         {
@@ -42,6 +42,7 @@ public class StringConvertDemo {
             System.out.println(s3); // abc123中国
 
             /*
+                编码就是把一个字符编码成二进制码存起来的方式，而解码就是把这个二进制码按照原本编码的规则还原成原来的字符
                 乱码形成的原因主要包含两种：
                 1、解析错误，UTF-8的编码使用GBK编码解析，这种错误不会改变原来二进制内容
                 2、错误的解析和编码转换：UTF-8的编码，使用GBK解析后转换成ISO8859-1编码
