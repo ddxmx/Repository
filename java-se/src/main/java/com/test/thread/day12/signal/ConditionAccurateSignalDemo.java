@@ -1,4 +1,4 @@
-package com.test.thread.day13;
+package com.test.thread.day12.signal;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 生产者和消费者问题，使用Condition实现精准控制
  * A -> B -> C -> A -> B -> C
  */
-public class ProducerConsumerDemo03 {
+public class ConditionAccurateSignalDemo {
     private static class Info {
         private int number = 1;
         private Lock lock = new ReentrantLock();

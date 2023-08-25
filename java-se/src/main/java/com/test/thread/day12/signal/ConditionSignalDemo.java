@@ -1,4 +1,4 @@
-package com.test.thread.day13;
+package com.test.thread.day12.signal;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -13,7 +13,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * condition的await，signal和 wait，notify都需要在锁之间运行。
  * condition也被用来实现阻塞队列。
  */
-public class ProducerConsumerDemo02 {
+public class ConditionSignalDemo {
     private static class Info {
         private int number;
         private Lock lock = new ReentrantLock();
