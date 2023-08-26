@@ -10,7 +10,7 @@ import java.math.BigInteger;
  */
 public class BigIntegerDecimalDemo {
     public static void main(String[] args) {
-        System.out.println("********************BigInteger********************");
+        System.out.println("========================BigInteger========================");
         // 将字符串转换为BigInteger类型
         BigInteger bigInteger = new BigInteger("123456789012345678901234567890");
         System.out.println(bigInteger); // 123456789012345678901234567890
@@ -29,7 +29,7 @@ public class BigIntegerDecimalDemo {
         System.out.println(divideAndRemainder[0]); // 1，商
         System.out.println(divideAndRemainder[1]); // 246913569，余数
 
-        System.out.println("********************BigDecimal********************");
+        System.out.println("========================BigDecimal========================");
         // 浮点数运算存在误差
         System.out.println(0.1 * 0.1); // 0.010000000000000002
 

@@ -18,6 +18,6 @@ public class SecureRandomDemo {
             verificationCode += secureRandom.nextInt(10);
         }
 
-        System.out.println(verificationCode);
+        System.out.println(verificationCode); // 990725
     }
 }

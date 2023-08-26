@@ -9,7 +9,7 @@ import java.util.Date;
  * SimpleDateFormat是非线程安全的，多线程场景下可能出现线程安全问题
  */
 public class SimpleDateFormatDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         // 时间 -> 指定格式的字符串
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -18,13 +18,7 @@ public class SimpleDateFormatDemo {
 
         // 指定格式的字符串 -> 时间
         String pastStr = "2000-03-12 18:18:18.111";
-        Date past = null;
-        try {
-            // public Date parse(String source) throws ParseException
-            past = sdf.parse(pastStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date past = sdf.parse(pastStr);
         System.out.println(past); // Sun Mar 12 18:18:18 CST 2000
 
         // 格式化的pattern中指定非匹配字符，应该使用单引号引起来

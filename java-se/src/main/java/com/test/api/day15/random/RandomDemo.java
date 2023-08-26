@@ -4,15 +4,17 @@ import java.util.Random;
 
 /**
  * 伪随机数
+ * Random的seed固定时，获取的随机数也相同
  */
 public class RandomDemo {
     public static void main(String[] args) {
         Random random = new Random();
+
         // public int nextInt()，生成int范围内随机数
         System.out.println(random.nextInt());
         // public int nextInt(int bound)，范围[0，bound)
         System.out.println(random.nextInt(100)); // 成为[0,100)的随机整数
-        System.out.println(random.nextInt(41) + 60); // 生成[60,100]随机整数
+        System.out.println(random.nextInt(40) + 60); // 生成[60,100)随机整数
 
         // public float nextFloat()，生成[0,1)之间的随机float小数
         System.out.println(random.nextFloat());

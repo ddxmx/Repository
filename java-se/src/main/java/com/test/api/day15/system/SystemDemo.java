@@ -1,4 +1,4 @@
-package com.test.api.day15;
+package com.test.api.day15.system;
 
 import java.util.Arrays;
 
@@ -9,7 +9,7 @@ public class SystemDemo {
     public static void main(String[] args) {
         // 获取当前时间戳（毫秒）
         System.out.println(System.currentTimeMillis()); // 1612799213856
-        // 同于衡量一个时间段，比如说一段代码执行所用的时间（纳秒，10^-3微秒，10^-6毫秒，10^-9秒）
+        // 用于衡量一个时间段，比如说一段代码执行所用的时间（纳秒，10^-3微秒，10^-6毫秒，10^-9秒）
         System.out.println(System.nanoTime());
 
         // 数组拷贝

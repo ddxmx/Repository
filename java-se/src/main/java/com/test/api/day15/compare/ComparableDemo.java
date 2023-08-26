@@ -1,34 +1,18 @@
 package com.test.api.day15.compare;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.Arrays;
 
 /**
  * Comparable比较器，要求类必须实现java.lang.Comparable接口
  */
+@Data
+@AllArgsConstructor
 class Person implements Comparable<Person> {
     private String name;
     private int age;
-
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     /**
      * 按年龄从大到小排序，年龄相同，按姓名字母正向排序
@@ -42,14 +26,6 @@ class Person implements Comparable<Person> {
         } else {
             return this.name.compareTo(per.name);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
     }
 }
 
