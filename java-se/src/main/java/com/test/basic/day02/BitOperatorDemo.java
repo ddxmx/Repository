@@ -59,6 +59,9 @@ public class BitOperatorDemo {
         */
         System.out.println(a4 >> 2); // -3
 
+        // 当int类型左移/右移位数大于等于32位操作时，会先取模后再进行左移/右移操作，long对应64位取模
+        System.out.println(a4 >> 34); // -3
+
         // 无符号右移操作，操作数为正数，/ 2^n
         int a5 = 9;
         System.out.println(a5 >>> 2); // 2
