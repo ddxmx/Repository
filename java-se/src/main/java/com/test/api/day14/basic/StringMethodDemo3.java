@@ -1,11 +1,11 @@
-package com.test.api.day14;
+package com.test.api.day14.basic;
 
 import java.util.Arrays;
 
 /**
  * String和char[]和byte[]的转换
  */
-public class StringCharsetDemo {
+public class StringMethodDemo3 {
     public static void main(String[] args) throws Exception {
         // String和char[]转换
         {

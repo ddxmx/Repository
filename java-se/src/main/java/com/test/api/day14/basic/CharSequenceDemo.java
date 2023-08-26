@@ -1,4 +1,4 @@
-package com.test.api.day14;
+package com.test.api.day14.basic;
 
 /**
  * String、StringBuffer和StringBuilder异同
@@ -12,7 +12,7 @@ public class CharSequenceDemo {
         StringBuffer sb = new StringBuffer();
         System.out.println(sb.length()); // 0
 
-        // public synchronized StringBuffer append(int i)
+        // public synchronized StringBuffer append(String str)
         sb.append("abc").append(1).append('1');
         System.out.println(sb); // abc11
 

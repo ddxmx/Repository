@@ -1,7 +1,15 @@
-package com.test.api.day14;
+package com.test.api.day14.basic;
 
 /**
  * String类的使用
+ * 1、String类为什么是不可变的
+ * （1）保存字符串的数组被final修饰且为私有的，并且String类没有提供/暴露修改这个字符串的方法。
+ * （2）String类被final修饰导致其不能被继承后修改.
+ * 2、Java9为何要将String的底层实现由char[]改成了byte[]
+ * （1）新版的String其实支持两个编码方案：Latin-1和UTF-16。
+ * （2）如果字符串中包含的汉字没有超过Latin-1可表示范围内的字符，那就会使用Latin-1作为编码方案。
+ * Latin-1编码方案下，byte占1个字节，char占用2个字节，byte相较char节省一半的内存空间。
+ * （3）如果字符串中包含的汉字超过Latin-1可表示范围内的字符，byte和char所占用的空间是一样的。
  */
 public class StringDemo {
     public static void main(String[] args) {
@@ -11,6 +19,7 @@ public class StringDemo {
 
         String str3 = str2;
         // 字符串的值一旦创建不可修改，只是修改了引用指向的堆内存地址
+        // 字符串对象通过"+"的字符串拼接方式，实际上是通过StringBuilder调用append()方法实现的，只不过会重复创建StringBuilder对象
         str3 += " world";
         System.out.println(str3); // hello world
         System.out.println(str2); // hello
