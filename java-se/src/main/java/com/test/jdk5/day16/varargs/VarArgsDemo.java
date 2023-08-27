@@ -1,4 +1,4 @@
-package com.test.jdk5.day16;
+package com.test.jdk5.day16.varargs;
 
 /**
  * JDK5.0方法支持可变参数
@@ -10,26 +10,27 @@ public class VarArgsDemo {
     public static void main(String[] args) {
         System.out.println(VarArgsDemo.add(1, 2)); // 3
 
-        // 优先精确匹配 public int add(int x, int y)
-        System.out.println(VarArgsDemo.add(10, 20));
+        // 优先精确匹配
+        System.out.println(VarArgsDemo.add(10, 20)); // 30
 
         // 可变参数传参时可以传递0个、1个和多个参数，也可以传递数组
+        System.out.println(VarArgsDemo.add()); // 0
         System.out.println(VarArgsDemo.add(100)); // 100
         System.out.println(VarArgsDemo.add(10, 20, 30)); // 60
-        System.out.println(VarArgsDemo.add()); // 0
         System.out.println(VarArgsDemo.add(new int[]{11, 22, 33})); // 66
     }
 
     public static int add(int x, int y) {
+        System.out.println("普通方法");
         return x + y;
     }
 
     /**
      * 方法参数定义为可变参数，可变参数实际上使用数组接收
-     * 因此可变参数方法不能和同名的数组类型方法构成重载
-     * public static int add(int[] args)
+     * 因此可变参数方法不能和同名的数组类型方法构成重载，如 public static int add(int[] args)
      */
     public static int add(int... args) {
+        System.out.println("可变参数方法");
         int sum = 0;
         for (int i = 0; i < args.length; i++) {
             sum += args[i];

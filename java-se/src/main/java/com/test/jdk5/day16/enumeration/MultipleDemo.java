@@ -1,8 +1,7 @@
 package com.test.jdk5.day16.enumeration;
 
 /**
- * 多例模式
- * 不使用枚举类实现
+ * 多例模式，不使用枚举类实现
  */
 class Season {
     // 实例化多个当前类对象

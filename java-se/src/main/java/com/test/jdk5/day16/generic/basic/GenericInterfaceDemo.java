@@ -1,4 +1,4 @@
-package com.test.jdk5.day16.generic;
+package com.test.jdk5.day16.generic.basic;
 
 /**
  * 泛型接口
@@ -13,7 +13,7 @@ interface IMessage<T> {
 class MessageImpl<T> implements IMessage<T> {
     @Override
     public void show(T msg) {
-        System.out.println(msg.getClass().getName());
+        System.out.println(msg);
     }
 }
 
@@ -29,18 +29,17 @@ class IntegerMessage implements IMessage<Integer> {
 
 /**
  * 泛型接口最典型的实现就是容器类List、Set、Map
- * List<String> list = new ArrayList<String>
  */
 public class GenericInterfaceDemo {
     public static void main(String[] args) {
-        // 泛型接口实现方式一使用
+        // 实现方式一泛型接口使用
         IMessage<String> msg = new MessageImpl<>();
-        msg.show("hello"); // java.lang.String
+        msg.show("hello"); // hello
 
         IMessage<Double> msg2 = new MessageImpl<>();
-        msg2.show(12.34); // java.lang.Double
+        msg2.show(12.34); // 12.34
 
-        // 泛型接口实现方式二使用
+        // 实现方式二泛型接口使用
         // 声明时只能使用IMessage<Integer>接收
         IMessage<Integer> msg3 = new IntegerMessage();
         msg3.show(100); // 100

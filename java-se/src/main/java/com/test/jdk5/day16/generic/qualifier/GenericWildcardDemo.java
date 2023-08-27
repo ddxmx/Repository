@@ -1,4 +1,4 @@
-package com.test.jdk5.day16.generic;
+package com.test.jdk5.day16.generic.qualifier;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.test.jdk5.day16.generic;
+package com.test.jdk5.day16.generic.basic;
 
 import java.util.*;
 
@@ -36,20 +36,11 @@ public class GenericDemo {
             // 编译错误，元素必须是Integer类型才可以添加
             // list.add("Tom");
 
-            // 遍历方式一：
             // 避免了强转操作
             for (Integer element : list) {
                 System.out.println(element);
             }
-
-            // 遍历方式二：
-            Iterator<Integer> iterator = list.iterator();
-            while (iterator.hasNext()) {
-                int value = iterator.next();
-                System.out.println(value);
-            }
         }
-
 
         // 泛型的嵌套
         {
@@ -58,8 +49,8 @@ public class GenericDemo {
             Map<String, Integer> map = new HashMap<>();
 
             map.put("Tom", 87);
-            map.put("Jerry", 87);
-            map.put("Jack", 67);
+            map.put("Jerry", 98);
+            map.put("Jack", 92);
 
             // 泛型的嵌套
             Set<Map.Entry<String, Integer>> entrySet = map.entrySet();

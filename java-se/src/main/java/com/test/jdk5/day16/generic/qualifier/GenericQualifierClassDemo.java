@@ -1,10 +1,10 @@
-package com.test.jdk5.day16.generic;
+package com.test.jdk5.day16.generic.qualifier;
 
 /**
  * 泛型类定义时使用extends
- * 实例化类对象时，类型只能是其本身类型或子类类型
- * 为什么泛型类上只能使用extends，而不能使用super?
- * 类型擦除后变为<Object>，Object又是所有类型的父类型，所有类型就都可以作为T，是没有意义的事情。
+ * 1、实例化类对象时，类型只能是其本身类型或子类类型
+ * 2、为什么泛型类上只能使用extends，而不能使用super?
+ * 类型擦除后变为<Object>，Object又是所有类型的父类型，所有类型就都可以作为T，是没有意义的事情
  */
 class Note<T extends Number> {
     private T info;
@@ -22,7 +22,7 @@ class Note<T extends Number> {
     }
 }
 
-public class GenericExtendsClassDemo {
+public class GenericQualifierClassDemo {
     public static void main(String[] args) {
         Note<Integer> note = new Note<>(123);
         Integer info = note.getInfo();
