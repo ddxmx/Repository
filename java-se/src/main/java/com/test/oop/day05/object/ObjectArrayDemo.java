@@ -27,6 +27,9 @@ public class ObjectArrayDemo {
 
         System.out.println("--------按学生成绩倒序排列--------");
         sortStudentsByScore(students);
+
+        // 对象数组支持转型
+        Object[] destArray = students;
     }
 
     /**
