@@ -1,4 +1,4 @@
-package com.test.thread.day12.util;
+package com.test.thread.day12.auxiliary;
 
 import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
