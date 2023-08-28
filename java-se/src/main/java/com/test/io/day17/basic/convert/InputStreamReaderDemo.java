@@ -1,4 +1,4 @@
-package com.test.io.day17.converter;
+package com.test.io.day17.basic.convert;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,5 +1,4 @@
-package com.test.io.day17.chars;
-
+package com.test.io.day17.basic.chars;
 
 import java.io.File;
 import java.io.FileReader;
@@ -7,7 +6,7 @@ import java.io.IOException;
 
 /**
  * 字符输入流
- * 读取文件时，建议使用字符输入流，防止中文乱码的问题
+ * 读取文本文件时，建议使用字符输入流，防止中文乱码的问题
  */
 public class FileReaderDemo {
     public static void main(String[] args) {
@@ -31,7 +30,9 @@ public class FileReaderDemo {
             int len = 0;
             // public int read(char cbuf[]) throws IOException
             while ((len = reader.read(chars)) != -1) {
-                sb.append(new String(chars, 0, len));
+                String buffer = new String(chars, 0, len);
+                sb.append(buffer);
+                System.out.println("本次读取字符：" + buffer);
             }
 
             System.out.println(sb);

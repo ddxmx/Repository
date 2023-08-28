@@ -1,17 +1,23 @@
-package com.test.io.day17.bytes;
+package com.test.io.day17.basic.bytes;
 
 import java.io.*;
 
 /**
  * 使用字节流复制文件
+ * 采用边读边写的方式进行复制
  */
-public class FileInputOutputStreamDemo {
+public class FileCopyDemo {
     public static void main(String[] args) throws Exception {
-        File srcFile = new File("/Downloads/OS/cn_windows_10_consumer_editions_version_20h2_updated_nov_2020_x64_dvd_07bf0300.iso");
-        File destFile = new File("/windows_10.iso");
+        File srcFile = new File("/Downloads/App/OS/CentOS-7-x86_64-Minimal-2003.iso");
+        File destFile = new File(srcFile.getParent(), "CentOS.iso");
 
         if (destFile.exists()) {
             destFile.delete();
+        }
+
+        // 创建目标文件目录结构
+        if (!destFile.getParentFile().exists()) {
+            destFile.getParentFile().mkdirs();
         }
 
         long startTime = System.currentTimeMillis();
@@ -29,6 +35,6 @@ public class FileInputOutputStreamDemo {
         }
 
         long duration = System.currentTimeMillis() - startTime;
-        System.out.println("复制文件耗时：" + duration); // 复制文件耗时：31101
+        System.out.println("复制文件耗时：" + duration); // 复制文件耗时：3296
     }
 }

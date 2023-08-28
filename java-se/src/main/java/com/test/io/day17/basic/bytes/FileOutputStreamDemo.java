@@ -1,4 +1,4 @@
-package com.test.io.day17.bytes;
+package com.test.io.day17.basic.bytes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,11 +13,9 @@ public class FileOutputStreamDemo {
     public static void main(String[] args) {
         File file = new File("hello.txt");
 
-        /*
-            文件不能被创建时，将抛出异常
-            public FileOutputStream(File file) throws FileNotFoundException
-            public FileOutputStream(File file, boolean append) throws FileNotFoundException
-         */
+        // 文件创建失败时，将抛出异常
+        // public FileOutputStream(File file) throws FileNotFoundException
+        // public FileOutputStream(File file, boolean append) throws FileNotFoundException，是否追加写
         try (FileOutputStream out = new FileOutputStream(file)) {
             // public void write(byte b[]) throws IOException
             out.write(("你好，中国" + System.lineSeparator()).getBytes());
