@@ -1,4 +1,4 @@
-package com.test.io.day17.basic.bytes;
+package com.test.io.day17.stream.file;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package com.test.io.day17.basic.file;
+package com.test.io.day17.file;
 
 import java.io.File;
 import java.io.IOException;

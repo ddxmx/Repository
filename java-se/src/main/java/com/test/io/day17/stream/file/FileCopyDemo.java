@@ -1,4 +1,4 @@
-package com.test.io.day17.basic.bytes;
+package com.test.io.day17.stream.file;
 
 import java.io.*;
 
@@ -25,7 +25,7 @@ public class FileCopyDemo {
         try (FileInputStream in = new FileInputStream(srcFile);
              FileOutputStream out = new FileOutputStream(destFile)) {
             // 一次读取的大小，建议不要超过8kb
-            byte[] bytes = new byte[8 * 1024];
+            byte[] bytes = new byte[1024];
             int len = 0;
             while ((len = in.read(bytes)) != -1) {
                 out.write(bytes, 0, len);
@@ -35,6 +35,6 @@ public class FileCopyDemo {
         }
 
         long duration = System.currentTimeMillis() - startTime;
-        System.out.println("复制文件耗时：" + duration); // 复制文件耗时：3296
+        System.out.println("复制文件耗时：" + duration); // 复制文件耗时：4734
     }
 }

@@ -1,4 +1,4 @@
-package com.test.io.day17.api;
+package com.test.io.day17.stream.print;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
