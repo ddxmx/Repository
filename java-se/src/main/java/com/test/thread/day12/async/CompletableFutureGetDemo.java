@@ -1,4 +1,4 @@
-package com.test.thread.day12.future;
+package com.test.thread.day12.async;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -22,7 +22,7 @@ public class CompletableFutureGetDemo {
         };
 
         System.out.println("===========================get===========================");
-        // 1、如果完成则返回结果，否则就抛出具体的异常ExecutionException
+        // 1、阻塞，如果完成则返回结果，否则就抛出具体的异常ExecutionException
         // public T get() throws InterruptedException, ExecutionException
         // public T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException
         async = CompletableFuture.supplyAsync(supplier);
@@ -34,7 +34,7 @@ public class CompletableFutureGetDemo {
         System.out.println(async.isDone()); // true
 
         System.out.println("===========================join===========================");
-        // 2、完成时返回结果值，否则抛出unchecked异常CompletionException，join会阻塞当前线程等待异步线程结束
+        // 2、阻塞，和get能力一致，join只会抛出unchecked异常CompletionException
         // public T join()
         async = CompletableFuture.supplyAsync(supplier);
         try {
@@ -45,22 +45,18 @@ public class CompletableFutureGetDemo {
         System.out.println(async.isDone()); // true
 
         System.out.println("===========================getNow===========================");
-        // 3、如果完成则返回结果值（或抛出任何遇到的异常），否则返回给定的 valueIfAbsent，不调用get()方法阻塞等待，就直接返回valueIfAbsent了
+        // 3、不阻塞，如果完成则返回结果值（或抛出任何遇到的异常），否则返回给定的 valueIfAbsent
         // public T getNow(T valueIfAbsent)
-        async = CompletableFuture.supplyAsync(() -> 10);
         // 任务正常完成
-        System.out.println(async.get()); // 10
+        async = CompletableFuture.supplyAsync(() -> 10);
+        async.get();
         System.out.println(async.getNow(999)); // 10
         System.out.println(async.isDone()); // true
 
         // 任务异常
         async = CompletableFuture.supplyAsync(supplier);
         try {
-            System.out.println(async.get()); // 抛出异常
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        try {
+            Thread.sleep(2000);
             System.out.println(async.getNow(999)); // 抛出异常
         } catch (CompletionException e) {
             e.printStackTrace();
@@ -73,10 +69,11 @@ public class CompletableFutureGetDemo {
         System.out.println(async.isDone()); // false
 
         System.out.println("===========================complete===========================");
-        // 4、如果任务没有完成，返回的值设置为给定值，并且设置完成状态，否则不主动设置完成状态
+        // 4、设置返回值，如果任务没有完成，返回的值设置为给定值，并且设置完成状态，否则不主动设置完成状态
         // public boolean complete(T value)
         // 任务未完成
         async = CompletableFuture.supplyAsync(supplier);
+        System.out.println(async.isDone()); // false
         System.out.println(async.complete(99)); // true
         System.out.println(async.get()); // 99
         System.out.println(async.isDone()); // true
@@ -88,7 +85,7 @@ public class CompletableFutureGetDemo {
         System.out.println(async.isDone()); // true
 
         System.out.println("===========================completeExceptionally===========================");
-        // 5、如果任务没有完成，就抛出给定异常
+        // 5、设置异常，如果任务没有完成，就抛出给定异常
         // public boolean completeExceptionally(Throwable ex)
         // 任务未完成
         async = CompletableFuture.supplyAsync(supplier);

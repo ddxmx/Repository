@@ -1,15 +1,14 @@
-package com.test.thread.day12.future;
+package com.test.thread.day12.async;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 
 /**
  * CompletableFuture异步编程，创建异步任务
  * CompletableFuture实现了接口Future和CompletionStage
  */
 public class CompletableFutureSubmitDemo {
-    public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         System.out.println("==========================supplyAsync==========================");
         // 1、supplyAsync创建带有返回值的异步任务
         // public static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier)
