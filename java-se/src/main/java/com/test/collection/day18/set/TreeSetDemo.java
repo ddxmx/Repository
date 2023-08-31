@@ -1,11 +1,31 @@
 package com.test.collection.day18.set;
 
-import com.test.collection.day18.Person;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+class Person implements Comparable<Person> {
+    private String name;
+    private int age;
+
+    @Override
+    public int compareTo(Person o) {
+        if (this.age > o.age) {
+            return -1;
+        } else if (this.age < o.age) {
+            return 1;
+        } else {
+            return this.name.compareTo(o.name);
+        }
+    }
+}
 
 /**
  * TreeSet判断元素是否相等，是按照compareTo方法进行判断
@@ -19,16 +39,16 @@ public class TreeSetDemo {
         treeSet.add(-28);
         treeSet.add(45);
         treeSet.add(9);
-        printSet(treeSet); // [-28,9,15,32,45]
+        print(treeSet); // [-28,9,15,32,45]
 
-        System.out.println("***************元素实现Comparable接口用于排序***************");
-        Set<Person> personTreeSet = new TreeSet();
+        System.out.println("=============================元素实现Comparable接口用于排序=============================");
+        Set<Person> perTreeSet = new TreeSet();
         // TreeSet元素必须要实现java.utils.comparable接口
-        personTreeSet.add(new Person("Jack", 22));
-        personTreeSet.add(new Person("Helen", 20));
-        personTreeSet.add(new Person("Tom", 24));
-        personTreeSet.add(new Person("Jerry", 21));
-        personTreeSet.add(new Person("Bob", 22));
+        perTreeSet.add(new Person("Jack", 22));
+        perTreeSet.add(new Person("Helen", 20));
+        perTreeSet.add(new Person("Tom", 24));
+        perTreeSet.add(new Person("Jerry", 21));
+        perTreeSet.add(new Person("Bob", 22));
         /*
             Person{name='Tom', age=24}
             Person{name='Bob', age=22}
@@ -36,10 +56,10 @@ public class TreeSetDemo {
             Person{name='Jerry', age=21}
             Person{name='Helen', age=20}
          */
-        printSet(personTreeSet);
+        print(perTreeSet);
 
-        System.out.println("***************使用传入的Comparator实现排序***************");
-        Comparator comparator = (o1, o2) -> {
+        System.out.println("=============================使用传入的Comparator实现排序=============================");
+        Set comparatorSet = new TreeSet((o1, o2) -> {
             Person p1 = (Person) o1;
             Person p2 = (Person) o2;
             if (p1.getAge() < p2.getAge()) {
@@ -49,10 +69,8 @@ public class TreeSetDemo {
             } else {
                 return p1.getName().compareTo(p2.getName());
             }
-        };
-
-        Set personSet = new TreeSet(comparator);
-        personSet.addAll(personTreeSet);
+        });
+        comparatorSet.addAll(perTreeSet);
         /*
             Person{name='Helen', age=20}
             Person{name='Jerry', age=21}
@@ -60,13 +78,14 @@ public class TreeSetDemo {
             Person{name='Jack', age=22}
             Person{name='Tom', age=24}
          */
-        printSet(personSet);
+        print(comparatorSet);
     }
 
-    public static void printSet(Set set) {
+    public static void print(Set set) {
         Iterator iterator = set.iterator();
         while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+            System.out.print(iterator.next() + " ");
         }
+        System.out.println();
     }
 }

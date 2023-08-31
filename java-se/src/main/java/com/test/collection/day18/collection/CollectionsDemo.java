@@ -44,7 +44,5 @@ public class CollectionsDemo {
         // list拷贝，目标list必须有足够大小，否则出现java.lang.IndexOutOfBoundsException: Source does not fit in dest
         Collections.copy(destList, list);
         System.out.println(destList); // [11, 22, 11, 33, 11, 44, 55]
-
-        // Collections中存在多个synchronizedXxx()方法用来获取线程安全的集合
     }
 }

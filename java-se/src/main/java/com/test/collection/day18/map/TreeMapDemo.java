@@ -1,11 +1,32 @@
 package com.test.collection.day18.map;
 
-import com.test.collection.day18.Person;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+class Person implements Comparable<Person> {
+    private String name;
+    private int age;
+
+    @Override
+    public int compareTo(Person o) {
+        if (this.age > o.age) {
+            return -1;
+        } else if (this.age < o.age) {
+            return 1;
+        } else {
+            return this.name.compareTo(o.name);
+        }
+    }
+}
 
 /**
  * TreeMap排序的元素必须要实现Comparable接口
