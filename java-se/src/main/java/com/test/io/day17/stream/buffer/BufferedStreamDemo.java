@@ -4,9 +4,6 @@ import java.io.*;
 
 /**
  * 缓冲流，对输入输出流进行了封装，提高流的读写速度，减少了文件的读取次数，减少了io操作文件的次数。
- * 如果使用缓冲流，没有close，有可能造成部分数据的丢失
- * 读取：读取一次文件 -> 缓冲区读满 -> 从缓冲区读取
- * 写入：写入到缓冲区 -> 缓冲区写满 -> 写入一次文件
  * （1）BufferedInputStream：读取时先将缓冲区读满，然后再从缓冲区中多次读取，避免多次从硬盘读取
  * （2）BufferedOutputStream：写入时先将缓冲区写满，然后再写入硬盘，避免多次写入硬盘
  * （3）BufferedReader：增加了readLine方法，可以整行读取
@@ -32,12 +29,12 @@ public class BufferedStreamDemo {
         // 可以使用public BufferedInputStream(InputStream in, int size)手动指定缓冲区大小
         try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(srcFile));
              BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destFile))) {
-
             // 这边并不是定义缓冲区的大小，这个是一次从输入流中读取的最大大小
             byte[] bytes = new byte[1024];
             int len = 0;
 
             while ((len = in.read(bytes)) != -1) {
+                // BufferedOutputStream内部使用长度为8192的缓冲区，缓冲区写满后，再一次性的写入文件，减少文件写入次数
                 out.write(bytes, 0, len);
             }
         } catch (IOException e) {

@@ -1,8 +1,6 @@
 package com.test.io.day17.stream.print;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 /**
  * 标准输入输出流
@@ -12,17 +10,23 @@ import java.io.InputStreamReader;
  */
 public class SystemSteamDemo {
     public static void main(String[] args) {
-        System.out.println("请输入字符串");
+        Scanner scanner = new Scanner(System.in);
+        int sum = 0;
 
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
-            String line = null;
-            while (true) {
-                line = bufferedReader.readLine();
-                System.out.println("输入的字符串为：" + line);
+        System.out.println("请输入数字，自动求和，输入-1结束程序");
+        while (true) {
+            if (scanner.hasNextInt()) {
+                int value = scanner.nextInt();
+                if (value == -1) {
+                    System.out.println("结束运行~");
+                    break;
+                }
+                sum += value;
+                System.out.println("总和：" + sum);
+            } else {
+                System.out.println("当前输入非法，请重新输入");
+                scanner.next();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
     }
 }

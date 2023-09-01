@@ -1,19 +1,17 @@
-package com.test.io.day17.stream.convert;
+package com.test.io.day17.stream.adapter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 转换流，字节输入流->字符输入流
  */
 public class InputStreamReaderDemo {
     public static void main(String[] args) {
+        // public InputStreamReader(InputStream in)
         // public InputStreamReader(InputStream in, String charsetName) throws UnsupportedEncodingException
-        try (FileInputStream in = new FileInputStream("hello.txt");
-             InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8.toString())) {
-
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream("hello.txt"))) { // 实现Closeable接口的类都可以支持自动关闭
             StringBuffer sb = new StringBuffer();
             char[] chars = new char[1024];
             int len = 0;
@@ -22,11 +20,8 @@ public class InputStreamReaderDemo {
             }
 
             System.out.println(sb);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }

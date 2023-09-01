@@ -1,6 +1,5 @@
 package com.test.io.day17.stream.file;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -10,10 +9,9 @@ import java.io.IOException;
  */
 public class FileReaderDemo {
     public static void main(String[] args) {
-        File file = new File("hello.txt");
-
+        // public FileReader(String fileName) throws FileNotFoundException
         // public FileReader(File file) throws FileNotFoundException
-        try (FileReader reader = new FileReader(file)) {
+        try (FileReader reader = new FileReader("hello.txt")) {
             StringBuffer sb = new StringBuffer();
 
             // 数据读入，方式一：每次读取一个字符 返回-1表示读取完毕

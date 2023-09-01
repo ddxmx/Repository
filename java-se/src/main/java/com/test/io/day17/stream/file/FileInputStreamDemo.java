@@ -1,6 +1,5 @@
 package com.test.io.day17.stream.file;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -11,14 +10,14 @@ import java.io.IOException;
  */
 public class FileInputStreamDemo {
     public static void main(String[] args) {
-        File file = new File("hello.txt");
         StringBuilder sb = new StringBuilder();
 
-        // 输入的文件必须存在，不然会抛出异常
+        // 读取的文件必须存在，不然会抛出异常
         // public FileInputStream(File file) throws FileNotFoundException
-        try (FileInputStream in = new FileInputStream(file)) {
+        // public FileInputStream(String name) throws FileNotFoundException
+        try (FileInputStream in = new FileInputStream("hello.txt")) {
             // 数组大小指定为5为了演示读取乱码的问题
-            byte[] bytes = new byte[5];
+            byte[] bytes = new byte[5]; // 每次最多从输入流中读取5个字节
             int len = 0;
             // 读取到文件的末尾时，返回-1，public int read(byte b[]) throws IOException
             while ((len = in.read(bytes)) != -1) {

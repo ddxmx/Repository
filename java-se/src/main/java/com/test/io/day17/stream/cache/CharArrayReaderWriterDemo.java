@@ -1,4 +1,4 @@
-package com.test.io.day17.stream.array;
+package com.test.io.day17.stream.cache;
 
 import java.io.CharArrayReader;
 import java.io.CharArrayWriter;
