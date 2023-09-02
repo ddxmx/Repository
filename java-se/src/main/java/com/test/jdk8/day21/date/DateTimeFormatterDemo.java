@@ -10,14 +10,14 @@ import java.time.temporal.TemporalAccessor;
 public class DateTimeFormatterDemo {
     public static void main(String[] args) {
         // 实例化
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         // 格式化日期时间
-        String dateStr = formatter.format(LocalDateTime.now());
+        String dateStr = dtf.format(LocalDateTime.now());
         System.out.println(dateStr); // 2021-02-08 22:59:09
 
         // 解析日期时间
-        TemporalAccessor parse = formatter.parse("2020-01-02 14:12:20");
+        TemporalAccessor parse = dtf.parse("2020-01-02 14:12:20");
         LocalDateTime localDateTime = LocalDateTime.from(parse);
         System.out.println(localDateTime); // 2020-01-02T14:12:20
     }
