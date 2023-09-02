@@ -1,4 +1,4 @@
-package com.test.jdk8.day21.steam;
+package com.test.jdk8.day21.stream;
 
 import java.util.*;
 import java.util.stream.Collectors;
