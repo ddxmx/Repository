@@ -1,4 +1,4 @@
-package com.test.collection.day18.collection;
+package com.test.collection.day18.list;
 
 import java.util.ArrayList;
 import java.util.Arrays;

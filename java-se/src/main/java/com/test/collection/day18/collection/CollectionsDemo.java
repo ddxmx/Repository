@@ -1,6 +1,5 @@
 package com.test.collection.day18.collection;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +19,6 @@ public class CollectionsDemo {
         Collections.shuffle(list);
         System.out.println(list); // [5, 1, 6, 9, 2, 8, 3, 4, 7]
 
-        list = Arrays.asList(5, 1, 6, 9, 2, 8, 3, 4, 7);
         // list排序
         Collections.sort(list);
         System.out.println(list); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -39,10 +37,9 @@ public class CollectionsDemo {
         // 获取元素在list中出现的次数
         System.out.println(Collections.frequency(list, 11)); // 3
 
-        List<Integer> destList = new ArrayList<>(list.size());
-        System.out.println(destList); // [null, null, null, null, null, null, null]
-        // list拷贝，目标list必须有足够大小，否则出现java.lang.IndexOutOfBoundsException: Source does not fit in dest
+        List<Integer> destList = Arrays.asList(new Integer[list.size() + 1]);
+        // list拷贝，拷贝过程中不会扩充集合大小，目标list必须有足够大小，否则出现java.lang.IndexOutOfBoundsException: Source does not fit in dest
         Collections.copy(destList, list);
-        System.out.println(destList); // [11, 22, 11, 33, 11, 44, 55]
+        System.out.println(destList); // [11, 22, 11, 33, 11, 44, 55, null]
     }
 }

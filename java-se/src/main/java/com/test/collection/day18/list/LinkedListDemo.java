@@ -34,13 +34,13 @@ public class LinkedListDemo {
 
         while (true) {
             // poll()方法移除并返回队列开头元素，队列为空时返回null
-            Integer value = list.poll();
-            if (null == value) {
+            Integer first = list.poll();
+            if (null == first) {
                 break;
             }
-            System.out.println(value);
+            System.out.println(first);
         }
-        System.out.println("------------------------------");
+
         list.addAll(Arrays.asList(1, 2, 3, 4, 5));
         while (true) {
             try {

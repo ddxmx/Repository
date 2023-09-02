@@ -9,7 +9,7 @@ import java.util.*;
  * （3）TreeMap：可以进行排序，key的元素需要实现comparable接口
  * （4）Hashtable：古老的实现类，线程安全，不能存储null的key和value，已经逐步被ConcurrentHashMap取代
  */
-public class MapDemo {
+public class HashMapDemo {
     public static void main(String[] args) {
         // 实例化HashMap并不会创建数组，首次调用put方法时，才创建长度为16的数组
         Map<String, Integer> map = new HashMap<>();
@@ -28,26 +28,32 @@ public class MapDemo {
         System.out.println(map); // {AA=87, BB=56, CC=123, DD=123, 45=123}
 
         System.out.println("======================map常用方法======================");
-        // 返回移除元素的value值
+        // 删除元素
         Integer value = map.remove("CC");
         System.out.println(value); // 123
         System.out.println(map); // {AA=87, BB=56, DD=123, 45=123}
 
+        // 根据key获取value值
         System.out.println(map.get(45)); // 123
+
+        // 判断map中是否包含key
         System.out.println(map.containsKey("BB")); // true
+
+        // 判断map中是否包含value
         System.out.println(map.containsValue(123)); // true
 
+        // 清空map
         map.clear();
         System.out.println(map.size()); // 0
         System.out.println(map.isEmpty()); // true
         System.out.println(map); // {}
 
-        System.out.println(map.get(45)); // null
         // key不存在，返回默认value值
+        System.out.println(map.get(45)); // null
         Integer defaultValue = map.getOrDefault(45, 10);
         System.out.println(defaultValue); // 10
 
-        System.out.println("======================遍历key======================");
+        System.out.println("======================map遍历方式一：遍历key======================");
         map.put("a", 1);
         map.put("b", 2);
         map.put("c", 3);
@@ -61,7 +67,7 @@ public class MapDemo {
             }
         }
 
-        System.out.println("======================遍历value======================");
+        System.out.println("======================map遍历方式二：遍历value======================");
         {
             Collection<Integer> values = map.values();
             Iterator<Integer> iterator = values.iterator();
@@ -70,7 +76,7 @@ public class MapDemo {
             }
         }
 
-        System.out.println("======================遍历键值对======================");
+        System.out.println("======================map遍历方式三：遍历键值对======================");
         {
             Set<Map.Entry<String, Integer>> entrySet = map.entrySet();
             Iterator<Map.Entry<String, Integer>> iterator = entrySet.iterator();
