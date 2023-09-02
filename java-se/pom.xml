@@ -23,6 +23,20 @@
             <version>2.13.0</version>
         </dependency>
 
+        <!--Apache Collection包扩展-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+
+        <!--Google Collection包扩展-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>32.1.2-jre</version>
+        </dependency>
+
         <!--lombok工具-->
         <dependency>
             <groupId>org.projectlombok</groupId>
