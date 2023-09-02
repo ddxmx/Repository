@@ -21,6 +21,7 @@ public class ApacheIOUtils {
             String str1 = IOUtils.toString(reader);
             System.out.println(str1);
         }
+
         // 将字节流转换为字符串
         try (FileInputStream in = new FileInputStream("hello.txt")) {
             String str2 = IOUtils.toString(in, StandardCharsets.UTF_8);
@@ -30,14 +31,16 @@ public class ApacheIOUtils {
         System.out.println("=========================将数据写入到输出流=========================");
         FileOutputStream out = new FileOutputStream("hello_bak.txt");
         IOUtils.write("hello world".getBytes(StandardCharsets.UTF_8), out);
+        // 关闭流，会抛出异常
         IOUtils.close(out);
 
-        IOUtils.write("hello world".getBytes(), out);
+        FileOutputStream out2 = new FileOutputStream("hello_bak.txt");
+        IOUtils.write("hello world".toCharArray(), out2, StandardCharsets.UTF_8);
+        IOUtils.closeQuietly(out2);
 
         FileWriter writer = new FileWriter("hello_bak.txt");
         IOUtils.write("hello world", writer);
-
-        System.out.println("=========================关闭流=========================");
+        // 关闭流不会抛出异常
         IOUtils.closeQuietly(writer);
     }
 }
