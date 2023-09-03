@@ -1,4 +1,4 @@
-package com.test.reflex.day20;
+package com.test.reflex.day20.clazz;
 
 import java.io.IOException;
 
@@ -10,6 +10,7 @@ import java.io.IOException;
  */
 public class ClassLoaderDemo {
     public static void main(String[] args) throws IOException {
+        System.out.println("============================获取ClassLoader实例化对象============================");
         // 1、对于自定义类，使用系统类加载器进行加载
         ClassLoader classLoader = ClassLoaderDemo.class.getClassLoader();
         System.out.println(classLoader); // sun.misc.Launcher$AppClassLoader@18b4aac2
@@ -26,6 +27,7 @@ public class ClassLoaderDemo {
         ClassLoader topClassLoader2 = String.class.getClassLoader();
         System.out.println(topClassLoader2); // null
 
+        System.out.println("============================使用ClassLoader加载资源============================");
         // 使用ClassLoader加载文件
         ClassLoader loader = ClassLoaderDemo.class.getClassLoader();
         // jdbc.properties位于当前classpath下
