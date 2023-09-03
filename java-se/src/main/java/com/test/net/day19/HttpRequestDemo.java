@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 发送Http亲贵
+ * 发送Http请求
  */
 public class HttpRequestDemo {
     public static void main(String[] args) throws IOException {
-        String requestURL = "https://v0.yiketianqi.com/api?version=v61&appid=&appsecret=";
-        URL url = new URL(requestURL);
+        String urlStr = "https://v0.yiketianqi.com/api?version=v61&appid=&appsecret=";
+        URL url = new URL(urlStr);
         // 打开连接
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         // 设置本次请求的方式，默认是GET方式，参数要求都是大写字母

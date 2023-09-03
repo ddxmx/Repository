@@ -11,12 +11,9 @@ public class InetAddressDemo {
         try {
             InetAddress localHost = InetAddress.getLocalHost();
             // 获取本机IP地址
-            String hostAddress = localHost.getHostAddress();
-            System.out.println(hostAddress);
-
+            System.out.println(localHost.getHostAddress());
             // 获取本机主机名
-            String hostName = localHost.getHostName();
-            System.out.println(hostName);
+            System.out.println(localHost.getHostName());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
