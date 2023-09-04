@@ -1,6 +1,7 @@
 package com.test.io.day17.file;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 
 /**
@@ -52,6 +53,8 @@ public class FileDemo {
 
         // 获取文件大小，public long length()
         System.out.println(file3.length()); // 0
+        // 文件夹大小也是0
+        System.out.println(file3.getParentFile().length()); // 0
 
         // 获取上次修改时间，public long lastModified()
         System.out.println(file3.lastModified()); // 1624169829965
@@ -82,22 +85,26 @@ public class FileDemo {
         file4.delete();
 
         System.out.println("========================递归指定目录下的文件========================");
-        listFileAndDirectory(new File("/Downloads/App"));
+        listFileAndDirectory(new File("/Downloads/App"), f -> f.getPath().endsWith(".exe"));
     }
 
     /**
      * 递归列出目录和文件信息
+     * 可以通过FileFilter指定过滤条件
      */
-    public static void listFileAndDirectory(File file) {
-        if (file.exists()) {
-            System.out.println(file.getAbsolutePath());
+    public static void listFileAndDirectory(File file, FileFilter filter) {
+        if (!file.exists()) {
+            return;
         }
 
-        if (file.isDirectory()) {
+        if (file.isFile() && filter.accept(file)) {
+            System.out.println(file.getAbsolutePath());
+        } else if (file.isDirectory()) {
+            System.out.println(file.getAbsolutePath());
             // public File[] listFiles()
             File[] files = file.listFiles();
             for (File each : files) {
-                listFileAndDirectory(each);
+                listFileAndDirectory(each, filter);
             }
         }
     }
