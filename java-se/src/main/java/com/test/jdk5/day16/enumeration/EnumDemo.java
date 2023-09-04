@@ -38,9 +38,11 @@ enum Person implements Language {
 
     /**
      * 枚举类的构造器使用private封装
+     * 枚举类构造方法，访问权限可以省略，默认为private
      */
-    private Person(String name) {
+    /*private*/ Person(String name) {
         this.name = name;
+        System.out.println("Person实例化操作，name=" + name);
     }
 
     /**
@@ -52,6 +54,7 @@ enum Person implements Language {
 
 public class EnumDemo {
     public static void main(String[] args) {
+        // 获取枚举类常量时，将调用构造方法，实例化所有枚举常量
         // 枚举类的toString()方法获取的是枚举类常量的name信息
         System.out.println(Person.MALE); // MALE
 
