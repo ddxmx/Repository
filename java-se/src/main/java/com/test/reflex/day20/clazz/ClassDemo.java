@@ -4,6 +4,11 @@ import java.lang.annotation.Annotation;
 
 /**
  * Class类的实例化及使用
+ * 类加载场景
+ *（1）main方法所在的类总是被首先初始化
+ *（2）创建该类对象时，首先会将类加载到内存（如果该类存在父类，那么首先加载父类到内存）
+ *（3）访问该类的静态成员时，会将类加载到内存（该静态成员不能被final修饰）
+ *（4）class.forName("类的全限定名")
  */
 public class ClassDemo {
     public static void main(String[] args) throws ClassNotFoundException {

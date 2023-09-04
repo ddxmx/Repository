@@ -1,5 +1,6 @@
 package com.test.reflex.day20.clazz;
 
+import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
 /**
@@ -32,5 +33,11 @@ public class ConstructorDemo {
         // 使用带参数的构造方法实例化
         person = (Person) clazz.getDeclaredConstructor(String.class, int.class).newInstance("jerry", 20);
         System.out.println(person);
+
+        // 使用private构造器实例化
+        Constructor<?> constructor = clazz.getDeclaredConstructor(String.class);
+        // 设置构造器可见
+        constructor.setAccessible(true);
+        System.out.println(constructor.newInstance("tom"));
     }
 }
