@@ -9,6 +9,7 @@ import java.time.LocalTime;
  */
 public class LocalDateTimeDemo {
     public static void main(String[] args) {
+        System.out.println("============================LocalDateTime实例化============================");
         // 使用当前时间实例化
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
@@ -21,6 +22,7 @@ public class LocalDateTimeDemo {
         LocalDateTime localDateTime = LocalDateTime.of(2021, 2, 1, 18, 30, 15);
         System.out.println(localDateTime); // 2021-02-01T18:30:15
 
+        System.out.println("============================获取LocalDateTime属性============================");
         // get()方法
         System.out.println(localDateTime.getYear()); // 2021
         System.out.println(localDateTime.getMonthValue()); // 2
@@ -29,17 +31,17 @@ public class LocalDateTimeDemo {
         System.out.println(localDateTime.getMinute()); // 30
         System.out.println(localDateTime.getSecond()); // 15
 
+        System.out.println("============================LocalDateTime不可变============================");
         // LocalDateTime不可变性
-        LocalDateTime localDateTime3 = localDateTime.withMonth(11).withDayOfMonth(15);
+        LocalDateTime localDateTime2 = localDateTime.withMonth(11).withDayOfMonth(15);
         System.out.println(localDateTime); // 2021-02-01T18:30:15
-        System.out.println(localDateTime3); // 2021-11-15T18:30:15
+        System.out.println(localDateTime2); // 2021-11-15T18:30:15
 
+        System.out.println("============================LocalDateTime时间计算============================");
         // 加时间
-        LocalDateTime localDateTime4 = localDateTime.plusMonths(3);
-        System.out.println(localDateTime4); // 2021-05-01T18:30:15
+        System.out.println(localDateTime.plusMonths(3)); // 2021-05-01T18:30:15
 
         // 减时间
-        LocalDateTime localDateTime5 = localDateTime.minusDays(2);
-        System.out.println(localDateTime5); // 2021-01-30T18:30:15
+        System.out.println(localDateTime.minusDays(2)); // 2021-01-30T18:30:15
     }
 }

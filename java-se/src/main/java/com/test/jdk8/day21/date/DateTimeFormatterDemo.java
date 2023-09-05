@@ -9,7 +9,7 @@ import java.time.temporal.TemporalAccessor;
  */
 public class DateTimeFormatterDemo {
     public static void main(String[] args) {
-        // 实例化
+        // 创建日期时间格式化对象
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         // 格式化日期时间
