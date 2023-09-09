@@ -11,9 +11,9 @@ public class LocalDateTimeDemo {
     public static void main(String[] args) {
         System.out.println("============================LocalDateTime实例化============================");
         // 使用当前时间实例化
-        LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        LocalDateTime dateTime = LocalDateTime.now();
+        LocalDate date = LocalDate.now(); // 获取日期
+        LocalTime time = LocalTime.now(); // 获取时间
+        LocalDateTime dateTime = LocalDateTime.now(); // 获取日期时间
         System.out.println(date); // 2021-02-08
         System.out.println(time); // 22:34:07.219
         System.out.println(dateTime); // 2021-02-08T22:34:07.219
@@ -33,9 +33,9 @@ public class LocalDateTimeDemo {
 
         System.out.println("============================LocalDateTime不可变============================");
         // LocalDateTime不可变性
-        LocalDateTime localDateTime2 = localDateTime.withMonth(11).withDayOfMonth(15);
+        LocalDateTime nextDateTime = localDateTime.withMonth(11).withDayOfMonth(15);
         System.out.println(localDateTime); // 2021-02-01T18:30:15
-        System.out.println(localDateTime2); // 2021-11-15T18:30:15
+        System.out.println(nextDateTime); // 2021-11-15T18:30:15
 
         System.out.println("============================LocalDateTime时间计算============================");
         // 加时间

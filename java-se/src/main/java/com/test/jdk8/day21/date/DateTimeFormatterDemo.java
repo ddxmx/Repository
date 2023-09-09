@@ -12,13 +12,15 @@ public class DateTimeFormatterDemo {
         // 创建日期时间格式化对象
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+        System.out.println("=================LocalDateTime转换为字符串=================");
         // 格式化日期时间
-        String dateStr = dtf.format(LocalDateTime.now());
-        System.out.println(dateStr); // 2021-02-08 22:59:09
+        String dateTimeStr = dtf.format(LocalDateTime.now());
+        System.out.println(dateTimeStr); // 2021-02-08 22:59:09
 
+        System.out.println("=================字符串转换为LocalDateTime=================");
         // 解析日期时间
-        TemporalAccessor parse = dtf.parse("2020-01-02 14:12:20");
-        LocalDateTime localDateTime = LocalDateTime.from(parse);
+        TemporalAccessor accessor = dtf.parse("2020-01-02 14:12:20");
+        LocalDateTime localDateTime = LocalDateTime.from(accessor);
         System.out.println(localDateTime); // 2020-01-02T14:12:20
     }
 }

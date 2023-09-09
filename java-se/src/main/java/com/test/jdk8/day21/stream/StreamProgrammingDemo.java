@@ -47,12 +47,10 @@ public class StreamProgrammingDemo {
         System.out.println("=====================limit：保留流中指定数量的元素=====================");
         // limit(n)，截断流，使其元素不超过给定数量
         list.stream().limit(2).forEach(System.out::println);
-        System.out.println("****************************");
 
         System.out.println("=====================skip：抛弃流中指定数量元素=====================");
         // skip(n)，跳过元素，返回一个扔掉了前n个元素的流。若流中元素不足n个，则返回一个空流
         list.stream().skip(3).forEach(System.out::println);
-        System.out.println("****************************");
 
         System.out.println("=====================distinct：流中元素去重=====================");
         // distinct()，筛选，通过流所生成元素的hashCode()和equals()去除重复元素
@@ -61,7 +59,6 @@ public class StreamProgrammingDemo {
         System.out.println("=====================map：根据函数重新生成流的元素=====================");
         // map(Function f)，接收一个函数作为参数，将元素转换成其他形式或提取信息，该函数会被应用到每个元素上，并将其映射成一个新的元素
         list.stream().map(str -> str.toUpperCase()).forEach(System.out::println);
-        System.out.println("****************************");
 
         // map操作后自动转换为int类型Stream
         int sum = Stream.of("1", "2", "3", "4").mapToInt(Integer::parseInt).sum();

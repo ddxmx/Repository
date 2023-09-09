@@ -21,7 +21,7 @@ public class OptionalDemo {
 
         System.out.println("===========================获取Optional中value值===========================");
         // public T get()，获取Optional中的value值，值存在则返回，不存在抛出java.util.NoSuchElementException异常
-        // System.out.println(optional2.get()); // 抛出异常，java.util.NoSuchElementException: No value present
+        System.out.println(optional2.get()); // 抛出异常，java.util.NoSuchElementException: No value present
 
         // public T orElse(T other)，如果Optional中的value值不为null，则返回value；如果值为null，则返回orElse()方法中的参数
         System.out.println(optional2.orElse("world")); // world
@@ -39,8 +39,9 @@ public class OptionalDemo {
         Optional.ofNullable("123").filter(e -> e.matches("\\d+")).ifPresent(System.out::println); // 123
 
         System.out.println("===========================map方法===========================");
-        // 对Optional中value值进行函数处理
+        // map方法，对Optional中value值进行函数处理
         Optional.ofNullable("class").map(e -> e.replaceAll("s", "z")).ifPresent(System.out::println); // clazz
+
         // flatMap和map的区别在于map会主动封装Function返回值为Optional，而flatMap不会进行封装，直接返回Function返回值
         Optional.ofNullable("class").flatMap(e -> Optional.ofNullable(e.replaceAll("s", "z"))).ifPresent(System.out::println); // clazz
 
