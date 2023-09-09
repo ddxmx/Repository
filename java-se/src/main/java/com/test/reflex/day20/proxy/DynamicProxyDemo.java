@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * 定义租房接口
+ * java的动态代理基于接口实现
  */
 interface Subject {
     public void rent();
@@ -14,7 +14,7 @@ interface Subject {
 }
 
 /**
- * 创建租房实现类
+ * 真实类
  */
 class RealSubject implements Subject {
     @Override
@@ -28,6 +28,10 @@ class RealSubject implements Subject {
     }
 }
 
+/**
+ * 动态代理类
+ * 静态代理的缺陷：接口每增加一个方法，代理类需要同步修改，增加方法实现代理能力
+ */
 class DynamicProxy implements InvocationHandler {
     // 这个就是我们要代理的真实对象
     private Subject subject;
@@ -38,7 +42,7 @@ class DynamicProxy implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object object, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // 设置只代理rent方法
         if ("rent".equals(method.getName())) {
             // 在代理真实对象前我们可以添加一些自定义操作
@@ -58,7 +62,7 @@ class DynamicProxy implements InvocationHandler {
      * 动态代理类中可以提供方法直接返回代理对象
      */
     public Subject getProxy() {
-        return (Subject) Proxy.newProxyInstance(this.getClass().getClassLoader(), subject.getClass().getInterfaces(), this);
+        return (Subject) Proxy.newProxyInstance(subject.getClass().getClassLoader(), subject.getClass().getInterfaces(), this);
     }
 }
 
@@ -86,7 +90,7 @@ public class DynamicProxyDemo {
         DynamicProxy dynamicProxy = new DynamicProxy(realSubject);
 
         // 生成代理对象
-        Subject proxySubject = (Subject) Proxy.newProxyInstance(dynamicProxy.getClass().getClassLoader(), realSubject
+        Subject proxySubject = (Subject) Proxy.newProxyInstance(realSubject.getClass().getClassLoader(), realSubject
                 .getClass().getInterfaces(), dynamicProxy);
         // 通过代理类提供的获取代理实例的方法，也能获取到代理类对象
         Subject proxySubject2 = dynamicProxy.getProxy();
