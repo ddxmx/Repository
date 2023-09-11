@@ -15,14 +15,14 @@
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-context</artifactId>
-    <version>5.3.21</version>
+    <version>5.3.29</version>
 </dependency>
 
 <!--lombok依赖-->
 <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
-    <version>1.18.24</version>
+    <version>1.18.28</version>
 </dependency>
 
 <!--junit依赖-->
