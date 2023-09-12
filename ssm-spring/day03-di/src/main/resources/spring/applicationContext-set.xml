@@ -3,11 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean id="car" class="com.test.Car">
+    <bean id="car" class="com.test.bean.Car">
         <property name="brand" value="宝马"/>
         <property name="price" value="300000"/>
     </bean>
-
 
     <!--
         util:list 创建一个java.util.List类型的bean，其中包含值或引用
@@ -15,22 +14,32 @@
         util:map 创建一个java.util.Map类型的bean，其中包含值或引用
         util:properties 创建一个java.util.Properties类型的bean
     -->
-
     <!--注入属性时引用集合-->
-    <util:list id="myHobbies">
-        <value>音乐</value>
-        <value>画画</value>
-        <value>游泳</value>
+    <util:list id="mybooks">
+        <value>&lt;&lt;水浒传&gt;&gt;</value>
+        <value>&lt;&lt;三国演义&gt;&gt;</value>
+        <value><![CDATA[<<西游记>>]]></value>
+        <value><![CDATA[<<红楼梦>>]]></value>
     </util:list>
 
-    <!---->
-    <bean id="member" class="com.test.Member">
+    <bean id="member" class="com.test.bean.Member">
         <!--property设置必须要提供set方法，name属性的值实际上是set对应的方法名-->
         <property name="name" value="jerry"/>
         <property name="age" value="30"/>
+        <property name="male" value="true"/>
+
+        <!--空注入，和不注入一样-->
+        <property name="wife">
+            <null/>
+        </property>
+
+        <!--引用类型的注入-->
         <property name="car" ref="car"/>
 
         <!--数组注入方式-->
+        <!--也可以在外部通过util:list方式定义，通过引用方式引用，数组引用使用util:list-->
+        <!--<property name="books" ref="mybooks"/>-->
+
         <property name="books">
             <array>
                 <!--特殊符号处理有两种方式-->
@@ -53,9 +62,6 @@
             </array>
         </property>
 
-        <!--也可以在外部通过util:list方式定义，通过引用方式引用-->
-        <!--<property name="hobbies" ref="myHobbies"/>-->
-
         <!--list注入方式-->
         <property name="hobbies">
             <list>
@@ -66,7 +72,7 @@
         </property>
 
         <!--map注入方式-->
-        <property name="parents">
+        <property name="family">
             <map>
                 <entry key="爸爸" value="35"/>
                 <entry key="妈妈" value="34"/>
@@ -84,13 +90,8 @@
             </set>
         </property>
 
-        <!--空注入，和不注入一样-->
-        <property name="wife">
-            <null/>
-        </property>
-
-        <!--properties属性输入-->
-        <property name="info">
+        <!--properties属性注入方式-->
+        <property name="scores">
             <props>
                 <prop key="语文">95</prop>
                 <prop key="数学">98</prop>

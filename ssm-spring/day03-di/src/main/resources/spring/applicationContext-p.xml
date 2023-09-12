@@ -3,10 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="car" class="com.test.Car">
+    <bean id="car" class="com.test.bean.Car">
         <property name="brand" value="奔驰"/>
         <property name="price" value="250000"/>
     </bean>
 
-    <bean id="car2" class="com.test.Car" p:brand="大众" p:price="180000"/>
+    <bean id="car2" class="com.test.bean.Car" p:brand="大众" p:price="180000"/>
 </beans>

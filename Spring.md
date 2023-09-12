@@ -1,6 +1,6 @@
 # Spring
 
-# 一、引言
+# 第一章：引言
 
 ~~~markdown
 1、Spring是轻量级的开源的JAVAEE框架。
@@ -51,26 +51,25 @@
 </build>
 ```
 
-# 二、IOC（控制反转）
+# 第二章：IOC（控制反转）
 
-IOC是一种设计思想，就是将原本在程序中手动创建对象的控制权，交由Spring框架来管理。 IoC 容器实际上就是个Map，Map 中存放的是各种对象。
+IOC是一种设计思想，就是将原本在程序中手动创建对象的控制权，交由Spring框架来管理。 IOC 容器实际上就是个Map，Map 中存放的是各种对象。
 Spring的IOC底层实现原理是**工厂设计模式+反射+XML配置文件。**
 
-## 1、获取IOC容器方式
+## 一、获取IOC容器方式
 
 **ApplicationContext在加载配置文件时，实例化其中的bean对象。**
 
-### 1）ClassPathXmlApplicationContext
+### 1、ClassPathXmlApplicationContext
 
 通过classpath下的xml文件实例化IOC容器
 
 ```java
 ApplicationContext context =
     new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-User user = context.getBean("user", User.class);
 ```
 
-### 2）FileSystemXmlApplicationContext
+### 2、FileSystemXmlApplicationContext
 
 通过绝对路径下的xml文件实例化IOC容器
 
@@ -78,19 +77,23 @@ User user = context.getBean("user", User.class);
 String path = UserTest.class.getClassLoader().getResource("spring/applicationContext.xml").getPath();
 ApplicationContext context =
     new FileSystemXmlApplicationContext(path);
-User user = context.getBean("user", User.class);
 ```
 
-### 3）AnnotationConfigApplicationContext
+### 3、AnnotationConfigApplicationContext
 
 通过java类实例化IOC容器
 
 ```java
 ApplicationContext context = new AnnotationConfigApplicationContext(UserConfig.class);
-UserDao userDao = context.getBean(UserMysqlDaoImpl.class);
 ```
 
-## 2、容器中获取Bean的方式
+## 二、容器中获取Bean的方式
+
+~~~xml
+<!--bean只使用一次，可以不定义id。如果bean使用多次或被其他bean引用，需要定义id属性-->
+<!--name表示别名，可以使用逗号定义多个-->
+<bean id="person" name="per" class="com.test.bean.Person"/>
+~~~
 
 ~~~java
 // 通过bean的id和类型获取bean
@@ -117,22 +120,16 @@ System.out.println(ctx.containsBean("per")); // true
 System.out.println(ctx.containsBean("test")); // false
 ~~~
 
-```xml
-<!--bean只使用一次，可以不定义id。如果bean使用多次或被其他bean引用，需要定义id属性-->
-<!--name表示别名，可以使用逗号定义多个-->
-<bean id="person" name="per" class="com.test.bean.Person"/>
-```
+## 三、Spring实例化bean方式
 
-## 3、Spring实例化bean方式
-
-### 1）方式一、构造器实例化
+### 1、构造器实例化
 
 ```xml
 <!--使用默认构造器实例化-->
 <bean id="student" class="com.test.bean.Student"/>
 ```
 
-### 2）方式二、静态工厂类实例化
+### 2、静态工厂类实例化
 
 ~~~xml
 <!--静态工厂类，bean对象类型是factory-method方法返回值类型-->
@@ -152,7 +149,7 @@ public class UserServiceFactory {
 }
 ```
 
-### 3）方式三、非静态工厂类实例化
+### 3、非静态工厂类实例化
 
 ~~~xml
 <!--非静态工厂类-->
@@ -173,7 +170,7 @@ public class StudentFactory {
 }
 ```
 
-## 4、装配（注入）
+## 四、装配（注入）
 
 **注入：通过Spring⼯⼚及配置⽂件，为所创建对象的成员变量赋值。**可以注入JDK内置类型或自定义类型。
 
@@ -183,39 +180,35 @@ Spring装配有三种方式：
 - 在java类中显示配置
 - 隐式的bean发现机制和自动装配
 
-### 1）xml方式装配
+### 1、xml方式装配
 
-- 空值
+特殊字符处理
 
-  ~~~xml
-  <property name="alias"><null/></property>
-  ~~~
+- 使用转义字符
 
-- 特殊字符处理
+```xml
+&lt;   <  小于
+&gt;   >  大于
+&amp;  &  与号
+&apos; '  单引号
+&quot; "  双引号
 
-  方式一：使用转义字符
+<!--<<水浒传>>-->
+<value>&lt;&lt;水浒传&gt;&gt;</value> 
+```
 
-  ```xml
-  &lt;   <  小于
-  &gt;   >  大于
-  &amp;  &  与号
-  &apos; '  单引号
-  &quot; "  双引号
-  
-  <!--<<水浒传>>-->
-  <value>&lt;&lt;水浒传&gt;&gt;</value> 
-  ```
+- CDATA，表示其中的字符不进行转义
 
-  方式二：CDATA，表示其中的字符不进行转义
+```xml
+<!--![CDATA[包含特殊字符的内容]]-->
 
-  ```xml
-  <![CDATA[包含特殊字符的内容]]>
-  
-  <!--<<西游记>>-->
-  <value><![CDATA[<<西游记>>]]></value>
-  ```
+<!--<<西游记>>-->
+<value><![CDATA[<<西游记>>]]></value>
+```
 
-#### A、构造器注入
+#### （1）构造器注入
+
+##### A）constructor-arg标签
 
 构造器注入依赖于构造方法，不依赖set方法
 
@@ -234,13 +227,17 @@ Spring装配有三种方式：
 </bean>
 ```
 
-**c标签，简化<constructor-arg>标签**
+##### B）c 标签
+
+简化<constructor-arg>标签
 
 ```xml
 <bean id="student" class="com.test.bean.Student" c:name="张三" c:age="20" c:book-ref="book"/>
 ```
 
-**构造器标签可以装配集合，而c标签不能装配集合**
+##### **C）集合装配和引用**
+
+构造器标签可以装配集合，而c标签不能装配集合
 
 ```xml
 <bean id="person" class="com.test.bean.Person">
@@ -257,7 +254,10 @@ Spring装配有三种方式：
     </constructor-arg>
 </bean>
 
-<!--list注入方式-->
+<!--空注入-->
+<property name="alias"><null/></property>
+
+<!--array或list注入方式-->
 <list>
     <value>读书</value>
     <value>音乐</value>
@@ -279,7 +279,7 @@ Spring装配有三种方式：
     <entry key="奶奶" value="58"/>
 </map>
 
-<!--properties属性输入-->
+<!--properties属性注入方式-->
 <props>
     <prop key="语文">95</prop>
     <prop key="数学">98</prop>
@@ -311,7 +311,9 @@ Spring装配有三种方式：
 </bean>
 ```
 
-#### B、set注入
+#### （2）set注入
+
+##### A）property标签
 
 set注入依赖于set方法，没有set方法无法使用set注入的方式
 
@@ -321,7 +323,10 @@ set注入依赖于set方法，没有set方法无法使用set注入的方式
 ~~~
 
 ```xml
-<bean id="book" class="com.test.bean.Book" p:title="java编程思想" p:price="99.9"/>
+<bean id="book" class="com.test.bean.Book">
+    <property name="title" value="java编程思想"/>
+    <property name="price" value="99.9"/>
+</bean>
 
 <bean id="student" class="com.test.bean.Student">
     <!--name表示参数的名称-->
@@ -331,11 +336,17 @@ set注入依赖于set方法，没有set方法无法使用set注入的方式
 </bean>
 ```
 
-**p标签，简化<property>标签**
+##### **B）p 标签**
+
+简化<property>标签
 
 ```xml
 <bean id="student" class="com.test.bean.Student" p:name="张三" p:age="20" p:book-ref="book"/>
 ```
+
+##### C）集合的装配和引用
+
+set注入方式，集合的装配和引用与构造器注入方式一致，无区别
 
 ### 2）自动装配
 
