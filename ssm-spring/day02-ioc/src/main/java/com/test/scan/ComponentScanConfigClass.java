@@ -1,6 +1,5 @@
-package com.test.config;
+package com.test.scan;
 
-import com.test.annotation.Student;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,5 +10,5 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan(basePackageClasses = Student.class)
-public class BasePackageClassesConfig {
+public class ComponentScanConfigClass {
 }

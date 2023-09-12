@@ -5,6 +5,6 @@
 
     <!--bean只使用一次，可以不定义id。如果bean使用多次或被其他bean引用，需要定义id属性-->
     <!--name表示别名，可以使用逗号定义多个-->
-    <bean id="person" name="per" class="com.test.bean.Person"/>
+    <bean id="person" name="per,per1" class="com.test.context.Person"/>
 
 </beans>

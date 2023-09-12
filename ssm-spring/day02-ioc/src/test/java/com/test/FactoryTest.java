@@ -1,6 +1,6 @@
-package com.test.factory;
+package com.test;
 
-import com.test.bean.Person;
+import com.test.context.Person;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

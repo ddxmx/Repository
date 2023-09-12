@@ -1,10 +1,11 @@
-package com.test.bean;
+package com.test.config;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 
 @Data
-@ToString
+@AllArgsConstructor
 public class Dept {
     private String name;
 }

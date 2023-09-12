@@ -1,6 +1,6 @@
 package com.test.factory;
 
-import com.test.bean.Person;
+import com.test.context.Person;
 
 /**
  * 静态工厂类，不需要先实例化PersonStaticFactory类
