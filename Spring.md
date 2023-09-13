@@ -348,7 +348,7 @@ set注入依赖于set方法，没有set方法无法使用set注入的方式
 
 set注入方式，集合的装配和引用与构造器注入方式一致，无区别
 
-### 2）自动装配
+### 2、注解方式自动装配
 
 #### A、@Component
 
@@ -846,7 +846,7 @@ public class MyDateConverter implements Converter<String, Date> {
 
   ⽇期格式： 2020/05/01 (不⽀持 ： 2020-05-01)  
 
-## 8、Bean的作用域及生命周期
+## 八、Bean的作用域及生命周期
 
 - 通过反射实例化对象
 - DI注入属性
@@ -855,7 +855,7 @@ public class MyDateConverter implements Converter<String, Date> {
 - BeanPostProcessor中after方法
 - destory-method
 
-### 1）scope
+### 1、scope
 
 单例（ Singleton） ： 默认作用域，在整个应用中， 只创建bean的一个实例。
 
@@ -881,7 +881,7 @@ public class Book {
 }
 ```
 
-### 2）init-method
+### 2、init-method
 
 可以使用init-method和destroy-method设置实例化后和对象销毁前执行的方法
 
@@ -916,11 +916,11 @@ public void init(){
 }
 ```
 
-### 3）destroy-method
+### 3、destroy-method
 
 **destroy-method只对bean的scope是singleton时才生效**
 
-调用容器的close方法关闭容器时执行bean销毁操作，ClassPathXmlApplicationContext实例对对象.close()
+调用容器的close方法关闭容器时执行bean销毁操作，ClassPathXmlApplicationContext实例对对象.close()方法
 
 - xml方式
 
@@ -937,9 +937,9 @@ public void destroy(){
 }
 ```
 
-### 4）lazy-init
+### 4、lazy-init
 
-**lazy-init只对bean的scope是singleton时才生效，prototype方式默认就是获取时才实例化**
+**lazy-init只对bean的scope是singleton时才生效，prototype方式默认就是获取bean时才实例化**
 
 - xml方式
 
@@ -952,17 +952,15 @@ public void destroy(){
 
 在bean上使用注解@Lazy就表示延迟加载，一般和@Component、@Autowire或@Bean一起使用。
 
-### 5）BeanPostProcessor
-
-对Spring⼯⼚所创建的对象，进⾏再加⼯。
+### 5、BeanPostProcessor
 
 BeanPostProcessor会对Spring⼯⼚中所有创建的对象进⾏加⼯。 
 
 ````markdown
 # BeanPostProcessor使用场景
-1、可以解析bean中的一些注解转化为需要的属性
-2、注入处理一些统一的属性，而不用在每个bean中注入
-3、甚至可以做一些日志打印时间等
+- 可以解析bean中的一些注解转化为需要的属性
+- 注入处理一些统一的属性，而不用在每个bean中注入
+- 甚至可以做一些日志打印时间等
 ````
 
 ```java
@@ -992,6 +990,7 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 ```
 
 ```xml
+<!--注册bean-->
 <bean id="myBeanPostProcessor" class="com.test.MyBeanPostProcessor"/>
 ```
 
