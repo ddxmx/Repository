@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="car" class="com.test.bean.Car">
+        <property name="brand" value="大众"/>
+        <property name="price" value="185000"/>
+    </bean>
+
+    <!--构造注入-->
+    <bean id="cDriver" class="com.test.bean.Driver">
+        <constructor-arg name="name" value="张三"/>
+
+        <!--car属性的设置有两种方式-->
+        <!--方式一：引用外部的bean-->
+        <!--<constructor-arg name="car" ref="car"/>-->
+
+        <!--方式二，直接在driver内部定义一个car-->
+        <constructor-arg name="car">
+            <bean class="com.test.bean.Car">
+                <property name="brand" value="大众"/>
+                <property name="price" value="185000"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <!--set注入和构造器注入类似-->
+    <bean id="pDriver" class="com.test.bean.Driver">
+        <property name="name" value="张三"/>
+
+        <!--car属性的设置有两种方式-->
+        <!--方式一：引用外部的bean-->
+        <property name="car" ref="car"/>
+
+        <!--方式二，直接在driver内部定义一个car-->
+        <!--<property name="car">
+            <bean class="com.test.bean.Car">
+                <property name="brand" value="大众"/>
+                <property name="price" value="185000"/>
+            </bean>
+        </property>-->
+    </bean>
+</beans>
