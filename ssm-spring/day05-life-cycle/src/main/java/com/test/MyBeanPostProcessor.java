@@ -3,6 +3,9 @@ package com.test;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
+/**
+ * Spring容器在init-method前后会调用BeanPostProcessor接口中的postProcessBeforeInitialization和postProcessAfterInitialization方法
+ */
 public class MyBeanPostProcessor implements BeanPostProcessor {
     /**
      * 作⽤： Spring创建完对象，并进⾏注⼊后，可以运⾏Before⽅法进⾏加⼯

@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--bean默认为单例模式-->
-    <bean id="user" class="com.test.User"/>
+    <!--bean默认为单例模式，scope属性可以不指定-->
+    <bean id="user" class="com.test.User" scope="singleton"/>
 
 </beans>

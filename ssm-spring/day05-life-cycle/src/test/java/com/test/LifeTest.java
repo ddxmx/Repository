@@ -4,46 +4,45 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class UserTest {
+public class LifeTest {
     /**
      * 只实例化一次，bean默认是单例的
+     * 单例模式在加载xml时就创建了bean
      */
     @Test
-    public void defaultScopeTypeTest() {
+    public void singletonScopeTest() {
+        /*
+            ---------------加载xml配置---------------
+            User对象被实例化...
+            ---------------获取bean对象---------------
+         */
         System.out.println("---------------加载xml配置---------------");
         ApplicationContext ctx =
                 new ClassPathXmlApplicationContext("spring/applicationContext-singleton.xml");
         System.out.println("---------------获取bean对象---------------");
-        /*
-            ---------------加载xml配置---------------
-            User对象被实例化...
-            ---------------获取bean对象---------------
-            true
-         */
         User user = ctx.getBean("user", User.class);
         User user2 = ctx.getBean("user", User.class);
-        System.out.println(user == user2);
+        System.out.println(user == user2); // true
     }
 
     /**
-     * 多例模式，获取时才创建bean
+     * 多例模式，每次获取bean时都会进行创建
      */
     @Test
-    public void protoTypeTest() {
+    public void protoTypeScopeTest() {
+        /*
+            ---------------加载xml配置---------------
+            ---------------获取bean对象---------------
+            User对象被实例化...
+            User对象被实例化...
+         */
         System.out.println("---------------加载xml配置---------------");
         ApplicationContext ctx =
                 new ClassPathXmlApplicationContext("spring/applicationContext-protoType.xml");
         System.out.println("---------------获取bean对象---------------");
-        /*
-            ---------------加载xml配置---------------
-            ---------------获取bean对象---------------
-            User对象被实例化...
-            User对象被实例化...
-            false
-         */
         User user = ctx.getBean("user", User.class);
         User user2 = ctx.getBean("user", User.class);
-        System.out.println(user == user2);
+        System.out.println(user == user2); // false
     }
 
     /**
@@ -73,9 +72,13 @@ public class UserTest {
     public void protoTypeLifeTest() {
         /*
             User对象被实例化...
+            before init
             User的init方法被执行...
+            after init
             User对象被实例化...
+            before init
             User的init方法被执行...
+            after init
          */
         ClassPathXmlApplicationContext ctx =
                 new ClassPathXmlApplicationContext("spring/applicationContext-lifecycle-protoType.xml");
@@ -88,18 +91,19 @@ public class UserTest {
 
     /**
      * lazy-init让对象在获取时才进行创建
+     * 多例模式本身就是获取时才创建，无需设置
      */
     @Test
     public void lazyInitTest() {
-        System.out.println("---------------加载xml配置---------------");
-        ApplicationContext ctx =
-                new ClassPathXmlApplicationContext("spring/applicationContext-lazyInit.xml");
-        System.out.println("---------------获取bean对象---------------");
         /*
             ---------------加载xml配置---------------
             ---------------获取bean对象---------------
             User对象被实例化...
          */
+        System.out.println("---------------加载xml配置---------------");
+        ApplicationContext ctx =
+                new ClassPathXmlApplicationContext("spring/applicationContext-lazyInit.xml");
+        System.out.println("---------------获取bean对象---------------");
         ctx.getBean("user", User.class);
     }
 }

@@ -8,4 +8,6 @@
     <bean id="user" class="com.test.User" scope="prototype" init-method="init"
           destroy-method="destroy"/>
 
+    <bean id="myBeanPostProcessor" class="com.test.MyBeanPostProcessor"/>
+
 </beans>
