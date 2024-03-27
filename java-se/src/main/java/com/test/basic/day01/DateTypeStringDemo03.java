@@ -1,12 +1,14 @@
 package com.test.basic.day01;
 
 /**
+ * String类型不属于基本数据类型
  * String类型可以像基本数据类型一样采用直接赋值的方式，但是String类型属于引用数据类型
  * 字符串连接使用符号 +
  * 任何数据类型和字符串连接，都会向字符串类型转型
  */
-public class DateTypeStringDemo {
+public class DateTypeStringDemo03 {
     public static void main(String[] args) {
+        System.out.println("====================字符串基本使用======================");
         // 定义字符串
         String str1 = "Hello";
         System.out.println(str1); // Hello
@@ -20,13 +22,14 @@ public class DateTypeStringDemo {
         System.out.println(str3); // null
         System.out.println(null + "abc"); // nullabc
 
-        // 字符串连接
+        // 字符串连接，其他类型都会向字符串转型
         System.out.println("计算结果：" + 1 + 2); // 计算结果：12
         System.out.println("计算结果：" + (1 + 2)); // 计算结果：3
 
         // 字符串中包含双引号，需要使用\进行转义
         System.out.println("Hello，\"Java\""); // Hello，"Java"
 
+        System.out.println("=====================字符串和数字转换=====================");
         /*
             String类型和数字不能直接进行转换
             数据类型之间直接转换的情况就两种：
