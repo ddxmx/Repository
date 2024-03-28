@@ -6,9 +6,9 @@ package com.test.basic.day02;
  * &：乘法，|：加法，^：不进位的加法
  * 位运算不会改变原操作数
  */
-public class BitOperatorDemo {
+public class BitOperatorDemo06 {
     public static void main(String[] args) {
-        System.out.println("========&、|、^、~操作========");
+        System.out.println("========================&、|、^、~操作========================");
         int num1 = 3; // 0000 0011
         int num2 = 2; // 0000 0010
         System.out.println(num1 & num2); // 0000 0010 = 2
@@ -33,7 +33,7 @@ public class BitOperatorDemo {
         x = x ^ y; // 等价于：x ^ y ^ x = y
         System.out.println("x=" + x + ",y=" + y); // x=20,y=10
 
-        System.out.println("========<<、>>、>>>操作========");
+        System.out.println("========================<<、>>、>>>操作========================");
         // 左移操作，* 2^n
         int a1 = 3;
         System.out.println(a1 << 2); // 3*(2^2)=12
@@ -69,12 +69,12 @@ public class BitOperatorDemo {
         int a6 = -9;
         System.out.println(a6 >>> 2); // 1073741821
 
-        System.out.println("========位运算的常见操作========");
+        System.out.println("========================位运算的常见操作========================");
         /*
             获取一个数补码后N位的方式
             如：获取int类型数20的补码形式后4位：0001 0100
          */
-        // 获取后N位就使用N位全为1的二进制进行 按位&运算
+        // 获取后N位就使用N位全为1的二进制进行按位&运算
         int value = 0b1111 & 20;
         System.out.println(value); // 4
 

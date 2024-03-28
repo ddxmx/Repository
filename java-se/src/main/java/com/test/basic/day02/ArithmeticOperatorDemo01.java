@@ -5,8 +5,23 @@ package com.test.basic.day02;
  * 一元运算符优先级高于二元运算符
  * 在二元运算符中，算术运算符优先级最高
  */
-public class ArithmeticOperatorDemo {
+public class ArithmeticOperatorDemo01 {
     public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 3;
+
+        // 加法
+        int sum = num1 + num2;
+        System.out.println(sum); // 13
+
+        // 减法
+        int sub = num1 - num2;
+        System.out.println(sub); // 7
+
+        // 乘法
+        int mul = num1 * num2;
+        System.out.println(mul); // 30
+
         // 除法
         // int类型 / int类型 = int类型，小数位直接舍弃
         System.out.println(14 / 4); // 3

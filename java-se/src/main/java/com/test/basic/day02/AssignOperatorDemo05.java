@@ -5,7 +5,7 @@ package com.test.basic.day02;
  * 在二元运算符中，赋值运算符优先级最低
  * 对于基本数据类型来说，赋值操作实际是拷贝了一份变量保存的值后再进行赋值操作，因此原数据修改并不会影响赋值后的变量
  */
-public class AssignOperatorDemo {
+public class AssignOperatorDemo05 {
     public static void main(String[] args) {
         int i1 = 10;
         int i2 = i1;
@@ -24,10 +24,10 @@ public class AssignOperatorDemo {
         s1 += 1;
         System.out.println(s1); // 11
 
-        byte b1 = 127;
-        // 数据溢出
-        b1 += 1;
-        System.out.println(b1); // -128
+        // 使用如 += 的赋值运算符，当操作数类型不一致时，将自动进行类型转换
+        int num = 10;
+        num += 3.5;
+        System.out.println(num); // 13
 
         // +1的不同实现方式
         int i5 = 5;

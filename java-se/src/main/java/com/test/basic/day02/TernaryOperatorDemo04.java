@@ -9,7 +9,7 @@ package com.test.basic.day02;
  * 三元运算符都可以使用if-else替换
  * 三元运算符可以嵌套使用
  */
-public class TernaryOperatorDemo {
+public class TernaryOperatorDemo04 {
     public static void main(String[] args) {
         // 编译错误，System.out.println是语句，而不是表达式
         // true ? System.out.println(1) : System.out.println(2);
@@ -21,7 +21,7 @@ public class TernaryOperatorDemo {
         System.out.println(max); // 20
 
         // 表达式类型可以不一致，实际上都是Object的子类，数字自动装箱为Integer
-        Object result = a > 0 ? "abc" : 2;
+        Object result = 1 > 0 ? "abc" : 2;
         System.out.println(result); // abc
 
         int c = 15;
@@ -33,7 +33,7 @@ public class TernaryOperatorDemo {
         // Math类对两个数字大小比较的支持
         int maxValue = Math.max(10, 12);
         System.out.println(maxValue); // 12
-        int minValue = Math.min(21, 16);
-        System.out.println(minValue); // 16
+        double minValue = Math.min(12.5, 10.8);
+        System.out.println(minValue); // 10.8
     }
 }

@@ -9,7 +9,7 @@ package com.test.basic.day02;
  * ||：运算符左边为true时，右边不运算
  * 开发中推荐使用&&和||
  */
-public class LogicOperatorDemo {
+public class LogicOperatorDemo03 {
     public static void main(String[] args) {
         boolean a = true;
         boolean b = false;
