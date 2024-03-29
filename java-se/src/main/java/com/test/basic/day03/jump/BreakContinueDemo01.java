@@ -1,6 +1,7 @@
 package com.test.basic.day03.jump;
 
 /**
+ * 中断语句
  * 1、break场景
  * （1）switch语句：用于结束switch语句
  * （2）循环：用于终止当前所在层的循环，跳出循环
@@ -8,9 +9,9 @@ package com.test.basic.day03.jump;
  * （1）循环：用于结束本轮当前所在层的循环，继续下一轮循环
  * 3、break或continue范围后不能有语句，语句无法被执行到
  */
-public class BreakContinueDemo {
+public class BreakContinueDemo01 {
     public static void main(String[] args) {
-        System.out.println("=====================break====================");
+        System.out.println("=====================break语句====================");
         for (int i = 0; i < 10; i++) {
             if (i == 3) {
                 break;
@@ -21,9 +22,9 @@ public class BreakContinueDemo {
         }
         System.out.println();
 
-        System.out.println("=====================continue====================");
+        System.out.println("=====================continue语句====================");
         for (int i = 0; i < 10; i++) {
-            // 只结束本轮一次循环
+            // 只结束本轮循环
             if (i == 3) {
                 continue;
             }
@@ -45,7 +46,7 @@ public class BreakContinueDemo {
         }
         System.out.println();
 
-        // 获取两个数的最大公约数、最小公倍数
+        System.out.println("=====================获取两个数的最大公约数、最小公倍数====================");
         int a = 12;
         int b = 20;
         // 最大公约数不会超过2个数中较小的数
@@ -56,7 +57,6 @@ public class BreakContinueDemo {
                 break;
             }
         }
-
         // 最小公倍数最小为2个数中较大的数，最大为2个数的乘积
         int max = Math.max(a, b);
         for (int i = max; i <= a * b; i++) {

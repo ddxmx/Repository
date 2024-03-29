@@ -1,6 +1,7 @@
 package com.test.basic.day03.loop;
 
 /**
+ * for循环
  * 如果明确的知道循环的次数，使用for循环
  * 循环四个组成部分：
  * 1、初始化语句（for循环的循环控制变量超过for循环的范围就不能再使用）
@@ -9,7 +10,7 @@ package com.test.basic.day03.loop;
  * 4、修改循环控制变量
  * 执行顺序：1、2、3、4、2、3、4、2、3、4...2
  */
-public class ForDemo {
+public class ForDemo03 {
     public static void main(String[] args) {
         // 计算1到100的和
         {

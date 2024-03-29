@@ -1,10 +1,10 @@
 package com.test.basic.day03.loop;
 
 /**
- * 嵌套循环（99乘法表）
+ * 嵌套循环
  * 外层循环控制行数，内层循环控制列数
  */
-public class NestedLoopDemo {
+public class NestedLoopDemo04 {
     public static void main(String[] args) {
         /*
             1*1=1
@@ -26,11 +26,11 @@ public class NestedLoopDemo {
         }
 
         /*
-              *
-             * *
-            * * *
-           * * * *
-          * * * * *
+         *
+         * *
+         * * *
+         * * * *
+         * * * * *
          */
         int line = 5;
         for (int i = 1; i <= line; i++) {
@@ -45,7 +45,7 @@ public class NestedLoopDemo {
 
         // 水仙花数，三位数，每个位上的数字的3次幂之和等于它本身
         // 153 370 371 407
-        for (int i = 100; i <= 999; i++) {
+        for (int i = 100; i < 1000; i++) {
             int bai = i / 100;
             int shi = i % 100 / 10;
             int ge = i % 10;

@@ -1,6 +1,7 @@
 package com.test.basic.day03.choose;
 
 /**
+ * switch语句
  * switch用于固定数量的常量选择
  * switch支持的表达式类型如下：
  * |- byte short int char
@@ -13,9 +14,9 @@ package com.test.basic.day03.choose;
  * |- 判断范围，推荐使用if-else语句
  * switch语句性能高于if-else语句
  */
-public class SwitchDemo {
+public class SwitchDemo02 {
     public static void main(String[] args) {
-        // final修改的变量为常量
+        // final修饰的变量为常量
         final char aChar = 'a';
         char var = 'b';
         switch (var) {
@@ -37,6 +38,7 @@ public class SwitchDemo {
 
         String today = "周四";
         // switch语句中变量表达式为null时，调用字符串的hashCode()方法将出现java.lang.NullPointerException异常
+        // switch语句支持字符串类型，实际上比较的是字符串的hashCode值，值相等再进行equals()方法比较
         // today = null;
         switch (today) {
             // default可以写在case语句之前，但是执行的时候依然先匹配case，所有case不满足再执行default
@@ -47,7 +49,7 @@ public class SwitchDemo {
             case "周一":
             case "周二":
             case "周三":
-            // case语句没有break，则继续向下执行，但不再判断case条件，直到遇到break或switch语句执行结束
+                // case语句没有break，则继续向下执行，但不再判断case条件，直到遇到break或switch语句执行结束
             case "周四":
             case "周五":
                 System.out.println("工作日");
