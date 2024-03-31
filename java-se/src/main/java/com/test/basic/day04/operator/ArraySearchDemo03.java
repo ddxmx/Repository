@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * 数组元素查找
  */
-public class ArraySearchDemo {
+public class ArraySearchDemo03 {
     public static void main(String[] args) {
         int[] array = new int[]{21, 64, 38, 96, 14, 33, 72, 35, 23};
         // 要查找的key

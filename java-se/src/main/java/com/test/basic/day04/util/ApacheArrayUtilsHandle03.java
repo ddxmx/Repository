@@ -5,11 +5,12 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Arrays;
 
 /**
+ * 数组常用操作
  * Apache的ArrayUtils类扩展了java.util.Arrays类的能力
  * （1）对数据操作可能遇到的空指针异常进行了处理
  * （2）方法返回值返回了数组对象（新创建的对象，和传入的数组不是同一个对象），便于代码使用链式结构
  */
-public class ApacheArrayUtilsHandle {
+public class ApacheArrayUtilsHandle03 {
     public static void main(String[] args) {
         int[] example = new int[]{1, 2, 3};
         int[] emptyArray = ArrayUtils.EMPTY_INT_ARRAY;
@@ -39,7 +40,7 @@ public class ApacheArrayUtilsHandle {
         System.out.println(ArrayUtils.lastIndexOf(nullArray, 10, 1)); // -1
 
         System.out.println("--------------------------判断数组是否包含元素--------------------------");
-        // contains(int[] array, int valueToFind),检查该数据在该数组中是否存在，返回一个boolean值
+        // contains(int[] array, int valueToFind) 检查该数据在该数组中是否存在，返回一个boolean值
         System.out.println(ArrayUtils.contains(example, 2)); // true
         System.out.println(ArrayUtils.contains(example, 10)); // false
         System.out.println(ArrayUtils.contains(emptyArray, 10)); // false
@@ -80,6 +81,7 @@ public class ApacheArrayUtilsHandle {
         int[] reverseArray = ArrayUtils.clone(example);
         ArrayUtils.reverse(reverseArray);
         print(reverseArray); // [3, 2, 1]
+        // reverse(final Object[] array)
         int[][] reverseSecondArray = new int[][]{{11, 22, 33}, {44, 55, 66}, {77, 88, 99}};
         ArrayUtils.reverse(reverseSecondArray);
         System.out.println(ArrayUtils.toString(reverseSecondArray)); // {{77,88,99},{44,55,66},{11,22,33}}

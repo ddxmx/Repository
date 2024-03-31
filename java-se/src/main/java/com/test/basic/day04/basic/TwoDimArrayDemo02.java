@@ -1,10 +1,11 @@
 package com.test.basic.day04.basic;
 
 /**
+ * 二维数组
  * 二维数组中每一个元素都是一维数组，每个一维数组长度可以不相同
  * 从底层机制来看，其实不存在多维数组，二维数组就是元素是一维数组的一维数组
  */
-public class TwoDimArrayDemo {
+public class TwoDimArrayDemo02 {
     public static void main(String[] args) {
         // 静态初始化
         int[][] arr1 = new int[][]{{1, 2}, {3, 4, 5}, {6, 7, 8, 9}};

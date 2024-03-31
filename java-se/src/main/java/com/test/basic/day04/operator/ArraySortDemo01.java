@@ -7,7 +7,7 @@ import java.util.Arrays;
  * |- 冒泡排序
  * |- 线性排序
  */
-public class ArraySortDemo {
+public class ArraySortDemo01 {
     public static void main(String[] args) {
         int[] arr = new int[]{21, 64, 38, 96, 14, 33, 72, 35, 9};
 
@@ -22,11 +22,13 @@ public class ArraySortDemo {
             第7次排序：[14, 9, 21, 33, 35, 38, 64, 72, 96]
             第8次排序：[9, 14, 21, 33, 35, 38, 64, 72, 96]
          */
-        System.out.println("============冒泡排序============");
-        // n个元素，最多需要排序n-1轮
+        System.out.println("========================冒泡排序========================");
+        // 外层循环，用于表示需要排序的轮数，n个元素，最多需要排序n-1轮
         for (int i = 0; i < arr.length - 1; i++) {
-            // 每次排序使用j和j+1比较，每轮后将最大值排序到最后
+            // 内层循环，用于表示每轮循环所有元素需要进行比较的次数，n个元素，需要n-1次比较
+            // 每轮都会将最大的元素排序到最后，因此第i轮实际需要比较的次数为：n-1-i
             for (int j = 0; j < arr.length - 1 - i; j++) {
+                // 每次排序使用j和j+1比较，每轮后将最大值排序到最后
                 if (arr[j] > arr[j + 1]) {
                     int temp = arr[j];
                     arr[j] = arr[j + 1];
@@ -47,7 +49,7 @@ public class ArraySortDemo {
             第7次排序：[9, 14, 21, 33, 35, 38, 64, 96, 72]
             第8次排序：[9, 14, 21, 33, 35, 38, 64, 72, 96]
          */
-        System.out.println("============线性排序============");
+        System.out.println("========================线性排序========================");
         arr = new int[]{21, 64, 38, 96, 14, 33, 72, 35, 9};
         for (int i = 0; i < arr.length - 1; i++) {
             // 每轮使用开头的元素依次和后续元素比较

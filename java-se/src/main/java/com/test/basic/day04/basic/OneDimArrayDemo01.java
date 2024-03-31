@@ -3,12 +3,13 @@ package com.test.basic.day04.basic;
 import java.util.Arrays;
 
 /**
- * 数组是引用数据类型，是一组相同类型的数据集合
- * 内存中一块连续的区域，使用头指针查找。引用数据类型之所以用堆和栈两块内存空间，主要是因为只使用一块空间可能导致修改变量时空间不足
+ * 一维数组
+ * 数组是引用数据类型，是一组相同类型的数据集合。内存中一块连续的区域，使用头指针查找
+ * 引用数据类型之所以用堆和栈两块内存空间，主要是因为只使用一块空间可能导致修改变量时空间不足
  * 数组的长度不可改变，因为数组要求地址是连续的
  * 数组中的元素可以是基本数据类型，也可以是引用数据类型
  */
-public class OneDimArrayDemo {
+public class OneDimArrayDemo01 {
     public static void main(String[] args) {
         // 静态初始化方式一（推荐方式），作为方法参数传递时，常量实参必须使用方式一的完整写法
         int[] arr1 = new int[]{1, 2, 3, 4, 5};
@@ -27,7 +28,7 @@ public class OneDimArrayDemo {
         // 编译通过，运行报错，索引越界 ArrayIndexOutOfBoundsException
         // arr3[3] = 40;
 
-        // 数组长度
+        // 数组长度，通过数组的length属性获取
         System.out.println(arr3.length); // 3
 
         // 遍历数组元素
@@ -41,8 +42,14 @@ public class OneDimArrayDemo {
         // 修改堆内存空间的值
         arr4[1] = 20;
         System.out.println(Arrays.toString(arr4)); // [1, 20, 3]
-        // 更改指向的堆内存空间，原堆内存空间没有被栈内存空间指向，成为垃圾，等待GC回收
+        // 更改数组引用指向的堆内存空间，原堆内存空间没有被栈内存空间指向，成为垃圾，等待GC回收
         arr4 = new int[5];
         System.out.println(Arrays.toString(arr4)); // [0, 0, 0, 0, 0]
+
+        // 数组类型转换
+        // 编译失败，int[]不能转换为double[]
+        // double[] arr5 = arr1;
+        // 编译失败，int[]不能转换为Integer[]
+        // Integer[] arr6 = arr1;
     }
 }

@@ -5,11 +5,12 @@ import java.util.Arrays;
 /**
  * java.util.Arrays类的使用
  */
-public class ArrayAPIDemo {
+public class ArrayAPIDemo04 {
     public static void main(String[] args) {
         int[] a = new int[]{1, 2, 3};
         int[] b = new int[]{1, 2, 3};
         int[] c = new int[]{1, 3, 2};
+        int[][] d = new int[][]{{11}, {22, 33}, {44, 55, 66}};
 
         // 数组比较，public static boolean equals(int[] a, int[] a2)
         System.out.println(Arrays.equals(a, b)); // true
@@ -18,6 +19,8 @@ public class ArrayAPIDemo {
         // 数组转换为字符串，public static String toString(int[] a)
         System.out.println(Arrays.toString(a)); // [1, 2, 3]
         System.out.println(a.toString()); // [I@677327b6
+        System.out.println(Arrays.toString(d)); // [[I@60e53b93, [I@5e2de80c, [I@1d44bcfa]
+        System.out.println(Arrays.deepToString(d)); // [[11], [22, 33], [44, 55, 66]]
 
         // 使用值填充数组，public static void fill(int[] a, int val)
         Arrays.fill(c, 10);

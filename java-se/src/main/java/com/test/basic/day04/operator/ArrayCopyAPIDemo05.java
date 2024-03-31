@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * 数组拷贝
  */
-public class ArrayCopyDemo {
+public class ArrayCopyAPIDemo05 {
     public static void main(String[] args) {
         int[] a = new int[]{1, 2, 3, 4, 5};
         int[] b = new int[]{11, 22, 33, 44, 55, 66, 77, 88, 99};
