@@ -2,7 +2,7 @@ package com.test.oop.day05.clazz;
 
 /**
  * 方法的递归调用：方法自己调用自己
- * 1、方法递归的两个要点：
+ * 1、方法递归的两个条件：
  * （1）明确的结束条件（向已知的方向递归）
  * （2）不断修改方法传入的参数
  * 2、递归方法容易引起栈内存溢出
@@ -20,10 +20,6 @@ public class MethodRecursiveDemo05 {
      * 计算 1累加到num的和
      */
     public static int sum(int num) {
-        if (num < 1) {
-            return num;
-        }
-
         if (num == 1) {
             return 1;
         }
