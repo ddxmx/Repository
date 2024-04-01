@@ -15,21 +15,22 @@ class Student {
 /**
  * 对象数组，数组元素的类型为引用类型，和基本数据类型的数组操作一致
  */
-public class ObjectArrayDemo {
+public class ObjectArrayDemo02 {
     public static void main(String[] args) {
         Student[] students = genStudents(10);
 
-        System.out.println("--------列出学生信息--------");
-        listStudents(students);
+        System.out.println("----------------遍历学生信息----------------");
+        list(students);
 
-        System.out.println("--------遍历3年级学生信息--------");
-        searchStudentsByGrade(students, 3);
+        System.out.println("----------------查找三年级学生信息----------------");
+        searchByGrade(students, 3);
 
-        System.out.println("--------按学生成绩倒序排列--------");
-        sortStudentsByScore(students);
+        System.out.println("----------------按学生成绩倒序排列----------------");
+        sortByScore(students);
 
         // 对象数组支持转型
         Object[] destArray = students;
+        Number[] numbers = new Integer[3];
     }
 
     /**
@@ -56,7 +57,7 @@ public class ObjectArrayDemo {
     /**
      * 遍历Student数组中学生信息
      */
-    public static void listStudents(Student[] students) {
+    public static void list(Student[] students) {
         /*
             学号：1，年级：3，成绩：95
             学号：2，年级：4，成绩：39
@@ -77,7 +78,7 @@ public class ObjectArrayDemo {
     /**
      * 根据grade查找学生信息
      */
-    public static void searchStudentsByGrade(Student[] students, int gradeKey) {
+    public static void searchByGrade(Student[] students, int gradeKey) {
         /*
             学号：1，年级：3，成绩：95
             学号：9，年级：3，成绩：87
@@ -93,7 +94,7 @@ public class ObjectArrayDemo {
     /**
      * 根据学生的成绩倒序排序
      */
-    public static void sortStudentsByScore(Student[] students) {
+    public static void sortByScore(Student[] students) {
         /*
             学号：1，年级：3，成绩：95
             学号：3，年级：4，成绩：89
@@ -118,7 +119,7 @@ public class ObjectArrayDemo {
             }
         }
 
-        listStudents(students);
+        list(students);
     }
 
 }

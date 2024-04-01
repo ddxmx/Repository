@@ -7,7 +7,7 @@ package com.test.oop.day05.clazz;
  * （2）不断修改方法传入的参数
  * 2、递归方法容易引起栈内存溢出
  */
-public class MethodRecursiveDemo {
+public class MethodRecursiveDemo05 {
     public static void main(String[] args) {
         System.out.println(sum(100)); // 5050
         System.out.println(factorial(10)); // 3628800

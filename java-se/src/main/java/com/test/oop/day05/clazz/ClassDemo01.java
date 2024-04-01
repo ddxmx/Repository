@@ -1,6 +1,7 @@
 package com.test.oop.day05.clazz;
 
 /**
+ * 面向对象编程
  * 面向对象和面向过程的区别：开发者从面向过程的执行者转变成了面向对象的指挥者
  * 面向对象的三大特征：封装、继承、多态
  * 1、类是对象的模版，对象是类的实例。先有类，再有对象
@@ -26,7 +27,7 @@ class Person {
     }
 }
 
-public class ClassDemo {
+public class ClassDemo01 {
     public static void main(String[] args) {
         // 实例化对象方式一：创建对象并实例化
         Person p1 = new Person();
@@ -46,7 +47,7 @@ public class ClassDemo {
 
         // 创建一个新的对象
         Person p2 = new Person();
-        // 属性未赋值，使用对应数据类型默认值
+        // 属性未赋值，值为对应数据类型默认值
         System.out.println(p2.name); // null
         System.out.println(p2.age); // 0
 

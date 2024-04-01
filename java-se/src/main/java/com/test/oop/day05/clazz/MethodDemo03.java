@@ -1,6 +1,7 @@
 package com.test.oop.day05.clazz;
 
 /**
+ * 成员方法
  * 1、方法的定义格式：修饰符 返回值类型 方法名称(参数类型1 参数名1 , 参数类型2 参数名2 , ...)
  * 定义方法并不会导致方法被执行，方法执行需要被调用
  * 2、方法的执行过程实际上是进栈和出栈的过程，栈中保存了返回的方法地址、方法的参数和方法内定义的变量，返回值有专门的存储器存储
@@ -14,7 +15,7 @@ class Customer {
     /**
      * 方法返回值使用void，则方法中不能使用"return 返回值"的形式。
      * 但是可以只使用 return; 表示结束方法
-     * return语句不是必须的，但是return之后不能有语句，无法被执行到
+     * return语句不是必须的，但是return之后不能有语句，之后的语句无法被执行到
      */
     public void eat() {
         System.out.println("Customer.eat");
@@ -38,20 +39,22 @@ class Customer {
      * 方法中可以调用属性和方法
      */
     public String getCity(String city) {
-        return name + "：" + getCountry() + "-" + city;
+        String info = "%s：%s-%s";
+        return String.format(info, name, getCountry(), city);
     }
 
     /**
      * 扩展：实例方法实际上也可以改写成静态方法
      * 比如public String getCity(String city)
      */
-    public static String getCity(String city, Customer customer) {
-        return customer.name + "：" + customer.getCountry() + "-" + city;
+    public static String getCity(Customer customer, String city) {
+        String info = "%s：%s-%s";
+        return String.format(info, customer.name, customer.getCountry(), city);
     }
 
 }
 
-public class MethodDemo {
+public class MethodDemo03 {
     public static void main(String[] args) {
         Customer customer = new Customer();
         customer.name = "张三";
@@ -59,6 +62,6 @@ public class MethodDemo {
         customer.work(8); // Customer.work：8
         System.out.println(customer.getCountry()); // 中国
         System.out.println(customer.getCity("南京")); // 张三：中国-南京
-        System.out.println(Customer.getCity("南京", customer)); // 张三：中国-南京
+        System.out.println(Customer.getCity(customer, "南京")); // 张三：中国-南京
     }
 }
